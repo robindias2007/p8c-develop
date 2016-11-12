@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+#logo
+{
+    float: left;
+    position: relative;
+}
+
+#nav-header
+{
+margin: 0 auto;
+width: 78%;
+border-bottom: 1px solid grey;
+margin-top: 20px;
+}
+
+
+#nav-header ul li{
+    font-size: 25px;
+    font-family: "Roboto", serif;
+    display: inline-block;
+}
+
+#curate {
+    margin-left: 120px;
+    word-spacing: 10px;
+    border: 1px solid;
+    padding: 5px;
+}
+
+.material-icons {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
+#search {
+    float: right;
+}
+
+
+#nav-menu ul {
+    width: 75%;
+    margin: 0px auto;
+    
+}
+#subh
+{
+    float: left;
+}
+
+#nav-menu ul li{
+    color: #9C1717;
+    font-family: "PT Serif", serif;
+    display: inline-block;
+    font-size: 17px;
+    padding: 0 30px;
+}
+
+#nav-menu ul li:hover{
+    text-decoration: underline;
+    text-decoration-color: #9C1717;
+}
+
+nav {
+    display: block;
+}
+html body
+{
+ margin: 0 auto;
+ text-align: center;
+}
