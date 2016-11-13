@@ -5,17 +5,23 @@
 #logo
 {
     float: left;
-    position: relative;
-}
+    margin-top: 6px;
 
+}
 #nav-header
 {
-margin: 0 auto;
-width: 78%;
-border-bottom: 1px solid grey;
-margin-top: 20px;
+    width: 1055px;
+    margin: 0 auto;
+    height: 45px;
+    border-bottom: 1px solid black;    
 }
-
+#user
+{   
+    padding-left: 10px; 
+    font-size: 24px;
+    float: right;
+    margin-top: 5px;
+}
 
 #nav-header ul li{
     font-size: 25px;
@@ -31,14 +37,17 @@ margin-top: 20px;
 }
 
 .material-icons {
+    
     vertical-align: middle;
     display: inline-block;
+    
 }
 
 
 #search {
     float: right;
-}
+    margin-bottom: 20px;
+    }
 
 
 #nav-menu ul {
@@ -48,6 +57,7 @@ margin-top: 20px;
 }
 #subh
 {
+    line-height: 175%;
     float: left;
 }
 

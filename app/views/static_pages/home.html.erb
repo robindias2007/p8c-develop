@@ -9,32 +9,36 @@
     </head>
     
     <body>
-    	<!-- <div class="header"> -->
-        <div id="nav-header">
-            	<ul>
-                <li id="logo"> <img src = Group.png/>THE LENSE</li>
-                <!-- <li id="curate">Curate<i class="material-icons" style="font-size: 30px">add_circle_outline</i></li>
-                 --><li id="search">
-                    	<input class="search-button" type="search" name="s" id="search-field" class="search-form-input" placeholder="Search" tabindex="-1">
-                        <button class="search-button" required><i class="material-icons" style="font-size: 16px">search</i></button>
-                 User<i class="material-icons" style="font-size: 16px">account_circle</i>
-                </li>
-                            
-            </ul>
-            </div> 
-          <!-- </div> -->
-          <div id="nav-menu">
-          	<ul id="subh">
-                <li >Trending</li>
-                <li>Topic 1</li>
-                <li>Topic 2</li>
-                <li>Topic 3</li>
-                <li>Content Spiral</li>
-                <li>Bookmark</li>
-			</ul>
-          </div>  
+     <div id="nav-header">
+    	<ul>
+        <li id="logo"> <img src = "/images/Group.png" />THE LENSE</li>
+        <!-- <li id="curate">Curate<i class="material-icons" style="font-size: 30px">add_circle_outline</i></li>
+         --><li id="search">
+            	<input type="search" style="display: none"  name="s" id="search-field" class="search-form-input" placeholder="Search" tabindex="-1">
+                <button class="search-button" style="font-size: 16px" required><i class="material-icons" style="font-size: 16px">search</i></button>
+         <div id="user">User<i class="material-icons" style="font-size: 22px">account_circle</i></div>
+        </li>
+                    
+       </ul>
+       </div> 
+      <div id="nav-menu">
+      	<ul id="subh">
+            <li >Trending</li>
+            <li>Topic 1</li>
+            <li>Topic 2</li>
+            <li>Topic 3</li>
+            <li>Content Spiral</li>
+            <li>Bookmark</li>
+		</ul>
+      </div>  
         
-        
+    <script>
+    $(document).ready(function(){
+        $(".search-button").click(function(){
+            $("#search-field").toggle();
+        });
+    });
+    </script    
         
     </body>
 </html>
