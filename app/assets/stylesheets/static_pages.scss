@@ -5,12 +5,19 @@
 #logo
 {
     float: left;
-    margin-top: 6px;
+    margin-top: 5px;
+    margin-left: -25px;
+}
 
+img
+{
+    vertical-align: middle;
+    width: 20%;
+    margin-top: -6px; 
 }
 #nav-header
 {
-    width: 1055px;
+    width: 1040px;
     margin: 0 auto;
     height: 45px;
     border-bottom: 1px solid black;    
@@ -46,7 +53,7 @@
 
 #search {
     float: right;
-    margin-bottom: 20px;
+    
     }
 
 
@@ -57,7 +64,7 @@
 }
 #subh
 {
-    line-height: 175%;
+    line-height: 225%;
     float: left;
 }
 
