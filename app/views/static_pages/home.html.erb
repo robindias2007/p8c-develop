@@ -6,24 +6,22 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
-    </head>
     
-    <body>
      <div id="nav-header">
     	<ul>
-        <li id="logo"><%= image_tag("logo.png") %>THE LENSE</li>
+        <li id="logo"><img src = "logo.png"/>THE LENSE</li>
         <!-- <li id="curate">Curate<i class="material-icons" style="font-size: 30px">add_circle_outline</i></li>
          --><li id="search">
             	<input type="search" style="display: none"  name="s" id="search-field" class="search-form-input" placeholder="Search" tabindex="-1">
                 <button class="search-button" style="font-size: 16px" required><i class="material-icons" style="font-size: 16px">search</i></button>
-         <div id="user">User<i class="material-icons" style="font-size: 22px">account_circle</i></div>
+         <div id="user">Sign In<i class="material-icons" style="font-size: 22px">account_circle</i></div>
         </li>
                     
        </ul>
        </div> 
       <div id="nav-menu">
       	<ul id="subh">
-            <li >Trending</li>
+            <li>Trending</li>
             <li>Topic 1</li>
             <li>Topic 2</li>
             <li>Topic 3</li>
@@ -31,14 +29,36 @@
             <li>Bookmark</li>
 		</ul>
       </div>  
+
+
+
         
     <script>
     $(document).ready(function(){
-        $(".search-button").click(function(){
-            $("#search-field").toggle();
-        });
-    });
-    </script    
-        
+    $(".search-button").click(function(){
+        $("#search-field").toggle();
+     });
+     });
+    </script>    
+    </head>    
+    <body> 
+    <div class="container"> 
+     <div class="container1">
+     <div class="row">
+    <div class="col-md-4">
+      One of three columns
+    </div>
+    <div class="col-md-3">
+    One
+    </div>
+    <div class="col-md-3">
+    One
+    </div>
+    <div class="col-md-2">
+    One
+    </div>
+  </div>  
+    </div>
+    </div>  
     </body>
 </html>
