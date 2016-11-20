@@ -2,32 +2,34 @@
 <html>
     <head>
         <title>TheLense</title>
-        <link href="P8C.css" type = "text/css" rel = "stylesheet" />
+        <link href="P8C.scss" type = "text/css" rel = "stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
-    
-     <div id="nav-header">
-    	<ul>
-        <li id="logo"><img src="logo.png" />THE LENSE</li>
-        <!-- <li id="curate">Curate<i class="material-icons" style="font-size: 30px">add_circle_outline</i></li>
-         --><li id="search">
-            	<input type="search" style="display: none"  name="s" id="search-field" class="search-form-input" placeholder="Search" tabindex="-1">
-                <button class="search-button" style="font-size: 16px" required><i class="material-icons" style="font-size: 16px">search</i></button>
-         <div id="user">Sign In<i class="material-icons" style="font-size: 22px">account_circle</i></div>
-        </li>
-                    
-       </ul>
-       </div> 
+        
+        <div id="nav-header">
+           <ul>
+               <li id="logo"><img src = "logo.png"/>THE LENSE</li>
+               <li id="user">Sign In<i class="material-icons" , id="nav-icons">account_circle</i></li>
+                <li id="search-box">
+                    <form>
+                        <input type="search" placeholder="Search..." required>
+                        <i class="material-icons", id="nav-icons">search</i>
+                    </form> 
+               </li>
+            </ul>
+        </div>
+        
+        
       <div id="nav-menu">
-      	<ul id="subh">
+        <ul id="subh">
             <li>Trending</li>
             <li>Topic 1</li>
             <li>Topic 2</li>
             <li>Topic 3</li>
             <li>Content Spiral</li>
             <li>Bookmark</li>
-		</ul>
+        </ul>
       </div>  
 
 
@@ -39,28 +41,55 @@
         $("#search-field").toggle();
      });
      });
-    </script>    
+    </script> 
+        
     </head>    
     <body>
  
     <div class="container"> 
      <div class="container1">
-     <div class="row">
+     <div class="row" id="cont1">
     <div class="col-md-4">
-      <h3>One of three columns</h3>
-      <%= image_tag("logo.png") %>
+      <i class="material-icons" style="float:left">favorite_border</i><div class="like">250</div>
+      <br><h3 class="title">The Basics of Western Astrology Explained</h3>
+      Sep 24, 2016<br>
+      <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to come.... </h3>
+      <div class="center-material">
+      <i class="material-icons">bookmark_border</i>
+      <i class="material-icons">add_circle_outline</i>
+      <i class="material-icons">add_circle_outline</i>
+    </div>
+    <div class="center-material">28 mins long</div>
+      <!-- <div id="profile"><%= image_tag("profile.png") %></div> -->
+      <div class="bottom-material">
+      <i class="material-icons">bookmark_border</i>
+      <i class="material-icons">add_circle_outline</i>
+      <i class="material-icons">add_circle_outline</i>
+    </div>
     </div>
     <div class="col-md-3">
-    One
-    <div class="vertical"></div>
+    <br>
+    <hr>
+    <h3 class="title1">Make Myspace Your Best Design Space</h3>
+    <%= image_tag("photo.png") %>
+    <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to come.... </h3>
+    <hr>
+    <br>
     </div>
     <div class="col-md-3">
-    One
-    <div class="vertical"></div>
+    <br>
+    <hr>
+    <h3 class="title1">Make Myspace Your Best Design Space</h3>
+    <%= image_tag("photo.png") %>
+    <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to come.... </h3>
+    <hr>
+    <br>
+
+    <!-- <div class="vertical"></div> -->
     </div>
     <div class="col-md-2">
-    One
-    <div class="vertical"></div>
+    
+    <!-- <div class="vertical"></div> -->
     </div>
   </div>  
     </div>
@@ -69,7 +98,7 @@
     <div class="container1">
      <div class="row">
     <div class="col-md-4">
-      <h3>One of three columns</h3>
+      <h3 class="title">The Basics</h3>
       <%= image_tag("logo.png") %>
     </div>
     <div class="col-md-3">
@@ -90,4 +119,3 @@
     
   </div>  
     </body>
-</html>

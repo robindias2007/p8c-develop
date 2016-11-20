@@ -1,88 +1,75 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
 * {
     box-sizing: border-box;
+    padding: 0px;
+    margin: 0px
 }
 
-#logo
-{
-    float: left;
-    margin-top: 5px;
-    margin-left: -40px;
-}
 
-#nav-header li img {
-    margin-right: 10px;
-   
-    }
 
-    
-
-#nav-header
-{
-    width: 1040px;
-    margin: 0 auto;
+#nav-header {
+    width: 1024px;
     height: 45px;
-    border-bottom: 1px solid black;    
-}
-#user
-{   
-    padding-left: 10px;
-    padding-left: 10px; 
-    font-size: 18px;
-    float: right;
-    margin-top: 6px;
-}
-#nav header  #user i
-{
-    margin-right: 20px;
+    margin: auto;
+    margin-top: 20px;
+    border-bottom: 3px solid black;  
 }
 
-#nav-header ul li{
-    font-size: 25px;
+#nav-header ul li {
     font-family: "Roboto", serif;
     display: inline-block;
 }
 
-#curate {
-    margin-left: 120px;
-    word-spacing: 10px;
-    border: 1px solid;
-    padding: 5px;
+#logo {
+    float: left;
+    font-size: 25px;
 }
 
-.material-icons {
-    
-    vertical-align: middle;
-    display: inline-block;
-    padding-left: 7px;
+#logo img {
+    margin-right: 10px;
+    height: 26px;
+    width: 26px;
 }
 
-
-#search {
-    float: right;
-    
-    }
-
-
-#nav-menu ul {
-    
-    margin: 0px auto;
-    
-}
-#subh
+#search-box
 {   
-    width: 1060px;
-    line-height: 225%;
-    margin: 0 auto;
-    padding-left: 0px;
+
+    float: right;
+}    
+
+#user {   
+    float: right;
+    font-size: 16px;
 }
 
-#subh li
-{
-margin: 0 1em ;
 
+
+#nav-icons
+{
+    vertical-align: middle;
+}
+
+
+#nav-menu
+{
+    width: 1024px;
+    height: 45px;
+    margin: 0 auto;
+    border-bottom: 1px solid black;    
+}
+
+    
+
+#subh {   
+    width: 1024px;
+    height: 45px;
+    margin: 0 auto;
+    float: left;
+}
+
+#subh li{
+margin: 0px 15px 0px 0px ;
 float: left;
 }
 
@@ -90,31 +77,38 @@ float: left;
     color: #9C1717;
     font-family: "PT Serif", serif;
     display: inline-block;
-    font-size: 17px;
+    font-size: 16px;
     padding: 0 px;
 }
-
 #nav-menu ul li:hover{
     padding-bottom: 2px;
     border-bottom: 1px solid #9C1717;
 }
 .container
 {   border: 1px solid black;
-    width: 1100px;
-    height: 900px;
+    width: 1024px;
+    height: 700px;
     margin: 0px auto;
     margin-top: 50px;
 }
-
 .container1
 {
  border: 1px solid black;
- width: 1000px;
- height: 300px;
+ width: 900px;
+ height: 432 px;
  margin: 0px auto;
  margin-top: 50px;   
 }
-
+#cont1
+{
+    margin: 0px auto;
+}
+.verticalline
+{
+    border: 1px solid black;
+    width: 1px;
+    height: 100%;
+}
 nav {
     display: block;
 }
@@ -126,9 +120,40 @@ html body
 
 .vertical
 {
-height: 300px;
-width:1px;
-margin-top: -18px;
-border-left: 1px solid black;
-
+    border-right: 1px solid black;
+    width: 1px;
+    margin-top: -20px;
+    height: 300px;
 }
+
+.title
+{   
+    font-size: 24px;
+    text-align: center;
+}
+
+.bottom-material
+{
+    float:right;
+}
+#profile
+{   
+    margin-top: -10px;       
+    float: left;
+}
+.like
+{   
+    margin-top: 2px;
+    vertical-align: middle;
+    float: left;
+}
+hr
+{
+    border: 1px solid #8B0000;
+}
+
+.center-material
+{
+    float:center;
+}
+
