@@ -6,14 +6,20 @@
     margin: 0px
 }
 
-
+.header
+{
+    margin: 0px auto;
+    width: 100%;
+    border-bottom: 3px solid;
+    height: 50px;
+}
 
 #nav-header {
     width: 1024px;
     height: 45px;
     margin: auto;
     margin-top: 20px;
-    border-bottom: 3px solid black;  
+    border-bottom-width :solid black 10px;
 }
 
 #nav-header ul li {
@@ -56,7 +62,7 @@
     width: 1024px;
     height: 45px;
     margin: 0 auto;
-    border-bottom: 1px solid black;    
+        
 }
 
     
@@ -87,7 +93,7 @@ float: left;
 .container
 {   border: 1px solid black;
     width: 1024px;
-    height: 700px;
+    
     margin: 0px auto;
     margin-top: 50px;
 }
@@ -95,7 +101,7 @@ float: left;
 {
  border: 1px solid black;
  width: 900px;
- height: 432 px;
+ height: 420 px;
  margin: 0px auto;
  margin-top: 50px;   
 }
@@ -103,12 +109,12 @@ float: left;
 {
     margin: 0px auto;
 }
-.verticalline
+/* .verticalline
 {
     border: 1px solid black;
     width: 1px;
     height: 100%;
-}
+} */
 nav {
     display: block;
 }
@@ -128,14 +134,23 @@ html body
 
 .title
 {   
+    font-family: Futura;
     font-size: 24px;
     text-align: center;
 }
 
-.bottom-material
+.title1
 {
+    font-family: Futura;
+    font-size: 16px;
+}
+
+
+.bottom-material
+{    
     float:right;
 }
+
 #profile
 {   
     margin-top: -10px;       
@@ -143,6 +158,8 @@ html body
 }
 .like
 {   
+
+    font-size: 12px;
     margin-top: 2px;
     vertical-align: middle;
     float: left;
@@ -154,6 +171,39 @@ hr
 
 .center-material
 {
+    color: #9c1717;
     float:center;
 }
 
+#matred
+{
+    color: #9c1717;
+}
+
+.internal_text
+{   
+    font-size: 15px;
+    color: #4A4A4A;
+    font-family: "PT Serif";
+}
+.date
+{  
+   color: #9c1717;
+   font-family: "PT Serif";
+   font-size: 15px;
+}
+.internal_text1
+{
+    color: #4A4A4A;
+    font-family: "PT Serif";
+    font-size: 13px;
+    text-align: left;
+}
+
+#link
+{   
+    font-size: 15px;
+    color: #9c1717;
+    font-family: "PT Serif";
+    float: left;
+}

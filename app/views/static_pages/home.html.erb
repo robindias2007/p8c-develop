@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
-        
+        <div class="header">
         <div id="nav-header">
            <ul>
                <li id="logo"><img src = "logo.png"/>THE LENSE</li>
@@ -18,6 +18,7 @@
                     </form> 
                </li>
             </ul>
+        </div>
         </div>
         
         
@@ -49,71 +50,109 @@
     <div class="container"> 
      <div class="container1">
      <div class="row" id="cont1">
+    
     <div class="col-md-4">
-      <i class="material-icons" style="float:left">favorite_border</i><div class="like">250</div>
+      <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div>
       <br><h3 class="title">The Basics of Western Astrology Explained</h3>
-      Sep 24, 2016<br>
+      <h10 class="date">Sep 24, 2016</h10><br>
       <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to come.... </h3>
       <div class="center-material">
-      <i class="material-icons">bookmark_border</i>
-      <i class="material-icons">add_circle_outline</i>
-      <i class="material-icons">add_circle_outline</i>
+      <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
+      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
+      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
     </div>
     <div class="center-material">28 mins long</div>
-      <!-- <div id="profile"><%= image_tag("profile.png") %></div> -->
-      <div class="bottom-material">
-      <i class="material-icons">bookmark_border</i>
-      <i class="material-icons">add_circle_outline</i>
-      <i class="material-icons">add_circle_outline</i>
-    </div>
-    </div>
-    <div class="col-md-3">
     <br>
-    <hr>
-    <h3 class="title1">Make Myspace Your Best Design Space</h3>
-    <%= image_tag("photo.png") %>
-    <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to come.... </h3>
-    <hr>
-    <br>
-    </div>
-    <div class="col-md-3">
-    <br>
-    <hr>
-    <h3 class="title1">Make Myspace Your Best Design Space</h3>
-    <%= image_tag("photo.png") %>
-    <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to come.... </h3>
-    <hr>
     <br>
 
-    <!-- <div class="vertical"></div> -->
+      <div class="bottom-material">
+      <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
+      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
     </div>
+    </div>
+
+    <div class="col-md-3">
+    <br>
+    <hr>
+    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <%= image_tag "photo.png", :size => "208x161" %>
+    <div id="link">Simplyfyingfinance.com</div>
+    <br><br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <hr>
+    <br>
+    </div>
+
+
+    <div class="col-md-3">
+    <br>
+    <hr>
+    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <%= image_tag "photo.png", :size => "208x161" %>
+    <div id="link">Simplyfyingfinance.com</div>
+    <br><br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <hr>
+    <br>
+    </div>
+
     <div class="col-md-2">
-    
-    <!-- <div class="vertical"></div> -->
     </div>
-  </div>  
+    </div>  
     </div>
       
     
     <div class="container1">
-     <div class="row">
+     <div class="row" id="cont1">
+    
     <div class="col-md-4">
-      <h3 class="title">The Basics</h3>
-      <%= image_tag("logo.png") %>
+      <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div>
+      <br><h3 class="title">The Basics of Western Astrology Explained</h3>
+      <h10 class="date">Sep 24, 2016</h10><br>
+      <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to come.... </h3>
+      <div class="center-material">
+      <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
+      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
+      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
     </div>
+    <div class="center-material">28 mins long</div>
+    <br>
+    <br>
+
+      <div class="bottom-material">
+      <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
+      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+    </div>
+    </div>
+
     <div class="col-md-3">
-    One
-    <div class="vertical"></div>
+    <br>
+    <hr>
+    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <%= image_tag "photo.png", :size => "208x161" %>
+    <div id="link">Simplyfyingfinance.com</div>
+    <br><br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <hr>
+    <br>
     </div>
+
+
     <div class="col-md-3">
-    One
-    <div class="vertical"></div>
+    <br>
+    <hr>
+    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <%= image_tag "photo.png", :size => "208x161" %>
+    <div id="link">Simplyfyingfinance.com</div>
+    <br><br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <hr>
+    <br>
     </div>
+    
     <div class="col-md-2">
-    One
-    <div class="vertical"></div>
-    </div>
-  </div>  
     </div>
     </div>
     
