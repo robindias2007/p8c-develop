@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :forms
   get 'static_pages/home'
   get 'static_pages/home1'
   # The priority is based upon order of creation: first created -> highest priority.

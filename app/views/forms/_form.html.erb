@@ -1,0 +1,50 @@
+<%= form_for(@form) do |f| %>
+  <% if @form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>
+
+      <ul>
+      <% @form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form_container">
+  <div class="field">
+    <%= f.label :Board_Title %>
+    <%= f.text_field :title  , id:"textfield" , placeholder:"Enter title" %>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :Board_Description %>
+    <%= f.text_field :description  , id:"textfield", placeholder:"Enter Description"%>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :url1 %>
+    <%= f.text_field :url1  , id:"textfield", placeholder:"First Url" %>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :url2 %>
+    <%= f.text_field :url2 , id:"textfield", placeholder:"Second Url" %>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :url3 %>
+    <%= f.text_field :url3 , id:"textfield", placeholder:"Third Url" %>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="actions">
+    <%= f.submit 'Save', id:"Save" %>
+  </div>
+<% end %>
+</div>
