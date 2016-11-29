@@ -96,19 +96,24 @@ float: left;
     background-color: #a6a6a6;
     margin: 0px auto;
     margin-top: 50px;
+    
+    
 }
+
 
 
 .container1
 {
- overflow:auto;
+ overflow-y: hidden;
  border: 1px solid black;
  width: 900px;
  height: 420px;
  margin: 0px auto;
  margin-top: 50px;   
  background-color: white;
+ 
 }
+
 
 #cont1
 {      
@@ -144,12 +149,17 @@ html body
     text-align: center;
     width: 265px;
     height: 52px;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 .title1
 {
     font-family: Futura;
     font-size: 16px;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: left;
 }
 
 
@@ -192,6 +202,7 @@ hr
     font-size: 15px;
     color: #4A4A4A;
     font-family: "PT Serif";
+    font-style: Italic;
     width: 280px;
     height:140px;
 }
@@ -217,6 +228,12 @@ hr
     color: #9c1717;
     font-family: "PT Serif";
     float: left;
+}
+
+.third
+{
+    width:221px;
+    height:430px;
 }
 
 /*----------form---------------- */
