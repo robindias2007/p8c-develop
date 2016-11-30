@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,7 +9,7 @@
         <div class="header">
         <div id="nav-header">
            <ul>
-               <li id="logo"><img src = "logo.png"/>THE LENSE</li>
+               <li id="logo"><%= image_tag 'logo.png' %>THE LENSE</li>
                <li id="user">Sign In<i class="material-icons" , id="nav-icons">account_circle</i></li>
                 <li id="search-box">
                     <form>
@@ -56,8 +54,9 @@
     <div class="col-md-4">
       <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div>
       <br><h3 class="title"><%= @form.title %></h3>
-      <h10 class="date"><%= Time.now.strftime("%m/%d/%Y") %></h10><br>
+      <h10 class="date"><%= Time.now.strftime("%b %d,%Y") %></h10><br>
       <h3 class="internal_text"><%= @form.description %></h3>
+      <br>
       <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
@@ -66,7 +65,7 @@
     <div class="center-material">28 mins long</div>
     <br>
     <br>
-    <br>
+    
       <div class="bottom-material">
       <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
@@ -77,10 +76,13 @@
     <div class="col-md-3">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1"><%= @form.title1 %></h10>
+    <br>
+    <br>
     <%= image_tag "photo.png", :size => "208x161" %>
+    <br>
     <div id="link"><%= @form.url1 %></div>
-    <br><br>
+    <br>
     <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
     <hr>
     <br>
@@ -90,11 +92,14 @@
     <div class="col-md-3">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1"><%= @form.title2 %></h10>
+    <br>
+    <br>
     <%= image_tag "photo.png", :size => "208x161" %>
+    <br>
     <div id="link"><%= @form.url2 %></div>
-    <br><br>
-    <h4 class="internal_text1"><%= @form.url3 %></h4>
+    <br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
     <hr>
     <br>
     </div>
@@ -104,70 +109,6 @@
     </div>  
     </div>
       
-    
-    <div class="container1">
-     <div class="row" id="cont1">
-    
-    <div class="col-md-4">
-      <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div>
-      <br><h3 class="title">The Basics of Western Astrology Explained</h3>
-      <h10 class="date">Sep 24, 2016</h10><br>
-      <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to come.... </h3>
-      <div class="center-material">
-      <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
-      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
-      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
-    </div>
-    <div class="center-material">28 mins long</div>
-    <br>
-    <br>
-
-      <div class="bottom-material">
-      <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
-      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-      
-    </div>
-    </div>
-
-    <div class="col-md-3">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br><br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-
-
-    <div class="col-md-3">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br><br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-    
-    <div class="col-md-2" id="third">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br><br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-    </div>
-    </div>
 
     </body>
 <%= link_to 'Edit', edit_form_path(@form) %> |

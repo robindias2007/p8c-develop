@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122181319) do
+ActiveRecord::Schema.define(version: 20161130193240) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "title"
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(version: 20161122181319) do
     t.string   "url3"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "title1"
+    t.string   "title2"
+    t.string   "title3"
+    t.string   "titel4"
+    t.string   "url4"
+    t.string   "url5"
+    t.string   "title5"
   end
 
 end

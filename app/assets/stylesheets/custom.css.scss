@@ -156,11 +156,13 @@ html body
 .title1
 {
     font-family: Futura;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     text-transform: capitalize;
+    float: left;
     text-align: left;
-}
+    margin-top: -10px;
+    }
 
 
 .bottom-material
@@ -184,6 +186,8 @@ html body
 hr
 {
     border: 1px solid #8B0000;
+    margin-top: 10px;
+    
 }
 
 .center-material
@@ -203,23 +207,28 @@ hr
     color: #4A4A4A;
     font-family: "PT Serif";
     font-style: Italic;
-    width: 280px;
+    width: 260px;
     height:140px;
+    margin-left: 14px;
+    line-height: 25px;      
 }
+
+.internal_text1
+{
+    color: #4A4A4A;
+    font-family: "PT Serif";
+    font-size: 15px;
+    text-align: left;
+    width: 195px;
+    height: 100px;
+    line-height: 20px;
+}
+
 .date
 {  
    color: #9c1717;
    font-family: "PT Serif";
    font-size: 15px;
-}
-.internal_text1
-{
-    color: #4A4A4A;
-    font-family: "PT Serif";
-    font-size: 13px;
-    text-align: left;
-    width: 195px;
-    height: 80px;
 }
 
 #link
@@ -244,6 +253,7 @@ hr
     margin-top: 20px;
     font-size: 24px;
     text-align: left;
+    font-size: 22px;
 }
 
 .actions
@@ -255,8 +265,9 @@ hr
 
 #Save
 {
-    width: 65px;
-    height: 30px;
+    font-size: 16px;
+    letter-sapcing: 200px;
+    height: 20px;
 }
 
 .form_container
@@ -264,7 +275,6 @@ hr
     border: 1px solid black;
     margin-top: 10px;
     width: 50%;
-    height: 600px;
     margin: 0px auto;
     background-color: #f2f2f2;
 }
@@ -273,7 +283,7 @@ hr
 {
     float: right;
     margin-right: 30px;
-    
+    line-height: 15px;
 }
 
 table, th, td{
