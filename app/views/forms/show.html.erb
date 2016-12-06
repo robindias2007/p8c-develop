@@ -81,7 +81,7 @@
     <br>
     <%= image_tag "photo.png", :size => "208x161" %>
     <br>
-    <div id="link"><%= @form.url1 %></div>
+    <div id="link"><%= @form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
     <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
     <hr>

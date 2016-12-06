@@ -100,25 +100,43 @@ float: left;
     
 }
 
+.row {
+        
+    width: 220%;
+    height: 425px;
 
+
+ }
+
+/*
+ .col-half-offset
+ {
+ margin-left: 4.166666667%;
+ 
+ }
+ */
 
 .container1
 {
- overflow-y: hidden;
+ 
  border: 1px solid black;
- width: 900px;
- height: 420px;
+ width: 950px;
  margin: 0px auto;
  margin-top: 50px;   
  background-color: white;
  
 }
 
-
-#cont1
-{      
-    margin: 0px auto;
+.container3
+{
+    overflow-x:auto;
 }
+
+
+
+
+
+
 /* .verticalline
 {
     border: 1px solid black;
@@ -280,6 +298,7 @@ hr
     width: 50%;
     margin: 0px auto;
     background-color: #f2f2f2;
+    position: relative;
 }
 
 #textfield

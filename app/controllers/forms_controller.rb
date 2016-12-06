@@ -28,6 +28,22 @@ class FormsController < ApplicationController
 
     respond_to do |format|
       if @form.save
+        
+        # url = URI("https://api.urlmeta.org/?url=#{@form.url1}")
+
+        # http = Net::HTTP.new(url.host, url.port)
+        # http.use_ssl = true
+        # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        # request = Net::HTTP::Get.new(url)
+
+        # response = http.request(request)
+        # puts response.read_body
+        # debugger
+        # hash = JSON.parse(response.read_body)
+
+        # form.update(title:hash["meta"]["title"], description:hash["meta"]["description"])      
+
         format.html { redirect_to @form, notice: 'Form was successfully created.' }
         format.json { render :show, status: :created, location: @form }
       else
