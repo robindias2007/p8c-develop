@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  
+  devise_for :users, controllers: { sessions: 'users/sessions' }
   resources :forms
   get 'static_pages/home'
   get 'static_pages/home1'
+  root 'static_pages#thanks'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
