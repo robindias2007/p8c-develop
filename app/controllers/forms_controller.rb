@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /forms
   # GET /forms.json
   def index
@@ -24,6 +24,7 @@ class FormsController < ApplicationController
   # POST /forms
   # POST /forms.json
   def create
+
     @form = Form.new(form_params)
 
     respond_to do |format|

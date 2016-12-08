@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<% if user = current_user %>
 <h1>Blog List</h1>
 <div class="formlist">
 <table>
@@ -47,3 +47,10 @@
 <br>
 
 <%= link_to 'New Form', new_form_path %>
+<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
