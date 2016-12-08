@@ -10,7 +10,11 @@
         <div id="nav-header">
            <ul>
                <li id="logo"><%= image_tag 'logo.png' %>THE LENSE</li>
+               <% if user_signed_in? %>
                <a href="/forms/new"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li></a>
+               <% else %>
+               <li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li>
+               <% end %>
                <a href="/users/sign_in"><li id="user">Sign In<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
                 <li id="search-box">
                     <form>
