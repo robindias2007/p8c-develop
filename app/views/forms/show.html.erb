@@ -15,7 +15,7 @@
                <a href="/forms/new"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li></a>
                <a class="dropdown-toggle"  data-toggle="dropdown"><i class="material-icons" style="font-size:30px; float: right; ">account_circle</i></a>
                 <ul class="dropdown-menu">
-               <li><a href="/static_pages/home1">View Your Boards</a></li><br>
+               <li><a href="/forms">View Your Boards</a></li><br>
               <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        </li>
                </ul>
 
@@ -97,7 +97,7 @@
     <div class="container3">
    
     <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
     <br>
     <hr>
     <h10 class="title1"><%= @form.title1 %></h10>

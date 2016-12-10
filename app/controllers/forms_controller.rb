@@ -21,6 +21,9 @@ class FormsController < ApplicationController
   def edit
   end
 
+  def drafts
+  end
+
   # POST /forms
   # POST /forms.json
   def create
@@ -50,7 +53,9 @@ class FormsController < ApplicationController
         format.json { render :show, status: :created, location: @form }
   
         else params[:commit] == 'Save as Draft'
-        format.html {redirect_to @form, notice: 'Form was successfully Saved.'}
+        format.html {render :drafts , notice: 'Form was successfully Saved.'}
+        
+
         end
 
         else
