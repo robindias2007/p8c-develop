@@ -1,5 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
 * {
     box-sizing: border-box;
     padding: 0px;
@@ -116,7 +118,7 @@ float: left;
 
 .row {
         
-    width: 220%;
+    width: 150%;
     height: 425px;
 
 
@@ -340,7 +342,7 @@ table, th, td{
     font-size: 24px;
     margin: 0px auto;
     width: 20%;
-    
+    float: center;
 }
 
 .dropdown-menu
@@ -349,3 +351,4 @@ table, th, td{
     margin-left: 1050px;
     position: fixed;
 }
+

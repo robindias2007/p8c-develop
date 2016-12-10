@@ -29,7 +29,8 @@ class FormsController < ApplicationController
 
     respond_to do |format|
       if @form.save
-        
+            if params[:commit] == 'Publish'
+
         # url = URI("https://api.urlmeta.org/?url=#{@form.url1}")
 
         # http = Net::HTTP.new(url.host, url.port)
@@ -47,12 +48,18 @@ class FormsController < ApplicationController
 
         format.html { redirect_to @form, notice: 'Form was successfully created.' }
         format.json { render :show, status: :created, location: @form }
-      else
+  
+        else params[:commit] == 'Save as Draft'
+        format.html {redirect_to @form, notice: 'Form was successfully Saved.'}
+        end
+
+        else
         format.html { render :new }
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
     end
-  end
+    end
+  
 
   # PATCH/PUT /forms/1
   # PATCH/PUT /forms/1.json
