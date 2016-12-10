@@ -9,14 +9,24 @@
         <div class="header">
         <div id="nav-header">
            <ul>
-               <li id="logo"><%= image_tag 'logo.png' %>THE LENSE</li>
+               <a href="/"><li id="logo"><%= image_tag 'logo.png' %>THE LENSE</li></a>
+               
                <% if user_signed_in? %>
                <a href="/forms/new"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li></a>
+               <a class="dropdown-toggle"  data-toggle="dropdown"><i class="material-icons" style="font-size:30px; float: right; ">account_circle</i></a>
+                <ul class="dropdown-menu">
+               <li><a href="/static_pages/home1">View Your Boards</a></li><br>
+              <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        </li>
+               </ul>
+
+
+
+
                <% else %>
-               <li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li>
+               <a href="/users/sign_in"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li>
+               <a href="/users/sign_in"><li id="user">Sign In/Sign Up<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
                <% end %>
-               <a href="/users/sign_in"><li id="user">Sign In<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
-                <li id="search-box">
+             <li id="search-box">
                     <form>
                         <input type="search", id="sebar" placeholder="Search...">
                         <a class="button"><i class="material-icons", id="nav-icons">search</i></a>
@@ -225,7 +235,7 @@
     <div class="container3">
    
     <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
     <br>
     <hr>
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
@@ -242,7 +252,7 @@
 
   
     
-    <div class="col-md-3">
+    <div class="col-md-2">
     <br>
     <hr>
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
@@ -257,45 +267,15 @@
     <br>
     </div>
     
+
      
-   
-    <div class="col-md-3">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-
-    <div class="col-md-3">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-<!-- 
     <div class="col-md-2">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1">Title 1</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
+    <%= image_tag "photo.png", :size => "161x161" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -307,25 +287,56 @@
     <div class="col-md-2">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1">Title 2</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
+    <%= image_tag "photo.png", :size => "161x161" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
     <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
     <hr>
     <br>
-    </div> -->
+    </div>
 
-<!--     <div class="col-md-2">
+    <div class="col-md-2">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1">Title3</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
+    <%= image_tag "photo.png", :size => "161x161" %>
+    <br>
+    <div id="link">Simplyfyingfinance.com</div>
+    <br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <hr>
+    <br>
+    </div>
+
+    <div class="col-md-2">
+    <br>
+    <hr>
+    <h10 class="title1">Title 4</h10>
+    <br>
+    <br>
+    <%= image_tag "photo.png", :size => "161x161" %>
+    <br>
+    <div id="link">Simplyfyingfinance.com</div>
+    <br>
+    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <hr>
+    <br>
+    </div>
+    
+
+    <!-- <div class="col-md-2">
+    <br>
+    <hr>
+    <h10 class="title1">Title 5</h10>
+    <br>
+    <br>
+    <%= image_tag "photo.png", :size => "161x161" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -337,7 +348,6 @@
     </div>
     </div>  
      </div>  
-
     
     </div>
 

@@ -37,6 +37,8 @@
     color: white;
     letter-spacing: 2px;
     font-size: 22px;
+    margin: 0px auto;
+
 }
 
 #logo {
@@ -339,4 +341,11 @@ table, th, td{
     margin: 0px auto;
     width: 20%;
     
+}
+
+.dropdown-menu
+{
+    margin-top: -590px;
+    margin-left: 1050px;
+    position: fixed;
 }
