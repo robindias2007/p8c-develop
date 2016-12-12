@@ -46,23 +46,58 @@
 #logo {
     float: left;
     font-size: 25px;
+    cursor: pointer;
+      display: inline-block;
+&:hover{
+    color: #98165d;
+    background-color: transparent;
+    }   
 }
+
+
 
 #logo img {
     margin-right: 10px;
     height: 26px;
     width: 26px;
+    cursor: pointer
+}
+
+.dropdown-toggle
+{
+ &:hover{
+    color: #98165d;
+    background-color: transparent;
+    }      
+}
+
+button
+{
+  width: 25%;
+  height: 15%;
+}
+
+#count
+{
+    float: left;
+    margin: 0px auto;
+    width: 75%;
+    font-size: 20px;
 }
 
 #search-box
 {   
-
+    margin-right: 30px;
     float: right;
 }    
 
 #user {   
     float: right;
     font-size: 16px;
+&:hover{
+    color: #98165d;
+    background-color: transparent;
+    } 
 }
 
 

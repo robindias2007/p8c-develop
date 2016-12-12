@@ -6,7 +6,7 @@ class FormsController < ApplicationController
   def index
     @forms = Form.all
   end
-
+  
   # GET /forms/1
   # GET /forms/1.json
   def show

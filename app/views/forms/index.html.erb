@@ -64,10 +64,20 @@
     <body>
 
 <% if user = current_user %>
-<i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.email %></div>
+<i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div>
+<br>
+<br>
+
+
 <div class="formlist">
 
+<a href="/forms"><button type="button">Published Boards</button></a>
+<button type="button" >Drafts</button><br><div id="count"><%= Form.count %></div>
+
 <% @forms.each do |form| %>
+
+
+
 
 <div class="container1">
     
