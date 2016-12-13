@@ -16,7 +16,7 @@
                <a href="/forms/new"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li></a>
                <a class="dropdown-toggle"  data-toggle="dropdown"><i class="material-icons" style="font-size:30px; float: right; ">account_circle</i></a>
                 <ul class="dropdown-menu">
-               <li><a href="/forms">View Your Boards</a></li><br>
+               <li><a href="/forms">Profile</a></li><br>
               <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        </li>
                </ul>
 
@@ -79,10 +79,8 @@
   <% end %>
 <div class="form_container">
 
-  <div class="field", style="display: none">
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id  , id:"textfield" , placeholder:"Enter title" %>
-  </div>
+<%= f.hidden_field :user_id, value: current_user.id %>
+
 
 
   <div class="field">

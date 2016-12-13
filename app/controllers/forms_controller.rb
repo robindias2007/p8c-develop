@@ -4,7 +4,7 @@ class FormsController < ApplicationController
   # GET /forms
   # GET /forms.json
   def index
-    @forms = Form.all
+    @forms = Form.where(user_id:current_user.id)
   end
 
   # GET /forms/1
@@ -27,6 +27,8 @@ class FormsController < ApplicationController
   def create
 
     @form = Form.new(form_params)
+    @form.user_id = current_user.id
+
     
    
       if @form.save
@@ -95,6 +97,6 @@ class FormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def form_params
-      params.require(:form).permit(:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5)
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5)
     end
 end
