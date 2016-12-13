@@ -48,8 +48,9 @@
     font-size: 25px;
     cursor: pointer;
       display: inline-block;
+      color: #000000;
 &:hover{
-    color: #98165d;
+    color: #000000;
     background-color: transparent;
     }   
 }
@@ -65,11 +66,19 @@
 
 .dropdown-toggle
 {
- &:hover{
-    color: #98165d;
+color: #000000;
+&:hover{
+    color: #000000;
     background-color: transparent;
-    }      
+    }   
 }
+
+#image
+{
+    width: 120%;
+    height: 100%;
+}
+
 
 button
 {
@@ -89,13 +98,15 @@ button
 {   
     margin-right: 30px;
     float: right;
+    margin-top:1px;
 }    
 
 #user {   
     float: right;
     font-size: 16px;
+    color : #000000;
 &:hover{
-    color: #98165d;
+    color: #000000;
     background-color: transparent;
     } 
 }
@@ -105,6 +116,18 @@ button
 #nav-icons
 {
     vertical-align: middle;
+
+
+
+}
+
+#serch
+{
+  vertical-align: middle;
+    &:hover{
+    color: #000000;
+    background-color: transparent;
+    } 
 }
 
 
@@ -142,9 +165,9 @@ float: left;
     border-bottom: 3px solid #9C1717;
 }
 .container
-{   border: 1px solid black;
+{   
     width: 1024px;
-    background-color: #a6a6a6;
+    
     margin: 0px auto;
     margin-top: 50px;
     

@@ -28,10 +28,10 @@
                <a href="/users/sign_in"><li id="user">Sign In/Sign Up<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
                <% end %>
 
-                <li id="search-box">
+                 <li id="search-box">
                     <form>
                         <input type="search", id="sebar" placeholder="Search...">
-                        <a class="button"><i class="material-icons", id="nav-icons">search</i></a>
+                        <i class="material-icons", id="serch">search</i>
                     </form> 
                </li>
             </ul>
@@ -41,12 +41,12 @@
         
       <div id="nav-menu">
         <ul id="subh">
-            <li>Editor's Picks</li>
-            <li>Topic 1</li>
-            <li>Topic 2</li>
-            <li>Topic 3</li>
-            <li>Topic 4</li>
-            <li>Bookmark</li>
+            <a href=""><li>Editor's Picks</li></a>
+            <a href=""><li>Topic 1</li></a>
+            <a href=""><li>Topic 2</li></a>
+            <a href=""><li>Topic 3</li></a>
+            <a href=""><li>Topic 4</li></a>
+            <a href=""><li>Bookmark</li></a>
         </ul>
       </div>  
 
@@ -55,7 +55,7 @@
         
     <script>
     $(document).ready(function(){
-    $(".button").click(function(){
+    $("#serch").click(function(){
         $("#sebar").toggle();
      });
      });
@@ -78,6 +78,13 @@
     </div>
   <% end %>
 <div class="form_container">
+
+  <div class="field", style="display: none">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id  , id:"textfield" , placeholder:"Enter title" %>
+  </div>
+
+
   <div class="field">
     <%= f.label :Board_Title %>
     <%= f.text_field :title  , id:"textfield" , placeholder:"Enter title" %>

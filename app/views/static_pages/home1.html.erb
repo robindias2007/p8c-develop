@@ -27,33 +27,33 @@
                <a href="/users/sign_in"><li id="user">Sign In/Sign Up<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
                <% end %>
 
-                <li id="search-box">
+                 <li id="search-box">
                     <form>
                         <input type="search", id="sebar" placeholder="Search...">
-                        <a class="button"><i class="material-icons", id="nav-icons">search</i></a>
+                        <i class="material-icons", id="serch">search</i>
                     </form> 
                </li>
             </ul>
         </div>
-        </div>      
+        </div>    
         
       <div id="nav-menu">
         <ul id="subh">
-            <li>Trending</li>
-            <li>Topic 1</li>
-            <li>Topic 2</li>
-            <li>Topic 3</li>
-            <li>Content Spiral</li>
-            <li>Bookmark</li>
+            <a href=""><li>Editor's Picks</li></a>
+            <a href=""><li>Topic 1</li></a>
+            <a href=""><li>Topic 2</li></a>
+            <a href=""><li>Topic 3</li></a>
+            <a href=""><li>Topic 4</li></a>
+            <a href=""><li>Bookmark</li></a>
         </ul>
-      </div>  
+      </div>   
 
 
 
         
     <script>
     $(document).ready(function(){
-    $(".button").click(function(){
+    $("#serch").click(function(){
         $("#sebar").toggle();
      });
      });
@@ -101,13 +101,13 @@
     <div class="container3">
    
     <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -118,13 +118,13 @@
 
   
     
-    <div class="col-md-2">
+    <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -135,13 +135,13 @@
     
 
      
-    <div class="col-md-2">
+    <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1">Title 1</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -150,13 +150,13 @@
     <br>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1">Title 2</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -165,13 +165,13 @@
     <br>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1">Title3</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -180,7 +180,7 @@
     <br>
     </div>
 
-    <div class="col-md-2">
+    <!-- <div class="col-md-2">
     <br>
     <hr>
     <h10 class="title1">Title 4</h10>
@@ -195,7 +195,7 @@
     <br>
     </div>
     
-
+ -->
     <!-- <div class="col-md-2">
     <br>
     <hr>

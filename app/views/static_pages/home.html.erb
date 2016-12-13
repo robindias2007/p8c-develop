@@ -29,7 +29,7 @@
              <li id="search-box">
                     <form>
                         <input type="search", id="sebar" placeholder="Search...">
-                        <a class="button"><i class="material-icons", id="nav-icons">search</i></a>
+                        <i class="material-icons", id="serch">search</i>
                     </form> 
                </li>
             </ul>
@@ -37,23 +37,23 @@
         </div>
         
         
-      <div id="nav-menu">
+     <div id="nav-menu">
         <ul id="subh">
-            <li>Trending</li>
-            <li>Topic 1</li>
-            <li>Topic 2</li>
-            <li>Topic 3</li>
-            <li>Content Spiral</li>
-            <li>Bookmark</li>
+            <a href=""><li>Editor's Picks</li></a>
+            <a href=""><li>Topic 1</li></a>
+            <a href=""><li>Topic 2</li></a>
+            <a href=""><li>Topic 3</li></a>
+            <a href=""><li>Topic 4</li></a>
+            <a href=""><li>Bookmark</li></a>
         </ul>
-      </div>  
+      </div>   
 
 
 
         
     <script>
     $(document).ready(function(){
-    $(".button").click(function(){
+    $("#serch").click(function(){
         $("#sebar").toggle();
      });
      });
@@ -99,7 +99,7 @@
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -116,7 +116,7 @@
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -133,7 +133,7 @@
     <h10 class="title1">Title 1</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -148,7 +148,7 @@
     <h10 class="title1">Title 2</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -163,7 +163,7 @@
     <h10 class="title1">Title3</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -228,7 +228,7 @@
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -245,7 +245,7 @@
     <h10 class="title1">Make Myspace Your Best Design Space</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -262,7 +262,7 @@
     <h10 class="title1">Title 1</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -277,7 +277,7 @@
     <h10 class="title1">Title 2</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -292,7 +292,7 @@
     <h10 class="title1">Title3</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>

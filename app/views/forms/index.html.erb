@@ -28,33 +28,32 @@
                <a href="/users/sign_in"><li id="user">Sign In/Sign Up<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
                <% end %>
 
-                <li id="search-box">
+                 <li id="search-box">
                     <form>
                         <input type="search", id="sebar" placeholder="Search...">
-                        <a class="button"><i class="material-icons", id="nav-icons">search</i></a>
+                        <i class="material-icons", id="serch">search</i>
                     </form> 
                </li>
             </ul>
         </div>
-        </div>      
+        </div>   
         
       <div id="nav-menu">
         <ul id="subh">
-            <li>Trending</li>
-            <li>Topic 1</li>
-            <li>Topic 2</li>
-            <li>Topic 3</li>
-            <li>Content Spiral</li>
-            <li>Bookmark</li>
+            <a href=""><li>Editor's Picks</li></a>
+            <a href=""><li>Topic 1</li></a>
+            <a href=""><li>Topic 2</li></a>
+            <a href=""><li>Topic 3</li></a>
+            <a href=""><li>Topic 4</li></a>
+            <a href=""><li>Bookmark</li></a>
         </ul>
       </div>  
-
 
 
         
     <script>
     $(document).ready(function(){
-    $(".button").click(function(){
+    $("#serch").click(function(){
         $("#sebar").toggle();
      });
      });
@@ -72,7 +71,7 @@
 <div class="formlist">
 
 <a href="/forms"><button type="button">Published Boards</button></a>
-<button type="button" >Drafts</button><br><div id="count"><%= Form.count %></div>
+<a href="/static_pages/home1"><button type="button" >Drafts</button></a><br><div id="count"><%= Form.count %></div>
 
 <% @forms.each do |form| %>
 
@@ -114,7 +113,7 @@
     <h10 class="title1"><%= form.title1 %></h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -131,7 +130,7 @@
     <h10 class="title1"><%= form.title2 %></h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -148,7 +147,7 @@
     <h10 class="title1"><%= form.title3 %></h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -163,7 +162,7 @@
     <h10 class="title1"><%= form.titel4 %></h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -178,7 +177,7 @@
     <h10 class="title1"><%= form.title5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", id:"image" %>
     <br>
     <div id="link"><%= form.url5 %></div>
     <br>
@@ -208,7 +207,7 @@
 
 
 
-        <%= link_to 'Show', form %>
+       
         <%= link_to 'Edit', edit_form_path(form) %>
         <%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %>
       

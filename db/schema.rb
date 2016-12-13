@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211084028) do
+ActiveRecord::Schema.define(version: 20161213122210) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "title"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20161211084028) do
     t.string   "url4"
     t.string   "url5"
     t.string   "title5"
+    t.boolean  "publish"
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
