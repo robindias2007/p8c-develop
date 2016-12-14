@@ -9,7 +9,8 @@
 }
 
 .header
-{
+{   
+    
     margin: 0px auto;
     width: 100%;
     border-bottom: 2px solid;
@@ -90,14 +91,27 @@ button
 {
   width: 25%;
   height: 15%;
+
 }
 
 #count
 {
-    float: left;
+    
     margin: 0px auto;
-    width: 75%;
-    font-size: 20px;
+    width: 30%;
+    
+}
+
+#countdra
+{
+   
+
+}
+
+#countpub
+{
+   
+
 }
 
 #search-box

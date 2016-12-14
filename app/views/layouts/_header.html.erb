@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TheLense</title>
+        <link href="P8C.scss" type = "text/css" rel = "stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
+        <div class="header">
+        <div id="nav-header">
+           <ul>
+               <a href="/"><li id="logo"><%= image_tag 'logo.png' %>THE LENSE</li></a>
+               
+               <% if user_signed_in? %>
+               <a href="/forms/new"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li></a>
+               <a class="dropdown-toggle"  data-toggle="dropdown"><i class="material-icons" style="font-size:30px; float: right; ">account_circle</i></a>
+                <ul class="dropdown-menu">
+               <li><a href="/forms">Profile</a></li><br>
+              <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        </li>
+               </ul>
+
+
+
+
+               <% else %>
+               <a href="/users/sign_in"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li>
+               <a href="/users/sign_in"><li id="user">Sign In/Sign Up<i class="material-icons" , id="nav-icons">account_circle</i></li></a>
+               <% end %>
+
+                 <li id="search-box">
+                    <form>
+                        <input type="search", id="sebar" placeholder="Search...">
+                        <i class="material-icons", id="serch">search</i>
+                    </form> 
+               </li>
+            </ul>
+        </div>
+        </div>
+
+              
+        
+        
+      <div id="nav-menu">
+        <ul id="subh">
+            <a href=""><li>Editor's Picks</li></a>
+            <a href=""><li>Topic 1</li></a>
+            <a href=""><li>Topic 2</li></a>
+            <a href=""><li>Topic 3</li></a>
+            <a href=""><li>Topic 4</li></a>
+            <a href=""><li>Bookmark</li></a>
+        </ul>
+      </div>  
+
+
+
+        
+    <script>
+    $(document).ready(function(){
+    $("#serch").click(function(){
+        $("#sebar").toggle();
+     });
+     });
+    </script> 
+        
+    </head>    
+    <body>

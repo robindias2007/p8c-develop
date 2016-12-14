@@ -1,11 +1,19 @@
 class FormsController < ApplicationController
-  before_action :set_form, only: [:show, :edit, :update, :destroy]
+before_action :set_form, only: [:show, :edit, :update, :destroy]
   
   # GET /forms
   # GET /forms.json
   def index
-    @forms = Form.where(user_id:current_user.id)
+    @forms = Form.all
   end
+
+  # def drafts
+  #   @forms = Form.current_user.where(publish:false)
+  # end
+
+  # def publish
+  #  @forms = Form.current_user.where(publish:true)
+  # end
 
   # GET /forms/1
   # GET /forms/1.json
@@ -27,33 +35,17 @@ class FormsController < ApplicationController
   def create
 
     @form = Form.new(form_params)
-    @form.user_id = current_user.id
-
     
-   
       if @form.save
-            if params[:commit] == 'Publish'
-          respond_to do |format|
-        # url = URI("https://api.urlmeta.org/?url=#{@form.url1}")
-
-        # http = Net::HTTP.new(url.host, url.port)
-        # http.use_ssl = true
-        # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-        # request = Net::HTTP::Get.new(url)
-
-        # response = http.request(request)
-        # puts response.read_body
-        # debugger
-        # hash = JSON.parse(response.read_body)
-
-        # form.update(title:hash["meta"]["title"], description:hash["meta"]["description"])      
-
-        format.html { redirect_to @form, notice: 'Form was successfully created.' }
-        format.json { render :show, status: :created, location: @form }
-         end 
+        if params[:commit] == 'Publish'
+              @form.update(:publish => "true")
+              
+          
+        redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+         
         else params[:commit] == 'Save as Draft'
-        redirect_to static_pages_home1_path
+          @form.update(:publish => "false")
+        redirect_to static_pages_drafts_path
 
         end
 
