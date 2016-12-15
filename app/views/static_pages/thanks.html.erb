@@ -1,13 +1,31 @@
- 
-    <div class="container"> 
-    <div class="container1">
+<!-- <p id="notice"><%= notice %></p> -->
+
+<% if user = current_user %>
+<i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div>
+<br>
+<br>
+
+
+<div class="formlist">
+
+<a href="/static_pages/publish"><button type="button">Published Boards</button></a>
+<a href="/static_pages/drafts"><button type="button" >Drafts</button></a><br>
+<!-- <div id="count"><%= Form.where(publish:true).count %>
+</div> -->
+
+<% @forms.each do |form| %>
+
+
+
+
+<div class="container1">
     
     
     <div class="col-md-4">
       <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div>
-      <br><h3 class="title">The Basics of Western Astrology Explained</h3>
-      <h10 class="date"><%= Time.now.strftime('%b %d, %Y') %></h10><br>
-      <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to come.... </h3>
+      <br><h3 class="title"><%= form.title %></h3>
+      <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>
+      <h3 class="internal_text"><%= form.description %></h3>
       <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
@@ -17,7 +35,9 @@
     <br>
     <br>
     <br>
-        <a href="/forms"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser">robin</div></div></a>
+
+        <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
+
       <div class="bottom-material">
       <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
@@ -33,14 +53,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1"><%= form.title1 %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
     <br>
-    <div id="link">Simplyfyingfinance.com</div>
+    <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
     <hr>
     <br>
     </div>
@@ -50,14 +70,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
+    <h10 class="title1"><%= form.title2 %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
     <br>
-    <div id="link">Simplyfyingfinance.com</div>
+    <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
     <hr>
     <br>
     </div>
@@ -67,14 +87,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1">Title 1</h10>
+    <h10 class="title1"><%= form.title3 %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
     <br>
-    <div id="link">Simplyfyingfinance.com</div>
+    <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
     <hr>
     <br>
     </div>
@@ -82,14 +102,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1">Title 2</h10>
+    <h10 class="title1"><%= form.titel4 %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
     <br>
-    <div id="link">Simplyfyingfinance.com</div>
+    <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
     <hr>
     <br>
     </div>
@@ -97,25 +117,25 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1">Title3</h10>
+    <h10 class="title1"><%= form.title5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
     <br>
-    <div id="link">Simplyfyingfinance.com</div>
+    <div id="link"><%= form.url5 %></div>
     <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
+    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
     <hr>
     <br>
     </div>
-
-    <!-- <div class="col-md-2 col-half-offset">
+<!-- 
+    <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1">Title 4</h10>
+    <h10 class="title1">Title 6</h10>
     <br>
     <br>
-    <%= image_tag "photo.png", :size => "200x161" %>
+    <%= image_tag "photo.png", :size => "161x161" %>
     <br>
     <div id="link">Simplyfyingfinance.com</div>
     <br>
@@ -126,135 +146,24 @@
 
     </div>
     </div>  
-     </div>  
-    
-    <!-- <div class="container1">
-    
-    
-    <div class="col-md-4">
-      <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div>
-      <br><h3 class="title">The Basics of Western Astrology Explained</h3>
-      <h10 class="date">Sep 24, 2016</h10><br>
-      <h3 class="internal_text">i was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to comei was always focussed on achieving the best. the best is yet to come.... </h3>
-      <div class="center-material">
-      <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
-      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
-      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
-    </div>
-    <div class="center-material">28 mins long</div>
-    <br>
-    <br>
-    <br>
-      <div class="bottom-material">
-      <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
-      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-    </div>
-    </div>
-     
+     </div> 
 
-   
-    <div class="container3">
-   
-    <div class="row">
-    <div class="col-md-2">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
 
-  
-    
-    <div class="col-md-2">
-    <br>
-    <hr>
-    <h10 class="title1">Make Myspace Your Best Design Space</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "208x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-    
 
-     
-    <div class="col-md-2">
-    <br>
-    <hr>
-    <h10 class="title1">Title 1</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
+       
+        <button><%= link_to 'Edit', edit_form_path(form) %></button>
+        <button><%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+      
+    <% end %>
 
-    <div class="col-md-2">
-    <br>
-    <hr>
-    <h10 class="title1">Title 2</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
+</div>
+<br>
 
-    <div class="col-md-2">
-    <br>
-    <hr>
-    <h10 class="title1">Title3</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-
-    <div class="col-md-2">
-    <br>
-    <hr>
-    <h10 class="title1">Title 4</h10>
-    <br>
-    <br>
-    <%= image_tag "photo.png", :size => "161x161" %>
-    <br>
-    <div id="link">Simplyfyingfinance.com</div>
-    <br>
-    <h4 class="internal_text1">i was always focussed on achieving the best. the best is yet to come.... </h4>
-    <hr>
-    <br>
-    </div>
-
-    </div>
-    </div>  
-     </div> -->
-    
-    </div>
-
-    </body>
+<%= link_to 'New Form', new_form_path %>
+<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
