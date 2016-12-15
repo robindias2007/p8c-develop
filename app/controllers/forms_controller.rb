@@ -7,6 +7,7 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
     @forms = Form.all
   end
 
+
   # def drafts
   #   @forms = Form.current_user.where(publish:false)
   # end
