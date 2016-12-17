@@ -1,5 +1,5 @@
 
-
+<div class="maincont">
 <% if user = current_user %>
 <i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div>
 <br>
@@ -8,13 +8,22 @@
 
 <div class="formlist">
 
-<a href="/static_pages/publish"><button type="button">Published Boards</button></a>
-<a href="/static_pages/drafts"><button type="button" >Drafts</button></a><br>
+<a href="/static_pages/publish"><button type="button" id="pubbut">Published Boards</button></a>
+<a href="/static_pages/drafts"><button type="button" id="drabut">Drafts</button></a><br>
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
 
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
 </div>
+
+<script type="text/javascript">
+    var hoverOrClick = function () {
+$('#pubbut').css( 'font-weight', '700' );
+$('#pubbut').css('border','1px solid black');
+}
+$('#pubbut').click(hoverOrClick).hover(hoverOrClick);
+    
+</script>
 
 <% @forms.each do |form| %>
 
@@ -163,3 +172,4 @@
 <% else %>
   
 <% end %>
+</div>
