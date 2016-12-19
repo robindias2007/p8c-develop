@@ -213,8 +213,11 @@ float: left;
         
     width: 180%;
     height: 425px;
+ }
 
-
+ #row1
+ {
+ width: 100%;
  }
 
 
@@ -298,15 +301,7 @@ html body
     margin-top: -10px;
     }
 
-.signupform
-{
-    margin-top: 100px;
-}
 
-.signinform
-{
-    margin-top: 100px;
-}
 .bottom-material
 {    
     float:right;
@@ -470,5 +465,27 @@ table, th, td{
     margin-top: -590px;
     margin-left: 1050px;
     position: fixed;
+}
+
+#mainrow
+{
+    border-right: 3px solid white;
+    width: 50%;
+    height: 100%;
+    
+}
+
+.formlogin
+{
+  display: block;
+  
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: #cc0000;
 }
 

@@ -1,7 +1,16 @@
-<h2>Log in</h2>
 
+<div class="maincont">
+<div class="formlogin">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
- <div class="signinform">
+ <div class="row", id="row1">
+ <div class="col-md-6", id="mainrow">
+   
+   
+ </div>
+
+ <div class="col-md-3">
+ <h2>Sign in</h2>
+ <div class="signinform"><hr>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
@@ -19,9 +28,71 @@
     </div>
   <% end -%>
 
-  <div class="actions">
+  <div class="actions" id="login">
     <%= f.submit "Log in" %>
   </div>
 <% end %>
 </div>
 <%= render "users/shared/links" %>
+</div>
+
+
+<div class="col-md-3">
+<h2>Sign up</h2><hr>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+<div class="signupform">
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+</div>
+<%= render "users/shared/links" %>
+</div>
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+  $(function () {
+        $("#online").click(function () {
+            if ($(this).is(":checked")) {
+                ajax_discount();
+                $("#dvCOD").hide();
+                $("#dvONLINE").show();
+                $("#dvdisable").hide();
+                $("#dvPAYTM").hide();
+            } else {
+                $("#dvdisable").show();                
+                $("#dvCOD").hide();
+                $("#dvONLINE").hide();
+                $("#dvPAYTM").hide();
+            }
+        });
+    });
+</script>>
