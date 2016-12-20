@@ -16,15 +16,6 @@
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
 </div>
 
-<script type="text/javascript">
-    var hoverOrClick = function () {
-$('#pubbut').css( 'font-weight', '700' );
-$('#pubbut').css('border','1px solid black');
-}
-$('#pubbut').click(hoverOrClick).hover(hoverOrClick);
-    
-</script>
-
 <% @forms.each do |form| %>
 
 

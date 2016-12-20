@@ -2,6 +2,7 @@ class StaticPagesController < ApplicationController
   def home
   end
 
+
   def thanks
    @forms = Form.where(publish:true)
   end

@@ -5,6 +5,7 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
   # GET /forms.json
   def index
     @forms = Form.where(user_id:current_user.id, publish:true)
+    
   end
 
 

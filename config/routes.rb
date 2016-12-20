@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'static_pages/publish' =>  'static_pages#publish'
   get 'static_pages/drafts' =>  'static_pages#drafts'
   get 'static_pages/demo' =>  'static_pages#demo'
+  get 'user/:id'          =>   'users#show'
+
   root 'static_pages#thanks'
 
   # The priority is based upon order of creation: first created -> highest priority.
