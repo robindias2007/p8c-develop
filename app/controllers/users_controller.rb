@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def index
+   
   end
 
   def show
@@ -11,5 +12,8 @@ class UsersController < ApplicationController
     end
     
     @forms = Form.all.where("user_id = ?",User.find_by_username(params[:id]).id )
-end
+  end
+
+
+
 end
