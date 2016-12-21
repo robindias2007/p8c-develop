@@ -4,15 +4,15 @@ class StaticPagesController < ApplicationController
 
 
   def thanks
-   @forms = Form.where(publish:true)
+   @forms = Form.order(created_at: :desc).where(publish:true)
  end
 
   def publish
-   @forms = Form.where(user_id:current_user.id, publish:true)
+   @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)
   end
 
   def drafts
-   @forms = Form.where(user_id:current_user.id, publish:false)
+   @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:false)
    if params[:commit] == 'Publish'
    @form.update(:publish => "true")
               

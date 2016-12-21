@@ -4,7 +4,7 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
   # GET /forms
   # GET /forms.json
   def index
-    @forms = Form.where(user_id:current_user.id, publish:true)
+    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)
     
   end
 
