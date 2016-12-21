@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
 
   def thanks
    @forms = Form.where(publish:true)
-  end
+ end
 
   def publish
    @forms = Form.where(user_id:current_user.id, publish:true)

@@ -34,7 +34,7 @@
   <div class="actions">
   <%= f.submit "Sign In" , id:"actions1"%>
   </div>
-
+ 
   <% end -%>
   <br>
 
@@ -46,39 +46,208 @@
 
 
 <div class="col-md-6", id="SignOut">
-<div class="headsin"><a i href="/users/sign_in" , id="sihe">Sign in</a><a href="/users/sign_up" id="sihu">Sign up</a></div>
+<div class="maincont">   
+  <div class="logmod">
+  <div class="logmod__wrapper">
+    <span class="logmod__close">Close</span>
+    <div class="logmod__container">
+      <ul class="logmod__tabs">
+        <li data-tabtar="lgm-2"><a href="#">Login</a></li>
+        <li data-tabtar="lgm-1"><a href="#">Sign Up</a></li>
+      </ul>
+      <div class="logmod__tab-wrapper">
+      <div class="logmod__tab lgm-1">
+        <div class="logmod__heading">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
+        </div>
+        <div class="logmod__form">
+          <form accept-charset="utf-8" action="#" class="simform">
+            <div class="sminputs">
+              <div class="input full">
+                <label class="string optional" for="user-name">Email*</label>
+               <%= f.email_field :email, placeholder:"Email", autofocus: true %>
+              </div>
+            </div>
+            <div class="sminputs">
+              <div class="input full">
+                <label class="string optional" for="user-name">Username*</label>
+              <%= f.text_field :username , placeholder:"Username" %> 
+              </div>
+              </div>
+            <div class="sminputs">
+              <div class="input string optional">
+                <label class="string optional" for="user-pw">Password *</label>
+               <%= f.password_field :password, placeholder:"Password" %>
+              </div>
+              <div class="input string optional">
+                <label class="string optional" for="user-pw-repeat">Repeat password *</label>
+               <%= f.password_field :password_confirmation, placeholder:"Confirm Password" %>
+              </div>
+            </div>
+            <div class="simform__actions">
+              <%= f.submit "Sign Up" %>
+              <span class="simform__actions-sidetext">By creating an account you agree to our <a class="special" href="#" target="_blank" role="link">Terms & Privacy</a></span>
+            </div> 
+           <% end %> 
+          </form>
+        </div> 
+        
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-<div class="signupform">
-  <div class="field">
-    <br />
-    <%= f.email_field :email, placeholder:"Email", autofocus: true %>
-  </div>
+      </div>
+      <div class="logmod__tab lgm-2">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="logmod__heading">
+          <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
+        </div> 
+        <div class="logmod__form">
+          <form accept-charset="utf-8" action="#" class="simform">
+            <div class="sminputs">
+              <div class="input full">
+                <label class="string optional" for="user-name">Email*</label>
+                <%= f.email_field :email, placeholder:"Email" %>              </div>
+            </div>
+            <div class="sminputs">
+
+            </div>
+            <div class="sminputs">
+              <div class="input full">
+                <label class="string optional" for="user-pw">Password *</label>
+                <%= f.password_field :password, placeholder:"Password" %>
+                            <span class="hide-password">Show</span>
+              </div>
+            </div>
+            <div class="simform__actions">
+              <%= f.submit "Sign In" %>
+              <span class="simform__actions-sidetext"><a class="special" role="link" href="/users/password/new">Forgot your password?<br>Click here</a></span>
+            </div> 
+            <% end %>
+          </form>
+        </div> 
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+
+
+<script type="text/javascript">
+
+var LoginModalController = {
+    tabsElementName: ".logmod__tabs li",
+    tabElementName: ".logmod__tab",
+    inputElementsName: ".logmod__form .input",
+    hidePasswordName: ".hide-password",
+    
+    inputElements: null,
+    tabsElement: null,
+    tabElement: null,
+    hidePassword: null,
+    
+    activeTab: null,
+    tabSelection: 0, // 0 - first, 1 - second
+    
+    findElements: function () {
+        var base = this;
+        
+        base.tabsElement = $(base.tabsElementName);
+        base.tabElement = $(base.tabElementName);
+        base.inputElements = $(base.inputElementsName);
+        base.hidePassword = $(base.hidePasswordName);
+        
+        return base;
+    },
+    
+    setState: function (state) {
+      var base = this,
+            elem = null;
+        
+        if (!state) {
+            state = 0;
+        }
+        
+        if (base.tabsElement) {
+          elem = $(base.tabsElement[state]);
+            elem.addClass("current");
+            $("." + elem.attr("data-tabtar")).addClass("show");
+        }
   
-  <div class="field">
-    <br />
-    <%= f.text_field :username , placeholder:"Username" %>
-  </div>
+        return base;
+    },
+    
+    getActiveTab: function () {
+        var base = this;
+        
+        base.tabsElement.each(function (i, el) {
+           if ($(el).hasClass("current")) {
+               base.activeTab = $(el);
+           }
+        });
+        
+        return base;
+    },
+   
+    addClickEvents: function () {
+      var base = this;
+        
+        base.hidePassword.on("click", function (e) {
+            var $this = $(this),
+                $pwInput = $this.prev("input");
+            
+            if ($pwInput.attr("type") == "password") {
+                $pwInput.attr("type", "text");
+                $this.text("Hide");
+            } else {
+                $pwInput.attr("type", "password");
+                $this.text("Show");
+            }
+        });
  
-  <div class="field">
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, placeholder:"Password", autocomplete: "off" %>
-  </div>
+        base.tabsElement.on("click", function (e) {
+            var targetTab = $(this).attr("data-tabtar");
+            
+            e.preventDefault();
+            base.activeTab.removeClass("current");
+            base.activeTab = $(this);
+            base.activeTab.addClass("current");
+            
+            base.tabElement.each(function (i, el) {
+                el = $(el);
+                el.removeClass("show");
+                if (el.hasClass(targetTab)) {
+                    el.addClass("show");
+                }
+            });
+        });
+        
+        base.inputElements.find("label").on("click", function (e) {
+           var $this = $(this),
+               $input = $this.next("input");
+            
+            $input.focus();
+        });
+        
+        return base;
+    },
+    
+    initialize: function () {
+        var base = this;
+        
+        base.findElements().setState().getActiveTab().addClickEvents();
+    }
+};
 
-  <div class="field">
-    <br />
-    <%= f.password_field :password_confirmation, placeholder:"Confirm Password", autocomplete: "off" %>
-  </div>
+$(document).ready(function() {
+    LoginModalController.initialize();
+});
 
-  <div class="actions">
-   <br />    
-    <%= f.submit "Sign Up", id:"actions1" %>
-<% end %>
-</div>
-</div>
+
+</script>
 </div>
 
 

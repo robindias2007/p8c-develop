@@ -4,8 +4,9 @@
 <i class="material-icons" style="font-size:50px; float:center">account_circle</i>
 <div id="username"><%= @username  %></div>
 
-<% @forms.each do |form| %>
+<a href= "/user/<%= form.user.username %>" ><button type="button" id="pubbut">Published Boards</button></a>
 
+<% @forms.each do |form| %>
 
 
 
@@ -22,11 +23,11 @@
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
     </div> -->
-    <div class="center-material">28 mins long</div>
+<!--     <div class="center-material">28 mins long</div>
+ -->    <br>
     <br>
     <br>
-    <br>
-        <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= @username %></div></div></a>
+        <a href= "/user/<%= form.user.username %>" ><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= @username %></div></div></a>
       <!-- <div class="bottom-material">
       <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
