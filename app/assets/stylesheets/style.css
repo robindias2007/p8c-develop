@@ -1,38 +1,44 @@
-html {
+/*html {
   box-sizing: border-box;
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
-.logmod {
-  display: block;
-  position: fixed;
+*/
+/*.logmod {
+  
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  opacity: 1;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 1;
+   z-index: 1;
 }
 .logmod::after {
   clear: both;
   content: "";
   display: table;
+}*/
+
+.logmod
+{
+  border-left: 3px solid white;
+  height: 50%;
+  width: 100%;
+  margin-top: -5px;
+  float: left;
 }
 .logmod__wrapper {
-  display: block;
-  background: #FFF;
+  
+  
   position: relative;
   max-width: 550px;
   border-radius: 4px;
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.2);
   margin: 120px auto;
 }
-.logmod__close {
-  display: block;
+/*.logmod__close {
+  
   position: absolute;
   right: 50%;
   background: url("http://imgh.us/close_white.svg") no-repeat scroll 0% 0% transparent;
@@ -44,18 +50,30 @@ html {
   margin-right: -24px;
   width: 48px;
   height: 48px;
-}
-.logmod__container {
-  overflow: hidden;
+}*
+*/
+/*.impform
+{
+  margin-top: 10px;
+}*/
+/*
+.logmod
+{
+  margin-top: -120px;
+  width: 950px;
+  margin-left: -120px;
+}*/*/
+/*.logmod__container {
+  
   width: 100%;
-}
+}*/
 .logmod__container::after {
   clear: both;
   content: "";
   display: table;
 }
 .logmod__tab {
-  position: relative;
+  
   width: 100%;
   height: 0;
   overflow: hidden;
@@ -84,14 +102,14 @@ html {
 }
 .logmod__tabs li.current a {
   background: #FFF;
-  color: #333;
+  color: black;
 }
 .logmod__tabs li a {
   width: 50%;
   position: relative;
   float: left;
   text-align: center;
-  background: #D2D8D8;
+  background: #cc0000;
   line-height: 72px;
   height: 72px;
   text-decoration: none;
@@ -100,19 +118,21 @@ html {
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
+  color: black;
 }
 .logmod__tabs li a:focus {
-  outline: dotted 1px;
+  
 }
 .logmod__heading {
   text-align: center;
+  background: #cc0000;
   padding: 12px 0 12px 0;
 }
 .logmod__heading-subtitle {
   display: block;
   font-weight: 400;
   font-size: 15px;
-  color: #888;
+  color: white;
   line-height: 48px;
 }
 .logmod__form {
@@ -188,6 +208,8 @@ html {
 .simform__actions {
   padding: 15px;
   font-size: 14px;
+  background: #cc0000;
+
 }
 .simform__actions::after {
   clear: both;
@@ -215,7 +237,7 @@ html {
   width: 50%;
   padding: 0 10px;
   margin: 9px 0 0 0;
-  color: #8C979E;
+  color: white;
   text-align: center;
   line-height: 24px;
 }
@@ -236,8 +258,7 @@ html {
 .sminputs .input {
   display: block;
   position: relative;
-  width: 50%;
-  height: 71px;
+  width: 100%;
   padding: 11px 24px;
   border-right: 1px solid #e5e5e5;
   border-bottom: none;
@@ -302,8 +323,8 @@ html {
   overflow: hidden;
   color: #444;
   cursor: pointer;
-  margin-top: 12px;
-  line-height: 48px;
+  margin-top: 1px;
+  line-height: 40px;
 }
 
 html {
@@ -569,7 +590,7 @@ html {
 }
 
 .special {
-  color: #f44336;
+  color: white;
   position: relative;
   text-decoration: none;
   transition: all 0.15s ease-out;
@@ -604,4 +625,9 @@ html {
   height: 100%;
   z-index: 999999;
   background-image: url(http://basehold.it/i/24);
+}
+
+.ter
+{
+  color: white;
 }
