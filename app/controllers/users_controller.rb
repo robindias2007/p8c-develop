@@ -12,7 +12,7 @@ class UsersController < ApplicationController
    		redirect_to root_path, :notice=> "USer not found"
     end
     
-    @forms = Form.all.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id]).id )
+    @forms = Form.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id]).id  ).where(publish:true)
   end
 
 

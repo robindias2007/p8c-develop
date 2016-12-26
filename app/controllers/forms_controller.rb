@@ -44,6 +44,7 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
               
           
         redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+        redirect_to forms_show_path_path
          
         else params[:commit] == 'Save as Draft'
           @form.update(:publish => "false")
@@ -57,7 +58,6 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
       end
     end
    
-  
 
   # PATCH/PUT /forms/1
   # PATCH/PUT /forms/1.json

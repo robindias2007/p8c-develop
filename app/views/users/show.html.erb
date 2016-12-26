@@ -18,7 +18,7 @@
 
 <% else %>
 <a href= "/user/<%= @username  %>" ><button type="button" id="pubbut">Published Boards</button></a>
-<br><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).count %>
+<br><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).where(publish:true).count %>
 <% end %>
 
 <% @forms.each do |form| %>

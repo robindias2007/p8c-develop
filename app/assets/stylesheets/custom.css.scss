@@ -58,8 +58,10 @@ header, nav {
 }
 
 #logo {
+    font-family: Nunito, sans-serif;
+    font-weight: bold; 
     float: left;
-    font-size: 25px;
+    font-size: 24px;
     cursor: pointer;
       display: inline-block;
       color: #000000;
@@ -421,7 +423,7 @@ hr
     height: 36px;
     background-color: white;
     color: black;
-    border-radius: 8px;
+    border-radius: 4px;
     float: right;
 }
 
@@ -557,10 +559,13 @@ table, th, td{
  float:left;
  font-size: 30px;  
  color: white;
+ font-family: Nunito, sans-serif;
+ font-weight: bold; 
 }
 
 #formtext
 {
+  
   font-size: 24px;
   padding-left: 2px;
   color: white;
