@@ -3,9 +3,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :forms
 
-  validates :username, username: true
-  validates_uniqueness_of :username
-  
 
 
 
