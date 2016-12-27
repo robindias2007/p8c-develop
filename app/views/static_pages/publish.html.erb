@@ -26,7 +26,7 @@
     
     <div class="col-md-4">
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div> -->
-      <br><h3 class="title"><%= form.title %></h3>
+      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title %></h3></a>
       <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>
       <h3 class="internal_text"><%= form.description %></h3>
       <!-- <div class="center-material">
@@ -151,7 +151,7 @@
 
 
 
-        <button><%= link_to 'Show', forms_path(form) %></button>
+        <!-- <button><a href="/forms/<%= form.id %>">Hey</button> -->
         <button><%= link_to 'Edit', edit_form_path(form) %></button>
         <button><%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' } %></button>
       

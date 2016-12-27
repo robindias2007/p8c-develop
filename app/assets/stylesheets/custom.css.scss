@@ -290,7 +290,11 @@ html body
     height: 52px;
     font-weight: bold;
     text-transform: capitalize;
-
+    color: #000000;
+&:hover{
+    color: #000000;
+    background-color: transparent;
+    }  
 }
 
 .title1
