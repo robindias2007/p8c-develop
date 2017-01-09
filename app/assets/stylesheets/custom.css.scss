@@ -111,25 +111,6 @@ button
 
 }
 
-.count
-{
-    
-    margin: 0px auto;
-    width: 30%;
-    
-}
-
-#countdra
-{
-   float:right;
-
-}
-
-#countpub
-{
-   float:left;
-
-}
 
 #search-box
 {   
@@ -402,6 +383,64 @@ hr
     height:430px;
 }
 
+#usacc
+{
+width: 50%;
+margin-top: 150px;
+}
+
+
+#abt
+{
+    width: 67%;
+    margin: 0 px auto;
+    margin-top: 5px;
+}
+
+.count
+{
+ width: 40%;
+ margin: 0px auto;
+ font-size: 24px;
+ line-height: 50px;
+}
+
+.count > #countpub
+{
+    float:left;
+}
+
+.count > #countsav
+{
+    float:right;
+}
+
+
+.boord
+{
+    width: 45%;
+    margin: 0px auto;
+}
+
+.boord > #board
+{
+    font-size: 15px;
+    float: left;
+}
+
+.boord > #board1
+{
+    font-size: 15px;
+}
+
+.boord > #board2
+{
+    font-size: 15px;
+    float: right;
+}
+
+
+
 /*----------form---------------- */
 
 .field 
@@ -434,7 +473,7 @@ hr
 #Save
 {
     font-size: 16px;
-    letter-sapcing: 200px;
+    letter-spacing: 200px;
     height: 20px;
     width: 30%;
 }
@@ -472,10 +511,10 @@ table, th, td{
 
 #username
 {   
-    font-size: 24px;
+    font-size: 20px;
     margin: 0px auto;
-    width: 20%;
-    float: center;
+    margin-right: -100px;
+    margin-top: -50px;
 }
 
 .dropdown-menu
@@ -588,4 +627,52 @@ table, th, td{
   float: left;
 
   color: white;
+}
+
+
+
+/* Dropdown Button */
+#dropbtn {
+    
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
 }

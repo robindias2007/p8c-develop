@@ -1,15 +1,17 @@
 <div class="maincont">
 
 
-<i class="material-icons" style="font-size:50px; float:center">account_circle</i>
-<div id="username"><%= @username  %></div>
-
+<div id="usacc"><i class="material-icons" style="font-size:50px; float:center">account_circle</i>
+<div id="username"><%= @username  %></div></div>
+<br>
+<br>
 
 <% if current_user.username == @username %>
 <div class="formlist">
 
-<a href="/static_pages/publish"><button type="button" id="pubbut">Published Boards</button></a>
-<a href="/static_pages/drafts"><button type="button" id="drabut">Drafts</button></a><br>
+<%= link_to 'Published Boards', static_pages_publish_path, id:"board" %>
+<%= link_to 'Drafts', static_pages_drafts_path, id:"board" %>
+<%= link_to 'Saved', static_pages_drafts_path, id:"board" %>
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
 

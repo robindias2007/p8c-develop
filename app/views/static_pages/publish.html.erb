@@ -1,24 +1,28 @@
 
 <div class="maincont">
+
 <% if user = current_user %>
-<i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div>
+<div id="usacc"><i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div></div>
+<div id="abt">Web Developer & Designer</div>
 <br>
 <br>
 
 
 <div class="formlist">
-
-<a href="/static_pages/publish"><button type="button" id="pubbut">Published Boards</button></a>
-<a href="/static_pages/drafts"><button type="button" id="drabut">Drafts</button></a><br>
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
-
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
+<div id="countsav"></div>
+
+</div>
+
+<div class="boord">
+<%= link_to 'Published', static_pages_publish_path, id:"board" %>
+<%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
+<%= link_to 'Saved', static_pages_drafts_path, id:"board2" %>
 </div>
 
 <% @forms.each do |form| %>
-
-
 
 
 <div class="container1">
@@ -61,7 +65,7 @@
     <br>
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been </h4>
+    <h4 class="internal_text1"><%= form.description1 %></h4>
     <hr>
     <br>
     </div>
@@ -78,7 +82,7 @@
     <br>
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
+    <h4 class="internal_text1"><%= form.description2 %></h4>
     <hr>
     <br>
     </div>
@@ -95,7 +99,7 @@
     <br>
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
+    <h4 class="internal_text1"><%= form.description3 %></h4>
     <hr>
     <br>
     </div>
@@ -110,7 +114,7 @@
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
+    <h4 class="internal_text1"><%= form.description4 %></h4>
     <hr>
     <br>
     </div>
@@ -125,7 +129,7 @@
     <br>
     <div id="link"><%= form.url5 %></div>
     <br>
-    <h4 class="internal_text1">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been</h4>
+    <h4 class="internal_text1"><%= form.description5 %></h4>
     <hr>
     <br>
     </div>
@@ -164,3 +168,26 @@
   
 <% end %>
 </div>
+
+
+<script type="text/javascript">
+
+var hoverOrClick = function () {
+$('#board').css('color','#9C1717');
+$('#board').css('padding-bottom','2px');
+$('#board').css('border-bottom','3px solid #9C1717');}
+$('#board').click(hoverOrClick).hover(hoverOrClick);
+
+var hoverOrClick = function () {
+$('#board1').css('color','#9C1717');
+$('#board1').css('padding-bottom','2px');
+$('#board1').css('border-bottom','3px solid #9C1717');}
+$('#board1').click(hoverOrClick).hover(hoverOrClick);
+
+var hoverOrClick = function () {
+$('#board2').css('color','#9C1717');
+$('#board2').css('padding-bottom','2px');
+$('#board2').css('border-bottom','3px solid #9C1717');}
+$('#board2').click(hoverOrClick).hover(hoverOrClick);
+    
+</script>

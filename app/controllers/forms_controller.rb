@@ -1,5 +1,7 @@
 class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy]
+
+
   
   # GET /forms
   # GET /forms.json
@@ -29,28 +31,36 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
   # POST /forms
   # POST /forms.json
   def create
-
     @form = Form.new(form_params)
-    
-      if @form.save
-        if params[:commit] == 'Publish'
-          @form.update(:publish => "true")
-              
-          
+    if @form.save
+      if params[:commit] == 'Publish'
+        @form.update(:publish => "true")
         redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
-        redirect_to forms_show_path_path
-         
-        else params[:commit] == 'Save as Draft'
-          @form.update(:publish => "false")
+      # redirect_to forms_show_path
+       
+      else params[:commit] == 'Save as Draft'
+        @form.update(:publish => "false")
         redirect_to static_pages_drafts_path
-
-        end
-
-        else
-        format.html { render :new }
-        format.json { render json: @form.errors, status: :unprocessable_entity }
       end
+  
+      meta = MetaInspector.new(@form.url1)
+      @form.update(title1: meta.title,description1: meta.description)
+      meta1 = MetaInspector.new(@form.url2)   
+      @form.update(title2: meta1.title,description2: meta1.description)
+      meta2 = MetaInspector.new(@form.url3)   
+      @form.update(title3: meta2.title,description3: meta2.description)
+      meta3 = MetaInspector.new(@form.url4)   
+      @form.update(titel4: meta3.title,description4: meta3.description)
+      meta4 = MetaInspector.new(@form.url5)   
+      @form.update(title5: meta4.title,description5: meta4.description)
+  
+    else
+      format.html { render :new }
+      format.json { render json: @form.errors, status: :unprocessable_entity }
     end
+  end
+  
+    
    
 
   # PATCH/PUT /forms/1

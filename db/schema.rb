@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214052729) do
+ActiveRecord::Schema.define(version: 20170109120917) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "title"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20161214052729) do
     t.string   "url1"
     t.string   "url2"
     t.string   "url3"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "title1"
     t.string   "title2"
     t.string   "title3"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(version: 20161214052729) do
     t.string   "title5"
     t.integer  "user_id"
     t.boolean  "publish"
+    t.string   "description1"
+    t.string   "description2"
+    t.string   "description3"
+    t.string   "description4"
+    t.string   "description5"
   end
 
   create_table "users", force: :cascade do |t|

@@ -51,7 +51,17 @@
             <a href=""><li>Topic 2</li></a>
             <a href=""><li>Topic 3</li></a>
             <a href=""><li>Topic 4</li></a>
-            <a href=""><li>Bookmark</li></a>
+            <li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li>
+            <% if user_signed_in? %>
+            <a href="/static_pages/publish"><li>Published</li></a>
+            <a href="/static_pages/drafts"><li>Drafts</li></a>
+            <a href=""><li>Liked</li></a>
+            <% end %>
         </ul>
       </div>  
 
