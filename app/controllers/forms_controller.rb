@@ -4,18 +4,12 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
   # GET /forms
   # GET /forms.json
   def index
-    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)
     
+    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)
+    # if params[:url1].present?
+    #   page = MetaInspector.new("")
+    #   end
   end
-
-
-  # def drafts
-  #   @forms = Form.current_user.where(publish:false)
-  # end
-
-  # def publish
-  #  @forms = Form.current_user.where(publish:true)
-  # end
 
   # GET /forms/1
   # GET /forms/1.json
@@ -40,7 +34,7 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
     
       if @form.save
         if params[:commit] == 'Publish'
-              @form.update(:publish => "true")
+          @form.update(:publish => "true")
               
           
         redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
