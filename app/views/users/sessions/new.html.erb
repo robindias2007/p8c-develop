@@ -1,12 +1,12 @@
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 
   <div class="formlogin">
 
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  
   <div class="row", id="row1">
- 
+   
   <div class="col-md-6", id="mainrow">
   <br><br><br><br>
   <div class="mainrow1">
@@ -24,40 +24,7 @@
 </div>
   </div>
 
-  <!-- <div class="col-md-6", style="display:none" , id="SignIn">
-  <div class="headsin"><a i href="/users/sign_in" , id="sihe">Sign in</a><a href="/users/sign_up" id="sihu">Sign up</a></div>
-  <br>
   
-  <div class="signinform">
-  <div class="field">
-    <%= f.email_field :email, placeholder:"Email" %>
-  </div>
-  <br>
-  
-  <div class="field">
-    <%= f.password_field :password, placeholder:"Password" %>
-  </div>
-  <br>
-  
-  <% if devise_mapping.rememberable? -%>
-  <div class="field">
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
-  </div>
-  <br>
-  <br>
-  <div class="actions">
-  <%= f.submit "Sign In" , id:"actions1"%>
-  </div>
- 
-  <% end -%>
-  <br>
-
-<% end %>
-</div>  
-   
- </div>
- -->
 
 
 <div class="col-md-6", id="SignOut">
@@ -67,14 +34,14 @@
     
     <div class="logmod__container">
       <ul class="logmod__tabs">
-        <li data-tabtar="lgm-2"><a href="#">Login</a></li>
-        <li data-tabtar="lgm-1"><a href="#">Sign Up</a></li>
+        <li data-tabtar="lgm-2"><a href="/users/sign_in">Login</a></li>
+        <li data-tabtar="lgm-1"><a href="/users/sign_in">Sign Up</a></li>
       </ul>
       <div class="logmod__tab-wrapper">
       <div class="logmod__tab lgm-1">
         <div class="logmod__heading">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
+          <%= devise_error_messages! %>
           <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
         </div>
         <div class="logmod__form">
@@ -92,6 +59,13 @@
               <%= f.text_field :username , placeholder:"Username" %> 
               </div>
               </div>
+              <br>
+            <div class="sminputs">
+              <div class="input full">
+                <!-- <label class="string optional" for="user-name">Username*</label> -->
+              <%= f.text_field :author , placeholder:"2 Words About Yourself" %> 
+              </div>
+            </div>
               <br>
             <div class="sminputs">
               <div class="input full">

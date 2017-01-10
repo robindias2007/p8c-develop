@@ -36,6 +36,7 @@
     <br>
     <br>
     <%= f.hidden_field :description1 %>
+    <%= f.hidden_field :image1 %>
     <%= f.text_field :url1  , id:"textfield", placeholder:"First Url"  %>
   </div>
   <br>
@@ -82,7 +83,7 @@
   <br>
   <br>
   <div class="actions">
-    <%= f.submit 'Publish', id:"Save", name:"commit"%> <%= f.submit 'Save as Draft',id:"Save", name:"commit" %>
+    <%= f.submit 'Publish', id:"Save", name:"commit"%> <%= f.submit 'Save As Draft',id:"Save", name:"commit" %>
   </div>
 <% end %>
 </div>

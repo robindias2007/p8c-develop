@@ -2,7 +2,7 @@
 <div class="maincont">
 <% if user = current_user %>
 <div id="usacc"><i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div></div>
-<div id="abt">Web Developer & Designer</div>
+<div id="abt"><%= user.author %></div>
 
 <br>
 <br>

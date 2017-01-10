@@ -49,10 +49,10 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
       @form.update(title2: meta1.title,description2: meta1.description)
       meta2 = MetaInspector.new(@form.url3)   
       @form.update(title3: meta2.title,description3: meta2.description)
-      meta3 = MetaInspector.new(@form.url4)   
-      @form.update(titel4: meta3.title,description4: meta3.description)
       meta4 = MetaInspector.new(@form.url5)   
       @form.update(title5: meta4.title,description5: meta4.description)
+      meta3 = MetaInspector.new(@form.url4)   
+      @form.update(titel4: meta3.title,description4: meta3.description)
   
     else
       format.html { render :new }
