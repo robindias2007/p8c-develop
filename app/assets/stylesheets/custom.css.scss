@@ -338,6 +338,9 @@ hr
 #matred
 {
     color: #9c1717;
+    
+    font-size: 20px;
+
 }
 
 .internal_text
@@ -413,9 +416,15 @@ margin-top: 150px;
 
 .count > #countsav
 {
-    float:right;
+    text-align:right;
 }
 
+
+.count > #countdra
+{
+  margin-bottom: -49px;
+
+}
 
 .boord
 {
@@ -505,8 +514,8 @@ table, th, td{
 .formlist
 {
     width: 75%;
+    margin-left: 30px;
     
-    margin: 0px auto;
 }
 
 #username

@@ -7,11 +7,19 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :forms
+  resources :forms do
+    member do
+      put "like", to: "forms#upvote"
+      put "dislike", to: "forms#downvote"
+    end
+  end
+  
+
   get 'static_pages/home'
   get 'static_pages/home1'
   get 'static_pages/publish' =>  'static_pages#publish'
   get 'static_pages/drafts' =>  'static_pages#drafts'
+  get 'static_pages/saved' =>  'static_pages#saved'
   
   get 'user/:id'          =>   'users#show'
 

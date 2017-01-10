@@ -1,3 +1,4 @@
+<link rel="alternate" type="application/rss+xml" title="CEN RSS Feed" href="http://"/>
 
 <div class="maincont">
 
@@ -12,7 +13,7 @@
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
-<div id="countsav"></div>
+<div id="countsav">0</div>
 
 </div>
 
@@ -29,6 +30,7 @@
     
     
     <div class="col-md-4">
+
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div> -->
       <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title %></h3></a>
       <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>
@@ -61,7 +63,7 @@
     <h10 class="title1"><%= form.title1 %></h10>
     <br>
     <br>
-    <div class="image"><%= form.image1 %></div>
+    <div class="image"><%= image_tag form.image1 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -78,7 +80,7 @@
     <h10 class="title1"><%= form.title2 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image2 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -95,7 +97,7 @@
     <h10 class="title1"><%= form.title3 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image3 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -110,7 +112,7 @@
     <h10 class="title1"><%= form.titel4 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -125,7 +127,7 @@
     <h10 class="title1"><%= form.title5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url5 %></div>
     <br>
@@ -178,16 +180,16 @@ $('#board').css('padding-bottom','2px');
 $('#board').css('border-bottom','3px solid #9C1717');}
 $('#board').click(hoverOrClick).hover(hoverOrClick);
 
-var hoverOrClick = function () {
-$('#board1').css('color','#9C1717');
-$('#board1').css('padding-bottom','2px');
-$('#board1').css('border-bottom','3px solid #9C1717');}
-$('#board1').click(hoverOrClick).hover(hoverOrClick);
+// var hoverOrClick = function () {
+// $('#board1').css('color','#9C1717');
+// $('#board1').css('padding-bottom','2px');
+// $('#board1').css('border-bottom','3px solid #9C1717');}
+// $('#board1').click(hoverOrClick);
 
-var hoverOrClick = function () {
-$('#board2').css('color','#9C1717');
-$('#board2').css('padding-bottom','2px');
-$('#board2').css('border-bottom','3px solid #9C1717');}
-$('#board2').click(hoverOrClick).hover(hoverOrClick);
+// var hoverOrClick = function () {
+// $('#board2').css('color','#9C1717');
+// $('#board2').css('padding-bottom','2px');
+// $('#board2').css('border-bottom','3px solid #9C1717');}
+// $('#board2').click(hoverOrClick);
     
 </script>

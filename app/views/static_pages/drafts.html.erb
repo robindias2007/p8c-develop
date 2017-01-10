@@ -9,11 +9,10 @@
 
 
 <div class="formlist">
-
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
-<div id="countsav"></div>
+<div id="countsav">0</div>
 
 </div>
 
@@ -22,7 +21,6 @@
 <%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
 <%= link_to 'Saved', static_pages_drafts_path, id:"board2" %>
 </div>
-
 
 <% @forms.each do |form| %>
 
@@ -178,11 +176,11 @@
 
 <script type="text/javascript">
 
-var hoverOrClick = function () {
-$('#board').css('color','#9C1717');
-$('#board').css('padding-bottom','2px');
-$('#board').css('border-bottom','3px solid #9C1717');}
-$('#board').click(hoverOrClick).hover(hoverOrClick);
+// var hoverOrClick = function () {
+// $('#board').css('color','#9C1717');
+// $('#board').css('padding-bottom','2px');
+// $('#board').css('border-bottom','3px solid #9C1717');}
+// $('#board').click(hoverOrClick);
 
 var hoverOrClick = function () {
 $('#board1').css('color','#9C1717');
@@ -190,10 +188,10 @@ $('#board1').css('padding-bottom','2px');
 $('#board1').css('border-bottom','3px solid #9C1717');}
 $('#board1').click(hoverOrClick).hover(hoverOrClick);
 
-var hoverOrClick = function () {
-$('#board2').css('color','#9C1717');
-$('#board2').css('padding-bottom','2px');
-$('#board2').css('border-bottom','3px solid #9C1717');}
-$('#board2').click(hoverOrClick).hover(hoverOrClick);
+// var hoverOrClick = function () {
+// $('#board2').css('color','#9C1717');
+// $('#board2').css('padding-bottom','2px');
+// $('#board2').css('border-bottom','3px solid #9C1717');}
+// $('#board2').click(hoverOrClick);
     
 </script>

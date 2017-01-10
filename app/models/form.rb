@@ -2,6 +2,7 @@ require 'uri'
 require 'net/http'
 
 class Form < ActiveRecord::Base
+acts_as_votable
 belongs_to :user
 
 

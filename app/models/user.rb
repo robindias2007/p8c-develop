@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   has_many :forms
   
 
-
-
+  validates_uniqueness_of :username
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end

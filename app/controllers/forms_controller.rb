@@ -1,5 +1,5 @@
 class FormsController < ApplicationController
-before_action :set_form, only: [:show, :edit, :update, :destroy]
+before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
 
 
   
@@ -44,15 +44,15 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
       end
   
       meta = MetaInspector.new(@form.url1)
-      @form.update(title1: meta.title,description1: meta.description)
+      @form.update(title1: meta.title,image1: meta.images.best,description1: meta.description)
       meta1 = MetaInspector.new(@form.url2)   
-      @form.update(title2: meta1.title,description2: meta1.description)
+      @form.update(title2: meta1.title,image2: meta1.images.best,description2: meta1.description)
       meta2 = MetaInspector.new(@form.url3)   
-      @form.update(title3: meta2.title,description3: meta2.description)
+      @form.update(title3: meta2.title,image3: meta2.images.best,description3: meta2.description)
       meta4 = MetaInspector.new(@form.url5)   
-      @form.update(title5: meta4.title,description5: meta4.description)
+      @form.update(title5: meta4.title,image4: meta4.images.best,description5: meta4.description)
       meta3 = MetaInspector.new(@form.url4)   
-      @form.update(titel4: meta3.title,description4: meta3.description)
+      @form.update(titel4: meta3.title,image5: meta3.images.best,description4: meta3.description)
   
     else
       format.html { render :new }
@@ -85,6 +85,16 @@ before_action :set_form, only: [:show, :edit, :update, :destroy]
       format.html { redirect_to forms_url, notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @form.upvote_by current_user
+    redirect_to :back
+  end
+
+  def downvote
+   @form.downvote_by current_user
+   redirect_to :back
   end
 
   private
