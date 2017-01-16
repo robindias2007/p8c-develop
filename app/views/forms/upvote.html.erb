@@ -1,38 +1,14 @@
-<!-- <p id="notice"><%= notice %></p> -->
 <div class="maincont">
-<% if user = current_user %>
-<div id="usacc"><i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div></div>
-<div id="abt"><%= user.author %></div>
-
-<br>
-<br>
-
-
-<div class="formlist">
-<div class="count">
-<div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
-<div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
-<div id="countsav"><%= Form.where(id: current_user.find_voted_items).count %></div>
-
-</div>
-
-<div class="boord">
-<%= link_to 'Published', static_pages_publish_path, id:"board" %>
-<%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
-<%= link_to 'Saved', static_pages_saved_path, id:"board2" %>
-</div>
-
 <% @forms.each do |form| %>
-
-
 
 
 <div class="container1">
     
     
     <div class="col-md-4">
+
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div> -->
-      <br><h3 class="title"><%= form.title %></h3>
+      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title %></h3></a>
       <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>
       <h3 class="internal_text"><%= form.description %></h3>
       <!-- <div class="center-material">
@@ -40,11 +16,11 @@
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
     </div> -->
-<!--     <div class="center-material">28 mins long</div> -->
+<!--     <div class="center-material">28 mins long</div>
+ -->    <br>
     <br>
     <br>
-    <br>
-    <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= current_user.username %></div></div></a>
+        <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= current_user.username %></div></div></a>
       <!-- <div class="bottom-material">
       <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
@@ -63,7 +39,7 @@
     <h10 class="title1"><%= form.title1 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image1 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -80,7 +56,7 @@
     <h10 class="title1"><%= form.title2 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image2 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -97,7 +73,7 @@
     <h10 class="title1"><%= form.title3 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image3 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -112,7 +88,7 @@
     <h10 class="title1"><%= form.titel4 %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -127,11 +103,11 @@
     <h10 class="title1"><%= form.title5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url5 %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description %></h4>
+    <h4 class="internal_text1"><%= form.description5 %></h4>
     <hr>
     <br>
     </div>
@@ -155,43 +131,8 @@
     </div>  
      </div> 
 
-
-         
-        <button><%= link_to 'Publish', edit_form_path(form) %></button>
-        <button><%= link_to 'Edit', edit_form_path(form) %></button>
-        <button><%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' } %></button>
-      
     <% end %>
 
 </div>
-<br>
 
- 
-  </li>
-<% else %>
-  
-<% end %>
-</div>
-
-
-<script type="text/javascript">
-
-// var hoverOrClick = function () {
-// $('#board').css('color','#9C1717');
-// $('#board').css('padding-bottom','2px');
-// $('#board').css('border-bottom','3px solid #9C1717');}
-// $('#board').click(hoverOrClick);
-
-var hoverOrClick = function () {
-$('#board1').css('color','#9C1717');
-$('#board1').css('padding-bottom','2px');
-$('#board1').css('border-bottom','3px solid #9C1717');}
-$('#board1').click(hoverOrClick).hover(hoverOrClick);
-
-// var hoverOrClick = function () {
-// $('#board2').css('color','#9C1717');
-// $('#board2').css('padding-bottom','2px');
-// $('#board2').css('border-bottom','3px solid #9C1717');}
-// $('#board2').click(hoverOrClick);
-    
-</script>
+<div>

@@ -20,17 +20,28 @@
  -->
 
 
-
+<br><br>
 <div class="container1">
     
     
     <div class="col-md-4">
-      <div id="liking"><%= link_to like_form_path(@form), method: :put do %>
-        <i class="material-icons" style="color:#9c1717; float:left">favorite_border</i><div class="like" id="matred"><%= @form.get_upvotes.size %></div></div>
-        <% end %>
-      <!-- <div id="liking"><%= link_to dislike_form_path(@form), method: :put do %>
-        <i class="material-icons" style="color:#9c1717; float:left">favorite_border</i><div class="like" id="matred"><%= @form.get_downvotes.size %></div></div>
-      <% end %> -->
+    <div class="like">
+    <% if current_user.liked? @form %>
+    <%= link_to dislike_form_path(@form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(@form), id: @form.id } do %>
+    <i class="material-icons" style="color:#9c1717">favorite</i>
+    
+    <% end %>
+
+    <% else %>
+    <%= link_to like_form_path(@form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(@form), id: @form.id } do %>
+    <i class="material-icons" style="color:#9c1717">favorite_border</i>
+    <% end %>
+
+    <% end %>
+
+    <%= @form.get_likes.size %>
+    </div>
+
       <br><h3 class="title"><%= @form.title %></h3>
       <h10 class="date"><%= @form.created_at.strftime('%b %d, %Y') %></h10><br>
       <h3 class="internal_text"><%= @form.description %></h3>
@@ -164,3 +175,22 @@
   
 <% end %>
 </div>
+
+<script type="text/javascript">
+$(document).on 'ajax:success', 'a.vote', (status,data,xhr)->
+  # update counter
+  $(".votes-count[data-id=#{data.id}]").text data.count
+
+  # toggle links
+  $("a.vote[data-id=#{data.id}]").each ->
+    $a = $(this)
+    href = $a.attr 'href'
+    text = $a.text()
+    $a.text($a.data('toggle-text')).attr 'href', $a.data('toggle-href')
+    $a.data('toggle-text', text).data 'toggle-href', href
+    return
+
+  return
+
+
+</script>

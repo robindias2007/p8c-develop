@@ -12,12 +12,38 @@ header, nav {
     margin: 0px
 }
 
+.message {
+  color: black;
+  font-size: 11px;
+  font-family: "MARKPRO";
+  position: absolute;
+  margin-left: 15px;
+  margin-top: -30px;
+  position: absolute;
+  padding: 5px;
+  
+}
+
+
+#form_group .field_with_errors
+{
+display: inherit;
+background-color: transparent;
+}
+
+#form_group .field_with_errors .form-control
+{
+-webkit-box-shadow: 0 0 5px red;
+        box-shadow: 0 0 5px red;
+padding-bottom: 1px;
+}
+
+
 .header
 {   
     
     margin: 0px auto;
     width: 100%;
-    border-bottom: 2px solid;
     height: 50px;
 }
 
@@ -27,7 +53,9 @@ header, nav {
     top: 0px;
     background-color:white;
     width: 100%;
+    height: 106px;
     z-index: 2;
+    border-bottom: 2px solid;
 }
 
 #nav-header {
@@ -153,7 +181,7 @@ button
 #nav-menu
 {
     width: 1024px;
-    height: 45px;
+    height: 30px;
     margin: 0 auto;
         
 }
@@ -161,9 +189,8 @@ button
     
 
 #subh {   
-    width: 1024px;
-    height: 45px;
-    margin: 0 auto;
+    width: 100%;
+    height: 0px;
     float: left;
 }
 
@@ -180,7 +207,7 @@ float: left;
     padding: 0 px;
 }
 #nav-menu ul li:hover{
-    padding-bottom: 2px;
+    padding-bottom: 9px;
     border-bottom: 3px solid #9C1717;
 }
 .container
@@ -316,10 +343,19 @@ html body
 .like
 {   
 
-    font-size: 12px;
-    margin-top: 2px;
+    font-size: 20px;
+    margin-top: 1px;
     vertical-align: middle;
     float: left;
+
+}
+
+.vote
+{
+ &:hover{
+    color: #9c1717;
+    background-color: transparent;
+    }   
 }
 hr
 {
@@ -404,7 +440,7 @@ margin-top: 150px;
 .count
 {
  width: 40%;
- margin: 0px auto;
+ margin-left: 160px;
  font-size: 24px;
  line-height: 50px;
 }
@@ -429,7 +465,7 @@ margin-top: 150px;
 .boord
 {
     width: 45%;
-    margin: 0px auto;
+    margin-left: 130px;
 }
 
 .boord > #board
@@ -448,7 +484,6 @@ margin-top: 150px;
     font-size: 15px;
     float: right;
 }
-
 
 
 /*----------form---------------- */
@@ -514,7 +549,7 @@ table, th, td{
 .formlist
 {
     width: 75%;
-    margin-left: 30px;
+    margin: 0px auto;
     
 }
 

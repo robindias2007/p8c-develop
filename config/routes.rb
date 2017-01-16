@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       put "dislike", to: "forms#downvote"
     end
   end
-  
+
+  get 'forms/bookmarks' => 'forms#bookmarks' 
+    
 
   get 'static_pages/home'
   get 'static_pages/home1'

@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
-
+respond_to :js
 
   
   # GET /forms
@@ -88,13 +88,16 @@ before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
   end
 
   def upvote
-    @form.upvote_by current_user
-    redirect_to :back
+    @form = Form.find(params[:id])
+    @form.liked_by current_user
+    redirect_to @form
   end
 
+
   def downvote
-   @form.downvote_by current_user
-   redirect_to :back
+   @form = Form.find(params[:id])
+   @form.downvote_from current_user
+   redirect_to @form
   end
 
   private

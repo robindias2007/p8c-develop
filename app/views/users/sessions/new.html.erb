@@ -40,23 +40,24 @@
       <div class="logmod__tab-wrapper">
       <div class="logmod__tab lgm-1">
         <div class="logmod__heading">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= devise_error_messages! %>
+        <%= form_for(resource, :validate => true, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          
           <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
         </div>
+
         <div class="logmod__form">
           <form accept-charset="utf-8" action="#" class="simform">
             <div class="sminputs">
               <div class="input full">
                 <!-- <label class="string optional" for="user-name">Email*</label> -->
-               <%= f.email_field :email, placeholder:"Email", autofocus: true %>
+               <%= f.email_field :email, placeholder:"Email", required:true %>
               </div>
             </div>
             <br>
             <div class="sminputs">
               <div class="input full">
                 <!-- <label class="string optional" for="user-name">Username*</label> -->
-              <%= f.text_field :username , placeholder:"Username" %> 
+              <%= f.text_field :username , placeholder:"Username",required:true %> 
               </div>
               </div>
               <br>
@@ -92,7 +93,8 @@
 
       </div>
       <div class="logmod__tab lgm-2">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_for(resource, as: resource_name, validate:true, url: session_path(resource_name)) do |f| %>
+      
         <div class="logmod__heading">
           <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
         </div> 
@@ -243,10 +245,7 @@ $(document).ready(function() {
     LoginModalController.initialize();
 });
 
-
 </script>
-</div>
-</div>
 
 
 <!-- <script type="text/javascript">
