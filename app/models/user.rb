@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   
  validates_uniqueness_of :username, :email
  validates :author, :presence => {:message => "Author can't be blank" }
+ # validates_confirmation_of :email, :password
+
+
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

@@ -9,7 +9,7 @@
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
-<div id="countsav"><%= Form.where(id: current_user.find_voted_items).count %></div>
+<div id="countsav"><%= Form.where(id: current_user.find_up_voted_items).count %></div>
 
 </div>
 
