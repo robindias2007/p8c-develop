@@ -30,7 +30,22 @@
     
     
     <div class="col-md-4">
+    <div class="like">
+    <% if current_user.liked? form %>
+    <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
+    <i class="material-icons" style="color:#9c1717">favorite</i>
+    
+    <% end %>
 
+    <% else %>
+    <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
+    <i class="material-icons" style="color:#9c1717">favorite_border</i>
+    <% end %>
+
+    <% end %>
+
+    <%= form.get_likes.size %>
+    </div> 
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred">250</div> -->
       <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title %></h3></a>
       <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>

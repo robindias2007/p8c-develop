@@ -9,13 +9,17 @@
 <% if current_user.username == @username %>
 <div class="formlist">
 
-<%= link_to 'Published Boards', static_pages_publish_path, id:"board" %>
-<%= link_to 'Drafts', static_pages_drafts_path, id:"board" %>
-<%= link_to 'Saved', static_pages_drafts_path, id:"board" %>
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
-
 <div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
+<div id="countsav"><%= Form.where(id: current_user.find_voted_items).count %></div>
+
+</div>
+
+<div class="boord">
+<%= link_to 'Published', static_pages_publish_path, id:"board" %>
+<%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
+<%= link_to 'Saved', static_pages_saved_path, id:"board2" %>
 </div>
 
 <% else %>

@@ -90,14 +90,14 @@ respond_to :js
   def upvote
     @form = Form.find(params[:id])
     @form.liked_by current_user
-    redirect_to @form
+    redirect_to :back
   end
 
 
   def downvote
    @form = Form.find(params[:id])
    @form.downvote_from current_user
-   redirect_to @form
+   redirect_to :back
   end
 
   private
