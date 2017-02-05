@@ -29,7 +29,7 @@ gem 'acts_as_votable', '~> 0.10.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'client_side_validations'
-
+gem 'pg'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
