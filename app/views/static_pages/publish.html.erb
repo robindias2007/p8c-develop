@@ -139,12 +139,12 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= form.title5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></h10>
+    <h10 class="title1"><%= form.title5 %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
-    <div id="link"><%= form.url5 %></div>
+    <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
     <h4 class="internal_text1"><%= form.description5 %></h4>
     <hr>
