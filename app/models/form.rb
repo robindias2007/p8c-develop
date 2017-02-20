@@ -10,7 +10,6 @@ belongs_to :user
 # validates :title, :title1, :title2, :title3, :titel4, :title5 , length: { maximum: 50 }
 
 
-
 # before_validation :smart_add_url_protocol 
 
 

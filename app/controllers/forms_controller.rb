@@ -1,5 +1,7 @@
 class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
+before_action :authenticate_user!, :only => [:upvote]
+
 respond_to :js
 
   
@@ -43,7 +45,7 @@ respond_to :js
       @form.update(title1: meta.title,image1: meta.images.best,description1: meta.description)
       
       meta1 = MetaInspector.new(@form.url2)   
-      @form.update(title2: meta1.title)
+      @form.update(title2: meta.title,image2: meta.images.best,description2: meta.description)
       
       meta2 = MetaInspector.new(@form.url3, :retries => 4)   
       @form.update(title3: meta2.title,image3: meta2.images.best,description3: meta2.description)

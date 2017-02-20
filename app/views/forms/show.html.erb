@@ -70,14 +70,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title1 %></h10>
+    <h10 class="title1"><%= @form.title1[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image1 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description1 %></h4>
+    <h4 class="internal_text1"><%= @form.description1[0..100] rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -87,14 +87,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title2 %></h10>
+    <h10 class="title1"><%= @form.title2[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image2 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description2 %></h4>
+    <h4 class="internal_text1"><%= @form.description2[0..100] rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -104,14 +104,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title3 %></h10>
+    <h10 class="title1"><%= @form.title3[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image3 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description3 %></h4>
+    <h4 class="internal_text1"><%= @form.description3[0..100] rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -119,14 +119,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.titel4 %></h10>
+    <h10 class="title1"><%= @form.titel4[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description4 %></h4>
+    <h4 class="internal_text1"><%= @form.description4[0..100] rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -134,14 +134,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></h10>
+    <h10 class="title1"><%= @form.title5[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag "placeholder.png", id:"image" %></div>
+    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
-    <div id="link"><%= @form.url5 %></div>
+    <div id="link"><%= @form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description5 %></h4>
+    <h4 class="internal_text1"><%= @form.description5[0..100] rescue nil %></h4>
     <hr>
     <br>
     </div>
