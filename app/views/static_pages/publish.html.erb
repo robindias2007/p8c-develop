@@ -72,6 +72,7 @@
     <div class="container3">
    
     <div class="row">
+    <a href= <%= form.url1 %>, target="_blank", id="formclick" >
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
@@ -86,9 +87,10 @@
     <hr>
     <br>
     </div>
+    </a>
 
   
-    
+    <a href= <%= form.url2 %> , target="_blank", id="formclick">
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
@@ -103,9 +105,9 @@
     <hr>
     <br>
     </div>
-    
+    </a>
 
-     
+    <a href= <%= form.url3 %>, target="_blank", id="formclick" >
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
@@ -120,14 +122,16 @@
     <hr>
     <br>
     </div>
+    </a>
 
+    <a href= <%= form.url4 %>, target="_blank" , id="formclick">
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1"><%= form.titel4[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
+    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -135,14 +139,16 @@
     <hr>
     <br>
     </div>
-
+    </a>
+ 
+    <a href= <%= form.url5 %>, target="_blank" , id="formclick">
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
     <h10 class="title1"><%= form.title5[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
+    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -150,6 +156,7 @@
     <hr>
     <br>
     </div>
+    </a>
 <!-- 
     <div class="col-md-2 col-half-offset">
     <br>
