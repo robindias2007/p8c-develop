@@ -160,8 +160,7 @@
     </div>  
      </div> 
  
-        <button><%= link_to 'publish',form , method: :post, data: { confirm: 'Are you sure?' } %></button>
-        <button><%= link_to 'Edit', edit_form_path(form) %></button>
+        <button><%= link_to 'Edit and Publish', edit_form_path(form) %></button>
         <button><%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' } %></button>
     <% end %>  
 
