@@ -49,10 +49,10 @@ respond_to :js
       @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description)
       
       meta3 = MetaInspector.new(@form.url4)   
-      @form.update(titel4:meta3.title, image5:meta3.images.best, description4:meta3.description)
+      @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description)
       
       meta4 = MetaInspector.new(@form.url5)   
-      @form.update(title5:meta4.title, image4:meta4.images.best, description5:meta4.description)
+    @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description)
       
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
