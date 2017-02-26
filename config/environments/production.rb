@@ -69,7 +69,16 @@ Rails.application.configure do
   config.i18n.fallbacks = true
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { :host => 'mighty-bayou-67423.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :user_name            => 'robindias2007@gmail.com',
+      :password             => '9892228035',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true  }
 
+       
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
