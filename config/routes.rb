@@ -14,8 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'forms/bookmarks' => 'forms#bookmarks' 
-    
+  get 'forms/bookmarks' => 'forms#bookmarks'     
 
   get 'static_pages/home'
   get 'static_pages/home1'
