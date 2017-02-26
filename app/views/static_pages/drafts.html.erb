@@ -114,7 +114,7 @@
     <h10 class="title1"><%= form.titel4[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
+    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -131,7 +131,7 @@
     <h10 class="title1"><%= form.title5[0..30] rescue nil %></h10>
     <br>
     <br>
-    <div class="image"><%= image_tag form.image4 , id:"image" %></div>
+    <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
@@ -160,8 +160,8 @@
     </div>  
      </div> 
  
-
-        <button><%= link_to 'Edit and Publish', edit_form_path(form) %></button>
+        <button><%= link_to 'publish',form , method: :post, data: { confirm: 'Are you sure?' } %></button>
+        <button><%= link_to 'Edit', edit_form_path(form) %></button>
         <button><%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' } %></button>
     <% end %>  
 

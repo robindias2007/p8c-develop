@@ -76,11 +76,35 @@ respond_to :js
   # PATCH/PUT /forms/1
   # PATCH/PUT /forms/1.json
   def update
-    respond_to do |format|
+    
       if @form.update(form_params)
-        format.html { redirect_to @form, notice: 'Form was successfully updated.' }
-        format.json { render :show, status: :ok, location: @form }
+      meta = MetaInspector.new(@form.url1)
+      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description)
+      
+      meta1 = MetaInspector.new(@form.url2)   
+      @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description)
+      
+      meta2 = MetaInspector.new(@form.url3)   
+      @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description)
+      
+      meta3 = MetaInspector.new(@form.url4)   
+      @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description)
+      
+      meta4 = MetaInspector.new(@form.url5)   
+      @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description)
+      
+      if params[:commit] == 'Publish'
+       @form.update(:publish => "true")
+      redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+
+      else params[:commit] == 'Save as Draft'
+        @form.update(:publish => "false")
+        redirect_to static_pages_drafts_path
+      end
+
       else
+
+        respond_to do |format|
         format.html { render :edit }
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
