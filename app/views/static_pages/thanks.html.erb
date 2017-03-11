@@ -11,17 +11,14 @@
     
     <div class="col-md-4">
     <div class="like">
-    <% if current_user.liked? form %>  <%-# This is to check whether the current user is liking the post  -%>
-    
-    <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %> 
-     <%-# It is link to dislike the form which has delete method. Once you dislike the form it gets deleted from the saved boards. It uses the acts_as_votable gem  -%>
-    <i class="material-icons" style="color:#9c1717">favorite</i> <%-# This is a material icon heart -%>
+    <% if current_user.liked? form %>
+    <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
+    <i class="material-icons" style="color:#9c1717">favorite</i>
     
     <% end %>
- 
-    <% else %>  
-    <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %> 
-    <%-# current_user is a user who is currently logged in and checks whether if the current_user has liked the form. Once you like it it gets saved in the saved boards. It uses the acts_as_votable gem  -%>
+
+    <% else %>
+    <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
     <i class="material-icons" style="color:#9c1717">favorite_border</i>
     <% end %>
 

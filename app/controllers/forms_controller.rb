@@ -20,7 +20,8 @@ respond_to :js
 
   # GET /forms/new
   def new
-    @form = Form.new #this is new method. where you can create a new form. It is basically a form.
+    @form = Form.new 
+    #this is new method. where you can create a new form. It is basically a form.
   end
 
   # GET /forms/1/edit
