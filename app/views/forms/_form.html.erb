@@ -1,7 +1,7 @@
-<% if user = current_user %>
+<% if user = current_user %>   <%-# only the user is current_user then only can he create a form -%>
 
 <%= form_for(@form) do |f| %>
-  <% if @form.errors.any? %>
+  <% if @form.errors.any? %>  
     <div id="error_explanation">
       <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>
 
@@ -14,11 +14,13 @@
   <% end %>
 <div class="form_container">
 
-<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.hidden_field :user_id, value: current_user.id %>  <%-# Unique id to the customers so that each is user is differently identified. User 1 has id 1. -%>
 
 
+<%-# label and text_field are used -%>
+<%-# Its a form to be submitted by the user -%>
 
-  <div class="field">
+  <div class="field">                                  
     <%= f.label :Board_Title %>
     <%= f.text_field :title  , id:"textfield" , placeholder:"Enter title" %>
   </div>
@@ -82,6 +84,7 @@
   <br>
   <br>
   <div class="actions">
+  <%-# 2 call to actions -%>
     <%= f.submit 'Publish', id:"Save", name:"commit"%> <%= f.submit 'Save As Draft',id:"Save", name:"commit" %>
   </div>
 <% end %>

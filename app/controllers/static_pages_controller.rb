@@ -3,23 +3,23 @@ class StaticPagesController < ApplicationController
   end
 
 
-  def thanks
-   @forms = Form.order(created_at: :desc).where(publish:true)
+  def thanks #thanks.html.erb
+   @forms = Form.order(created_at: :desc).where(publish:true)  #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
   end
 
-  def publish
-   @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)
-  end
+  def publish   #publish.html.erb
+   @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)  #it shows published boards where user_id:current_user.id which means it will show only the current user logged in published boards
+  end 
 
-  def drafts
-   @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:false)
+  def drafts  #drafts.html.erb
+   @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:false)   #this is for drafts for current__user
    if params[:commit] == 'Publish'
     @form.update(:publish => "true")
     redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
    end       
   end
   
-  def destroy
+  def destroy #to delete the form
    @form.destroy
    respond_to do |format|
     format.html { redirect_to forms_url, notice: 'Form was successfully destroyed.' }
@@ -27,7 +27,7 @@ class StaticPagesController < ApplicationController
     end
   end
 
-  def update
+  def update 
     respond_to do |format|
       if @form.update(form_params)
         format.html { redirect_to @form, notice: 'Form was successfully updated.' }
@@ -42,9 +42,9 @@ class StaticPagesController < ApplicationController
   def show
   end
 
-  def saved
-   @forms = Form.where(id: current_user.find_voted_items).order(created_at: :desc)
-  end
+  def saved #saved.html.erb
+   @forms = Form.where(id: current_user.find_voted_items).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
+  end    
 
 
 

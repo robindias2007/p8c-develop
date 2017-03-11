@@ -7,23 +7,20 @@ respond_to :js
   
   # GET /forms
   # GET /forms.json
-  def index
-    
-    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)
-    # if params[:url1].present?
-    #   page = MetaInspector.new("")
-    #   end
+  def index #index.html.erb
+    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true) 
+    #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
 
   # GET /forms/1
   # GET /forms/1.json
   def show
-    @forms = Form.where(user_id:current_user.id)
+    @forms = Form.where(user_id:current_user.id) #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
   end
 
   # GET /forms/new
   def new
-    @form = Form.new
+    @form = Form.new #this is new method. where you can create a new form. It is basically a form.
   end
 
   # GET /forms/1/edit
@@ -34,14 +31,18 @@ respond_to :js
   # POST /forms
   # POST /forms.json
   def create
-    @form = Form.new(form_params)
-    if @form.save
+    @form = Form.new(form_params)  #Form.new shows the new form to the user
+    if @form.save                  # if form.save means if it clicked on publish or draft
       
-      # redirect_to forms_show_path
+      
+      meta = MetaInspector.new(@form.url1) #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
+      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) 
+      
+      #MetaInspector stores all the url values like title, description and images.best whose response is given to us. 
+      # Then we store it in our database and our database updates the current_form with title, image and description.
+      # Instead of loading the entire page it saves the value in our database and it updates it.
 
-      meta = MetaInspector.new(@form.url1)
-      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description)
-      
+
       meta1 = MetaInspector.new(@form.url2)   
       @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description)
       
@@ -52,15 +53,15 @@ respond_to :js
       @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description)
       
       meta4 = MetaInspector.new(@form.url5)   
-    @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description)
+      @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description)
       
-      if params[:commit] == 'Publish'
-       @form.update(:publish => "true")
-      redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+      if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
+       @form.update(:publish => "true")       #publish becomes true
+      redirect_to static_pages_publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
 
-      else params[:commit] == 'Save as Draft'
+      else params[:commit] == 'Save as Draft'   # it checks if the user has clicked drafs then publish becomes false so it updates it with false
         @form.update(:publish => "false")
-        redirect_to static_pages_drafts_path
+        redirect_to static_pages_drafts_path  #then it redirects to static_pages/drafts and stores the form there. 
       end
   
   
@@ -77,7 +78,9 @@ respond_to :js
   # PATCH/PUT /forms/1.json
   def update
     
-      if @form.update(form_params)
+    # When you draft your board and you want to publish that draft you edit and publish it here. So the form is updated or edited here using metainspector again with the update function
+    
+    if @form.update(form_params)  
       meta = MetaInspector.new(@form.url1)
       @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description)
       
@@ -102,7 +105,7 @@ respond_to :js
         redirect_to static_pages_drafts_path
       end
 
-      else
+      else  #if this gives an error it will go back to edit page
 
         respond_to do |format|
         format.html { render :edit }
@@ -114,6 +117,8 @@ respond_to :js
   # DELETE /forms/1
   # DELETE /forms/1.json
   def destroy
+    # destroy is method to delete a form.
+
     @form.destroy
     respond_to do |format|
       format.html { redirect_to forms_url, notice: 'Form was successfully destroyed.' }
@@ -122,14 +127,14 @@ respond_to :js
   end
 
   def upvote
-    @form = Form.find(params[:id])
-    @form.liked_by current_user
+    @form = Form.find(params[:id])   #upvote is a method used to like a post taken from acts_as_votable gem  where params[:id] means it takes parameters of the current form.
+    @form.liked_by current_user      #liked_by is predefined function to like a form 
     redirect_to :back
   end
 
 
   def downvote
-   @form = Form.find(params[:id])
+   @form = Form.find(params[:id])    #Opposite of upvote.
    @form.downvote_from current_user
    redirect_to :back
   end
@@ -140,8 +145,10 @@ respond_to :js
       @form = Form.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def form_params
+    #these are the list of parameters for a form
+    #require means compulsary fields and permit is used to protect our data.
+      
       params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5)
     end
 end

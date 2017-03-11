@@ -1,19 +1,8 @@
-<!-- <p id="notice"><%= notice %></p> -->
 <div class="maincont">
 <% if user = current_user %>
-<!-- <i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username"><%= user.username %></div>
 <br>
-<br>
-
-
-<div class="formlist">
-
-<a href="/static_pages/publish"><button type="button">Published Boards</button></a>
-<a href="/static_pages/drafts"><button type="button" >Drafts</button></a><br>
- --><!-- <div id="count"><%= Form.where(publish:true).count %>
-</div> -->
-<br>
-<% @forms.each do |form| %>
+<% @forms.each do |form| %> 
+<%-# @forms is taken from form controller which has all the forms and it is putting each form into variable form so to call each entity of a form. For eg. to call url we can jus call form.url -%>
 
 
 
@@ -22,25 +11,33 @@
     
     <div class="col-md-4">
     <div class="like">
-    <% if current_user.liked? form %>
-    <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
-    <i class="material-icons" style="color:#9c1717">favorite</i>
+    <% if current_user.liked? form %>  <%-# This is to check whether the current user is liking the post  -%>
+    
+    <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %> 
+     <%-# It is link to dislike the form which has delete method. Once you dislike the form it gets deleted from the saved boards. It uses the acts_as_votable gem  -%>
+    <i class="material-icons" style="color:#9c1717">favorite</i> <%-# This is a material icon heart -%>
     
     <% end %>
-
-    <% else %>
-    <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
+ 
+    <% else %>  
+    <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %> 
+    <%-# current_user is a user who is currently logged in and checks whether if the current_user has liked the form. Once you like it it gets saved in the saved boards. It uses the acts_as_votable gem  -%>
     <i class="material-icons" style="color:#9c1717">favorite_border</i>
     <% end %>
 
     <% end %>
 
-    <%= form.get_likes.size %>
+    <%= form.get_likes.size %> 
+    <%-# It tells you the total count or the total likes on the current form  -%>
     </div>
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
-      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title %></h3></a>
-      <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>
-      <h3 class="internal_text"><%= form.description[0..1] rescue nil %></h3>
+      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title %></h3></a> 
+      <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
+
+      <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br> 
+      <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
+      
+      <h3 class="internal_text"><%= form.description[0..100] rescue nil %></h3>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
@@ -52,7 +49,7 @@
     <br>
         
         <a href= "/user/<%= form.user.username %>" > <div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
-
+ 
       <!-- <div class="bottom-material">
       <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
@@ -64,25 +61,33 @@
    
     <div class="row">
 
-    <a href= <%= form.url1 %>, target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
+    <a href= <%= form.url1 %>, target="_blank", id="formclick" > 
+    <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
+    <div class="col-md-2 col-half-offset">  
+    <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
     <br>
     <hr>
-    <h10 class="title1"><%= form.title1[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= form.title1[0..30] rescue nil %></h10> 
+    <%-# It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters -%>
+    <%-# rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form -%>
     <br>
     <br>
-    <div class="image"><%= image_tag form.image1 , id:"image" %></div>
+    <div class="image"><%= image_tag form.image1 , id:"image" %></div> 
+    <%-# It renders the image of the entered url from orders controller using metainspector gem in the create method -%>
     <br>
-    <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+    <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
+    <%-# It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda -%>
     <br>
-    <h4 class="internal_text1"><%= form.description1[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= form.description1[0..100] rescue nil %></h4> 
+    <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
     <hr>
     <br>
     </div>
     </a>
 
   
-    <a href= <%= form.url2 %>, target="_blank", id="formclick" >
+    <a href= <%= form.url2 %>, target="_blank", id="formclick" > 
+    <%-# target="_blank is used to open the url on a different tab on a window"  -%>
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
@@ -94,6 +99,7 @@
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
     <h4 class="internal_text1"><%= form.description2[0..100] rescue nil %></h4>
+    <%-# interanal_text1 is a space where the description will come. Fixed field.  -%>
     <hr>
     <br>
     </div>
