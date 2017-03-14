@@ -11,5 +11,5 @@ class User < ActiveRecord::Base
 
  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable    #this is used for user sign in and sign out
-                                                                  #to understand devise we have to refer devise on github
+                                                                  #to understand devise we have to refer devise on https://github.com/plataformatec/devise
 end

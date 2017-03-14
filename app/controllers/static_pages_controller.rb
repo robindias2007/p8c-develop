@@ -3,7 +3,8 @@ class StaticPagesController < ApplicationController
   end
 
 
-  def thanks #thanks.html.erb
+  def home #home.html.erb
+   @home_user = true;
    @forms = Form.order(created_at: :desc).where(publish:true)  #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
   end
 
@@ -12,6 +13,7 @@ class StaticPagesController < ApplicationController
   end 
 
   def drafts  #drafts.html.erb
+   @home_banner = true;
    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:false)   #this is for drafts for current__user
    if params[:commit] == 'Publish'
     @form.update(:publish => "true")
@@ -43,6 +45,8 @@ class StaticPagesController < ApplicationController
   end
 
   def saved #saved.html.erb
+   @home_user = true;   #board validation for showing things and to not show somethings
+   @home_user1 = true;
    @forms = Form.where(id: current_user.find_voted_items).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
   end    
 

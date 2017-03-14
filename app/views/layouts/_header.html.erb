@@ -9,12 +9,15 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-        <div class="mainheader">
-        <div class="header">
-        <div id="nav-header">
+        <div class="mainheader">  <!-- mainheader is the entire header -->
+        <div class="header">      <!-- header enables positioning for nav header -->
+        <div id="nav-header">    <!-- nev-header consists of all elements -->
            <ul>
                <a href="/"><li id="logo"><%= image_tag 'logo.png' %>THE LENSE</li></a>
                
+               <!-- appearance based on whether the user as signed in or not -->
+
+
                <% if user_signed_in? %>
                <a href="/forms/new"><li id="curate">Curate<i class="material-icons" , id="nav-icons">add_circle_outline</i></li></a>
                <a href="" class="dropdown-toggle"  data-toggle="dropdown"><i class="material-icons" style="font-size:30px; color: #000000; float: right; ">account_circle</i></a>

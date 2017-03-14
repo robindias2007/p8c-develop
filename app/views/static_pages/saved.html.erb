@@ -27,7 +27,6 @@
 <%= link_to 'Saved', static_pages_saved_path, id:"board2" %>
 </div>
 
-
 <% @forms.each do |form| %>
 
 <% if current_user.liked? form %>
@@ -189,5 +188,6 @@
      </div> 
 
     <% end %>
+
 </div>
 <% end %>

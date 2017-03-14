@@ -16,15 +16,13 @@ Rails.application.routes.draw do
 
   get 'forms/bookmarks' => 'forms#bookmarks'     
 
-  get 'static_pages/home'
-  get 'static_pages/home1'
   get 'static_pages/publish' =>  'static_pages#publish'
   get 'static_pages/drafts' =>  'static_pages#drafts'
   get 'static_pages/saved' =>  'static_pages#saved'
   
   get 'user/:id'          =>   'users#show'
 
-  root 'static_pages#thanks'
+  root 'static_pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
