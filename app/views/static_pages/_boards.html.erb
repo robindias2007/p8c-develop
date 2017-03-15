@@ -39,9 +39,9 @@
     <br>
     <br>
     <% if @home_user %>
-    <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
+    <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
      <% else %>
-    <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= current_user.username %></div></div></a>
+    <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= current_user.username %></div></div></a>
     <% end %>
 
 
