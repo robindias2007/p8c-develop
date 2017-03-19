@@ -343,7 +343,8 @@ html body
 #prouser
 {
  margin-top: -25px;
- margin-left: 75px;   
+ margin-left: 75px;  
+ word-spacing: 10px; 
 }
 .like
 {   
@@ -440,6 +441,7 @@ margin-top: 150px;
     width: 59%;
     margin: 0 px auto;
     margin-top: 5px;
+    margin-left: 15px;
 }
 
 .count
@@ -564,6 +566,7 @@ table, th, td{
     margin: 0px auto;
     margin-right: -100px;
     margin-top: -50px;
+    word-spacing: 13px;
 }
 
 .dropdown-menu
