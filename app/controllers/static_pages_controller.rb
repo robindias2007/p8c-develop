@@ -9,6 +9,7 @@ class StaticPagesController < ApplicationController
   end
 
   def publish   #publish.html.erb
+   @home_banner = true;
    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)  #it shows published boards where user_id:current_user.id which means it will show only the current user logged in published boards
   end 
 

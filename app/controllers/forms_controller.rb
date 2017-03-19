@@ -2,6 +2,7 @@ class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
 before_action :authenticate_user!, :only => [:upvote]
 
+
 respond_to :js
 
   

@@ -132,12 +132,16 @@ padding-bottom: 1px;
 }
 
 
-button
+.btn
 { 
   margin-top: 5px;
-  width: 25%;
-  height: 15%;
+  
+}
 
+.btn-primary
+{
+    background-color: #f2f2f3;
+    color: black;
 }
 
 
