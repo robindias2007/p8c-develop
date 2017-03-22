@@ -17,3 +17,9 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require rails.validations
+
+
+$(".vote").click(function(e) {
+    e.preventDefault();
+    console.log("Showing");
+    });
