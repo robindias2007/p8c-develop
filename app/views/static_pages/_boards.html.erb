@@ -24,9 +24,10 @@
     <%= @form.get_likes.size %>
     </div>
 
-      <br><h3 class="title"><%= @form.title[0..20] %></h3>
-      <h10 class="date"><%= @form.created_at.strftime('%b %d, %Y') %></h10><br>
-      <h3 class="internal_text"><%= @form.description[0..100] %></h3>
+      <br><h3 class="title"><%= @form.title[0..40] %></h3>
+      <!-- <h10 class="date"><%= @form.created_at.strftime('%b %d, %Y') %></h10> -->
+      <br>
+      <h3 class="internal_text"><%= @form.description[0..250] %></h3>
     <br>
     <br>
     <br>
@@ -43,14 +44,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title1[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= @form.title1[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag @form.image1 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description1[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= @form.description1[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -61,14 +62,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title2[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= @form.title2[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag @form.image2 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description2[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= @form.description2[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -79,14 +80,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title3[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= @form.title3[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag @form.image3 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description3[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= @form.description3[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -96,14 +97,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.titel4[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= @form.titel4[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag @form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description4[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= @form.description4[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -113,14 +114,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= @form.title5[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= @form.title5[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag @form.image5 , id:"image" %></div>
     <br>
     <div id="link"><%= @form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= @form.description5[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= @form.description5[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -166,13 +167,13 @@
     <%-# It tells you the total count or the total likes on the current form  -%>
     </div>
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
-      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..20] %></h3></a> 
+      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..40] %></h3></a> 
       <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
 
-      <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br> 
+      <!-- <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>  -->
       <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
       
-      <h3 class="internal_text"><%= form.description[0..100] rescue nil %></h3>  
+      <h3 class="internal_text"><%= form.description[0..250] rescue nil %></h3>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
@@ -207,7 +208,7 @@
     <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
     <br>
     <hr>
-    <h10 class="title1"><%= form.title1[0..30] rescue nil %></h10> 
+    <h10 class="title1"><%= form.title1[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10> 
     <%-# It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters -%>
     <%-# rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form -%>
     <br>
@@ -218,7 +219,7 @@
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
     <%-# It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda -%>
     <br>
-    <h4 class="internal_text1"><%= form.description1[0..100] rescue nil %></h4> 
+    <h4 class="internal_text1"><%= form.description1[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4> 
     <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
     <hr>
     <br>
@@ -230,14 +231,14 @@
     <div class="col-md-2 col-half-offset">  
     <br>
     <hr>
-    <h10 class="title1"><%= form.title2[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= form.title2[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag form.image2 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description2[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= form.description2[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -247,14 +248,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= form.title3[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= form.title3[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag form.image3 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description3[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= form.description3[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -264,14 +265,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= form.titel4[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= form.titel4[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description4[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= form.description4[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
@@ -281,14 +282,14 @@
     <div class="col-md-2 col-half-offset">
     <br>
     <hr>
-    <h10 class="title1"><%= form.title5[0..30] rescue nil %></h10>
+    <h10 class="title1"><%= form.title5[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
     <br>
     <br>
     <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <br>
     <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description5[0..100] rescue nil %></h4>
+    <h4 class="internal_text1"><%= form.description5[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
     <hr>
     <br>
     </div>
