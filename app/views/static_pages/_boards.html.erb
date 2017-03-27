@@ -27,7 +27,7 @@
       <br><h3 class="title"><%= @form.title[0..40] %></h3>
       <!-- <h10 class="date"><%= @form.created_at.strftime('%b %d, %Y') %></h10> -->
       <br>
-      <h3 class="internal_text"><%= @form.description[0..250] %></h3>
+      <h3 class="internal_text"><%= @form.description[0..250].gsub(/\s\w+\s*$/,'...') %></h3>
     <br>
     <br>
     <br>
@@ -173,7 +173,7 @@
       <!-- <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>  -->
       <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
       
-      <h3 class="internal_text"><%= form.description[0..250] rescue nil %></h3>  
+      <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/,'...') rescue nil %></h3>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>

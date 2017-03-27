@@ -1,136 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
     
-header, nav {
+
+nav {
     display: block;
 }
-
-
-* {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px
-}
-
-.message {
-  color: black;
-  font-size: 11px;
-  font-family: "MARKPRO";
-  position: absolute;
-  margin-left: 15px;
-  margin-top: -30px;
-  position: absolute;
-  padding: 5px;
-  
-}
-
-
-#form_group .field_with_errors
+html body
 {
-display: inherit;
-background-color: transparent;
+ margin: 0 auto;
+ text-align: center;
 }
-
-#form_group .field_with_errors .form-control
-{
--webkit-box-shadow: 0 0 5px red;
-        box-shadow: 0 0 5px red;
-padding-bottom: 1px;
-}
-
-
-.header
-{   
-    
-    margin: 0px auto;
-    width: 100%;
-    height: 50px;
-}
-
-.mainheader
-{
-    position: fixed;
-    top: 0px;
-    background-color:white;
-    width: 100%;
-    height: 106px;
-    z-index: 2;
-    border-bottom: 2px solid;
-}
-
-#nav-header {
-    width: 1024px;
-    height: 45px;
-    margin: auto;
-    margin-top: 20px;
-    border-bottom-width :solid black 10px;
-}
-
-#nav-header ul li {
-    font-family: "Roboto", serif;
-    display: inline-block;
-}
-
-#curate
-{   
-    width: 120px;
-    height: 35px;
-    border: 1px solid black;
-    background-color: #9c1717;
-    font-family: Futura;
-    color: white;
-    letter-spacing: 2px;
-    font-size: 22px;
-    margin: 0px auto;
-
-}
-
-#logo {
-    font-family: Nunito, sans-serif;
-    font-weight: bold; 
-    float: left;
-    font-size: 24px;
-    cursor: pointer;
-      display: inline-block;
-      color: #000000;
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    }   
-}
-
-
-
-#logo img {
-    margin-right: 10px;
-    height: 26px;
-    width: 26px;
-    cursor: pointer
-}
-
-.dropdown-toggle
-{
-      
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    }   
-
-}
-
-
-#image
-{
-    width: 120%;
-    height: 150px;
-}
-
-.image
-{
-    width: 100%;
-    height: 150px;
-}
-
 
 .btn
 { 
@@ -143,354 +22,13 @@ padding-bottom: 1px;
     background-color: #f2f2f3;
     color: black;
 }
-
-
-#search-box
-{   
-    margin-right: 30px;
-    float: right;
-    margin-top:1px;
-}    
-
-#user {   
-    float: right;
-    font-size: 16px;
-    color : #000000;
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    } 
-}
-
-
-
-#nav-icons
-{
-    vertical-align: middle;
-
-
-
-}
-
-#serch
-{
-  vertical-align: middle;
-    &:hover{
-    color: #000000;
-    background-color: transparent;
-    } 
-}
-
-
-#nav-menu
-{
-    width: 1024px;
-    height: 30px;
-    margin: 0 auto;
-        
-}
-
-    
-
-#subh {   
-    width: 100%;
-    height: 0px;
-    float: left;
-}
-
-#subh li{
-margin: 5px 15px 0px 0px ;
-float: left;
-}
-
-#nav-menu ul li{
-    color: #9C1717;
-    font-family: "PT Serif", serif;
-    display: inline-block;
-    font-size: 16px;
-    padding: 0 px;
-}
-#nav-menu ul li:hover{
-    padding-bottom: 9px;
-    border-bottom: 3px solid #9C1717;
-}
-
-.container
-{   
-    width: 1024px;
-    
-    margin: 0px auto;
-    margin-top: 50px;
-    
-    
-}
-
-.row {
-        
-    width: 180%;
-    height: 425px;
- }
-
- #row1
- {
- width: 100%;
- height: 50%;
- }
-
-
- .col-half-offset
- {
- margin-left: 2.777777%;
  
- }
- 
-.container1
-{
- 
- border: 1px solid black;
- width: 950px;
- margin: 0px auto;
- margin-top: 50px;   
- background-color: white;
- 
-}
-
-.maincont
-{
-    margin-top: 120px;
-}
-
-.container3
-{
-    overflow-x:auto;
-}
-
-
-
-
-
-
-/* .verticalline
-{
-    border: 1px solid black;
-    width: 1px;
-    height: 100%;
-} */
-nav {
-    display: block;
-}
-html body
-{
- margin: 0 auto;
- text-align: center;
-}
-
-.vertical
-{
-    border-right: 1px solid black;
-    width: 1px;
-    margin-top: -20px;
-    height: 300px;
-}
-
-.title
-{   
-    margin-left: 26px;
-    margin-right: 26px;
-    font-family: Futura;
-    font-size: 24px;
-    text-align: center;
-    width: 265px;
-    height: 52px;
-    font-weight: bold;
-    text-transform: capitalize;
-    color: #000000;
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    }  
-}
-
-.title1
-{
-    font-family: Futura;
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: capitalize;
-    float: left;
-    text-align: left;
-    margin-top: -10px;
-    }
-
-
-.bottom-material
-{    
-    float:right;
-}
-
-#profile
-{   
-    font-size: 18px;      
-    float: left;
-    margin-left: -30px;
-    color: #000000;
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    }  
-}
-
-#prouser
-{
- margin-top: -25px;
- margin-left: 75px;  
- word-spacing: 10px; 
-}
-.like
-{   
-
-    font-size: 20px;
-    margin-top: 1px;
-    vertical-align: middle;
-    float: left;
-
-}
-
-.vote
-{
- &:hover{
-    color: transparent;
-    background-color: transparent;
-    }   
-}
-hr
-{
-    border: 1px solid #8B0000;
-    margin-top: 10px;
-    width: 120%;
-    
-}
-
-.center-material
-{
-    color: #9c1717;
-    float:center;
-}
-
-#matred
-{
-    color: #9c1717;
-    
-    font-size: 20px;
-
-}
-
-.internal_text
-{   
-    font-size: 15px;
-    color: #4A4A4A;
-    font-family: "PT Serif";
-    font-style: Italic;
-    width: 260px;
-    height:140px;
-    margin-left: 14px;
-    line-height: 25px;      
-}
-
-.internal_text1
-{
-    color: #4A4A4A;
-    font-family: "PT Serif";
-    font-size: 15px;
-    text-align: left;
-    width: 195px;
-    height: 100px;
-    line-height: 20px;
-}
-
-.date
-{  
-   color: #9c1717;
-   font-family: "PT Serif";
-   font-size: 15px;
-}
-
-#link
-{   
-    font-size: 15px;
-    color: #9c1717;
-    font-family: "PT Serif";
-    float: left;
-}
-
 .third
 {
     width:221px;
     height:430px;
 }
 
-#usacc
-{
-width: 50%;
-margin-top: 150px;
-}
-
-
-#abt
-{
-    width: 59%;
-    margin: 0 px auto;
-    margin-top: 5px;
-    margin-left: 15px;
-}
-
-.count
-{
- width: 40%;
- margin-left: 160px;
- font-size: 24px;
- line-height: 50px;
-}
-
-.count > #countpub
-{
-    float:left;
-}
-
-.count > #countsav
-{
-    text-align:right;
-}
-
-
-.count > #countdra
-{
-  margin-bottom: -49px;
-
-}
-
-.boord
-{
-    width: 45%;
-    margin-left: 130px;
-}
-
-.boord > #board
-{
-    font-size: 15px;
-    float: left;
-}
-
-.boord > #board1
-{
-    font-size: 15px;
-}
-
-.boord > #board2
-{
-    font-size: 15px;
-    float: right;
-}
 
 
 /*----------form---------------- */
@@ -690,5 +228,487 @@ table, th, td{
   float: left;
 
   color: white;
+}
+
+.message {
+  color: black;
+  font-size: 11px;
+  font-family: "MARKPRO";
+  position: absolute;
+  margin-left: 15px;
+  margin-top: -30px;
+  position: absolute;
+  padding: 5px;
+  
+}
+
+
+#form_group .field_with_errors
+{
+display: inherit;
+background-color: transparent;
+}
+
+#form_group .field_with_errors .form-control
+{
+-webkit-box-shadow: 0 0 5px red;
+        box-shadow: 0 0 5px red;
+padding-bottom: 1px;
+}
+
+/*----------board styling---------------- */
+
+.container
+{   
+    width: 1024px;
+    
+    margin: 0px auto;
+    margin-top: 50px;
+    
+    
+}
+
+
+.like
+{   
+
+    font-size: 20px;
+    margin-top: 1px;
+    vertical-align: middle;
+    float: left;
+
+}
+
+.vote
+{
+ &:hover{
+    color: transparent;
+    background-color: transparent;
+    }   
+}
+
+
+.title
+{   
+    margin-left: 26px;
+    margin-right: 26px;
+    font-family: Futura;
+    font-size: 24px;
+    text-align: center;
+    width: 265px;
+    height: 52px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #000000;
+&:hover{
+    color: #000000;
+    background-color: transparent;
+    }  
+}
+
+.title1
+{
+    font-family: Futura;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize;
+    float: left;
+    text-align: left;
+    margin-top: -10px;
+}
+
+.internal_text
+{   
+    font-size: 15px;
+    color: #4A4A4A;
+    font-family: "PT Serif";
+    font-style: Italic;
+    width: 260px;
+    height:140px;
+    margin-left: 14px;
+    line-height: 25px;      
+}
+
+.internal_text1
+{
+    color: #4A4A4A;
+    font-family: "PT Serif";
+    font-size: 15px;
+    text-align: left;
+    width: 195px;
+    height: 100px;
+    line-height: 20px;
+}
+
+
+#profile
+{   
+    font-size: 18px;      
+    float: left;
+    margin-left: -30px;
+    color: #000000;
+&:hover{
+    color: #000000;
+    background-color: transparent;
+    }  
+}
+
+
+.container1
+{
+ 
+ border: 1px solid black;
+ width: 950px;
+ margin: 0px auto;
+ margin-top: 50px;   
+ background-color: white;
+ 
+}
+
+
+.row {
+        
+    width: 180%;
+    height: 425px;
+ }
+
+
+#image
+{
+    width: 120%;
+    height: 150px;
+}
+
+.image
+{
+    width: 100%;
+    height: 150px;
+}
+
+.col-half-offset
+ {
+ margin-left: 2.777777%;
+ 
+ }
+ 
+
+
+.maincont
+{
+    margin-top: 120px;
+}
+
+.container3
+{
+    overflow-x:auto;
+}
+
+
+
+.vertical
+{
+    border-right: 1px solid black;
+    width: 1px;
+    margin-top: -20px;
+    height: 300px;
+}
+
+
+
+
+.bottom-material
+{    
+    float:right;
+}
+
+
+
+#prouser
+{
+ margin-top: -25px;
+ margin-left: 75px;  
+ word-spacing: 10px; 
+}
+
+hr
+{
+    border: 1px solid #8B0000;
+    margin-top: 10px;
+    width: 120%;
+    
+}
+
+.center-material
+{
+    color: #9c1717;
+    float:center;
+}
+
+#matred
+{
+    color: #9c1717;
+    
+    font-size: 20px;
+
+}
+
+
+
+.date
+{  
+   color: #9c1717;
+   font-family: "PT Serif";
+   font-size: 15px;
+}
+
+#link
+{   
+    font-size: 15px;
+    color: #9c1717;
+    font-family: "PT Serif";
+    float: left;
+}
+
+
+
+/*----------header---------------- */
+
+
+header, nav {
+    display: block;
+}
+
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px
+}
+
+
+.header
+{   
+    
+    margin: 0px auto;
+    width: 100%;
+    height: 50px;
+}
+
+.mainheader
+{
+    position: fixed;
+    top: 0px;
+    background-color:white;
+    width: 100%;
+    height: 106px;
+    z-index: 2;
+    border-bottom: 2px solid;
+}
+
+#nav-header {
+    width: 1024px;
+    height: 45px;
+    margin: auto;
+    margin-top: 20px;
+    border-bottom-width :solid black 10px;
+}
+
+#nav-header ul li {
+    font-family: "Roboto", serif;
+    display: inline-block;
+}
+
+#curate
+{   
+    width: 120px;
+    height: 35px;
+    border: 1px solid black;
+    background-color: #9c1717;
+    font-family: Futura;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 22px;
+    margin: 0px auto;
+
+}
+
+#logo {
+    font-family: Nunito, sans-serif;
+    font-weight: bold; 
+    float: left;
+    font-size: 24px;
+    cursor: pointer;
+      display: inline-block;
+      color: #000000;
+&:hover{
+    color: #000000;
+    background-color: transparent;
+    }   
+}
+
+
+
+#logo img {
+    margin-right: 10px;
+    height: 26px;
+    width: 26px;
+    cursor: pointer
+}
+
+.dropdown-toggle
+{
+      
+&:hover{
+    color: #000000;
+    background-color: transparent;
+    }   
+
+}
+
+#search-box
+{   
+    margin-right: 30px;
+    float: right;
+    margin-top:1px;
+}    
+
+#user {   
+    float: right;
+    font-size: 16px;
+    color : #000000;
+&:hover{
+    color: #000000;
+    background-color: transparent;
+    } 
+}
+
+
+
+#nav-icons
+{
+    vertical-align: middle;
+
+
+
+}
+
+#serch
+{
+  vertical-align: middle;
+    &:hover{
+    color: #000000;
+    background-color: transparent;
+    } 
+}
+
+
+#nav-menu
+{
+    width: 1024px;
+    height: 30px;
+    margin: 0 auto;
+        
+}
+
+    
+
+#subh {   
+    width: 100%;
+    height: 0px;
+    float: left;
+}
+
+#subh li{
+margin: 5px 15px 0px 0px ;
+float: left;
+}
+
+#nav-menu ul li{
+    color: #9C1717;
+    font-family: "PT Serif", serif;
+    display: inline-block;
+    font-size: 16px;
+    padding: 0 px;
+}
+#nav-menu ul li:hover{
+    padding-bottom: 9px;
+    border-bottom: 3px solid #9C1717;
+}
+
+
+
+
+ #row1
+ {
+ width: 100%;
+ height: 50%;
+ }
+
+
+ /*----------Count on all board pages---------------- */
+
+
+.count
+{
+ width: 40%;
+ margin-left: 160px;
+ font-size: 24px;
+ line-height: 50px;
+}
+
+.count > #countpub
+{
+    float:left;
+}
+
+.count > #countsav
+{
+    text-align:right;
+}
+
+
+.count > #countdra
+{
+  margin-bottom: -49px;
+
+}
+
+.boord
+{
+    width: 45%;
+    margin-left: 130px;
+}
+
+.boord > #board
+{
+    font-size: 15px;
+    float: left;
+}
+
+.boord > #board1
+{
+    font-size: 15px;
+}
+
+.boord > #board2
+{
+    font-size: 15px;
+    float: right;
+}
+
+
+#usacc
+{
+width: 50%;
+margin-top: 150px;
+}
+
+
+#abt
+{
+    width: 59%;
+    margin: 0 px auto;
+    margin-top: 5px;
+    margin-left: 15px;
 }
 
