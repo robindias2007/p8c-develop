@@ -3,8 +3,6 @@ class UsersController < ApplicationController
   end
 
   def show   #show.html.erb
-    
-
   	if (User.find_by_username(params[:id])) #User.find_by_username is to find a user with their username along  with its unique id.
    	 @username = params[:id] 
    	else 

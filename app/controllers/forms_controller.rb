@@ -16,8 +16,7 @@ respond_to :js
   # GET /forms/1
   # GET /forms/1.json
   def show
-    @showform = true;
-    @forms = Form.where(user_id:current_user.id) #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
+    @forms = Form.where(id: params[:id]) #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
   end
 
   # GET /forms/new

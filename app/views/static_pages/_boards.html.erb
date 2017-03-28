@@ -1,154 +1,11 @@
-<% if @showform %>
- <div class="maincont">
-<% if user = current_user %>
-
-<br><br>
-<div class="container1">
-    
-    
-    <div class="col-md-4">
-    <div class="like">
-    <% if current_user.liked? @form %>
-    <%= link_to dislike_form_path(@form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(@form), id: @form.id } do %>
-    <i class="material-icons" style="color:#9c1717">favorite</i>
-    
-    <% end %>
-
-    <% else %>
-    <%= link_to like_form_path(@form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(@form), id: @form.id } do %>
-    <i class="material-icons" style="color:#9c1717">favorite_border</i>
-    <% end %>
-
-    <% end %>
-
-    <%= @form.get_likes.size %>
-    </div>
-
-      <br><h3 class="title"><%= @form.title[0..40] %></h3>
-      <!-- <h10 class="date"><%= @form.created_at.strftime('%b %d, %Y') %></h10> -->
-      <br>
-      <h3 class="internal_text"><%= @form.description[0..250].gsub(/\s\w+\s*$/,'...') %></h3>
-    <br>
-    <br>
-    <br>
-        <a href="/static_pages/publish"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser">&nbsp;&nbsp;&nbsp;<%= @form.user.username %></div></div></a>
-       </div>
-     
-
-   
-    <div class="container3">
-    
-    <div class="row">
-
-    <a href= <%= @form.url1 %>, target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
-    <br>
-    <hr>
-    <h10 class="title1"><%= @form.title1[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
-    <br>
-    <br>
-    <div class="image"><%= image_tag @form.image1 , id:"image" %></div>
-    <br>
-    <div id="link"><%= @form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h4 class="internal_text1"><%= @form.description1[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
-    <hr>
-    <br>
-    </div>
-    </a>
-  
-    
-    <a href= <%= @form.url2 %>, target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
-    <br>
-    <hr>
-    <h10 class="title1"><%= @form.title2[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
-    <br>
-    <br>
-    <div class="image"><%= image_tag @form.image2 , id:"image" %></div>
-    <br>
-    <div id="link"><%= @form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h4 class="internal_text1"><%= @form.description2[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
-    <hr>
-    <br>
-    </div>
-    </a>
-
-     
-    <a href= <%= @form.url3 %>, target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
-    <br>
-    <hr>
-    <h10 class="title1"><%= @form.title3[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
-    <br>
-    <br>
-    <div class="image"><%= image_tag @form.image3 , id:"image" %></div>
-    <br>
-    <div id="link"><%= @form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h4 class="internal_text1"><%= @form.description3[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
-    <hr>
-    <br>
-    </div>
-    </a>
-
-    <a href= <%= @form.url4 %>, target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
-    <br>
-    <hr>
-    <h10 class="title1"><%= @form.titel4[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
-    <br>
-    <br>
-    <div class="image"><%= image_tag @form.image4 , id:"image" %></div>
-    <br>
-    <div id="link"><%= @form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h4 class="internal_text1"><%= @form.description4[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
-    <hr>
-    <br>
-    </div>
-    </a>
-
-    <a href= <%= @form.url5 %>, target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
-    <br>
-    <hr>
-    <h10 class="title1"><%= @form.title5[0..30].gsub(/\s\w+\s*$/,'...') rescue nil %></h10>
-    <br>
-    <br>
-    <div class="image"><%= image_tag @form.image5 , id:"image" %></div>
-    <br>
-    <div id="link"><%= @form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h4 class="internal_text1"><%= @form.description5[0..100].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
-    <hr>
-    <br>
-    </div>
-    </a>
-
-    </div>
-    </div>  
-     </div> 
-
-      
-    
-
-</div>
-<br>
-
-<% else %>
-  
-<% end %>
-</div>
-
-<% else %>
+<div class="maincont">
 <% @forms.each do |form| %>
 
 <div class="container1">  <!-- The elements of the entire box. -->
     
     
     <div class="col-md-4"> <!-- Bootstrap to divide the entire page into colums -->
+    <% if user_signed_in? %>
     <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
     <% if current_user.liked? form %>
     <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
@@ -166,6 +23,9 @@
     <%= form.get_likes.size %> 
     <%-# It tells you the total count or the total likes on the current form  -%>
     </div>
+    <% else %>
+    <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
+    <% end %>
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
       <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..40] %></h3></a> 
       <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
@@ -173,7 +33,7 @@
       <!-- <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10><br>  -->
       <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
       
-      <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/,'...') rescue nil %></h3>  
+      <h3 class="internal_text"><%= form.description[0..250] rescue nil %></h3>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
@@ -183,10 +43,14 @@
     <br>
     <br>
     <br>
+    <% if user_signed_in? %>
     <% if @home_user %>
     <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser">&nbsp;&nbsp;<%= form.user.username %></div></div></a>
      <% else %>
     <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser">&nbsp;&nbsp;<%= form.user.username %></div></div></a>
+    <% end %>
+    <% else %>
+    <a href="/users/sign_in"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser">&nbsp;&nbsp;<%= form.user.username %></div></div></a>
     <% end %>
 
 
@@ -308,4 +172,4 @@
 
 
 <% end %>
-<% end %>
+</div>
