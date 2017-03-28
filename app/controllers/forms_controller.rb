@@ -37,25 +37,25 @@ respond_to :js
     if @form.save                  # if form.save means if it clicked on publish or draft
       
       
-      meta = MetaInspector.new(@form.url1) #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
-      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) 
+      meta = MetaInspector.new(@form.url1) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
+      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
       
       #MetaInspector stores all the url values like title, description and images.best whose response is given to us. 
       # Then we store it in our database and our database updates the current_form with title, image and description.
       # Instead of loading the entire page it saves the value in our database and it updates it.
 
 
-      meta1 = MetaInspector.new(@form.url2)   
-      @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description)
+      meta1 = MetaInspector.new(@form.url2)   rescue nil
+      @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description) rescue nil
       
-      meta2 = MetaInspector.new(@form.url3)   
-      @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description)
+      meta2 = MetaInspector.new(@form.url3) rescue nil
+      @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description) rescue nil
       
-      meta3 = MetaInspector.new(@form.url4)   
-      @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description)
+      meta3 = MetaInspector.new(@form.url4)   rescue nil
+      @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description) rescue nil
       
-      meta4 = MetaInspector.new(@form.url5)   
-      @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description)
+      meta4 = MetaInspector.new(@form.url5)   rescue nil
+      @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
        @form.update(:publish => "true")       #publish becomes true
