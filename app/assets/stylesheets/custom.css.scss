@@ -6,6 +6,65 @@ html body {
  text-align: center;
 }
 
+
+#banner {
+    width:100%;
+    margin:120px auto -105px auto;
+    background-color: white;
+    border-bottom: 1px solid #e3e3e3;
+    box-shadow: 0px 1px 1px #888888;
+    z-index:11;
+
+}
+
+#bannerContent {
+    width:1024px;
+    margin:15px auto;
+    padding:10px 0px;
+}
+
+.bannerTitle
+{   
+    font-family: Futura, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: capitalize;
+    line-height: 1.2;
+    text-align: center;
+    color: #000000;
+    
+    width: 100%;  
+    margin:0px;
+}
+
+
+.bannerSubtitle
+{
+    font-family: Futura, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color:#9c1717;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.bannerText
+{
+    color: 4a4a4a;
+    font-family: "PT Serif";
+    font-size: 15px;
+    line-height: 1.2;
+    text-align: center;
+    
+    width: 100%;
+}
+
+span {
+    color:#8b0000;
+    font-weight:bold;
+    font-style: italics;
+}
+
 .container
 {   
     width: 1024px;
