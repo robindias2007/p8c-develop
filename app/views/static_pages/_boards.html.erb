@@ -27,7 +27,7 @@
     <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
     <% end %>
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
-      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..40] %></h3></a> 
+      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a> 
       <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
 
         <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
