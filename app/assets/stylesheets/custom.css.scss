@@ -335,6 +335,14 @@ padding-bottom: 1px;
 
 }
 
+#likes
+{
+float:right;
+line-height:24px;
+margin-left:3px;
+font-size:18px;
+}
+
 /* --------------------------------- WHAT IS THIS? --*/
 .vote
 {
@@ -354,6 +362,7 @@ padding-bottom: 1px;
     line-height: 1.2;
     text-align: center;
     color: #000000;
+    margin-top:18px;
 
     width: 100%;
     
@@ -388,8 +397,8 @@ padding-bottom: 1px;
     font-family: "PT Serif";
     font-style: Italic;
     width: 100%;
-    height:223px;
-    line-height: 24px;   
+    height:244px;
+    line-height: 1.4;   
     margin: 6px auto 10px auto;
     overflow: scroll;
 }
@@ -399,7 +408,7 @@ padding-bottom: 1px;
     color: #4A4A4A;
     font-family: "PT Serif";
     font-size: 15px;
-    line-height: 20px;
+    line-height: 1.4;
     text-align: left;
     
     width: 100%;
@@ -413,28 +422,31 @@ padding-bottom: 1px;
 {
  border: 1px solid #e3e3e3;
  width: 960px;
- margin: 50px auto 0px auto;
+ margin: 50px auto;
  background-color: white;
- box-shadow: 0px 1px 1px #888888;
+ box-shadow: 0px 2px 6px #e3e3e3;
  z-index: 2;
+ border-radius:2px;
 }
 
 .maincont
 {
-    margin-top: 150px;
+    padding:100px 0px 50px 0px;
+    background-color:white;
+}
+
+#verticalLine{
+    height:394px;
+    border-left:1px solid #e3e3e3;
+    margin:20px 0;
+    float:left;
 }
 
 .container3
 {
     overflow-x:auto;
-    border-left: 1px solid #e3e3e3; 
 }
 
-.container3:hover
-{
-    overflow-x:auto;
-    border-left: 1px solid #e3e3e3; 
-}
 
 .row {
     width: 200%;
@@ -462,6 +474,7 @@ padding-bottom: 1px;
  z-index: 3;
  margin: 20px 0.5%;
  padding: 0px 15px;
+ background-color:white;
 }
 
 /* --------------------------------- WHAT IS THIS? --*/
@@ -482,8 +495,9 @@ padding-bottom: 1px;
 #profile
 {   
     font-size: 18px;      
-    float: left;
+    float: right;
     color: #000000;
+    padding-bottom:17px;
 &:hover{
     color: #666666;
     }  
@@ -556,7 +570,7 @@ header, nav {
     width: 100%;
     height: 105px;
     z-index: 10;
-    box-shadow: 0px 1px 1px #888888;
+    box-shadow: 0px 2px 6px #888888;
 }
 
 .header
@@ -576,16 +590,53 @@ header, nav {
 
 #curate
 {   
-    width: 120px;
-    height: 30px;
-    background-color: #9c1717;
+    z-index:99;
+
+    position:absolute;
+    right:8px;
+    bottom:38px;
+
     font-family: Futura, sans-serif;
+    font-size: 18px;
+    background-color:#4e4e4e;
+
+    border-radius:2px;
     color: white;
-    font-size: 22px;
-    line-height:24px;
-    margin-left:-60px;
+
+    opacity:0;
+    display:inline;
+
+    padding: 4px 2px 7px;
+
+    transition: opacity 0.5s linear;
+    transition: padding 0.5s;
 
 }
+
+#curate:hover{
+    opacity:0.9;
+    z-index:97;
+    padding: 3px 60px 6px 6px;
+}
+
+
+#addCircle {
+    z-index:98;
+    position:absolute;
+    bottom:24px;
+    right:4px;
+
+    width: 56px;
+    height: 56px;
+
+    color: white;
+    line-height:56px;
+
+    background-color: #9c1717;
+    border-radius:100px;
+    box-shadow: 0 2px 6px #888888;
+}
+
 
 #logo {
     font-family: Futura, sans-serif;
@@ -640,6 +691,22 @@ header, nav {
 {
     vertical-align: text-bottom;
 }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+#fixedContainer {
+    position:fixed;
+    z-index:99;
+    right:0;
+    left:0;
+    width:1024px;
+    margin: auto;
+    bottom:0px;
+}
+
 
 /* #serch
 {
@@ -764,3 +831,11 @@ margin-top: 150px;
     margin-left: 15px;
 }
 
+
+/* -------------- DSIQUS THREAD ---------------- 
+#disqus_thread{
+    padding:20px;
+    margin: 50px auto;
+    width:960px;
+}
+*/

@@ -5,29 +5,11 @@
     
     
     <div class="col-md-4"> <!-- Bootstrap to divide the entire page into colums -->
-    <% if user_signed_in? %>
-    <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-    <% if current_user.liked? form %>
-    <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
-    <i class="material-icons" style="color:#9c1717">favorite</i>
+        
     
-    <% end %>
-
-    <% else %>
-    <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
-    <i class="material-icons" style="color:#9c1717">favorite_border</i>
-    <% end %>
-
-    <% end %>
-
-    <%= form.get_likes.size %> 
-    <%-# It tells you the total count or the total likes on the current form  -%>
-    </div>
-    <% else %>
-    <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
-    <% end %>
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
-      <br><a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a> 
+      
+      <a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a> 
       <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
 
         <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
@@ -43,6 +25,7 @@
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
     </div> -->
     <!-- <div class="center-material">28 mins long</div> -->
+    
 
     <% if user_signed_in? %>
     <% if @home_user %>
@@ -54,18 +37,39 @@
     <a href="/users/sign_in"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
     <% end %>
 
+    <% if user_signed_in? %>
+            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                <% if current_user.liked? form %>
+                <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
+                <i class="material-icons" style="color:#9c1717">favorite</i>
+                <% end %>
+
+                <% else %>
+                <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
+                <i class="material-icons" style="color:#9c1717">favorite_border</i>
+                <% end %>
+        <% end %>
+
+            <div id="likes"><%= form.get_likes.size %> 
+            <%-# It tells you the total count or the total likes on the current form  -%>
+            </div></div>
+
+        <% else %>
+            <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
+        <% end %>
+
 
       <!-- <div class="bottom-material">
       <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
       <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
     </div> -->
+    
     </div>
-     
 
-   
-    <div class="container3"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns -->
-   
+   <div id="verticalLine"></div>
+
+    <div class="container3"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
     <div class="row">
     <a href= <%= form.url1 %> target="_blank", id="formclick" > 
     <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
@@ -140,8 +144,31 @@
     </a>
     
     </div>
-    </div>  
-     </div>
+    </div>                      
+ </div>
+
+ <!-- USING DISQUS FOR COMMENTS!!!
+ <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://p8c.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
 
 <% if @home_banner %>
  
