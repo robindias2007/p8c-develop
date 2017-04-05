@@ -4,33 +4,37 @@
 
 
 <!-- <p id="notice"><%= notice %></p> -->
-<div class="maincont">
+<div class="maincont"> 
 <% if user = current_user %>
-<div id="usacc"><i class="material-icons" style="font-size:50px; float:center">account_circle</i><div id="username">&nbsp;&nbsp;<%= user.username %></div></div> 
-<%-# user is a variable which has the user who created this particular form . so here it displays user username  -%>
-<div id="abt">&nbsp;&nbsp;<%= user.author %></div>
-<%-# user is a variable which has the user who created this particular form . so here it displays user author  -%>
-<br>
-<br>
-
-
-<div class="formlist">
-<div class="count">
-<div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div> 
-<%-# it will show the count of publish because it is true  -%>
-<div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
-<%-# it will show the count of drafts because publish is false -%>
-<div id="countsav"><%= Form.where(id: current_user.find_up_voted_items).count %></div>
-<%-# it will show the count of saved boards so it will find current_user saved boards because each user is unique and can have their own saved boards  -%>
+<div id="userProfile">
+	<div id="username">
+		<i class="material-icons md-120">account_circle</i>
+		<div id="userDescription">
+			<h4><%= user.username %></h4>
+			<h5><%= user.author %></h5>
+		</div>
+	</div>
+	<div class="userStats">
+	<div class="formlist">
+		<ul class="count">
+			<li><%= Form.where(user_id:current_user.id, publish:true).count %></li>
+			<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
+			<li><%= Form.where(id: current_user.find_up_voted_items).count %></li>
+		</ul>
+	
+		<ul class="board">
+			<li><%= link_to 'Published', static_pages_publish_path, id:"board" %></li>
+			<li><%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %></li>
+			<li><%= link_to 'Saved', static_pages_saved_path, id:"board2" %></li>
+		</ul>
+	</div>
+		<ul class="followers">
+			<li>42 Following</li>
+			<li></li>
+			<li>15 Followers</li>
+		</ul>
+	</div>
 </div>
-
-<div class="boord">
-<%-# link_to is link button to go the path written next to it  -%>
-<%= link_to 'Published', static_pages_publish_path, id:"board" %>
-<%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
-<%= link_to 'Saved', static_pages_saved_path, id:"board2" %>
-</div>
-
 <%= render 'static_pages/boards'%>
 
 </div>
@@ -38,7 +42,6 @@
 <br>
 
  
-  </li>
 <% else %>
   
 <% end %>
@@ -55,6 +58,7 @@
 
 var hoverOrClick = function () {
 $('#board1').css('color','#9C1717');
+$('#board1').css('background-color','white');
 $('#board1').css('padding-bottom','2px');
 $('#board1').css('border-bottom','3px solid #9C1717');}
 $('#board1').click(hoverOrClick).hover(hoverOrClick);

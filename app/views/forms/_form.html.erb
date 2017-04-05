@@ -12,7 +12,10 @@
       </ul>
     </div>
   <% end %>
+
+
 <div class="form_container">
+<h3> Alright! Let's get started</h3><br>
 
 <%= f.hidden_field :user_id, value: current_user.id %>
 
@@ -20,73 +23,54 @@
 
   <div class="field">
     <%= f.label :Board_Title %>
-    <%= f.text_field :title  , id:"textfield" , placeholder:"Enter title" %>
+    <%= f.text_field :title  , id:"textfield" , placeholder:"Something catchy. Not too long, not too short" %>
   </div>
-  <br>
-  <br>
+
   <div class="field">
     <%= f.label :Board_Description %>
-    <%= f.text_area :description  , id:"textfield", rows:5 , placeholder:"Enter Description"%>
+    <%= f.text_area :description  , id:"textfield", rows:7 , placeholder:"A short summary on the topic, including a note on how each article connects to the larger theme."%>
   </div>
-  <br>
-  <br>
+  
   <div class="field">
-    <%= f.label :item1 %>
-    <%= f.text_field :url1  , id:"textfield", placeholder:"First Url"  %>
+    <%= f.label :link_1 %>
+    <%= f.text_field :url1  , id:"textfield", placeholder:"www.interestingwebsite.com/...."  %>
     <%= f.hidden_field :title1  , id:"textfield" , placeholder:"Enter title1(optional)" %>
-    <br>
-    <br>
     <%= f.hidden_field :description1 %>
   </div>
-  <br>
-  <br>
+  
   <div class="field">
-    <%= f.label :item2 %>
-    <%= f.text_field :url2 , id:"textfield", placeholder:"Second Url" %>
+    <%= f.label :link_2 %>
+    <%= f.text_field :url2 , id:"textfield", placeholder:"www.greatarticle.com/...." %>
     <%= f.hidden_field :title2  , id:"textfield" , placeholder:"Enter title2(optional)" %>
-    <br>
-    <br>
     <%= f.hidden_field :description2 %>
   </div>
-  <br>
-  <br>
+  
   <div class="field">
-    <%= f.label :item3 %>
-    <%= f.text_field :url3 , id:"textfield", placeholder:"Third Url" %>
+    <%= f.label :link_3 %>
+    <%= f.text_field :url3 , id:"textfield", placeholder:"www.insightfulvideo.com/...." %>
     <%= f.hidden_field :title3  , id:"textfield" , placeholder:"Enter title3(optional)" %>
-    <br>
-    <br>
     <%= f.hidden_field :description3 %>
   </div>
-  <br>
-  <br>
+  
   <div class="field">
-    <%= f.label :item4 %>
-    <%= f.text_field :url4 , id:"textfield", placeholder:"Fourth Url" %>
+    <%= f.label :link_4 %>
+    <%= f.text_field :url4 , id:"textfield", placeholder:"www.hiddengem.com/...." %>
     <%= f.hidden_field :titel4  , id:"textfield" , placeholder:"Enter title4(optional)" %>
-    <br>
-    <br>
     <%= f.hidden_field :description4 %>
   </div>
-  <br>
-  <br>
+  
   <div class="field">
-    <%= f.label :item5 %>
-    <%= f.text_field :url5 , id:"textfield", placeholder:"Fifth Url" %>
+    <%= f.label :link_5 %>
+    <%= f.text_field :url5 , id:"textfield", placeholder:"www.underappreciatedlink.com/...." %>
     <%= f.hidden_field :title5  , id:"textfield" , placeholder:"Enter title5(optional)" %>
-    <br>
-    <br>
     <%= f.hidden_field :description5 %>
   </div>
-  <br>
-  <br>
-  <br>
+  
   <div class="actions">
     <%= f.submit 'Publish', id:"Save", name:"commit"%> <%= f.submit 'Save As Draft',id:"Save", name:"commit" %>
   </div>
 <% end %>
 </div>
 <% else %>
-  <li>
   
 <% end %>

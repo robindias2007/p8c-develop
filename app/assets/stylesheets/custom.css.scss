@@ -4,7 +4,38 @@
 html body {
  margin: 0 auto;
  text-align: center;
+ font-family:Futura, sans-serif;
 }
+
+h1, h2, h3, h4 {
+    font-family:Futura, sans-serif;
+    font-weight:bold;
+    text-transform:capitalize;
+    line-height:1.4;
+    color:#222222;
+}
+
+h5, h6, h7 {
+    font-family:PT Serif, serif;
+    line-height:1.4;
+    color:#4a4a4a;
+}
+
+h3 {font-size:28px;}
+h3 {font-size:24px;}
+h4 {font-size:18px;}
+h5 {font-size:15px;}
+
+ol, ul, td {
+    font-family:Futura, Sans-serif;
+}
+
+p {
+    font-family:PT Serif, serif;
+}
+
+
+
 
 
 #banner {
@@ -18,8 +49,9 @@ html body {
 
 #bannerContent {
     width:1024px;
-    margin:15px auto;
-    padding:10px 0px;
+    margin:0px auto;
+    padding:6px 0px;
+    text-align:left;
 }
 
 .bannerTitle
@@ -44,7 +76,6 @@ html body {
     font-weight: bold;
     color:#9c1717;
     text-transform: capitalize;
-    text-align: center;
 }
 
 .bannerText
@@ -53,7 +84,6 @@ html body {
     font-family: "PT Serif";
     font-size: 15px;
     line-height: 1.2;
-    text-align: center;
     
     width: 100%;
 }
@@ -101,19 +131,35 @@ nav {
 
 .field 
 {   
-    
-    margin-top: 20px;
-    font-size: 24px;
-    
-    font-size: 22px;
+    margin:20px;
+    font-size: 20px;
+    text-align: left;
+    font-family: Futura, sans-serif;
+}
+
+label {
+    text-transform:capitalize;
+    margin-bottom:10px;
+    display:inline-block;
+}
+
+#textfield
+{
+    margin:0px auto;
+    width:100%;
+    font-family: PT Serif, serif;
+    font-size: 15px;
+    line-height: 1.2;
+    padding:10px;
+    border-radius:2px;
+    border:1px solid #e3e3e3;
 }
 
 .actions
 {
-    height: 100px;
     font-size: 24px;
     text-align: center;
-
+    margin:20px;
 }
 
 #actions1
@@ -128,27 +174,23 @@ nav {
 
 #Save
 {
+    font-family: Futura, sans-serif;
     font-size: 16px;
-    height: 20px;
+    height: 33px;
     width: 30%;
+    margin:10px;
+    background-color:#8b0000;
+    color:white;
+    border:0px solid;
+    border-radius:2px;
 }
 
 .form_container
 {
-    border: 1px solid black;
-    margin-top: 10px;
     width: 50%;
     margin: 0px auto;
     margin-top: 150px;
-    background-color: #f2f2f2;
     position: relative;
-}
-
-#textfield
-{
-    float: right;
-    margin-right: 10px;
-    line-height: 15px;
 }
 
 table, th, td{
@@ -157,20 +199,11 @@ table, th, td{
 
 }
 
-.formlist
-{
-    width: 75%;
-    margin: 0px auto;
-    
-}
-
-#username
-{   
-    font-size: 20px;
-    margin: 0px auto;
-    margin-right: -100px;
-    margin-top: -50px;
-    word-spacing: 13px;
+#username {   
+    margin: 0px;
+    float:left;
+    text-align:left;
+    width:47%;
 }
 
 .dropdown-menu
@@ -421,17 +454,22 @@ font-size:18px;
 {
  border: 1px solid #e3e3e3;
  width: 960px;
- margin: 50px auto;
+ margin: 42px auto 15px;
  background-color: white;
  box-shadow: 0px 2px 6px #e3e3e3;
  z-index: 2;
  border-radius:2px;
 }
 
-.maincont
-{
+.maincont {
     padding:100px 0px 50px 0px;
     background-color:white;
+}
+
+.boardContainer {
+    padding:15px 0px 50px 0px;
+    background-color:white;   
+    clear:both;
 }
 
 #verticalLine{
@@ -672,6 +710,11 @@ header, nav {
     box-shadow: 0 2px 6px #888888;
 }
 
+#addHScroll:hover {
+    
+    color:black;
+    cursor:pointer;
+}
 
 
 #logo {
@@ -723,15 +766,13 @@ header, nav {
     line-height:30px;
 }
 
-#nav-icons
-{
-    vertical-align: text-bottom;
-}
+#nav-icons { vertical-align: text-bottom; }
 
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
+.material-icons.md-120 { font-size: 120px; }
 
 #fixedContainer {
     position:fixed;
@@ -803,69 +844,64 @@ float: left;
  /*----------Count on all board pages---------------- */
 
 
-.count
-{
- width: 40%;
- margin-left: 160px;
+.count {
  font-size: 24px;
- line-height: 50px;
+ line-height: 1.5;
+ float :right;
+ font-family:Futura, sans-serif;
 }
 
-.count > #countpub
+
+.board {
+    float:right;
+    font-family:Futura, sans-serif;
+}
+
+.followers {
+    float:right;
+    font-family:Futura, sans-serif;
+    border-top:2px solid #888;
+    display:inline-block;
+    padding-top:15px;
+}
+
+ul.followers li {
+    margin:0px 33px 0px 10px;
+    text-transform:uppercase;
+    display:inline-block;
+}
+
+#userProfile {
+    width: 960px;
+    margin: 0px auto;
+    padding: 33px 0px 24px;
+    display:inline-block;
+    border-bottom:1px solid #e3e3e3;
+}
+
+#userDescription {
+    float:right;
+    width: 72%;
+}
+
+.formlist
 {
-    float:left;
+    width: 42%;
+    margin: 3px auto;
+    font-family:Futura, sans-serif;
+    float:right;
+ }
+
+.formlist ul li {
+    display:table-cell;
+    width:120px;
 }
 
-.count > #countsav
-{
-    text-align:right;
+.formlist ul li:active {
+    color:#9c1717;
+    border-bottom:2px solid #9c1717;
 }
 
-
-.count > #countdra
-{
-  margin-bottom: -49px;
-
-}
-
-.boord
-{
-    width: 45%;
-    margin-left: 130px;
-}
-
-.boord > #board
-{
-    font-size: 15px;
-    float: left;
-}
-
-.boord > #board1
-{
-    font-size: 15px;
-}
-
-.boord > #board2
-{
-    font-size: 15px;
-    float: right;
-}
-
-
-#usacc
-{
-width: 50%;
-margin-top: 150px;
-}
-
-
-#abt
-{
-    width: 59%;
-    margin: 0 px auto;
-    margin-top: 5px;
-    margin-left: 15px;
-}
 
 
 /* -------------- DSIQUS THREAD ---------------- 
