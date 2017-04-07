@@ -16,8 +16,9 @@ h1, h2, h3, h4 {
 }
 
 h5, h6, h7 {
-    font-family:PT Serif, serif;
+    font-family:'PT Serif', serif;
     line-height:1.4;
+    font-weight: normal;
     color:#4a4a4a;
 }
 
@@ -31,12 +32,17 @@ ol, ul, td {
 }
 
 p {
-    font-family:PT Serif, serif;
+    font-family:'PT Serif', serif;
+    font-weight:normal;
 }
 
 
 
-
+#category {
+    text-align:left;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
 
 #banner {
     width:100%;
@@ -48,10 +54,11 @@ p {
 }
 
 #bannerContent {
-    width:1024px;
+    /*width:1024px;*/
     margin:0px auto;
     padding:6px 0px;
     text-align:left;
+    float:none;
 }
 
 .bannerTitle
@@ -81,7 +88,8 @@ p {
 .bannerText
 {
     color: #4a4a4a;
-    font-family: "PT Serif";
+    font-family: 'PT Serif';
+    font-weight: normal;
     font-size: 15px;
     line-height: 1.2;
     
@@ -94,12 +102,12 @@ span {
     font-style: italics;
 }
 
-.container
+/*.container
 {   
     width: 1024px;
     margin: 0px auto;
     margin-top: 50px; 
-}
+}*/
 
 
 nav {
@@ -118,12 +126,12 @@ nav {
     background-color: #f2f2f3;
     color: black;
 }
- /* --------------------------------- WHAT IS THIS? --*/
+ /* --------------------------------- WHAT IS THIS? --
 .third
 {
     width:221px;
     height:430px;
-}
+}*/
 
 
 
@@ -147,7 +155,8 @@ label {
 {
     margin:0px auto;
     width:100%;
-    font-family: PT Serif, serif;
+    font-family: 'PT Serif', serif;
+    font-weight: normal;
     font-size: 15px;
     line-height: 1.2;
     padding:10px;
@@ -162,6 +171,7 @@ label {
     margin:20px;
 }
 
+/* ---------- WHAT IS THIS?? ---------
 #actions1
 {
     width: 30%;
@@ -170,7 +180,7 @@ label {
     color: black;
     border-radius: 4px;
     float: right;
-}
+}*/
 
 #Save
 {
@@ -221,18 +231,14 @@ table, th, td{
     text-align: right;
 }
 
-#mainrow
-{
+#mainrow {
     z-index: 1000;
     margin-top: 115px; 
-
 }
 
 
 .formlogin
 {
-  
-  
   top: 0;
   right: 0;
   bottom: 0;
@@ -363,7 +369,7 @@ padding-bottom: 1px;
     font-size: 20px;
     margin-top: 1px;
     vertical-align: text-bottom;
-    float: left;
+    float: right;
 
 }
 
@@ -384,7 +390,6 @@ font-size:18px;
     }   
 }
 
-
 .title
 {   
     font-family: Futura, sans-serif;
@@ -392,19 +397,16 @@ font-size:18px;
     font-weight: bold;
     text-transform: capitalize;
     line-height: 1.2;
-    text-align: center;
-    color: #000000;
+    color: #333333;
     margin-top:18px;
 
-    width: 100%;
-    
-    /* ------------------------------ Board Title/ Description Height Alignments -----
-    min-height:52px; 
-    max-height: 91px;*/
-
-    height:85px;
+    text-align:left;
+    width:90%;
     overflow: hidden;  
-    padding-bottom:1px;
+    
+    /*height:85px;
+    padding-bottom:1px;*/
+
 &:hover{
     color: #666666;
     }  
@@ -414,22 +416,25 @@ font-size:18px;
 {
     font-family: Futura, sans-serif;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: normal;
     text-transform: capitalize;
     float: left;
     text-align: left;
     height: 55px;
     overflow: hidden;
+    line-height:1;
+    margin:0;
 }
 
 .internal_text
 {   
     font-size: 15px;
     color: #4A4A4A;
-    font-family: "PT Serif";
+    font-family: 'PT Serif';
+    font-weight: normal;
     font-style: Italic;
     width: 100%;
-    height:244px;
+    height:237px;
     line-height: 1.4;   
     margin: 6px auto 10px auto;
     overflow: scroll;
@@ -438,7 +443,8 @@ font-size:18px;
 .internal_text1
 {
     color: #4A4A4A;
-    font-family: "PT Serif";
+    font-family: 'PT Serif';
+    font-weight: normal;
     font-size: 15px;
     line-height: 1.4;
     text-align: left;
@@ -446,19 +452,37 @@ font-size:18px;
     width: 100%;
     height: 100px;
     overflow:hidden;
-    
     margin-top: 15px;
+
+    display:none;
 }
 
 .container1
 {
  border: 1px solid #e3e3e3;
- width: 960px;
+ /*width: 960px;*/
  margin: 42px auto 15px;
  background-color: white;
  box-shadow: 0px 2px 6px #e3e3e3;
  z-index: 2;
  border-radius:2px;
+ float:none;
+}
+
+#description {
+    width:33%;
+    float:left;
+    clear:both;
+}
+
+#summary{
+text-transform:uppercase;
+margin-top:21px;
+display:inline-block;
+font-size:15px;
+font-weight:normal;
+border-bottom:1px solid #333333;
+padding-bottom:1px;
 }
 
 .maincont {
@@ -473,10 +497,18 @@ font-size:18px;
 }
 
 #verticalLine{
-    height:394px;
-    border-left:2px solid #e3e3e3;
-    margin:20px 0;
+    height:294px;
+    border-left:1px solid #e3e3e3;
+    margin:14px 0;
     float:left;
+    box-shadow: 2px 0px 8px #e3e3e3;
+    z-index:4;
+}
+
+#container2
+{
+    display: inline-block;
+    border-top:1px solid #e3e3e3;
 }
 
 .container3
@@ -484,9 +516,8 @@ font-size:18px;
     overflow-x:auto;
 }
 
-
 .row {
-    width: 200%;
+    width: 226%;
     margin: 0px 0px 0px 6px;
  }
 
@@ -504,7 +535,7 @@ font-size:18px;
     margin-top:10px;
 }
 
-.col-md-2{
+/*.col-md-2{
  width:19%;
  border: 1px solid #e3e3e3;
  box-shadow: 0px 1px 1px #888888;
@@ -512,7 +543,18 @@ font-size:18px;
  margin: 20px 0.5%;
  padding: 0px 15px;
  background-color:white;
+}*/
+
+#articleCard{
+ border: 1px solid #e3e3e3;
+ box-shadow: 0px 1px 1px #888888;
+ z-index: 3;
+ margin: 20px 0.5%;
+ padding: 0px 15px;
+ background-color:white;
+ display:inline-block;
 }
+
 
 /* --------------------------------- WHAT IS THIS? --*/
 .vertical
@@ -529,28 +571,31 @@ font-size:18px;
     float:right;
 }
 
-#profile
-{   
-    font-size: 18px;      
-    float: right;
-    color: #000000;
-    padding-bottom:17px;
-&:hover{
-    color: #666666;
-    }  
+#profile {        
+    display:inline-flex; 
+    color: black;
+    float:left;
 }
+
+#profile:hover {        
+    background-color:white;
+}
+
+
 
 #prouser
 {
-float:right;
 line-height:24px;
-margin-left:6px;
+margin: 0px 3px;
+color:#9c1717;
+float:right;
 }
 
 hr
 {
     border: 1px solid #8B0000;
-    margin: 10px 0px;    
+    margin: 10px 0px;  
+    clear:both;  
 }
 
 /* --------------------------------- WHAT IS THIS? --*/
@@ -560,27 +605,24 @@ hr
     float:center;
 }
 
-/* --------------------------------- WHAT IS THIS? --*/
-#matred
-{
-    color: #9c1717;
-    font-size: 20px;
-}
 
 .date
 {  
    color: #9c1717;
-   font-family: "PT Serif", serif;
+   font-family: 'PT Serif', serif;
+   font-weight: normal;
    font-size: 15px;
+   line-height:24px;
 }
 
 #link
 {   
     font-size: 15px;
     color: #9c1717;
-    font-family: "PT Serif";
+    font-family: 'PT Serif';
+    font-weight: normal;
     float: left;
-    margin-top:9px;
+    margin:6px 0px;
 }
 
 
@@ -616,8 +658,9 @@ header, nav {
 }
 
 #nav-header {
-    width: 1024px;
+    /*width: 1024px;*/
     margin: auto;
+    float:none;
 }
 
 #nav-header ul li {
@@ -630,7 +673,7 @@ header, nav {
     z-index:99;
 
     position:absolute;
-    right:8px;
+    right:32px;
     bottom:38px;
 
     font-family: Futura, sans-serif;
@@ -664,7 +707,7 @@ header, nav {
     color: white;
     background-color:#888888;
 
-    display:inline;
+    display:none;
 }
 
 #curate:hover{
@@ -678,7 +721,7 @@ header, nav {
     z-index:98;
     position:absolute;
     bottom:24px;
-    right:4px;
+    right:24px;
 
     width: 56px;
     height: 56px;
@@ -711,7 +754,6 @@ header, nav {
 }
 
 #addHScroll:hover {
-    
     color:black;
     cursor:pointer;
 }
@@ -719,7 +761,7 @@ header, nav {
 
 #logo {
     font-family: Futura, sans-serif;
-    font-weight: 600; 
+    font-weight: bold; 
     float: left;
     font-size: 24px;
     line-height: 30px;
@@ -759,6 +801,7 @@ header, nav {
 /* ----------------------------------------- TO CHECK -*/
 .currentheaderusername
 {
+    font-family:Futura, sans-serif;
     float: right;
     font-size: 16px;
     font-weight: bold;
@@ -779,7 +822,7 @@ header, nav {
     z-index:99;
     right:0;
     left:0;
-    width:1024px;
+    /*width:1024px;*/
     margin: auto;
     bottom:0px;
 }
@@ -804,9 +847,10 @@ header, nav {
 
 #nav-menu
 {
-    width: 1024px;
+    /*width: 1024px;*/
     height: 30px;
     margin: 0 auto;
+    float:none;
 }
 
     
@@ -824,7 +868,8 @@ float: left;
 
 #nav-menu ul li{
     color: #9C1717;
-    font-family: "PT Serif", serif;
+    font-family: 'PT Serif', serif;
+    font-weight: normal;
     display: inline-block;
     font-size: 16px;
 }
@@ -851,7 +896,6 @@ float: left;
  font-family:Futura, sans-serif;
 }
 
-
 .board {
     float:right;
     font-family:Futura, sans-serif;
@@ -872,11 +916,12 @@ ul.followers li {
 }
 
 #userProfile {
-    width: 960px;
+    /*width: 960px;*/
     margin: 0px auto;
     padding: 33px 0px 24px;
     display:inline-block;
     border-bottom:1px solid #e3e3e3;
+    float:none;
 }
 
 #userDescription {

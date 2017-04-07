@@ -5,12 +5,13 @@
         <title>TheLense</title>
         <!-- Shouldn't this be "custom.css"??? -->
         <link href="P8C.scss" type = "text/css" rel = "stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
 
-        <div class="mainheader">  <!-- mainheader is the entire header -->
-        <div class="header">      <!-- header enables positioning for nav header -->
-        <div id="nav-header">    <!-- nev-header consists of all elements -->
+        <div class="col-md-12 mainheader">  <!-- mainheader is the entire header -->
+        <div class="col-md-12 header">      <!-- header enables positioning for nav header -->
+        <div class="col-md-11" id="nav-header">    <!-- nev-header consists of all elements -->
            <ul>
                <a href="/"><li id="logo"><%= image_tag 'p8c-logo.png' %>THE LENSE</li></a>
                
@@ -45,7 +46,7 @@
               
         
         
-      <div id="nav-menu">
+      <div class="col-md-11" id="nav-menu">
         <ul id="subh">
             <li>Sample Editor's Picks</li>
             <li>Dummy Topic1</li>
@@ -53,7 +54,7 @@
             <li>Trending Topic3</li>
             <li></li><li></li><li></li><li></li>
             <li></li><li></li><li></li><li></li>
-            <li></li><li></li>
+            <li></li>
             <% if user_signed_in? %>
             <li id="myb", style="font-weight:bold;">My Boards :</li></a>
             <a href="/static_pages/publish"><li>Published</li></a>
@@ -81,7 +82,7 @@
         
         -->
 
-    <div id="fixedContainer"> 
+    <div class="col-md-12" id="fixedContainer"> 
     
     <% if user_signed_in? %>
       <a href="/forms/new"><div id="curate">curate</div><i class="material-icons md-48" , id="addCircle">add</i></a>

@@ -1,32 +1,80 @@
 <div class="boardContainer">
 <% @forms.each do |form| %>
 
-<div class="container1">  <!-- The elements of the entire box. -->
+<div class="col-md-9 container1">  <!-- The elements of the entire box. -->
     
+    <div class="col-md-12">
+        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title[0..55] %></h2></a> 
+        <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
+
+        <% if user_signed_in? %>
+        <% if @home_user %>
+        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a>on &nbsp;
+        <% else %>
+        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
+        <% end %>
+        <% else %>
+        <div class="date" id="profile">Curated by &nbsp;<a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
+        <% end %>
+
+        <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
+        <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
+
+        &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date">27 mins</h10>
+        <%-#reading time from readingtime gem -%>
+        </div>
+
+
+        <% if user_signed_in? %>
+            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                <% if current_user.liked? form %>
+                <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
+                <i class="material-icons" style="color:#9c1717">favorite</i>
+                <% end %>
+
+                <% else %>
+                <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
+                <i class="material-icons" style="color:#9c1717">favorite_border</i>
+                <% end %>
+         <% end %>
+
+            <div id="likes"><%= form.get_likes.size %> 
+            <%-# It tells you the total count or the total likes on the current form  -%>
+            </div></div>
+
+        <% else %>
+            <i class="material-icons" id="likes" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
+        <% end %>
     
-    <div class="col-md-4"> <!-- Bootstrap to divide the entire page into colums -->
+    </div>
+
+
+
+
+<div id="container2">
+
+    <div class="col-md-4" id="description"> <!-- Bootstrap to divide the entire page into colums -->    
         
-    
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
       
-      <a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a> 
+      <!--<a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a> 
       <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
 
         <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
       <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
       
-      <!-- Taken care of by overflow scroll
+      Taken care of by overflow scroll
       <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/,' ...') rescue nil %></h3>  -->
-
-      <h3 class="internal_text"><%= form.description %></h3>  
+      <h4 id="summary">SUMMARY</h4>
+      <h5 class="internal_text"><%= form.description %></h5>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
       <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
     </div> -->
-    <!-- <div class="center-material">28 mins long</div> -->
+        <!-- <div class="center-material">28 mins long</div> -->
     
-
+    <!--
     <% if user_signed_in? %>
     <% if @home_user %>
     <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
@@ -35,10 +83,11 @@
     <% end %>
     <% else %>
     <a href="/users/sign_in"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
-    <% end %>
+    <% end %>-->
 
+    <!--
     <% if user_signed_in? %>
-            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+            <div class="like">   This contains all the elements to like the button where we have the heart option --><!--
                 <% if current_user.liked? form %>
                 <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
                 <i class="material-icons" style="color:#9c1717">favorite</i>
@@ -56,14 +105,13 @@
 
         <% else %>
             <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
-        <% end %>
-
+        <% end %> -->
 
       <!-- <div class="bottom-material">
-      <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
-      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-      <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-    </div> -->
+            <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
+            <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+            <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+        </div> -->
     
     </div>
 
@@ -73,13 +121,13 @@
     <div class="row">
     <a href= <%= form.url1 %> target="_blank", id="formclick" > 
     <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
-    <div class="col-md-2 col-half-offset">  
+    <div class="col-md-2 col-sm-4" id="articleCard">  
     <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
     <hr>
     <!-- We shouldn't put "..." on titles 
     <h10 class="title1"><%= form.title1[0..40].gsub(/\s\w+\s*$/,'...') rescue nil %></h10> -->
 
-    <h10 class="title1"><%= form.title1[0..60] rescue nil %></h10>
+    <h4 class="title1"><%= form.title1[0..60] rescue nil %></h4>
     <%-# It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters -%>
     <%-# rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form -%>
     <div class="image"><%= image_tag form.image1 , id:"image" %></div> 
@@ -87,7 +135,7 @@
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
     <%-# It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda -%>
     <br>
-    <h4 class="internal_text1"><%= form.description1[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h4> 
+    <h6 class="internal_text1"><%= form.description1[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6> 
     <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
     <hr>
     </div>
@@ -95,58 +143,62 @@
 
   
     <a href= <%= form.url2 %>  target="_blank", id="formclick">
-    <div class="col-md-2 col-half-offset">  
+    <div class="col-md-2 col-sm-4" id="articleCard">  
     <hr>
-    <h10 class="title1"><%= form.title2[0..60] rescue nil %></h10>
+    <h4 class="title1"><%= form.title2[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image2 , id:"image" %></div>
     <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description2[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
+    <h6 class="internal_text1"><%= form.description2[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
     </div>
     </a>
 
     <a href= <%= form.url3 %>  target="_blank", id="formclick" >
-    <div class="col-md-2 col-half-offset">
+    <div class="col-md-2 col-sm-4" id="articleCard">
     <hr>
-    <h10 class="title1"><%= form.title3[0..60] rescue nil %></h10>
+    <h4 class="title1"><%= form.title3[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image3 , id:"image" %></div>
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description3[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
+    <h6 class="internal_text1"><%= form.description3[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
     </div>
     </a>
 
     <a href= <%= form.url4 %>  target="_blank" , id="formclick">
-    <div class="col-md-2 col-half-offset">
+    <div class="col-md-2 col-sm-4" id="articleCard">
     <hr>
     <!-- Title4 DB name is MIS-SPELLED! -->
-    <h10 class="title1"><%= form.titel4[0..60] rescue nil %></h10>
+    <h4 class="title1"><%= form.titel4[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image4 , id:"image" %></div>
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description4[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
+    <h6 class="internal_text1"><%= form.description4[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
     </div>  
     </a>
  
     <a href= <%= form.url5 %>  target="_blank" , id="formclick">
-    <div class="col-md-2 col-half-offset">
+    <div class="col-md-2 col-sm-4" id="articleCard">
     <hr>
-    <h10 class="title1"><%= form.title5[0..60] rescue nil %></h10>
+    <h4 class="title1"><%= form.title5[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image5 , id:"image" %></div>
     <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
-    <h4 class="internal_text1"><%= form.description5[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h4>
+    <h6 class="internal_text1"><%= form.description5[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
     </div>
     </a>
     
     </div>
     </div>
-    <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
+   <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
  </div>
+ </div>
+
+ 
+ 
 
  <!-- USING DISQUS FOR COMMENTS!!! 
  <div id="disqus_thread"></div>
