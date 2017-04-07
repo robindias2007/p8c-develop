@@ -194,7 +194,51 @@
     </div>
     </div>
    <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
- </div>
+ 
+
+    <div class="col-md-12 container4">
+
+        <% if user_signed_in? %>
+        <% if @home_user %>
+        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a>on &nbsp;
+        <% else %>
+        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
+        <% end %>
+        <% else %>
+        <div class="date" id="profile">Curated by &nbsp;<a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
+        <% end %>
+
+        <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
+        <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
+
+        &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date">27 mins</h10>
+        <%-#reading time from readingtime gem -%>
+        </div>
+
+
+        <% if user_signed_in? %>
+            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                <% if current_user.liked? form %>
+                <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
+                <i class="material-icons" style="color:#9c1717">favorite</i>
+                <% end %>
+
+                <% else %>
+                <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
+                <i class="material-icons" style="color:#9c1717">favorite_border</i>
+                <% end %>
+         <% end %>
+
+            <div id="likes"><%= form.get_likes.size %> 
+            <%-# It tells you the total count or the total likes on the current form  -%>
+            </div></div>
+
+        <% else %>
+            <i class="material-icons" id="likes" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
+        <% end %>
+    </div>
+    </div>
+
  </div>
 
  
