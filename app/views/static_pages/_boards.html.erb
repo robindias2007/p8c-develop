@@ -43,7 +43,7 @@
             </div></div>
 
         <% else %>
-            <i class="material-icons" id="bookmark" style="float:left">bookmark</i><div class="bookmark" id="likes"><%= form.get_likes.size %></div>
+            <div class="bookmark"><i class="material-icons" style="color:#9c1717">bookmark</i> <div id="likes"><%= form.get_likes.size %></div></div>
         <% end %>
     
     </div>
@@ -217,7 +217,7 @@
             </div>
 
         <% else %>
-            <i class="material-icons" id="likes" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
+             <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> <div id="likes"><%= form.get_likes.size %></div></div>
         <% end %>
 
 
