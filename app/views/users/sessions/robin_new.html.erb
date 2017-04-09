@@ -1,39 +1,96 @@
-<!-- New page to sign in new users -->
+<!-- page to sign in new users -->
 
-<div class="form_container">
+<div class="formlogin">
 
-
-  <h3>Login</h3>
-  </br>
-  <hr>
 
   
-  <%= form_for(resource, as: resource_name, validate:true, url: session_path(resource_name)) do |f| %>
+  <div class="row", id="row1">
+   
+  <div class="col-md-6", id="mainrow">
+  <br><br><br><br>
+  <div class="mainrow1">
+  <div id="formlogo"><%= image_tag "Group.png" %>   THE LENSE</div>
 
-  <div class="field">
-    <%= f.label :Email %>
-    <%= f.email_field :email, placeholder:"E-mail", id:'textfield' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :Password %>
-    <%= f.password_field :password, placeholder:"Password", id:'textfield'  %>
-  </div>
-
-</br>
-<hr>
+  <br><br><br><br><br>
+  <div id="formtext">Your favourites on the web, perfectly organized and curated</div>
+  <br><br><br><br><br><br><br>
+  <ul class="formlistbullet">
   
-  <div class="actions">
-    <%= f.submit "Sign In", id: 'Save'%>
-  </div> 
-  <% end %>
-
-<%= render "users/shared/links" %>
-
+  <li> Another bullet point enticing users to sign up</li>
+  <br><br><li>One last benefit of the platform</li>
+  <br><br><li> Express your ideas by curating your something</li>
+  </ul>
 </div>
+  </div>
+
+  
 
 
-<!--
+<div class="col-md-6", id="SignOut">
+   
+  <div class="logmod">
+  <div class="logmod__wrapper">
+    
+    <div class="logmod__container">
+      <ul class="logmod__tabs">
+        <li data-tabtar="lgm-2"><a href="/users/sign_in">Login</a></li>
+        <li data-tabtar="lgm-1"><a href="/users/sign_in">Sign Up</a></li>
+      </ul>
+      <div class="logmod__tab-wrapper">
+      <div class="logmod__tab lgm-1">
+        <div class="logmod__heading">
+        <%= form_for(resource, as: resource_name, :validate => true, url: registration_path(resource_name)) do |f| %>
+          
+          <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
+        </div>
+
+        <div class="logmod__form">
+          <form accept-charset="utf-8" action="#" class="simform">
+            <div class="sminputs">
+              <div class="input full">
+                <!-- <label class="string optional" for="user-name">Email*</label> -->
+               <%= f.email_field :email, placeholder:"Email", required:true %>
+              </div>
+            </div>
+            <br>
+            <div class="sminputs">
+              <div class="input full">
+                <!-- <label class="string optional" for="user-name">Username*</label> -->
+              <%= f.text_field :username , placeholder:"Username",required:true %> 
+              </div>
+              </div>
+              <br>
+            <div class="sminputs">
+              <div class="input full">
+                <!-- <label class="string optional" for="user-name">Username*</label> -->
+              <%= f.text_field :author , placeholder:"2 Words About Yourself" %> 
+              </div>
+            </div>
+              <br>
+            <div class="sminputs">
+              <div class="input full">
+                <!-- <label class="string optional" for="user-pw">Password *</label> -->
+               <%= f.password_field :password, placeholder:"Password" %>
+              </div>
+              </div>
+              <br>
+              <div class="sminputs">
+              <div class="input full">
+                <!-- <label class="string optional" for="user-pw-repeat">Repeat password *</label> -->
+               <%= f.password_field :password_confirmation, placeholder:"Confirm Password" %>
+              </div>
+            </div>
+*
+            <div class="simform__actions">
+              <%= f.submit "Sign Up", id:"actions1" %>
+              <span class="simform__actions-sidetext">By creating an account you agree to our Terms & Privacy</span>
+            </div> 
+           <% end %> 
+          </form>
+        </div> 
+        
+
+      </div>
       <div class="logmod__tab lgm-2">
       <%= form_for(resource, as: resource_name, validate:true, url: session_path(resource_name)) do |f| %>
       
@@ -193,7 +250,7 @@ setTimeout(function() {
 
 
 </script>
--->
+
 
 <!-- <script type="text/javascript">
 $(document).ready(function(){

@@ -1,3 +1,6 @@
+$navbar-default-bg:#ffffff;
+$component-active-color:transparent;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
     
@@ -5,6 +8,12 @@ html body {
  margin: 0 auto;
  text-align: center;
  font-family:Futura, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px
 }
 
 h1, h2, h3, h4 {
@@ -35,6 +44,53 @@ p {
     font-family:'PT Serif', serif;
     font-weight:normal;
 }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-120 { font-size: 120px; }
+
+
+/* ------------ BOOTSTRAP NAV BAR ---------------*/
+
+.navbar {
+    min-height:42px;
+    border:none;
+    box-shadow:0px 2px 6px #e3e3e3;
+}
+
+.container-fluid{ float:none;}
+
+.nav {
+    float:none;
+    display:inline-block;
+}
+
+.nav-pills > li > a {
+    border-radius:0px;
+
+    &:hover {
+     color:#9c1717;
+     background-color: transparent;
+     border-bottom:2px solid #9c1717;
+    }
+    &:visited {
+     color:#9c1717;
+     background-color: transparent;
+    }
+}
+
+.nav > li > a {
+    padding: 0px 0px 2px 0px;
+    margin:10px 15px;
+}
+
+
+/* ---------- BOOTSTRAP NAV BAR END --------------*/
+
+
+
 
 
 
@@ -114,18 +170,6 @@ nav {
     display: block;
 }
 
-/* --------------------------------- WHAT IS THIS? --*/
-.btn
-{ 
-  margin-top: 5px;
-  
-}
-/* --------------------------------- WHAT IS THIS? --*/
-.btn-primary
-{
-    background-color: #f2f2f3;
-    color: black;
-}
  /* --------------------------------- WHAT IS THIS? --
 .third
 {
@@ -151,8 +195,7 @@ label {
     display:inline-block;
 }
 
-#textfield
-{
+#textfield {
     margin:0px auto;
     width:100%;
     font-family: 'PT Serif', serif;
@@ -162,6 +205,28 @@ label {
     padding:10px;
     border-radius:2px;
     border:1px solid #e3e3e3;
+}
+
+#linkfield {
+    margin:0px auto;
+    width:87%;
+    font-family: 'PT Serif', serif;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 1.2;
+    padding:10px;
+    border-radius:2px;
+    border:1px solid #e3e3e3;
+}
+
+.curatorComments {
+    margin-left:28px;
+    vertical-algin:middle;
+    cursor:pointer;
+}
+
+.btn-group-justified > .btn {
+    width:25%;
 }
 
 .actions
@@ -195,12 +260,12 @@ label {
     border-radius:2px;
 }
 
-.form_container
-{
+.form_container {
     width: 50%;
-    margin: 0px auto;
-    margin-top: 150px;
+    margin: 120px auto 50px;
     position: relative;
+    box-shadow:0px 2px 6px #e3e3e3;
+    border:1px solid #e3e3e3;
 }
 
 table, th, td{
@@ -216,20 +281,12 @@ table, th, td{
     width:47%;
 }
 
-.dropdown-menu
-{
-    display: none;
-    position: absolute;
-    width: 140px;
-    margin-left: 1000px;
-
-
-}
-
+/*
 .dropdown-menu > li
 {
     text-align: right;
 }
+*/
 
 #mainrow {
     z-index: 1000;
@@ -237,16 +294,12 @@ table, th, td{
 }
 
 
-.formlogin
-{
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 1;
-  background: rgba(0, 0, 0, 0.2);
+.formlogin {
   z-index: 1;
-  background-color: #cc0000;
+  background-color: #9c1717;
+  margin-top:120px;
+  display:inline-block;
+  float:none;
 }
 
 #formclick
@@ -254,7 +307,7 @@ table, th, td{
     color: inherit;
 }
 
-
+/*------------------------- HEADS IN SIHE! ------
 .headsin
 {
   width: 100%; 
@@ -284,6 +337,7 @@ table, th, td{
      color: black;
     }
 }
+------------------------- HEADS IN SIHE! ------ */
 
 .signinform
 {
@@ -401,19 +455,14 @@ font-size:18px;
     font-weight: bold;
     text-transform: capitalize;
     line-height: 1.2;
-    color: #333333;
+    color: #1c1c1c;
     margin-top:18px;
 
     text-align:left;
     width:90%;
     overflow: hidden;  
     
-    /*height:85px;
-    padding-bottom:1px;*/
-
-&:hover{
-    color: #666666;
-    }  
+    padding-bottom:1px;
 }
 
 .title1
@@ -490,8 +539,8 @@ padding-bottom:1px;
 }
 
 .maincont {
-    padding:100px 0px 50px 0px;
-    background-color:white;
+    padding:90px 0px 50px 0px;
+    background-color:#fafafa;
 }
 
 .boardContainer {
@@ -644,22 +693,14 @@ hr
 }
 
 
-/*----------header---------------- */
+/*----------header----------------
 
 
-header, nav {
-    display: block;
-}
+header, nav { display: block; }
 
+.header { width: 100%; }
 
-* {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px
-}
-
-.mainheader
-{
+.mainheader {
     position: fixed;
     top: 0px;
     padding-top:15px;
@@ -670,13 +711,7 @@ header, nav {
     box-shadow: 0px 2px 6px #e3e3e3;
 }
 
-.header
-{   
-    width: 100%;
-}
-
 #nav-header {
-    /*width: 1024px;*/
     margin: auto;
     float:none;
     padding:0px;    
@@ -686,6 +721,56 @@ header, nav {
     font-family: Futura, sans-serif;
     display: inline-block;
 }
+
+#nav-icons { vertical-align: text-bottom; }
+
+#nav-menu {
+    height: 30px;
+    margin: 0 auto;
+    float:none;
+}   
+
+#nav-menu ul li{
+    color: #9C1717;
+    font-family: 'PT Serif', serif;
+    font-weight: normal;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#nav-menu ul li:hover {
+    padding-bottom: 9px;
+    border-bottom: 3px solid #9C1717;
+}
+
+#subh {   
+    width: 100%;
+    height: 0px;
+    float: left;
+}
+
+#subh li {
+margin: 18px 15px 0px 0px ;
+float: left;
+}
+
+#serch {
+  vertical-align: middle;
+    &:hover{
+    color: #000000;
+    background-color: transparent;
+    } 
+}
+
+#search-box {   
+    margin-right: 30px;
+    float: right;
+    margin-top:1px;
+}
+
+-------------------*/
+
+
 
 #curate
 {   
@@ -785,7 +870,7 @@ header, nav {
     font-size: 24px;
     line-height: 30px;
     display: inline-block;
-    color: #000000;
+    color: #1c1c1c;
 }
 
 
@@ -797,24 +882,11 @@ header, nav {
     vertical-align:text-bottom;
 }
 
-.dropdown-toggle
-{
-      
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    }   
-
-}   
 
 #user {   
     float: right;
     font-size: 16px;
-    color : #000000;
-&:hover{
-    color: #000000;
-    background-color: transparent;
-    } 
+    color : #1c1c1c;
 }
 
 /* ----------------------------------------- TO CHECK -*/
@@ -826,15 +898,13 @@ header, nav {
     font-weight: bold;
     margin-right: 6px;
     line-height:30px;
+    color:#1c1c1c;
+
+    &:hover {
+        color:#4a4a4a;
+    }
+
 }
-
-#nav-icons { vertical-align: text-bottom; }
-
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
-.material-icons.md-120 { font-size: 120px; }
 
 #fixedContainer {
     position:fixed;
@@ -845,59 +915,6 @@ header, nav {
     margin: auto;
     bottom:0px;
 }
-
-
-/* #serch
-{
-  vertical-align: middle;
-    &:hover{
-    color: #000000;
-    background-color: transparent;
-    } 
-}
-
-#search-box
-{   
-    margin-right: 30px;
-    float: right;
-    margin-top:1px;
-} */
-
-
-#nav-menu
-{
-    /*width: 1024px;*/
-    height: 30px;
-    margin: 0 auto;
-    float:none;
-}
-
-    
-
-#subh {   
-    width: 100%;
-    height: 0px;
-    float: left;
-}
-
-#subh li{
-margin: 18px 15px 0px 0px ;
-float: left;
-}
-
-#nav-menu ul li{
-    color: #9C1717;
-    font-family: 'PT Serif', serif;
-    font-weight: normal;
-    display: inline-block;
-    font-size: 16px;
-}
-
-#nav-menu ul li:hover{
-    padding-bottom: 9px;
-    border-bottom: 3px solid #9C1717;
-}
-
 
  /*----------Count on all board pages---------------- */
 
@@ -969,3 +986,4 @@ ul.followers li {
     width:960px;
 }
 */
+

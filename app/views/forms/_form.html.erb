@@ -20,7 +20,7 @@
 <%= f.hidden_field :user_id, value: current_user.id %>
 
 
-
+  <hr>
   <div class="field">
     <%= f.label :Board_Title %>
     <%= f.text_field :title  , id:"textfield" , placeholder:"Something catchy. Not too long, not too short" %>
@@ -30,42 +30,69 @@
     <%= f.label :Board_Description %>
     <%= f.text_area :description  , id:"textfield", rows:7 , placeholder:"A short summary on the topic, including a note on how each article connects to the larger theme."%>
   </div>
+  </br>
+  <hr>
   
   <div class="field">
-    <%= f.label :link_1 %>
-    <%= f.text_field :url1  , id:"textfield", placeholder:"www.interestingwebsite.com/...."  %>
+    <%= f.label :link_1 %> <p style="float:right">Add Notes</p>
+    <%= f.text_field :url1  , id:"linkfield", placeholder:"www.interestingwebsite.com/...."  %><i class="material-icons curatorComments">insert_comment</i>
     <%= f.hidden_field :title1  , id:"textfield" , placeholder:"Enter title1(optional)" %>
     <%= f.hidden_field :description1 %>
   </div>
   
   <div class="field">
-    <%= f.label :link_2 %>
-    <%= f.text_field :url2 , id:"textfield", placeholder:"www.greatarticle.com/...." %>
+    <%= f.label :link_2 %></br>
+    <%= f.text_field :url2 , id:"linkfield", placeholder:"www.greatarticle.com/...." %><i class="material-icons curatorComments">insert_comment</i>
     <%= f.hidden_field :title2  , id:"textfield" , placeholder:"Enter title2(optional)" %>
     <%= f.hidden_field :description2 %>
   </div>
   
   <div class="field">
-    <%= f.label :link_3 %>
-    <%= f.text_field :url3 , id:"textfield", placeholder:"www.insightfulvideo.com/...." %>
+    <%= f.label :link_3 %></br>
+    <%= f.text_field :url3 , id:"linkfield", placeholder:"www.insightfulvideo.com/...." %><i class="material-icons curatorComments">insert_comment</i>
     <%= f.hidden_field :title3  , id:"textfield" , placeholder:"Enter title3(optional)" %>
     <%= f.hidden_field :description3 %>
   </div>
   
   <div class="field">
-    <%= f.label :link_4 %>
-    <%= f.text_field :url4 , id:"textfield", placeholder:"www.hiddengem.com/...." %>
+    <%= f.label :link_4 %></br>
+    <%= f.text_field :url4 , id:"linkfield", placeholder:"www.hiddengem.com/...." %><i class="material-icons curatorComments">insert_comment</i>
     <%= f.hidden_field :titel4  , id:"textfield" , placeholder:"Enter title4(optional)" %>
     <%= f.hidden_field :description4 %>
   </div>
   
   <div class="field">
-    <%= f.label :link_5 %>
-    <%= f.text_field :url5 , id:"textfield", placeholder:"www.underappreciatedlink.com/...." %>
+    <%= f.label :link_5 %></br>
+    <%= f.text_field :url5 , id:"linkfield", placeholder:"www.underappreciatedlink.com/...." %><i class="material-icons curatorComments">insert_comment</i>
     <%= f.hidden_field :title5  , id:"textfield" , placeholder:"Enter title5(optional)" %>
     <%= f.hidden_field :description5 %>
   </div>
-  
+
+  </br>
+  <hr>
+
+  <!-- ROBIN, WE NEED TO ADD THESE FIELDS INTO THE DB -->
+  <div class="field">
+    <%= f.label :tags %>
+    <%= f.text_area :description  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!"%>
+  </div>
+
+  <!-- ROBIN, THIS IS A RADIO GROUP, IT IS A TEXT FIELD THAT WILL TAKE IN ONE OF THESE VALUES.... NEEDS TO BE CREATED -->
+  <div class="field">
+    <%= f.label :Level %>
+  <div class="btn-group btn-group-justified" role="group" aria-label="Level">
+    <button type="button" class="btn btn-default">Unspecified</button>
+    <button type="button" class="btn btn-default">Easy</button>
+    <button type="button" class="btn btn-default">Involved</button>
+    <button type="button" class="btn btn-default">Advanced</button>
+  </div>
+</div>
+
+  </br>
+  <hr>
+
+  <!-- TILL HERE -->
+
   <div class="actions">
     <%= f.submit 'Publish', id:"Save", name:"commit"%> <%= f.submit 'Save As Draft',id:"Save", name:"commit" %>
   </div>
