@@ -31,6 +31,11 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'client_side_validations'
 # Use Unicorn as the app server
 # gem 'unicorn'
+gem 'paperclip'
+
+gem 'acts-as-taggable-on'
+
+gem 'readingtime'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

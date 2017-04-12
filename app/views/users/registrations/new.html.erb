@@ -18,6 +18,16 @@
     <%= f.text_field :username , placeholder:"Username",required:true, id:'textfield'   %> 
   </div>
 
+  <div class="field">
+    <%= f.label :firstname %>
+    <%= f.text_field :fname , placeholder:"First Name", id:'textfield'   %> 
+  </div>
+
+  <div class="field">
+    <%= f.label :lastname %>
+    <%= f.text_field :lname , placeholder:"Last Name", id:'textfield'   %> 
+  </div>
+
   <!-- ROBIN, CHANGED THIS FROM TEXT_FIELD TO TEXT_AREA -->
   <div class="field">
     <%= f.label :About_You %>
@@ -34,6 +44,12 @@
     <%= f.password_field :password_confirmation, placeholder:"Confirm Password", id:'textfield'   %>
   </div>
 
+  <div class="field">
+    <%= f.file_field :avatar, id:"pictureInput" %>
+  </div>
+
+<div id="target">
+</div>
 
 </br>
 <hr>
@@ -45,4 +61,13 @@
 
 <%= render "users/shared/links" %>
 
+
 </div>
+
+
+<style type="text/css">
+img {
+    width: 50%;
+    
+}
+</style>

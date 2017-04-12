@@ -65,7 +65,7 @@
       
       Taken care of by overflow scroll
       <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/,' ...') rescue nil %></h3>  -->
-      <h4 id="summary">SUMMARY</h4>
+      <h4 id="summary"><%= form.tag_list %></h4>
       <h5 class="internal_text"><%= form.description %></h5>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
@@ -234,7 +234,7 @@
         <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
         <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
 
-        &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date">27 mins</h10>
+        &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date"><%= form.user.username %></h10>
         <%-#reading time from readingtime gem -%>
         </div>
         </div>
