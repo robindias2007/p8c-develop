@@ -90,10 +90,6 @@ p {
 /* ---------- BOOTSTRAP NAV BAR END --------------*/
 
 
-
-
-
-
 #category {
     text-align:left;
     text-transform:uppercase;
@@ -612,6 +608,31 @@ height: 50%;
  background-color:white;
 }*/
 
+$transition : .2s;
+
+.row li {
+    float: left;
+    transition: transform $transition;
+}
+
+.row:hover {
+        transform: translateX(0%);
+
+    li {
+        transform: translateX(-5%);
+    }
+}
+
+.row li:hover {
+        transform: scale(1.1);
+        transition-duration: $transition/1.1;
+    }
+
+.row li:hover ~ li {
+    transform: translateX(5%);
+}
+
+
 #articleCard{
  border: 1px solid #e3e3e3;
  box-shadow: 0px 1px 1px #888888;
@@ -619,7 +640,6 @@ height: 50%;
  margin: 20px 0.5%;
  padding: 0px 15px;
  background-color:white;
- display:inline-block;
  width:19%;
 }
 

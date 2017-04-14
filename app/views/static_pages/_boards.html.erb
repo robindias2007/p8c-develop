@@ -118,10 +118,11 @@
    <div id="verticalLine"></div>
 
     <div class="container3"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
-    <div class="row">
-    <a href= <%= form.url1 %> target="_blank", id="formclick" > 
+    <ul class="row">
+    
     <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
-    <div class="col-md-2 col-sm-4" id="articleCard">  
+    <li class="col-md-2 col-sm-4" id="articleCard">  
+    <a href= <%= form.url1 %> target="_blank", id="formclick" > 
     <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
     <hr>
     <!-- We shouldn't put "..." on titles 
@@ -138,12 +139,11 @@
     <h6 class="internal_text1"><%= form.description1[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6> 
     <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
     <hr>
-    </div>
     </a>
-
-  
+    </li>  
+    
+    <li class="col-md-2 col-sm-4" id="articleCard">  
     <a href= <%= form.url2 %>  target="_blank", id="formclick">
-    <div class="col-md-2 col-sm-4" id="articleCard">  
     <hr>
     <h4 class="title1"><%= form.title2[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image2 , id:"image" %></div>
@@ -151,11 +151,11 @@
     <br>
     <h6 class="internal_text1"><%= form.description2[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
-    </div>
     </a>
-
+    </li>
+    
+    <li class="col-md-2 col-sm-4" id="articleCard">
     <a href= <%= form.url3 %>  target="_blank", id="formclick" >
-    <div class="col-md-2 col-sm-4" id="articleCard">
     <hr>
     <h4 class="title1"><%= form.title3[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image3 , id:"image" %></div>
@@ -163,11 +163,11 @@
     <br>
     <h6 class="internal_text1"><%= form.description3[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
-    </div>
     </a>
+    </li>
 
+    <li class="col-md-2 col-sm-4" id="articleCard">
     <a href= <%= form.url4 %>  target="_blank" , id="formclick">
-    <div class="col-md-2 col-sm-4" id="articleCard">
     <hr>
     <!-- Title4 DB name is MIS-SPELLED! -->
     <h4 class="title1"><%= form.titel4[0..60] rescue nil %></h4>
@@ -176,11 +176,11 @@
     <br>
     <h6 class="internal_text1"><%= form.description4[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
-    </div>  
     </a>
- 
+    </li>  
+    
+    <li class="col-md-2 col-sm-4" id="articleCard">
     <a href= <%= form.url5 %>  target="_blank" , id="formclick">
-    <div class="col-md-2 col-sm-4" id="articleCard">
     <hr>
     <h4 class="title1"><%= form.title5[0..60] rescue nil %></h4>
     <div class="image"><%= image_tag form.image5 , id:"image" %></div>
@@ -188,10 +188,11 @@
     <br>
     <h6 class="internal_text1"><%= form.description5[0..141].gsub(/\s\w+\s*$/,'...') rescue nil %></h6>
     <hr>
-    </div>
     </a>
+    </li>
     
-    </div>
+    
+    </ul>
     </div>
    <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
  
