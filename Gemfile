@@ -32,8 +32,9 @@ gem 'client_side_validations'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'paperclip'
+gem 'acts-as-taggable-on', '~> 4.0'
 
-gem 'acts-as-taggable-on'
+
 
 gem 'readingtime'
 

@@ -83,20 +83,20 @@ respond_to :js
     # When you draft your board and you want to publish that draft you edit and publish it here. So the form is updated or edited here using metainspector again with the update function
     
     if @form.update(form_params)  
-      meta = MetaInspector.new(@form.url1)
-      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description)
+      meta = MetaInspector.new(@form.url1) rescue nil
+      @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
       
-      meta1 = MetaInspector.new(@form.url2)   
-      @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description)
+      meta1 = MetaInspector.new(@form.url2) rescue nil
+      @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description) rescue nil
       
-      meta2 = MetaInspector.new(@form.url3)   
-      @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description)
+      meta2 = MetaInspector.new(@form.url3) rescue nil   
+      @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description) rescue nil
       
-      meta3 = MetaInspector.new(@form.url4)   
-      @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description)
+      meta3 = MetaInspector.new(@form.url4) rescue nil
+      @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description) rescue nil
       
-      meta4 = MetaInspector.new(@form.url5)   
-      @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description)
+      meta4 = MetaInspector.new(@form.url5) rescue nil
+      @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
@@ -151,6 +151,6 @@ respond_to :js
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list => [])
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list)
     end
 end

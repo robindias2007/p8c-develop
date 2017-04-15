@@ -223,7 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on
+  acts-as-taggable-on (~> 4.0)
   acts_as_votable (~> 0.10.0)
   bootstrap-sass (~> 3.3.6)
   byebug
