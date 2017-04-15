@@ -35,35 +35,40 @@
   
   <div class="field">
     <%= f.label :link_1 %> <p style="float:right">Add Notes</p>
-    <%= f.text_field :url1  , id:"linkfield", placeholder:"www.interestingwebsite.com/...."  %><i class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :url1  , id:"linkfield", placeholder:"www.interestingwebsite.com/...."  %><i id="not1", class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :note1, class: "notes", id:"note1", placeholder:"Insert comment" %>
     <%= f.hidden_field :title1  , id:"textfield" , placeholder:"Enter title1(optional)" %>
     <%= f.hidden_field :description1 %>
   </div>
   
   <div class="field">
     <%= f.label :link_2 %></br>
-    <%= f.text_field :url2 , id:"linkfield", placeholder:"www.greatarticle.com/...." %><i class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :url2 , id:"linkfield", placeholder:"www.greatarticle.com/...." %><i id="not2", class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :note2, class: "notes", id:"note2", placeholder:"Insert comment" %>
     <%= f.hidden_field :title2  , id:"textfield" , placeholder:"Enter title2(optional)" %>
     <%= f.hidden_field :description2 %>
   </div>
   
   <div class="field">
     <%= f.label :link_3 %></br>
-    <%= f.text_field :url3 , id:"linkfield", placeholder:"www.insightfulvideo.com/...." %><i class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :url3 , id:"linkfield", placeholder:"www.insightfulvideo.com/...." %><i id="not3", class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :note3, class: "notes", id:"note3", placeholder:"Insert comment" %>
     <%= f.hidden_field :title3  , id:"textfield" , placeholder:"Enter title3(optional)" %>
     <%= f.hidden_field :description3 %>
   </div>
   
   <div class="field">
     <%= f.label :link_4 %></br>
-    <%= f.text_field :url4 , id:"linkfield", placeholder:"www.hiddengem.com/...." %><i class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :url4 , id:"linkfield", placeholder:"www.hiddengem.com/...." %><i id="not4", class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :note4, class: "notes", id:"note4", placeholder:"Insert comment" %>
     <%= f.hidden_field :titel4  , id:"textfield" , placeholder:"Enter title4(optional)" %>
     <%= f.hidden_field :description4 %>
   </div>
   
   <div class="field">
     <%= f.label :link_5 %></br>
-    <%= f.text_field :url5 , id:"linkfield", placeholder:"www.underappreciatedlink.com/...." %><i class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :url5 , id:"linkfield", placeholder:"www.underappreciatedlink.com/...." %><i id="not5", class="material-icons curatorComments">insert_comment</i>
+    <%= f.text_field :note5, class: "notes", id:"note5", placeholder:"Insert comment" %>
     <%= f.hidden_field :title5  , id:"textfield" , placeholder:"Enter title5(optional)" %>
     <%= f.hidden_field :description5 %>
   </div>
@@ -80,7 +85,7 @@
   <!-- ROBIN, THIS IS A RADIO GROUP, IT IS A TEXT FIELD THAT WILL TAKE IN ONE OF THESE VALUES.... NEEDS TO BE CREATED -->
   <div class="field">
     <%= f.label :Level %>
-  <div class="btn-group btn-group-justified" role="group" aria-label="Level">
+  <timediv class="btn-group btn-group-justified" role="group" aria-label="Level">
     <button type="button" class="btn btn-default">Unspecified</button>
     <button type="button" class="btn btn-default">Easy</button>
     <button type="button" class="btn btn-default">Involved</button>
@@ -101,3 +106,33 @@
 <% else %>
   
 <% end %>
+
+<style type="text/css">
+  .notes
+  {
+   display: none;
+  }
+</style>
+
+<script type="text/javascript">
+  $('#not1').click(function() {
+    $('#note1').toggle();
+});
+
+  $('#not2').click(function() {
+    $('#note2').toggle();
+});
+
+  $('#not3').click(function() {
+    $('#note3').toggle();
+});
+
+  $('#not4').click(function() {
+    $('#note4').toggle();
+});
+
+  $('#not5').click(function() {
+    $('#note5').toggle();
+});
+</script>>
+
