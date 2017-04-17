@@ -33,7 +33,7 @@ gem 'client_side_validations'
 # gem 'unicorn'
 gem 'paperclip'
 gem 'acts-as-taggable-on', '~> 4.0'
-
+gem 'readingtime'
 
 
 # Use Capistrano for deployment

@@ -57,7 +57,8 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5)   rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
-
+      @form.update(readtime:meta4.description) rescue nil
+    
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
        @form.update(:publish => "true")       #publish becomes true
       redirect_to static_pages_publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
@@ -99,6 +100,8 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5) rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
+      @form.update(readtime:meta4.description) rescue nil
+
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
       redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
@@ -152,6 +155,6 @@ respond_to :js
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5)
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime)
     end
 end
