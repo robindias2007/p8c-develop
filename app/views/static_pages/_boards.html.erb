@@ -239,6 +239,16 @@
         <%-#reading time from readingtime gem -%>
         &nbsp; &nbsp;&nbsp; &nbsp;
         <div id="tagging", style="float:right;color:blue"><%= form.tag_list %></div>
+        <% if form.unspecified.present? %>
+         Unspecified
+        <% elsif form.easy.present? %>
+          Easy
+        <% elsif form.involved.present? %>
+          Involved
+        <% elsif form.advanced.present? %>
+          Advanced
+        <% else %>
+        <% end %>
         </div>
         </div>
         </div>

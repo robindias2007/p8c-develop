@@ -86,10 +86,10 @@
   <div class="field">
     <%= f.label :Level %>
   <timediv class="btn-group btn-group-justified" role="group" aria-label="Level">
-    <button type="button" class="btn btn-default">Unspecified</button>
-    <button type="button" class="btn btn-default">Easy</button>
-    <button type="button" class="btn btn-default">Involved</button>
-    <button type="button" class="btn btn-default">Advanced</button>
+    <%= f.check_box :unspecified, class: "btn btn-default", name:"unspecified" %> Unspecified
+    <%= f.check_box :easy, class: "btn btn-default", name:"easy" %> Easy
+    <%= f.check_box :involved, class: "btn btn-default", name:"involved" %> Involved
+    <%= f.check_box :advanced, class: "btn btn-default", name:"advanced" %> Advanced
   </div>
 </div>
 
@@ -134,5 +134,10 @@
   $('#not5').click(function() {
     $('#note5').toggle();
 });
-</script>>
+
+$('.btn.btn-default').on('change', function() {
+        $('.btn.btn-default').not(this).prop('checked', false);  
+    });
+
+</script>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417142156) do
+ActiveRecord::Schema.define(version: 20170417183129) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "title"
@@ -53,6 +53,10 @@ ActiveRecord::Schema.define(version: 20170417142156) do
     t.string   "note4"
     t.string   "note5"
     t.string   "readtime"
+    t.boolean  "unspecified"
+    t.boolean  "easy"
+    t.boolean  "involved"
+    t.boolean  "advanced"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
