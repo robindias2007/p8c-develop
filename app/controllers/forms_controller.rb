@@ -57,6 +57,8 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5)   rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
+      @form.update(readtime:@form.title+@form.description+@form.url1+@form.url2+@form.url3+@form.url4+@form.url5+@form.note1+@form.note2+@form.note3+@form.note4+@form.note5+meta.description+meta.title+meta1.description+meta1.title+meta2.description+meta2.title+meta3.description+meta3.title+meta4.description+meta4.title)
+
       if params[:unspecified]
         @form.update_attributes(unspecified:true)
      elsif params[:easy] 
@@ -108,6 +110,9 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5) rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
+      @form.update(readtime:meta.description+meta1.description+meta2.description+meta3.description+meta4.description)
+
+
       if params[:unspecified]
         @form.update_attributes(unspecified:true)
      elsif params[:easy] 
