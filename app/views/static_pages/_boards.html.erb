@@ -238,18 +238,22 @@
         &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date"></h10>
         <%-#reading time from readingtime gem -%>
         &nbsp; &nbsp;&nbsp; &nbsp;
-        <div id="tagging", style="float:right;color:blue"><%= form.tag_list %></div>
         <% if form.unspecified.present? %>
+         <i class="material-icons", style="color: red">linear_scale</i>
          Unspecified
         <% elsif form.easy.present? %>
+          <i class="material-icons", style="color: red">linear_scale</i>
           Easy
         <% elsif form.involved.present? %>
+          <i class="material-icons", style="color: red">linear_scale</i>
           Involved
         <% elsif form.advanced.present? %>
+          <i class="material-icons", style="color: red">linear_scale</i>
           Advanced
         <% else %>
         <% end %>
         </div>
+        <div id="tagging", style="float:right;color:blue"><%= form.tag_list %></div>
         </div>
         </div>
     </div>
