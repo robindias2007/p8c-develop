@@ -17,7 +17,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require rails.validations
-
+//= require bootstrap-tagsinput
 
 $(".vote").click(function(e) {
     e.preventDefault();
