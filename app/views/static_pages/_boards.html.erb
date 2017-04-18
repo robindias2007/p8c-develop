@@ -253,7 +253,7 @@
         <% else %>
         <% end %>
         </div>
-        <div id="tagging", style="float:right;color:blue"><%= form.tag_list %></div>
+        <div id="tagging", style="float:right;color:blue"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
         </div>
         </div>
     </div>

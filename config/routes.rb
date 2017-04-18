@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   
   
   get 'users/index'
-  
+  get 'tags/:tag', to: 'forms#tagss', as: :tag 
 
 
   devise_for :users
-
+ 
   resources :forms do
     member do
       put "like", to: "forms#upvote"

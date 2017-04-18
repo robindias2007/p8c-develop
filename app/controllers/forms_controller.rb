@@ -12,7 +12,7 @@ respond_to :js
     @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true) 
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
-
+  
   # GET /forms/1
   # GET /forms/1.json
   def show
@@ -164,6 +164,12 @@ respond_to :js
    @form = Form.find(params[:id])    #Opposite of upvote.
    @form.downvote_from current_user
    redirect_to :back
+  end
+
+  def tagss
+    if params[:tag]
+      @forms = Form.tagged_with(params[:tag]) 
+    end
   end
 
   private
