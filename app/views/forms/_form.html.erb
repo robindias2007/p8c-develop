@@ -86,10 +86,10 @@
   <div class="field">
     <%= f.label :Level %>
   <timediv class="btn-group btn-group-justified" role="group" aria-label="Level">
-    <%= f.check_box :unspecified, class: "btn btn-default", name:"unspecified" %> Unspecified
-    <%= f.check_box :easy, class: "btn btn-default", name:"easy" %> Easy
-    <%= f.check_box :involved, class: "btn btn-default", name:"involved" %> Involved
-    <%= f.check_box :advanced, class: "btn btn-default", name:"advanced" %> Advanced
+    <%= f.button :unspecified, class: "btn btn-default", name:"unspecified" %>
+    <%= f.button :easy, class: "btn btn-default", name:"easy" %> 
+    <%= f.button :involved, class: "btn btn-default", name:"involved" %> 
+    <%= f.button :advanced, class: "btn btn-default", name:"advanced" %> 
   </div>
 </div>
 
@@ -138,6 +138,11 @@
 $('.btn.btn-default').on('change', function() {
         $('.btn.btn-default').not(this).prop('checked', false);  
     });
+
+$('.btn.btn-default').click(function() {
+    window.location.href = '/forms';
+    return true;
+});
 
 </script>
 

@@ -35,7 +35,7 @@ gem 'paperclip'
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'readingtime'
 gem 'bootstrap-tagsinput-rails'
-
+gem 'wicked'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
