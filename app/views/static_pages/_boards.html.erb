@@ -17,7 +17,7 @@
         <div class="date" id="profile">Curated by &nbsp;<a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
         <% end %>
 
-        <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
+        <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
         <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
 
         &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date"><%= form.readtime.reading_time :format => :full %></h10>
@@ -222,19 +222,8 @@
         <% end %>
 
 
-        <% if user_signed_in? %>
-        <% if @home_user %>
-        <div class="date" id="profile">&nbsp;&nbsp;&nbsp;Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a>on &nbsp;
-        <% else %>
-        <div class="date" id="profile">&nbsp;&nbsp;&nbsp;Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
-        <% end %>
-        <% else %>
-        <div class="date" id="profile">&nbsp;&nbsp;&nbsp;Curated by &nbsp;<a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
-        <% end %>
-
-        <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
-        <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
-
+        <div class="viewcount" id="profile">&nbsp;&nbsp;&nbsp;View Count zzx &nbsp;        
+        
         &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date"><%= form.readtime.reading_time :format => :full %></h10>
         <%-#reading time from readingtime gem -%>
         &nbsp; &nbsp;&nbsp; &nbsp;
