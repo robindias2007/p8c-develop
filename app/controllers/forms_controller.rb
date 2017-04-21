@@ -58,17 +58,17 @@ respond_to :js
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
       @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil 
+      
+        if params[:unspecified]
+          @form.update_attributes(unspecified:true)
+        elsif params[:easy] 
+         @form.update_attributes(easy:true)
+        elsif params[:easy] 
+         @form.update_attributes(involved:true)
+        else  
+         @form.update_attributes(advanced:true) 
+        end
 
-      if params[:unspecified]
-        @form.update_attributes(unspecified:true)
-     elsif params[:easy] 
-       @form.update_attributes(easy:true)
-     elsif params[:easy] 
-       @form.update_attributes(involved:true)
-      else  
-       @form.update_attributes(advanced:true) 
-     end
-    
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
        @form.update(:publish => "true")       #publish becomes true
       redirect_to static_pages_publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
@@ -77,6 +77,7 @@ respond_to :js
         @form.update(:publish => "false")
         redirect_to static_pages_drafts_path  #then it redirects to static_pages/drafts and stores the form there. 
       end
+    
   
   
     else
@@ -115,9 +116,9 @@ respond_to :js
 
       if params[:unspecified]
         @form.update_attributes(unspecified:true)
-     elsif params[:easy] 
+      elsif params[:easy] 
        @form.update_attributes(easy:true)
-     elsif params[:easy] 
+      elsif params[:easy] 
        @form.update_attributes(involved:true)
       else  
        @form.update_attributes(advanced:true) 
@@ -125,7 +126,7 @@ respond_to :js
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
-      redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+       redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
 
       else params[:commit] == 'Save as Draft'
         @form.update(:publish => "false")
@@ -140,7 +141,7 @@ respond_to :js
       end
     end
   end
-
+  
   # DELETE /forms/1
   # DELETE /forms/1.json
   def destroy

@@ -6,6 +6,11 @@ class UserStepsController < ApplicationController
     @user = current_user
     render_wizard
   end
+  
+  def personal
+    @user.update_attributes(user_params)
+    redirect_to root_url
+  end 
 
   def update
     @user = current_user

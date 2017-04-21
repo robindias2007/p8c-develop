@@ -6,7 +6,7 @@
   </br>
   <hr>
   
-  <%= form_for(resource, as: resource_name, :validate => true, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(:user, method: :post, url: user_registration_path) do |f| %>
 
   <div class=" field">
     <%= f.label :Email %>
@@ -19,22 +19,6 @@
   </div>
 
   <div class="field">
-    <%= f.label :firstname %>
-    <%= f.text_field :fname , placeholder:"First Name", id:'textfield'   %> 
-  </div>
-
-  <div class="field">
-    <%= f.label :lastname %>
-    <%= f.text_field :lname , placeholder:"Last Name", id:'textfield'   %> 
-  </div>
-
-  <!-- ROBIN, CHANGED THIS FROM TEXT_FIELD TO TEXT_AREA -->
-  <div class="field">
-    <%= f.label :About_You %>
-    <%= f.text_area :author , placeholder:"Tell us a little about yourself and your interests", rows:3 , id:'textfield'   %> 
-  </div>
-
-  <div class="field">
     <%= f.label :Password %> 
     <%= f.password_field :password, placeholder:"Password", id:'textfield'   %>
   </div>
@@ -43,20 +27,13 @@
     <%= f.label :Confirm_Password %>
     <%= f.password_field :password_confirmation, placeholder:"Confirm Password", id:'textfield'   %>
   </div>
-
-  <div class="field">
-    <%= f.file_field :avatar, id:"pictureInput" %>
-  </div>
-
-<div id="target">
-</div>
+ 
 
 </br>
 <hr>
 
-  <div class="actions">
-      <%= f.submit "Sign Up", id: 'Save' %>
-  </div> 
+<%= link_to "Next step", user_steps_path %>
+  
   <% end %>
 
 <%= render "users/shared/links" %>

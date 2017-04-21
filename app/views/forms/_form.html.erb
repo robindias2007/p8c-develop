@@ -85,12 +85,21 @@
   <!-- ROBIN, THIS IS A RADIO GROUP, IT IS A TEXT FIELD THAT WILL TAKE IN ONE OF THESE VALUES.... NEEDS TO BE CREATED -->
   <div class="field">
     <%= f.label :Level %>
-  <timediv class="btn-group btn-group-justified" role="group" aria-label="Level">
-    <%= f.button :unspecified, class: "btn btn-default", name:"unspecified" %>
-    <%= f.button :easy, class: "btn btn-default", name:"easy" %> 
-    <%= f.button :involved, class: "btn btn-default", name:"involved" %> 
-    <%= f.button :advanced, class: "btn btn-default", name:"advanced" %> 
+
+  <div class="btn-group btn-group-justified">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default", name="unspecified", id="uns">Unspecified</button>
   </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default", name="easy", remote="true">Easy</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default", name="involved", remote="true">Involved</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default", name="advanced", remote="true">Advanced</button>
+  </div>
+</div>
 </div>
 
   </br>
@@ -139,10 +148,18 @@ $('.btn.btn-default').on('change', function() {
         $('.btn.btn-default').not(this).prop('checked', false);  
     });
 
-$('.btn.btn-default').click(function() {
-    window.location.href = '/forms';
-    return true;
+$("#uns").click(function() {
+  $.ajax({
+      url: "/forms",
+      type: "POST",
+      data: {name: $(this).val()},
+      success: function (data) { 
+          // append data to your page
+          $("page_element").html(data);
+      }
+  });
 });
+ 
 
 </script>
 
