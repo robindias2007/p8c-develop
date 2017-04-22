@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     member do
       put "like", to: "forms#upvote"
       put "dislike", to: "forms#downvote"
+      put "like1", to: "forms#upvote1"
+      put "dislike1", to: "forms#downvote1"
+      put "difficulty", to: "forms#difficulty"
     end
   end
 

@@ -19,7 +19,7 @@
 		<ul class="count">
 			<li><%= Form.where(user_id:current_user.id, publish:true).count %></li>
 			<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
-			<li><%= Form.where(id: current_user.find_up_voted_items).count %></li>
+			<li><%= Form.where(bookmark:true).count %></li>
 		</ul>
 	
 		<ul class="board">

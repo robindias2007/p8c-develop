@@ -48,7 +48,7 @@ class StaticPagesController < ApplicationController
   def saved #saved.html.erb
    @home_user = true;   #board validation for showing things and to not show somethings
    @home_user1 = true;
-   @forms = Form.where(id: current_user.find_up_voted_items).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
+   @forms = Form.where(bookmark:true).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
   end    
 
 

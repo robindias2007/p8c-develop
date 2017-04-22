@@ -125,7 +125,8 @@ respond_to :js
        @form.update_attributes(advanced:true) 
       else
       end
-
+      
+      
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
        redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
@@ -167,6 +168,33 @@ respond_to :js
    @form = Form.find(params[:id])    #Opposite of upvote.
    @form.downvote_from current_user
    redirect_to :back
+  end
+
+  def upvote1
+    @form = Form.find(params[:id])
+    @form.update_attributes(bookmark:true)
+    redirect_to :back
+  end
+
+  def downvote1
+    @form = Form.find(params[:id])
+    @form.update_attributes(bookmark:false)
+    redirect_to :back
+  end
+
+  def difficulty
+    @form = Form.find(params[:id])
+    if params[:unspecified]
+      @form.update_attributes(unspecified:true)
+    elsif params[:easy]
+      @form.update_attributes(easy:true)
+    elsif params[:involved]
+      @form.update_attributes(involved:true)
+    else
+      @form.update_attributes(advanced:true)
+    end
+      
+    redirect_to :back
   end
 
   def tagss
