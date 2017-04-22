@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422090108) do
+ActiveRecord::Schema.define(version: 20170422100127) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "title"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 20170422090108) do
   add_index "forms", ["cached_weighted_average"], name: "index_forms_on_cached_weighted_average"
   add_index "forms", ["cached_weighted_score"], name: "index_forms_on_cached_weighted_score"
   add_index "forms", ["cached_weighted_total"], name: "index_forms_on_cached_weighted_total"
+
+  create_table "punches", force: :cascade do |t|
+    t.integer  "punchable_id",                          null: false
+    t.string   "punchable_type", limit: 20,             null: false
+    t.datetime "starts_at",                             null: false
+    t.datetime "ends_at",                               null: false
+    t.datetime "average_time",                          null: false
+    t.integer  "hits",                      default: 1, null: false
+  end
+
+  add_index "punches", ["average_time"], name: "index_punches_on_average_time"
+  add_index "punches", ["punchable_type", "punchable_id"], name: "punchable_index"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"

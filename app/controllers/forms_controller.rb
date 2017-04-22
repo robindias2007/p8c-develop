@@ -16,6 +16,7 @@ respond_to :js
   # GET /forms/1
   # GET /forms/1.json
   def show
+    @form.punch(request)
     @forms = Form.where(id: params[:id]) #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
   end
 
@@ -126,7 +127,7 @@ respond_to :js
       else
       end
       
-      
+
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
        redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
