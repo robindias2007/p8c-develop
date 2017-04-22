@@ -37,7 +37,7 @@ respond_to :js
     if @form.save                  # if form.save means if it clicked on publish or draft
       
       
-      meta = MetaInspector.new(@form.url1) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
+      meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
       @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
       
       #MetaInspector stores all the url values like title, description and images.best whose response is given to us. 
@@ -45,16 +45,16 @@ respond_to :js
       # Instead of loading the entire page it saves the value in our database and it updates it.
 
 
-      meta1 = MetaInspector.new(@form.url2)   rescue nil
+      meta1 = MetaInspector.new(@form.url2, :allow_non_html_content => true)   rescue nil
       @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description) rescue nil
       
-      meta2 = MetaInspector.new(@form.url3) rescue nil
+      meta2 = MetaInspector.new(@form.url3, :allow_non_html_content => true) rescue nil
       @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description) rescue nil
       
-      meta3 = MetaInspector.new(@form.url4)   rescue nil
+      meta3 = MetaInspector.new(@form.url4, :allow_non_html_content => true)   rescue nil
       @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description) rescue nil
       
-      meta4 = MetaInspector.new(@form.url5)   rescue nil
+      meta4 = MetaInspector.new(@form.url5, :allow_non_html_content => true)   rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
       @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil 
@@ -65,8 +65,9 @@ respond_to :js
          @form.update_attributes(easy:true)
         elsif params[:easy] 
          @form.update_attributes(involved:true)
-        else  
+        elsif  
          @form.update_attributes(advanced:true) 
+        else
         end
 
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
@@ -96,19 +97,19 @@ respond_to :js
     # When you draft your board and you want to publish that draft you edit and publish it here. So the form is updated or edited here using metainspector again with the update function
     
     if @form.update(form_params)  
-      meta = MetaInspector.new(@form.url1) rescue nil
+      meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil
       @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
       
-      meta1 = MetaInspector.new(@form.url2) rescue nil
+      meta1 = MetaInspector.new(@form.url2, :allow_non_html_content => true) rescue nil
       @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description) rescue nil
       
-      meta2 = MetaInspector.new(@form.url3) rescue nil   
+      meta2 = MetaInspector.new(@form.url3, :allow_non_html_content => true) rescue nil   
       @form.update(title3:meta2.title, image3:meta2.images.best, description3:meta2.description) rescue nil
       
-      meta3 = MetaInspector.new(@form.url4) rescue nil
+      meta3 = MetaInspector.new(@form.url4, :allow_non_html_content => true) rescue nil
       @form.update(titel4:meta3.title, image4:meta3.images.best, description4:meta3.description) rescue nil
       
-      meta4 = MetaInspector.new(@form.url5) rescue nil
+      meta4 = MetaInspector.new(@form.url5, :allow_non_html_content => true) rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
       @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil
@@ -120,9 +121,10 @@ respond_to :js
        @form.update_attributes(easy:true)
       elsif params[:easy] 
        @form.update_attributes(involved:true)
-      else  
+      elsif params[:advanced]  
        @form.update_attributes(advanced:true) 
-     end
+      else
+      end
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
