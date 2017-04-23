@@ -7,14 +7,19 @@
   <hr>
   
   <%= form_for(:user, method: :post, url: user_registration_path) do |f| %>
+  
+  <div class="personal">
+  <%= render "/users/registrations/personal", :f => f %>
+  <%= submit_tag 'Next', :type => 'button', id:"next" %>
+  </div>
 
-  <%= render "/users/registrations/personal" %>
- 
-
+  <div class="social", style="display:none">
+  <%= render "/users/registrations/social", :f => f %>
+  <%= submit_tag 'Back', :type => 'button', id:"back" %>
+  <%= f.submit "Sign Up" %>
+  </div>
 </br>
 <hr>
-
-<%= f.submit "Sign Up" %>
   
   <% end %>
 
@@ -30,3 +35,15 @@ img {
     
 }
 </style>
+
+<script type="text/javascript">
+  $("#next").click(function(){
+    $(".social").show();
+    $(".personal").hide();
+});
+
+  $("#back").click(function(){
+    $(".social").hide();
+    $(".personal").show();
+});
+</script>
