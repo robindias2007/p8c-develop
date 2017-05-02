@@ -58,13 +58,13 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5, :allow_non_html_content => true)   rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
-      @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil 
+      @form.update(readtime:meta.parsed + meta1.parsed + meta2.parsed + meta3.parsed + meta4.to_s) rescue nil 
       
         if params[:unspecified]
           @form.update_attributes(unspecified:true)
         elsif params[:easy] 
          @form.update_attributes(easy:true)
-        elsif params[:easy] 
+        elsif params[:involved] 
          @form.update_attributes(involved:true)
         elsif  
          @form.update_attributes(advanced:true) 
@@ -113,14 +113,14 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5, :allow_non_html_content => true) rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
-      @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil
+      @form.update(readtime:meta.parsed + meta1.parsed + meta2.parsed + meta3.parsed + meta4.to_s) rescue nil 
 
 
       if params[:unspecified]
         @form.update_attributes(unspecified:true)
       elsif params[:easy] 
        @form.update_attributes(easy:true)
-      elsif params[:easy] 
+      elsif params[:involved] 
        @form.update_attributes(involved:true)
       elsif params[:advanced]  
        @form.update_attributes(advanced:true) 
@@ -183,21 +183,6 @@ respond_to :js
     redirect_to :back
   end
 
-  def difficulty
-    @form = Form.find(params[:id])
-    if params[:unspecified]
-      @form.update_attributes(unspecified:true)
-    elsif params[:easy]
-      @form.update_attributes(easy:true)
-    elsif params[:involved]
-      @form.update_attributes(involved:true)
-    else
-      @form.update_attributes(advanced:true)
-    end
-      
-    redirect_to :back
-  end
-
   def tagss
     if params[:tag]
       @forms = Form.tagged_with(params[:tag]) 
@@ -214,6 +199,6 @@ respond_to :js
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced)
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5)
     end
 end
