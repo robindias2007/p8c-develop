@@ -58,7 +58,7 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5, :allow_non_html_content => true)   rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
-      @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil 
+      @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
       
         if params[:unspecified]
           @form.update_attributes(unspecified:true)
@@ -113,7 +113,7 @@ respond_to :js
       meta4 = MetaInspector.new(@form.url5, :allow_non_html_content => true) rescue nil
       @form.update(title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
       
-      @form.update(readtime:meta.to_s + meta1.to_s + meta2.to_s + meta3.to_s + meta4.to_s) rescue nil 
+      @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
 
 
       if params[:unspecified]

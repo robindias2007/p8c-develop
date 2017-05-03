@@ -24,6 +24,7 @@ $(".vote").click(function(e) {
     });
 
 
+
 $(function() {
   $('#pictureInput').on('change', function(event) {
     var files = event.target.files;
