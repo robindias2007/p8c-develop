@@ -29,13 +29,13 @@
         <% if user_signed_in? %>
             <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
                 <% if form.bookmark == true %>
-                <%= link_to dislike1_form_path(form), class: 'vote', method: :put, remote:true, data: { toggle_text: 'Like', toggle_href: like1_form_path(form), id: form.id } do %>
-                <i class="material-icons" style="color:#9c1717">bookmark</i>
+                <%= link_to dislike1_form_path(form), class: 'vote', method: :put, data: { toggle_text: 'Like', toggle_href: like1_form_path(form), id: form.id } do %>
+                <i class="material-icons", id="book1", style="color:#9c1717">bookmark</i>
                 <% end %>
 
                 <% else %>
-                <%= link_to like1_form_path(form), class: 'vote', method: :put,remote:true, data: { toggle_text: 'Dislike', toggle_href: dislike1_form_path(form), id: form.id } do %>
-                <i class="material-icons" style="color:#9c1717">bookmark_border</i>
+                <%= link_to like1_form_path(form), class: 'vote', method: :put, data: { toggle_text: 'Dislike', toggle_href: dislike1_form_path(form), id: form.id } do %>
+                <i class="material-icons", id="book2", style="color:#9c1717">bookmark_border</i>
                 <% end %>
              <% end %>
 
@@ -289,7 +289,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <script type="text/javascript">
-    $('#myButton').click(function() {
-     $('#myDiv').show() 
-    });
+
+
+  
 </script>>
