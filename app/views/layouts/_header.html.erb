@@ -109,12 +109,11 @@
     <div class="col-md-12" id="fixedContainer"> 
     
     <% if user_signed_in? %>
-      <a href="/forms/new"><div id="curate">curate</div><i class="material-icons md-48" , id="addCircle">add</i></a>
+      <a href="/forms/new"><div id="cur"><i class="material-icons md-48", id="addCircle">add</i><p class="text">Curate</p></div></a>
     <% else %>
-      <a href="/users/sign_in"><div id="curate">curate</div><i class="material-icons md-48" , id="addCircle">add</i></a>
-    <% end %>
+      <a href="/users/sign_in"><div id="cur"><i class="material-icons md-48", id="addCircle">add</i><p class="text">Curate</p></div></a>
+      <% end %>
     </div>
 
     </head>    
     <body>
-

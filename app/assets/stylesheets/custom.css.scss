@@ -486,8 +486,13 @@ font-size:18px;
     height:237px;
     line-height: 1.4;   
     margin: 6px auto 10px auto;
-    overflow: scroll;
+    overflow-y: hidden;
     text-align:text;
+}
+
+.internal_text:hover
+{
+    overflow-y: scroll;
 }
 
 .internal_text1
@@ -572,7 +577,14 @@ padding-bottom:1px;
 
 .container3
 {
-    overflow-x:auto;
+    overflow-x:hidden;
+}
+
+.container3:hover
+{
+ overflow-x:auto;
+ overflow-y: hidden;
+
 }
 
 .row {
@@ -791,33 +803,6 @@ float: left;
 
 -------------------*/
 
-
-
-#curate
-{   
-    z-index:99;
-
-    position:absolute;
-    right:32px;
-    bottom:38px;
-
-    font-family: Futura, sans-serif;
-    font-size: 18px;
-    background-color:#4e4e4e;
-
-    border-radius:2px;
-    color: white;
-
-    opacity:0;
-    display:inline;
-
-    padding: 4px 2px 7px;
-
-    transition: opacity 0.5s linear;
-    transition: padding 0.5s;
-
-}
-
 #hScroll
 {   
     z-index:5;
@@ -835,15 +820,26 @@ float: left;
     display:none;
 }
 
-#curate:hover{
-    opacity:0.9;
-    z-index:97;
-    padding: 3px 60px 6px 6px;
-}
+
+#cur .text
+  {
+    visibility:hidden;
+    
+  }
+
+#cur:hover .text {
+  visibility:visible;
+  text-align: right;
+  width:88%;
+  margin: 0px auto;
+  margin-top: -5%;
+
+  }
+
 
 
 #addCircle {
-    z-index:98;
+    z-index:97;
     position:absolute;
     bottom:24px;
     right:24px;
