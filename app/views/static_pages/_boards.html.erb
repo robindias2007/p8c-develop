@@ -20,7 +20,10 @@
         <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
         <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
 
-        &nbsp; &nbsp;|&nbsp; &nbsp; Reading time &nbsp;<h10 class="date"><%= form.readtime.reading_time :format => :full %></h10>
+        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<h10 class="date">
+        <!-- < form.readtime.reading_time :format => :full %> -->
+            
+        </h10>
         <%-#reading time from readingtime gem -%>
 
         </div>
