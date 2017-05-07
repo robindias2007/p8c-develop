@@ -1,7 +1,25 @@
+<br><br>
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :Tell_us_a_little_about_yourself_and_your_interests %><br />
+    <%= f.text_field :author %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Choose_Your_Profile_Picture %><br />
+    <%= f.file_field :avatar %>
+  </div>
+  
+  <div id="target">
+ </div>
+  <% if @user.avatar.present? %>
+  <%= image_tag @user.avatar.url, id:"useravatar" %>
+  <% end %>
+  <br>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -9,8 +27,8 @@
   </div>
   
   <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -31,15 +49,9 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
 
-  <div class="field">
-    <%= f.file_field :avatar %>
-  </div>
-  
+
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
