@@ -5,24 +5,24 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :Tell_us_a_little_about_yourself_and_your_interests %><br />
+    <%= f.label :Edit_Description %><br />
     <%= f.text_field :author %>
   </div>
   
   <div class="field">
-    <%= f.label :Choose_Your_Profile_Picture %><br />
+    <%= f.label :Profile_Picture %><br />
     <%= f.file_field :avatar %>
   </div>
   
   <div id="target">
- </div>
+  </div>
   <% if @user.avatar.present? %>
   <%= image_tag @user.avatar.url, id:"useravatar" %>
   <% end %>
   <br>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :Change_Email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
   
@@ -36,7 +36,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :New_Password %> <br/>
     <%= f.password_field :password, autocomplete: "off" %>
     <% if @minimum_password_length %>
       <br />
@@ -45,8 +45,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.label :New_Password_Confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "on" %>
   </div>
 
 
