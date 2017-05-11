@@ -575,6 +575,18 @@ padding-bottom:1px;
 }
 
 
+::-webkit-scrollbar
+{
+    width: 0px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: grey;
+    height: 2px;
+}
+
 .container3
 {
     overflow-x:hidden;
