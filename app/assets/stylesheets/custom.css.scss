@@ -637,6 +637,7 @@ $transition : .2s;
 .row li {
     float: left;
     transition: transform $transition;
+    list-style:none;
 }
 
 .row:hover {

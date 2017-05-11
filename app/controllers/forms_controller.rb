@@ -37,7 +37,7 @@ respond_to :js
     @form = Form.new(form_params)  #Form.new shows the new form to the user
     if @form.save                  # if form.save means if it clicked on publish or draft
       
-      
+      if meta = 
       meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
       @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
       
@@ -100,7 +100,8 @@ respond_to :js
     if @form.update(form_params)  
       meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil
       @form.update(title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
-      
+
+
       meta1 = MetaInspector.new(@form.url2, :allow_non_html_content => true) rescue nil
       @form.update(title2:meta1.title, image2:meta1.images.best, description2:meta1.description) rescue nil
       
@@ -153,7 +154,7 @@ respond_to :js
 
     @form.destroy
     respond_to do |format|
-      format.html { redirect_to forms_url, notice: 'Form was successfully destroyed.' }
+      format.html { redirect_to static_pages_publish_path, notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

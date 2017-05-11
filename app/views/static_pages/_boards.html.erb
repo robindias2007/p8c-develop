@@ -216,7 +216,11 @@
                 <% end %>
                 <% end %>
 
-                <div id="likes"><%= form.get_likes.size %> 
+                <div id="likes">
+                <% if form.get_likes.size > 0 %>
+                <%= form.get_likes.size %> 
+                <% else %>
+                <% end %>
                 <%-# It tells you the total count or the total likes on the current form  -%>
                 </div>
             </div>
@@ -232,8 +236,8 @@
         <%-#reading time from readingtime gem -%>
         &nbsp; &nbsp;&nbsp; &nbsp;
         <% if form.unspecified.present? %>
-         <i class="material-icons", style="color: red">linear_scale</i>
-         Unspecified
+         <!-- <i class="material-icons", style="color: red">linear_scale</i>
+         Unspecified -->
         <% elsif form.easy.present? %>
           <i class="material-icons", style="color: red">linear_scale</i>
           Easy
@@ -290,9 +294,3 @@ s.setAttribute('data-timestamp', +new Date());
 <% end %>
 </div>
 
-
-<script type="text/javascript">
-
-
-  
-</script>>
