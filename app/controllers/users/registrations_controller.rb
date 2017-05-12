@@ -43,7 +43,9 @@ before_action :configure_sign_up_params, only: [:create]
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :username, :fname, :lname, :author, :avatar])
   end
   
-
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 
  
   # If you have extra params to permit, append them to the sanitizer.
