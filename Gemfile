@@ -37,6 +37,13 @@ gem 'readingtime'
 gem 'bootstrap-tagsinput-rails'
 gem "punching_bag"
 
+gem "acts_as_follower"
+
+
+gem 'mention_system'
+
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

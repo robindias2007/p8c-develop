@@ -4,6 +4,11 @@ class User < ActiveRecord::Base
   acts_as_voter 
   acts_as_tagger
   
+  acts_as_followable
+  acts_as_follower
+  
+  act_as_mentionee
+
   has_many :forms
   
   

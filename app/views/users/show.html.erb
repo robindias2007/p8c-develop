@@ -6,8 +6,22 @@
 <br>
 <br>
 
+<% if user_signed_in? %>
+  <div id="follow_user">
+    <%= render :partial => "forms/follow_button", :locals => {:user => @user} %>
+  </div>
+ <%= current_user.follow_count %>
+<% end %>
+<br>
+
+
+
+
 <% if current_user.username == @username %>
-<div class="formlist">
+
+
+
+
 
 <div class="count">
 <div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
@@ -16,16 +30,19 @@
 
 </div>
 
+
 <div class="boord">
 <%= link_to 'Published', static_pages_publish_path, id:"board" %>
 <%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
 <%= link_to 'Saved', static_pages_saved_path, id:"board2" %>
 </div>
 
+
 <% else %>
 <a href= "/user/<%= @username  %>" ><button type="button" id="pubbut">Published Boards</button></a>
 <br><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).where(publish:true).count %>
 <% end %>
+
 
 <%= render 'static_pages/boards'%>
 

@@ -17,7 +17,11 @@ Rails.application.routes.draw do
       put "difficulty", to: "forms#difficulty"
     end
   end
+  
+  post '/follows' => 'follows#follow'
+  delete '/follow' => 'follows#unfollow'
 
+  
   get 'forms/bookmarks' => 'forms#bookmarks'     
 
   get 'static_pages/publish' =>  'static_pages#publish'

@@ -1,0 +1,13 @@
+<% if user_signed_in? %> 
+<% unless @user == current_user %> 
+    <% if current_user.following?(@user) %> 
+        <%= button_to('Stop Following', follow_path(user, 
+current_user.follow(@user).id), :method => :delete, :remote => true, 
+class: 'btn btn-danger-outline') %> 
+    <% else %> 
+        <%= button_to('Follow', follows_path(@user), :remote => 
+true, class: 'btn btn-success-outline') %> 
+    <% end %> 
+<% end %> 
+<% end %> 
+
