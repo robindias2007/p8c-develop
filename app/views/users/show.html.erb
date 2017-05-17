@@ -1,11 +1,3 @@
-<div class="maincont">
-
-
-<div id="usacc"><i class="material-icons" style="font-size:50px; float:center">account_circle</i>
-<div id="username">&nbsp;&nbsp;<%= @username  %></div></div>
-<br>
-<br>
-
 <% if user_signed_in? %>
   <div id="follow_user">
     <%= render :partial => "forms/follow_button", :locals => {:user => @user} %>
@@ -14,33 +6,70 @@
 <% end %>
 <br>
 
+<div class="maincont">
+<div class="col-md-10" id="userProfile">
+<div id="username">
+	<i class="material-icons md-120">account_circle</i>
+	<div id="userDescription">
+		<h4><%= @username  %></h4>		
+	</div>
+</div>
+
 
 
 
 <% if current_user.username == @username %>
 
 
+<div class="userStats">
+<div class="formlist">
+<ul class="count">
+	<li><%= Form.where(user_id:current_user.id, publish:true).count %></li>
+	<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
+	<li><%= Form.where(id: current_user.find_up_voted_items).count %></li>
+</ul>
 
 
-
-<div class="count">
-<div id="countpub"><%= Form.where(user_id:current_user.id, publish:true).count %></div>
-<div id="countdra"><%= Form.where(user_id:current_user.id, publish:false).count %></div>
-<div id="countsav"><%= Form.where(id: current_user.find_up_voted_items).count %></div>
-
+<ul class="board">
+	<li><%= link_to 'Published', static_pages_publish_path, id:"board" %></li>
+	<li><%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %></li>
+	<li><%= link_to 'Saved', static_pages_saved_path, id:"board2" %></li>
+</ul>
 </div>
 
-
-<div class="boord">
-<%= link_to 'Published', static_pages_publish_path, id:"board" %>
-<%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %>
-<%= link_to 'Saved', static_pages_saved_path, id:"board2" %>
+<ul class="followers">
+	<li>42 Following</li>
+	<li></li>
+	<li>15 Followers</li>
+</ul>
 </div>
-
+</div>
+</div>
 
 <% else %>
-<a href= "/user/<%= @username  %>" ><button type="button" id="pubbut">Published Boards</button></a>
-<br><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).where(publish:true).count %>
+
+<div class="userStats">
+<div class="formlist">
+<ul class="count">
+	<li></li>
+	<li><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).where(publish:true).count %></li>
+	<li></li>
+</ul>
+
+<ul class="board">
+	<li></li>
+	<li><a href= "/user/<%= @username  %>", id="board1">Published</a></li>
+	<li></li>
+</ul>
+
+<ul class="followers">
+	<li>42 Following</li>
+	<li></li>
+	<li>15 Followers</li>
+</ul>
+</div>
+</div>
+
 <% end %>
 
 
