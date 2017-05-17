@@ -11,3 +11,9 @@ true, class: 'btn btn-success-outline') %>
 <% end %> 
 <% end %> 
 
+<% if user_signed_in? %>
+  <div id="follow_user">
+    <%= render :partial => "forms/follow_button", :locals => {:user => @user} %>
+  </div>
+ <%= current_user.follow_count %>
+<% end %>

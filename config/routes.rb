@@ -18,9 +18,13 @@ Rails.application.routes.draw do
     end
   end
   
-  post '/follows' => 'follows#follow'
-  delete '/follow' => 'follows#unfollow'
 
+  resources :follows do
+    member do
+      put "follow", to: "follows#follow"
+      put "unfollow", to: "follows#unfollow"
+    end
+  end
   
   get 'forms/bookmarks' => 'forms#bookmarks'     
 

@@ -1,20 +1,35 @@
-<% if user_signed_in? %>
-  <div id="follow_user">
-    <%= render :partial => "forms/follow_button", :locals => {:user => @user} %>
-  </div>
- <%= current_user.follow_count %>
-<% end %>
+
 <br>
 
 <div class="maincont">
+
+<div style="color: black">
+
+<% if user_signed_in? %> 
+<% unless @user == current_user %> 
+<% if current_user.following?(@user) %>
+<%= link_to unfollow_follow_path(@user), method: :put, data: { toggle_text: 'Unfollow', toggle_href: follow_follow_path(@user), id: @user.id } do %>
+<b>Unfollow</b>
+<% end %>
+
+<% else %>
+<%= link_to follow_follow_path(@user), method: :put, data: { toggle_text: 'Follow', toggle_href: unfollow_follow_path(@user), id: @user.id } do %>
+<b>Follow</b>
+<% end %>
+<% end %>
+<%= @user.followers.count %>
+<% end %>
+<% end %>
+
+</div>
+
 <div class="col-md-10" id="userProfile">
 <div id="username">
 	<i class="material-icons md-120">account_circle</i>
 	<div id="userDescription">
-		<h4><%= @username  %></h4>		
+		<h4><%= @user.username  %></h4>		
 	</div>
 </div>
-
 
 
 
@@ -28,6 +43,7 @@
 	<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
 	<li><%= Form.where(id: current_user.find_up_voted_items).count %></li>
 </ul>
+
 
 
 <ul class="board">
