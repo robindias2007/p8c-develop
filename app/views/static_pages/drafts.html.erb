@@ -29,9 +29,9 @@
 		</ul>
 	</div>
 		<ul class="followers">
-			<li>42 Following</li>
+			<li><%= current_user.all_following.count %> Following</li>
 			<li></li>
-			<li>15 Followers</li>
+			<li><%= current_user.followers.count %> Followers</li>
 		</ul>
 	</div>
 </div>

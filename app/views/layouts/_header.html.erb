@@ -43,7 +43,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="material-icons" style="font-size:30px; color: #000000; float: right; ">account_circle</i>
                 <div class="currentheaderusername"><%= current_user.username %></div></a>
               <ul class="dropdown-menu">
-                <li><a href="/static_pages/publish">My Boards</a></li>
+                <li><a href="/user/<%= current_user.username %>">My Boards</a></li>
                 <li><a href="/users/edit">Edit Profile</a></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
