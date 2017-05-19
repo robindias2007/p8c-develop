@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
-before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
-before_action :authenticate_user!, :only => [:upvote]
+before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike]
+before_action :authenticate_user!, :only => [:like]
 respond_to :js, :json, :html
 
   
@@ -223,24 +223,21 @@ respond_to :js, :json, :html
     end
   end
 
-  def upvote
-    @form = Form.find(params[:id])
-    if !current_user.liked? @form
-      @form.liked_by current_user
-    elsif current_user.liked? @form
-      @form.unliked_by current_user
-    end   
+  def like
+    @form.liked_by current_user      #liked_by is predefined function to like a form 
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
 
-  def downvote
-   @form = Form.find(params[:id])    #Opposite of upvote.
-   @form.downvote_from current_user
-    if request.xhr?
-      head :ok
-     else
-      redirect_to :back
-   end
+  def unlike
+   @form.unliked_by current_user
+   respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
   end
 
   def upvote1

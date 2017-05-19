@@ -1,0 +1,3 @@
+$("#like_<%= @form.id %>").removeClass('glyphicon-heart-empty').addClass('glyphicon-heart');
+$("#like_<%= @form.id %>").attr("href", '/forms/<%= @form.id %>/unlike');
+$("#likes_<%= @form.id %>").html("<%= j (render partial: 'forms/likes', locals: { form: @form } ) %>");

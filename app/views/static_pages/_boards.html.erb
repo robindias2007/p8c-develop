@@ -2,7 +2,6 @@
 <% @forms.each do |form| %>
 
 
-
 <div class="col-md-9 container1">  <!-- The elements of the entire box. -->
     
     <div class="col-md-12">
@@ -92,26 +91,7 @@
     <% end %>-->
 
     <!--
-    <% if user_signed_in? %>
-            <div class="like">   This contains all the elements to like the button where we have the heart option --><!--
-                <% if current_user.liked? form %>
-                <%= link_to dislike_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
-                <i class="material-icons" style="color:#9c1717">favorite</i>
-                <% end %>
-
-                <% else %>
-                <%= link_to like_form_path(form), class: 'vote', method: :put, remote: true, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
-                <i class="material-icons" style="color:#9c1717">favorite_border</i>
-                <% end %>
-        <% end %>
-
-            <div id="likes"><%= form.get_likes.size %> 
-            <%-# It tells you the total count or the total likes on the current form  -%>
-            </div></div>
-
-        <% else %>
-            <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"><%= form.get_likes.size %></div>
-        <% end %> -->
+   
 
       <!-- <div class="bottom-material">
             <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
@@ -249,21 +229,21 @@
 
         <% if user_signed_in? %>
             <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-                <%= link_to like_form_path(form), class: "like-btn", method: :put, remote:true do %>
-                  <div><i class="material-icons">favorite</i></div>
-                <% end %>
+                <%= render :partial => "forms/likes", :locals => {:form => form} %>
+              
                 <div id="likes">
-                <% if form.get_upvotes.size > 0 %>
-                <%= form.get_upvotes.size %> 
-                <% else %>
-                <% end %>
-                <%-# It tells you the total count or the total likes on the current form  -%>
+                  <% if form.get_likes.size > 0 %>
+                    <%= form.get_likes.size %> 
+                  <% else %>
+                  <% end %>
+                  <%-# It tells you the total count or the total likes on the current form  -%>
                 </div>
             </div>
 
         <% else %>
              <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> <div id="likes"><%= form.get_likes.size %></div></div>
         <% end %>
+
 
 
         <div class="viewcount" id="profile">&nbsp;&nbsp;&nbsp;

@@ -1,0 +1,9 @@
+<% if current_user.liked?(form) %>
+  <%= link_to "", unlike_form_path(form.id), remote: true,
+                        id: "like_#{form.id}",
+                        class:"glyphicon glyphicon-heart" %>
+<% else %>
+  <%= link_to "", like_form_path(form.id), remote: true,
+                        id: "like_#{form.id}",
+                        class:"glyphicon glyphicon-heart-empty" %>
+<% end %>
