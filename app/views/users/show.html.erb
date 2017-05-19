@@ -3,21 +3,12 @@
 
 <div class="maincont">
 
-<div style="color: black">
 
-<% if user_signed_in? %> 
-<% unless @user == current_user %> 
-<% if current_user.following?(@user) %>
-<%= link_to unfollow_follow_path(@user), method: :put, data: { toggle_text: 'Unfollow', toggle_href: follow_follow_path(@user), id: @user.id } do %>
-<b>Unfollow</b>
-<% end %>
 
-<% else %>
-<%= link_to follow_follow_path(@user), method: :put, data: { toggle_text: 'Follow', toggle_href: unfollow_follow_path(@user), id: @user.id } do %>
-<b>Follow</b>
-<% end %>
-<% end %>
-<% end %>
+<% if user_signed_in? %>
+  <div id="follow_user">
+    <%= render :partial => "follows/follow_user", :locals => {:user => @user} %>
+  </div>
 <% end %>
 
 </div>

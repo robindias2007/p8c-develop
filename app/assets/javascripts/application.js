@@ -18,7 +18,6 @@
 //= require rails.validations
 //= require bootstrap-tagsinput
 
-$(".vote").click(function() { return false; });
 
 
 

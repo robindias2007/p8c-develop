@@ -19,13 +19,12 @@ Rails.application.routes.draw do
   end
   
 
-  resources :follows do
-    member do
-      put "follow", to: "follows#follow"
-      put "unfollow", to: "follows#unfollow"
-    end
+  resources :users, :only => [:index, :show] do
+    resources :follows, :only => [:create, :destroy]
   end
   
+  resources :follows, :only => [:create, :destroy]
+
   get 'forms/bookmarks' => 'forms#bookmarks'     
 
   get 'static_pages/publish' =>  'static_pages#publish'

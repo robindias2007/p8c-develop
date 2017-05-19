@@ -34,12 +34,12 @@
         <% if user_signed_in? %>
             <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
                 <% if form.bookmark == true %>
-                <%= link_to dislike1_form_path(form), class: 'vote', method: :put, data: { toggle_text: 'Like', toggle_href: like1_form_path(form), id: form.id } do %>
+                <%= link_to dislike1_form_path(form), class: 'booked', method: :put, data: { toggle_text: 'Like', toggle_href: like1_form_path(form), id: form.id } do %>
                 <i class="material-icons", id="book1", style="color:#9c1717">bookmark</i>
                 <% end %>
 
                 <% else %>
-                <%= link_to like1_form_path(form), class: 'vote', method: :put, data: { toggle_text: 'Dislike', toggle_href: dislike1_form_path(form), id: form.id } do %>
+                <%= link_to like1_form_path(form), class: 'booked', method: :put, data: { toggle_text: 'Dislike', toggle_href: dislike1_form_path(form), id: form.id } do %>
                 <i class="material-icons", id="book2", style="color:#9c1717">bookmark_border</i>
                 <% end %>
              <% end %>
@@ -249,20 +249,12 @@
 
         <% if user_signed_in? %>
             <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-                <% if current_user.liked? form %>
-                <%= link_to dislike_form_path(form), class: 'vote', method: :put, data: { toggle_text: 'Like', toggle_href: like_form_path(form), id: form.id } do %>
-                <i class="material-icons" style="color:#9c1717">favorite</i>
+                <%= link_to like_form_path(form), class: "like-btn", method: :put, remote:true do %>
+                  <div><i class="material-icons">favorite</i></div>
                 <% end %>
-
-                <% else %>
-                <%= link_to like_form_path(form), class: 'vote', method: :put, data: { toggle_text: 'Dislike', toggle_href: dislike_form_path(form), id: form.id } do %>
-                <i class="material-icons" style="color:#9c1717">favorite_border</i>
-                <% end %>
-                <% end %>
-
                 <div id="likes">
-                <% if form.get_likes.size > 0 %>
-                <%= form.get_likes.size %> 
+                <% if form.get_upvotes.size > 0 %>
+                <%= form.get_upvotes.size %> 
                 <% else %>
                 <% end %>
                 <%-# It tells you the total count or the total likes on the current form  -%>

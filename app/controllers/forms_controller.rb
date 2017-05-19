@@ -1,9 +1,7 @@
 class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy, :upvote]
 before_action :authenticate_user!, :only => [:upvote]
-
-
-respond_to :js
+respond_to :js, :json, :html
 
   
   # GET /forms
@@ -226,16 +224,23 @@ respond_to :js
   end
 
   def upvote
-    @form = Form.find(params[:id])   #upvote is a method used to like a post taken from acts_as_votable gem  where params[:id] means it takes parameters of the current form.
-    @form.liked_by current_user      #liked_by is predefined function to like a form 
-    redirect_to :back
+    @form = Form.find(params[:id])
+    if !current_user.liked? @form
+      @form.liked_by current_user
+    elsif current_user.liked? @form
+      @form.unliked_by current_user
+    end   
   end
 
 
   def downvote
    @form = Form.find(params[:id])    #Opposite of upvote.
    @form.downvote_from current_user
-   redirect_to :back
+    if request.xhr?
+      head :ok
+     else
+      redirect_to :back
+   end
   end
 
   def upvote1

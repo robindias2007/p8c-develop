@@ -1,0 +1,7 @@
+<% if current_user.liked? @form %>
+  $('.like-btn').addClass('liked');
+<% else %>
+  $('.like-btn').removeClass('like-btn');
+<% end %>
+
+$('likes-count').html("<%= @form.get_upvotes.size %>")
