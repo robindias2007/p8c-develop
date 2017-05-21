@@ -223,10 +223,7 @@
                 <%= render :partial => "forms/likes", :locals => {:form => form} %>
               
                 <div id="likes">
-                  <% if form.get_likes.size > 0 %>
                     <%= form.get_likes.size %> 
-                  <% else %>
-                  <% end %>
                   <%-# It tells you the total count or the total likes on the current form  -%>
                 </div>
             </div>
