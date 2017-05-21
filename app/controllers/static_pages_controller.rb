@@ -18,14 +18,14 @@ class StaticPagesController < ApplicationController
    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:false)   #this is for drafts for current__user
    if params[:commit] == 'Publish'
     @form.update(:publish => "true")
-    redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+    redirect_to publish_path , notice: 'Form was successfully created.' 
    end       
   end
   
   def destroy #to delete the form
    @form.destroy
    respond_to do |format|
-    format.html { redirect_to forms_url, notice: 'Form was successfully destroyed.' }
+    format.html { redirect_to root_url, notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -49,7 +49,6 @@ class StaticPagesController < ApplicationController
    @home_user = true;   #board validation for showing things and to not show somethings
    @home_user1 = true;
    @forms = Form.where(bookmark:true).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
-   
   end    
 
 

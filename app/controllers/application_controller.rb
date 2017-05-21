@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(resource)
-    redirect_to '/static_pages/publish' # Or :prefix_to_your_route
+    redirect_to '/publish' # Or :prefix_to_your_route
   end
 
 

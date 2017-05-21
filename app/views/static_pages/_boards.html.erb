@@ -10,7 +10,7 @@
 
         <% if user_signed_in? %>
         <% if @home_user %>
-        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a>on &nbsp;
+        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a>on &nbsp;
         <% else %>
         <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
         <% end %>
@@ -32,16 +32,7 @@
 
         <% if user_signed_in? %>
             <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-                <% if form.bookmark == true %>
-                <%= link_to dislike1_form_path(form), class: 'booked', method: :put, data: { toggle_text: 'Like', toggle_href: like1_form_path(form), id: form.id } do %>
-                <i class="material-icons", id="book1", style="color:#9c1717">bookmark</i>
-                <% end %>
-
-                <% else %>
-                <%= link_to like1_form_path(form), class: 'booked', method: :put, data: { toggle_text: 'Dislike', toggle_href: dislike1_form_path(form), id: form.id } do %>
-                <i class="material-icons", id="book2", style="color:#9c1717">bookmark_border</i>
-                <% end %>
-             <% end %>
+                <%= render :partial => "forms/books", :locals => {:form => form} %>
 
              
             <%-# It tells you the total count or the total likes on the current form  -%>

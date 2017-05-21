@@ -38,9 +38,9 @@
 
 
 <ul class="board">
-	<li><%= link_to 'Published', static_pages_publish_path, id:"board" %></li>
-	<li><%= link_to 'Drafts', static_pages_drafts_path, id:"board1" %></li>
-	<li><%= link_to 'Saved', static_pages_saved_path, id:"board2" %></li>
+	<li><%= link_to 'Published', publish_path, id:"board" %></li>
+	<li><%= link_to 'Drafts', drafts_path, id:"board1" %></li>
+	<li><%= link_to 'Saved', saved_path, id:"board2" %></li>
 </ul>
 </div>
 
@@ -59,13 +59,13 @@
 <div class="formlist">
 <ul class="count">
 	<li></li>
-	<li><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).where(publish:true).count %></li>
+	<li><%= Form.all.where("user_id = ?",User.find_by_username(params[:id]).id ).where(publish:true, bookmark:true).count %></li>
 	<li></li>
 </ul>
 
 <ul class="board">
 	<li></li>
-	<li><a href= "/user/<%= @user.username  %>", id="board1">Published</a></li>
+	<li><a href= "/user/<%= @user.username  %>/publish", id="board1">Published & Saved</a></li>
 	<li></li>
 </ul>
 

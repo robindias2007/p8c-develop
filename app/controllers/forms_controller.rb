@@ -1,5 +1,5 @@
 class FormsController < ApplicationController
-before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike]
+before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
 before_action :authenticate_user!, :only => [:like]
 respond_to :js, :json, :html
 
@@ -101,11 +101,11 @@ respond_to :js, :json, :html
 
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
        @form.update(:publish => "true")       #publish becomes true
-      redirect_to static_pages_publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
+      redirect_to publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
 
       else params[:commit] == 'Save as Draft'   # it checks if the user has clicked drafs then publish becomes false so it updates it with false
         @form.update(:publish => "false")
-        redirect_to static_pages_drafts_path  #then it redirects to static_pages/drafts and stores the form there. 
+        redirect_to drafts_path  #then it redirects to static_pages/drafts and stores the form there. 
       end
     
   
@@ -195,11 +195,11 @@ respond_to :js, :json, :html
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
-       redirect_to static_pages_publish_path , notice: 'Form was successfully created.' 
+       redirect_to publish_path , notice: 'Form was successfully created.' 
 
       else params[:commit] == 'Save as Draft'
         @form.update(:publish => "false")
-        redirect_to static_pages_drafts_path
+        redirect_to drafts_path
       end
 
       else  #if this gives an error it will go back to edit page
@@ -218,7 +218,7 @@ respond_to :js, :json, :html
 
     @form.destroy
     respond_to do |format|
-      format.html { redirect_to static_pages_publish_path, notice: 'Form was successfully destroyed.' }
+      format.html { redirect_to publish_path, notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -235,21 +235,25 @@ respond_to :js, :json, :html
   def unlike
    @form.unliked_by current_user
    respond_to do |format|
-    format.html { redirect_to :back }
-    format.js
+     format.html { redirect_to :back }
+     format.js
     end
   end
 
-  def upvote1
-    @form = Form.find(params[:id])
+  def book
     @form.update_attributes(bookmark:true)
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
-  def downvote1
-    @form = Form.find(params[:id])
+  def booknot
     @form.update_attributes(bookmark:false)
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   def tagss

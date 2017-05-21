@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     member do
       get "like"
       get "unlike"
-      put "like1", to: "forms#upvote1"
-      put "dislike1", to: "forms#downvote1"
+      get "book"
+      get "booknot"
       put "difficulty", to: "forms#difficulty"
     end
   end
@@ -27,11 +27,11 @@ Rails.application.routes.draw do
 
   get 'forms/bookmarks' => 'forms#bookmarks'     
 
-  get 'static_pages/publish' =>  'static_pages#publish'
-  get 'static_pages/drafts' =>  'static_pages#drafts'
-  get 'static_pages/saved' =>  'static_pages#saved'
+  get '/publish' =>  'static_pages#publish'
+  get '/drafts' =>  'static_pages#drafts'
+  get '/saved' =>  'static_pages#saved'
   
-  get 'user/:id'          =>   'users#show'
+  get 'user/:id/publish'          =>   'users#show'
 
   root 'static_pages#home'
 

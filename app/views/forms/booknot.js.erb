@@ -1,0 +1,3 @@
+$("#book_<%= @form.id %>").removeClass('glyphicon-bookmark').addClass('glyphicon-bookmark empty');
+$("#book_<%= @form.id %>").attr("href", '/forms/<%= @form.id %>/book');
+$("#books_<%= @form.id %>").html("<%= j (render partial: 'forms/books', locals: { form: @form } ) %>");
