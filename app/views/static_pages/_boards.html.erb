@@ -4,43 +4,44 @@
 
 <div class="col-md-9 container1">  <!-- The elements of the entire box. -->
     
-    <div class="col-md-12">
-        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title[0..55] %></h2></a> 
+    <div class="col-md-12 container5">
         <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
 
         <% if user_signed_in? %>
         <% if @home_user %>
-        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a>on &nbsp;
+        <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp; &#183; &nbsp;
         <% else %>
-        <div class="date" id="profile">Curated by &nbsp;<a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
+        <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
         <% end %>
         <% else %>
-        <div class="date" id="profile">Curated by &nbsp;<a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>on &nbsp;
-        <% end %>
+        <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
+            <% end %>
 
-        <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
-        <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
+            <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
+            <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
 
-        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<h10 class="date">
-        <!-- < form.readtime.reading_time :format => :full %> -->
-            
-        </h10>
-        <%-#reading time from readingtime gem -%>
+            &nbsp;&nbsp; <h10 class="date"> <!-- < form.readtime.reading_time :format => :full %> --></h10>
+            <%-#reading time from readingtime gem -%>   
 
         </div>
 
 
         <% if user_signed_in? %>
             <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-                <%= render :partial => "forms/books", :locals => {:form => form} %>
-
-             
-            <%-# It tells you the total count or the total likes on the current form  -%>
+                 <h10 class="date">Save Collection &nbsp; </h10>
+                 <%= render :partial => "forms/books", :locals => {:form => form} %>
+                 <%-# It tells you the total count or the total likes on the current form  -%>
             </div>
 
-        <% else %>
-            <div class="bookmark"><i class="material-icons" style="color:#9c1717">bookmark</i> </div>
-        <% end %>
+            <% else %>
+                
+                <div class="bookmark">
+                    <h10 class="date">Save Collection &nbsp; </h10><i class="material-icons">bookmark</i>
+                </div>
+                
+            <% end %>
+
+        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a> 
     
     </div>
 
@@ -61,7 +62,7 @@
       
       Taken care of by overflow scroll
       <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/,' ...') rescue nil %></h3>  -->
-      <h4 id="summary">Summary</h4>
+      <!--<h4 id="summary">Summary</h4>-->
       <h5 class="internal_text"><%= form.description %></h5>  
       <!-- <div class="center-material">
       <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
@@ -110,13 +111,26 @@
     </h4>
     <%-# It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters -%>
     <%-# rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form -%>
-    <div class="image">
-    <% if form.image1.present? %>
-      <%= image_tag form.image1 , id:"image" %>
-    <% else %>
-      <%= image_tag "whiteimage.jpg" , id:"image" %>
-    <% end %>
-    </div> 
+
+    <div class="container6">
+        <figure class="effect-sadie">
+            <% if form.image1.present? %>
+              <%= image_tag form.image1 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note1.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="notes"><%= form.note1 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
+    </div>
+
     <%-# It renders the image of the entered url from orders controller using metainspector gem in the create method -%>
     <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
     <%-# It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda -%>
@@ -133,16 +147,37 @@
     <h4 class="title1">
       <%= form.title2 rescue nil %>
     </h4>
-    <div class="image">
-    <% if form.image2.present? %>
-      <%= image_tag form.image2 , id:"image" %>
-    <% else %>
-      <%= image_tag "whiteimage.jpg" , id:"image" %>
-     
-     <% end %>
-        
+
+
+    <div class="container6">
+        <figure class="effect-sadie">
+            <% if form.image2.present? %>
+              <%= image_tag form.image2 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note2.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="notes"><%= form.note2 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
     </div>
-    <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+
+
+    <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %>
+        <!-- to bring the icon on the link line (need to make the icon css float:right, color:black; link css width:100%, text-align:left, line-height:18px;)
+        <% if form.note2.present? %>     
+            <i class="material-icons md-18">comment</i>
+        <% else %>
+        <% end %>
+        -->
+    </div>
+
     <br>
     <h6 class="internal_text1"><%= form.description2 rescue nil %></h6>
     <hr>
@@ -155,13 +190,26 @@
     <h4 class="title1">
       <%= form.title3 rescue nil %>
     </h4>
-    <div class="image">
-    <% if form.image3.present? %>
-      <%= image_tag form.image3 , id:"image" %>
-    <% else %>
-      <%= image_tag "whiteimage.jpg" , id:"image" %>
-    <% end %>
+
+    <div class="container6">
+        <figure class="effect-sadie">
+            <% if form.image3.present? %>
+              <%= image_tag form.image3 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note3.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="notes"><%= form.note3 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
     </div>
+    
     <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
     <h6 class="internal_text1"><%= form.description3 rescue nil %></h6>
@@ -176,13 +224,28 @@
     <h4 class="title1">
       <%= form.titel4 rescue nil %>
     </h4>
-   <div class="image">
-    <% if form.image4.present? %>
-      <%= image_tag form.image4 , id:"image" %>
-    <% else %>
-      <%= image_tag "whiteimage.jpg" , id:"image" %>
-    <% end %>
+
+
+    <div class="container6">
+        <figure class="effect-sadie">
+            <% if form.image4.present? %>
+              <%= image_tag form.image4 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note4.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="notes"><%= form.note4 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
     </div>
+
+
     <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
     <h6 class="internal_text1"><%= form.description4 rescue nil %></h6>
@@ -196,13 +259,26 @@
     <h4 class="title1">
     <%= form.title5 rescue nil %>
     </h4>
-    <div class="image">
-    <% if form.image5.present? %>
-      <%= image_tag form.image5 , id:"image" %>
-    <% else %>
-      <%= image_tag "whiteimage.jpg" , id:"image" %>
-    <% end %>
+
+    <div class="container6">
+        <figure class="effect-sadie">
+            <% if form.image5.present? %>
+              <%= image_tag form.image5 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note5.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="notes"><%= form.note5 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
     </div>
+    
     <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
     <br>
     <h6 class="internal_text1"><%= form.description5 rescue nil %></h6>
@@ -222,25 +298,24 @@
             <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
                 <%= render :partial => "forms/likes", :locals => {:form => form} %>
               
-                <div id="likes">
+                <div class="date" id="likes">
                     <%= form.get_likes.size %> 
                   <%-# It tells you the total count or the total likes on the current form  -%>
                 </div>
             </div>
 
         <% else %>
-             <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> <div id="likes"><%= form.get_likes.size %></div></div>
+             <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> <div class="date" id="likes"><%= form.get_likes.size %></div></div>
         <% end %>
 
 
 
-        <div class="viewcount" id="profile">&nbsp;&nbsp;&nbsp;
+        <div class="boardFooter date">
         <!-- View Count <= form.hits %> --> 
-        &nbsp;        
-        
-        &nbsp; &nbsp;|&nbsp; &nbsp;&nbsp;<h10 class="date"></h10>
+       
+        &nbsp; &#183; &nbsp; <h10 class="date"></h10>
         <%-#reading time from readingtime gem -%>
-        &nbsp; &nbsp;&nbsp; &nbsp;
+        
         <% if form.unspecified.present? %>
          <!-- <i class="material-icons", style="color: red">linear_scale</i>
          Unspecified -->
@@ -253,7 +328,7 @@
         <% else %>
         <% end %>
         </div>
-        <div id="tagging", style="float:right;color:blue"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
+        <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
         </div>
         </div>
     </div>
