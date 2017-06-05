@@ -1,7 +1,10 @@
 <!-- if user has signed in -->
 <% if user = current_user %>
 <div class="maincont">
+
+<%= will_paginate @forms %>
 <%= render 'static_pages/boards'%>
+<%= will_paginate @forms %>
 </div>
 
 
@@ -18,8 +21,7 @@
 	In doing so each board offers a unique - i.e. your perspective on a topic So take your time and put a little thought into it before you express yourself!</p>
 	</div>
 </div>
-
-
+<%= will_paginate @forms %>
 <%= render 'static_pages/boards'%>
-
+<%= will_paginate @forms %>
 <% end %>

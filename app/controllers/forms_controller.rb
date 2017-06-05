@@ -8,6 +8,7 @@ respond_to :js, :json, :html
   # GET /forms.json
   def index #index.html.erb
     @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true) 
+    
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
   
@@ -260,6 +261,7 @@ respond_to :js, :json, :html
     if params[:tag]
       @forms = Form.tagged_with(params[:tag]) 
     end
+    @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
   end
 
 
