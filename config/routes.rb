@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     resources :follows, :only => [:create, :destroy]
   end
   
+  get '/following' => 'follows#following'
+  get '/followers' => 'follows#followers'
+
   resources :follows, :only => [:create, :destroy]
 
   get 'forms/bookmarks' => 'forms#bookmarks'     

@@ -36,7 +36,7 @@
             <% else %>
                 
                 <div class="bookmark">
-                    <h10 class="date">Save Collection &nbsp; </h10><i class="material-icons">bookmark</i>
+                    <h10 class="date">Save Collection &nbsp; </h10><i class="material-icons empty">bookmark</i>
                 </div>
                 
             <% end %>
@@ -305,7 +305,7 @@
             </div>
 
         <% else %>
-             <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> <div class="date" id="likes"><%= form.get_likes.size %></div></div>
+             <div class="like"><i class="material-icons" style="color:#9c1717">favorite_border</i> <div class="date" id="likes"><%= form.get_likes.size %></div></div>
         <% end %>
 
 
@@ -372,3 +372,10 @@ s.setAttribute('data-timestamp', +new Date());
 <% end %>
 </div>
 
+<style type="text/css">
+    .empty
+  { 
+    color: white;
+    text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
+  }
+</style>
