@@ -22,6 +22,11 @@ a {
   color: #9c1717;
 }
 
+a:hover, a:focus {
+  color: #9c1717;
+  text-decoration: none;
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
