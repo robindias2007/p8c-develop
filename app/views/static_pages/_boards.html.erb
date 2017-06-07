@@ -20,8 +20,26 @@
             <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
             <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
 
-            &nbsp;&nbsp; <h10 class="date"> <!-- < form.readtime.reading_time :format => :full %> --></h10>
-            <%-#reading time from readingtime gem -%>   
+            <h10 class="date"> <!-- < form.readtime.reading_time :format => :full %> --></h10>
+            <%-#reading time from readingtime gem -%> 
+
+            <div class="date">
+            <!-- View Count <= form.hits %> --> 
+           
+                &nbsp; &#183; &nbsp;
+                
+                <% if form.unspecified.present? %>
+                 <!-- <i class="material-icons", style="color: red">linear_scale</i>
+                 Unspecified -->
+                <% elsif form.easy.present? %>
+                  Level: Easy
+                <% elsif form.involved.present? %>
+                  Level: Involved
+                <% elsif form.advanced.present? %>
+                  Level: Advanced
+                <% else %>
+                <% end %>
+            </div>  
 
         </div>
 
@@ -33,13 +51,13 @@
                  <%-# It tells you the total count or the total likes on the current form  -%>
             </div>
 
-            <% else %>
+        <% else %>
                 
                 <div class="bookmark">
                     <h10 class="date">Save Collection &nbsp; </h10><i class="material-icons">bookmark</i>
                 </div>
                 
-            <% end %>
+        <% end %>
 
         <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a> 
     
@@ -124,7 +142,7 @@
                 <figcaption>
                     <i class="material-icons md-18">comment</i>
                     <h5>Curator Notes</h5>
-                    <p class="notes"><%= form.note1 rescue nil %></p>
+                    <p class="curatorNotes"><%= form.note1 rescue nil %></p>
                 </figcaption> 
             <% else %>
             <% end %>
@@ -161,7 +179,7 @@
                 <figcaption>
                     <i class="material-icons md-18">comment</i>
                     <h5>Curator Notes</h5>
-                    <p class="notes"><%= form.note2 rescue nil %></p>
+                    <p class="curatorNotes"><%= form.note2 rescue nil %></p>
                 </figcaption> 
             <% else %>
             <% end %>
@@ -203,7 +221,7 @@
                 <figcaption>
                     <i class="material-icons md-18">comment</i>
                     <h5>Curator Notes</h5>
-                    <p class="notes"><%= form.note3 rescue nil %></p>
+                    <p class="curatorNotes"><%= form.note3 rescue nil %></p>
                 </figcaption> 
             <% else %>
             <% end %>
@@ -238,7 +256,7 @@
                 <figcaption>
                     <i class="material-icons md-18">comment</i>
                     <h5>Curator Notes</h5>
-                    <p class="notes"><%= form.note4 rescue nil %></p>
+                    <p class="curatorNotes"><%= form.note4 rescue nil %></p>
                 </figcaption> 
             <% else %>
             <% end %>
@@ -272,7 +290,7 @@
                 <figcaption>
                     <i class="material-icons md-18">comment</i>
                     <h5>Curator Notes</h5>
-                    <p class="notes"><%= form.note5 rescue nil %></p>
+                    <p class="curatorNotes"><%= form.note5 rescue nil %></p>
                 </figcaption> 
             <% else %>
             <% end %>
@@ -289,54 +307,33 @@
     
     </ul>
     </div>
-   <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
+        <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
  
 
-    <div class="col-md-12 container4">
+        <div class="col-md-12 container4">
 
-        <% if user_signed_in? %>
-            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-                <%= render :partial => "forms/likes", :locals => {:form => form} %>
-              
-                <div class="date" id="likes">
-                    <%= form.get_likes.size %> 
-                  <%-# It tells you the total count or the total likes on the current form  -%>
+            <% if user_signed_in? %>
+                <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <%= render :partial => "forms/likes", :locals => {:form => form} %>
+                  
+                    <div class="date" id="likes">
+                        <%= form.get_likes.size %> 
+                      <%-# It tells you the total count or the total likes on the current form  -%>
+                    </div>
                 </div>
+
+            <% else %>
+                <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> 
+                    <div class="date" id="likes"><%= form.get_likes.size %></div>
+                </div>
+            <% end %>
+
+            <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
+
             </div>
-
-        <% else %>
-             <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> <div class="date" id="likes"><%= form.get_likes.size %></div></div>
-        <% end %>
-
-
-
-        <div class="boardFooter date">
-        <!-- View Count <= form.hits %> --> 
-       
-        &nbsp; &#183; &nbsp; <h10 class="date"></h10>
-        <%-#reading time from readingtime gem -%>
-        
-        <% if form.unspecified.present? %>
-         <!-- <i class="material-icons", style="color: red">linear_scale</i>
-         Unspecified -->
-        <% elsif form.easy.present? %>
-          Level: Easy
-        <% elsif form.involved.present? %>
-          Level: Involved
-        <% elsif form.advanced.present? %>
-          Level: Advanced
-        <% else %>
-        <% end %>
-        </div>
-        <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
-        </div>
         </div>
     </div>
 
- 
-
- 
- 
 
  <!-- USING DISQUS FOR COMMENTS!!! 
  <div id="disqus_thread"></div>
@@ -360,6 +357,7 @@ s.setAttribute('data-timestamp', +new Date());
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 -->
+
 
 <% if @home_banner %>
  
