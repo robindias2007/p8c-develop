@@ -6,16 +6,16 @@
     
     <div class="col-md-12 container5">
         <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
-
+        <div class="container7">
         <% if user_signed_in? %>
         <% if @home_user %>
-        <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp; &#183; &nbsp;
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp; &#183; &nbsp;
         <% else %>
-        <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
         <% end %>
         <% else %>
-        <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
-            <% end %>
+            <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
+        <% end %>
 
             <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
             <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
@@ -44,29 +44,47 @@
         </div>
 
 
-        <% if user_signed_in? %>
-            <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-                 <h10 class="date">Save Collection &nbsp; </h10>
-                 <%= render :partial => "forms/books", :locals => {:form => form} %>
-                 <%-# It tells you the total count or the total likes on the current form  -%>
-            </div>
+        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a> 
+        </div>
+        <div class="container8">
+            <% if user_signed_in? %>
+                <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <h10 class="date">Save Collection &nbsp; </h10>
+                    <%= render :partial => "forms/books", :locals => {:form => form} %>
+                    <%-# It tells you the total count or the total likes on the current form  -%>
+                </div>
 
-        <% else %>
+            <% else %>
                 
                 <div class="bookmark">
                     <h10 class="date">Save Collection &nbsp; </h10><i class="material-icons">bookmark</i>
-                </div>
-                
-        <% end %>
+                </div>    
+            
+            <% end %>
 
-        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a> 
-    
+            <% if user_signed_in? %>
+                <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <%= render :partial => "forms/likes", :locals => {:form => form} %>
+                  
+                    <div class="date" id="likes">
+                        <%= form.get_likes.size %> 
+                      <%-# It tells you the total count or the total likes on the current form  -%>
+                    </div>
+                </div>
+
+            <% else %>
+                <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> 
+                    <div class="date" id="likes"><%= form.get_likes.size %></div>
+                </div>
+            <% end %>  
+        
+        </div>
     </div>
 
 
 
 
-<div id="container2">
+    <div id="container2">
 
     <div class="col-md-4" id="description"> <!-- Bootstrap to divide the entire page into colums -->    
         
@@ -312,25 +330,9 @@
 
         <div class="col-md-12 container4">
 
-            <% if user_signed_in? %>
-                <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-                    <%= render :partial => "forms/likes", :locals => {:form => form} %>
-                  
-                    <div class="date" id="likes">
-                        <%= form.get_likes.size %> 
-                      <%-# It tells you the total count or the total likes on the current form  -%>
-                    </div>
-                </div>
-
-            <% else %>
-                <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> 
-                    <div class="date" id="likes"><%= form.get_likes.size %></div>
-                </div>
-            <% end %>
-
             <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
 
-            </div>
+        </div>
         </div>
     </div>
 
