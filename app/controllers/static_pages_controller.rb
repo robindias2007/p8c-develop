@@ -52,7 +52,6 @@ class StaticPagesController < ApplicationController
    @home_user = true;   #board validation for showing things and to not show somethings
    @home_user1 = true;
    @forms = Form.where(bookmark:true).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
-   @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
   end    
 
 

@@ -45,9 +45,9 @@
 </div>
 
 <ul class="followers">
-	<li id="following1"><%= current_user.all_following.count %> Following</li>
+	<li><div id="following1"><%= current_user.all_following.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Following</button></li>
 	<li></li>
-	<li id="followers1"><%= current_user.followers.count %> Followers</li>
+	<li><div id="followers1"><%= current_user.followers.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Followers</button></li>
 	</ul>
 </div>
 </div>
@@ -71,9 +71,11 @@
 </ul>
 
 <ul class="followers">
-	<li><div id="following"><%= @user.all_following.count %></div>Following</li>
+	<li><div id="following"><%= @user.all_following.count %></div>  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">Following</button>
+</li>
 	<li></li>
-	<li><div id="followers"><%= @user.followers.count %></div> Followers</li>
+	<li><div id="followers"><%= @user.followers.count %></div>  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4">Followers</button>
+</li>
 	</ul>
 </div>
 </div>
@@ -87,40 +89,150 @@
 </div>
 
 
-<div class="follow">
-<% if current_user.username == @user.username %>
-    <h2> Followers </h2>
-    <%= current_user.followers %>
-    <br>
-    <h2> Following </h2>
-    <%= current_user.all_following %>
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="follow">
+			<% if current_user.username == @user.username %>
+			    <h2> Following </h2>
+			    <% current_user.all_following.each do |f| %>
+			    <%= f.username %>
+                <%= f.author %>
+                <br>
+			    <% end %>
+			</div>
+			<% end %>
+			<br>
+			<br>
+			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
 </div>
-<br>
-<br>
-<div class="follwo">
-<% else %>
-    <h2> Followers </h2>
-    <%= @user.followers %>
-    <br>
-    <h2> Following </h2>
-    <%= @user.all_following %>
-<% end %>
+
+
+
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="follwo">
+			<% if current_user.username == @user.username %>
+			    <h2> Followers </h2>
+			    <% current_user.followers.each do |f| %>
+			    <%= f.username %>
+                <%= f.author %>
+                <br>
+			    <% end %>
+			<% end %>
+			</div>
+
+			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
 </div>
 
+
+<div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="follow">
+			<% if current_user.username != @user.username %>
+			    <h2> Following </h2>
+			    <% @user.all_following.each do |f| %>
+                <table>
+	                <tr>
+		                <td>
+		                <%= image_tag f.avatar.url,id:"useravatar" %>	
+		                </td>
+		                <td><%= f.username %>
+		                <br>
+		                <%= f.author %></td>
+		                <td><%= render :partial => "follows/follow_user", :locals => {:user => @user} %></td>
+				    </tr>
+			    </table>
+			    <% end %>
+			</div>
+			<% end %>
+			<br>
+			<br>
+			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
 </div>
 
+<div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="follow">
+			<% if current_user.username != @user.username %>
+			    <h2> Followers </h2>
+			    <% @user.followers.each do |f|  %>
+			    <%= f.username %>
+                <%= f.author %>
+                <br>
+			    <% end %>
+			</div>
+			<% end %>
+			</div>
+			<br>
+			<br>
+			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
 
-
-
-
-<style type="text/css">
-	.follow
-	{
-		border: 1px solid black;
-	}
-
-	.follwo
-	{
-		border: 1px solid black;
-	}
-</style>
