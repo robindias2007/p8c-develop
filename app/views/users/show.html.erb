@@ -103,9 +103,20 @@
 			<% if current_user.username == @user.username %>
 			    <h2> Following </h2>
 			    <% current_user.all_following.each do |f| %>
-			    <%= f.username %>
-                <%= f.author %>
-                <br>
+			    <table>
+            <tr>
+              <td>
+              <% if f.avatar.present? %>
+              <%= image_tag f.avatar.url,id:"useravatar" %>
+              <% else %>
+              <%= image_tag "image.png", size:"20x20" %>
+              <% end %> 
+              </td>
+              <td><%= f.username %>
+              <hr>
+              <%= f.author %></td>
+            </tr>
+          </table>
 			    <% end %>
 			</div>
 			<% end %>
@@ -139,9 +150,20 @@
 			<% if current_user.username == @user.username %>
 			    <h2> Followers </h2>
 			    <% current_user.followers.each do |f| %>
-			    <%= f.username %>
-                <%= f.author %>
-                <br>
+			    <table>
+            <tr>
+              <td>
+              <% if f.avatar.present? %>
+              <%= image_tag f.avatar.url,id:"useravatar" %>
+              <% else %>
+              <%= image_tag "image.png", size:"20x20" %>
+              <% end %> 
+              </td>
+              <td><%= f.username %>
+              <hr>
+              <%= f.author %></td>
+            </tr>
+          </table>
 			    <% end %>
 			<% end %>
 			</div>
@@ -176,10 +198,14 @@
                 <table>
 	                <tr>
 		                <td>
-		                <%= image_tag f.avatar.url,id:"useravatar" %>	
+		                <% if f.avatar.present? %>
+                    <%= image_tag f.avatar.url,id:"useravatar" %>
+                    <% else %>
+                    <%= image_tag "image.png", size:"20x20" %>
+                    <% end %>	
 		                </td>
 		                <td><%= f.username %>
-		                <br>
+		                <hr>
 		                <%= f.author %></td>
 		                <td><%= render :partial => "follows/follow_user", :locals => {:user => @user} %></td>
 				    </tr>
@@ -212,14 +238,26 @@
         </div>
         <div class="modal-body">
           <div class="follow">
-			<% if current_user.username != @user.username %>
-			    <h2> Followers </h2>
-			    <% @user.followers.each do |f|  %>
-			    <%= f.username %>
-                <%= f.author %>
-                <br>
-			    <% end %>
-			</div>
+      			<% if current_user.username != @user.username %>
+      			    <h2> Followers </h2>
+      			    <% @user.followers.each do |f|  %>
+                <table>
+                  <tr>
+        			      <td>
+                      <% if f.avatar.present? %>
+                      <%= image_tag f.avatar.url,id:"useravatar" %>
+                      <% else %>
+                      <%= image_tag "image.png", size:"20x20" %>
+                      <% end %> 
+                      </td>
+                      <td><%= f.username %>
+                      <hr>
+                      <%= f.author %></td>
+                      <td><%= render :partial => "follows/follow_user", :locals => {:user => @user} %></td>
+                  </tr>
+                </table>
+      			    <% end %>
+			  </div>
 			<% end %>
 			</div>
 			<br>
