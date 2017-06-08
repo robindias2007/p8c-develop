@@ -2,48 +2,42 @@
 
 <div class="form_container">
 
-  <h3>Join Us</h3>   
+  <h3>Join Us1</h3>
   </br>
   <hr>
-  
+
   <%= form_for(:user, method: :post, url: user_registration_path) do |f| %>
-  
-  <div class="personal">
-  <%= render "/users/registrations/personal", :f => f %>
-  <%= submit_tag 'Next', :type => 'button', id:"next" %>
-  </div>
 
-  <div class="social", style="display:none">
-  <%= render "/users/registrations/social", :f => f %>
-  <%= submit_tag 'Back', :type => 'button', id:"back" %>
-  <%= f.submit "Sign Up" %>
-  </div>
-</br>
-<hr>
-  
+      <div class="personal">
+        <%= render "/users/registrations/personal", :f => f %>
+        <%= f.submit "Sign Up" %>
+      </div>
+      </br>
+      <hr>
+      <%= render "users/shared/links" %>
+
+
   <% end %>
-
-<%= render "users/shared/links" %>
 
 
 </div>
 
 
 <style type="text/css">
-img {
+  img {
     width: 50%;
-    
-}
+
+  }
 </style>
 
 <script type="text/javascript">
-  $("#next").click(function(){
-    $(".social").show();
-    $(".personal").hide();
-});
+    $("#next").click(function () {
+        $(".social").show();
+        $(".personal").hide();
+    });
 
-  $("#back").click(function(){
-    $(".social").hide();
-    $(".personal").show();
-});
+    $("#back").click(function () {
+        $(".social").hide();
+        $(".personal").show();
+    });
 </script>

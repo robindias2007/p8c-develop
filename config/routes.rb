@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'forms#tagss', as: :tag 
 
 
-  devise_for :users, :controllers => { :registrations => 'users/registrations'} 
+  devise_for :users, :controllers => { :registrations => 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks"}
+
   resources :user_steps
 
   resources :forms do

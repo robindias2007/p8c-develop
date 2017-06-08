@@ -1,20 +1,14 @@
 <div class=" field">
-    <%= f.label :Email %>
-    <%= f.email_field :email, placeholder:"E-mail", autofocus:true, required:true, id:'textfield'  %>
-  </div>
+  <%= f.label :Email %>
+  <%= f.email_field :email, placeholder: "E-mail", autofocus: true, required: true, id: 'textfield' %>
+</div>
 
-  
-  <div class="field">
-    <%= f.label :Username %> 
-    <%= f.text_field :username , placeholder:"Username",required:true, id:'textfield'   %> 
-  </div>
+<div class="field">
+  <%= f.label :Password %>
+  <%= f.password_field :password, placeholder: "Password", id: 'textfield' %>
+</div>
 
-  <div class="field">
-    <%= f.label :Password %> 
-    <%= f.password_field :password, placeholder:"Password", id:'textfield'   %>
-  </div>
-
-  <div class="field">
-    <%= f.label :Confirm_Password %>
-    <%= f.password_field :password_confirmation, placeholder:"Confirm Password", id:'textfield'   %>
-  </div>
+<div class="field">
+  <%= f.label :Confirm_Password %>
+  <%= f.password_field :password_confirmation, placeholder: "Confirm Password", id: 'textfield' %>
+</div>
