@@ -1,4 +1,4 @@
-<div class="modal fade custom-modal" id="emailSignUpModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel">
+<div class="modal fade custom-modal" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content sign-in-with-email">
       <div class="modal-header">
@@ -24,17 +24,10 @@
           <%= render partial: "users/sessions/sign_in_form" %>
         </div>
         <div class="login-link">
-          <a data-toggle="modal" data-target="#socialSignInModal">Or sign in with Facebook, Twitter, or Google</a>
+          <a id="socialModal">Or sign in with Facebook, Twitter, or Google</a>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-<div class="modal fade custom-modal" id="socialSignInModal" tabindex="-2" role="dialog" aria-labelledby="signInModalLabel">
-  <div class="modal-dialog modal-md" role="document">
-
     <div class="modal-content sign-in-with-social-media">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -98,30 +91,31 @@
           <% end -%>
         </div>
         <div class="login-link">
-          <a data-toggle="modal" data-target="#emailSignUpModal">Sign in or sign up with email</a>
+          <a id="emailModal">Sign in or sign up with email</a>
         </div>
         <!--<div class="content-footer">-->
-          <!--<div>To use Medium you must have cookies enabled.</div>-->
-          <!--<div>-->
-            <!--If you sign up with Twitter or Facebook, we’ll start you off with a network by automatically importing any-->
-            <!--followers/followees or friends already on Medium. Also, we’ll never post to Twitter or Facebook without your-->
-            <!--permission. For more info, please see <a href="">Login FAQ</a>.-->
-          <!--</div>-->
+        <!--<div>To use Medium you must have cookies enabled.</div>-->
+        <!--<div>-->
+        <!--If you sign up with Twitter or Facebook, we’ll start you off with a network by automatically importing any-->
+        <!--followers/followees or friends already on Medium. Also, we’ll never post to Twitter or Facebook without your-->
+        <!--permission. For more info, please see <a href="">Login FAQ</a>.-->
+        <!--</div>-->
         <!--</div>-->
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-
-        $("#emailSignUpModal").on("show.bs.modal", function () {
-            $("#socialSignInModal").hide();
+    $( document ).ready(function() {
+        $( "#emailModal" ).click(function() {
+            $('.sign-in-with-social-media').hide();
+            $('.sign-in-with-email').show();
         });
-
-        $("#socialSignInModal").on("show.bs.modal", function () {
-            $("#emailSignUpModal").hide();
+        $( "#socialModal" ).click(function() {
+            $('.sign-in-with-social-media').show();
+            $('.sign-in-with-email').hide();
         });
+    });
 
 </script>
