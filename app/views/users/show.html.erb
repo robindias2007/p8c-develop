@@ -115,6 +115,13 @@
               <td><%= f.username %>
               <hr>
               <%= f.author %></td>
+              <td>
+                <% if current_user.following?(f) %>
+                  <%= button_to("Un-Follow #{f.username}", user_follow_path(@user.to_param, current_user.get_follow(f).id), :method => :delete, :remote => true) %>
+                <% else %>
+                  <%= button_to("Follow #{f.username}", user_follows_path(@user.to_param), :remote => true) %>
+                <% end %>
+              </td>
             </tr>
           </table>
 			    <% end %>
@@ -162,6 +169,13 @@
               <td><%= f.username %>
               <hr>
               <%= f.author %></td>
+              <td>
+                <% if current_user.following?(f) %>
+                  <%= button_to("Un-Follow #{f.username}", user_follow_path(@user.to_param, current_user.get_follow(f).id), :method => :delete, :remote => true) %>
+                <% else %>
+                  <%= button_to("Follow #{f.username}", user_follows_path(@user.to_param), :remote => true) %>
+                <% end %>
+              </td>
             </tr>
           </table>
 			    <% end %>
@@ -183,7 +197,6 @@
 
 <div class="modal fade" id="myModal3" role="dialog">
     <div class="modal-dialog">
-    
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -207,7 +220,13 @@
 		                <td><%= f.username %>
 		                <hr>
 		                <%= f.author %></td>
-		                <td><%= render :partial => "follows/follow_user", :locals => {:user => @user} %></td>
+		                <td>
+                    <% if current_user.following?(f) %>
+                      <%= button_to("Un-Follow #{f.username}", user_follow_path(@user.to_param, current_user.get_follow(f).id), :method => :delete, :remote => true) %>
+                    <% else %>
+                      <%= button_to("Follow #{f.username}", user_follows_path(@user.to_param), :remote => true) %>
+                    <% end %>  
+                    </td>
 				    </tr>
 			    </table>
 			    <% end %>
@@ -253,7 +272,13 @@
                       <td><%= f.username %>
                       <hr>
                       <%= f.author %></td>
-                      <td><%= render :partial => "follows/follow_user", :locals => {:user => @user} %></td>
+                      <td>
+                        <% if current_user.following?(f) %>
+                      <%= button_to("Un-Follow #{f.username}", user_follow_path(@user.to_param, current_user.get_follow(f).id), :method => :delete, :remote => true) %>
+                      <% else %>
+                      <%= button_to("Follow #{f.username}", user_follows_path(@user.to_param), :remote => true) %>
+                      <% end %>
+                      </td>
                   </tr>
                 </table>
       			    <% end %>
