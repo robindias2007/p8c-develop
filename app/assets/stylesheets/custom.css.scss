@@ -1216,3 +1216,185 @@ ul.followers li {
 }
 
 
+// Custom style for sign in
+
+.custom-modal .modal-header {
+  background-color: #f0f0f0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.custom-modal .sign-in-title {
+  padding-bottom: 65px;
+  padding-top: 65px;
+  text-align: center;
+  font-family: Futura, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  display: inline-block;
+  color: #1c1c1c;
+}
+.custom-modal .modal-body {
+  padding: 30px;
+}
+.custom-modal .modal-body .body-content {
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.custom-modal .button-with-icon {
+  border: 0;
+  width: 100%;
+  border-radius: 2px;
+  margin: 0 auto 10px;
+  font-size: 16px;
+  display: table;
+  text-align: left;
+  padding-left: 18px;
+  height: 58px;
+}
+.button-with-icon .button-left-icon {
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 6px;
+}
+.button-left-icon svg {
+  fill: #fff;
+}
+.button-with-icon .button-right-content {
+  display: table-cell;
+  vertical-align: middle;
+}
+.button-right-content .head-text {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+}
+.button-right-content .sub-text {
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,.65);
+  font-weight: 400;
+  letter-spacing: 0.8px;
+}
+.button-with-icon.twitter-button {
+  background-color: #55acee;
+}
+.button-with-icon.twitter-button:hover {
+  background-color: #006daa;
+}
+.button-with-icon.facebook-button {
+  background-color: #3b5998;
+}
+.button-with-icon.facebook-button:hover {
+  background-color: #1d315b;
+}
+.button-with-icon.google-button {
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.15);
+}
+.button-with-icon.google-button:hover {
+  background-color: rgba(0,0,0,.05);
+}
+.google-button .head-text {
+  color: rgba(0,0,0,.6);
+}
+.login-link {
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
+.login-link a {
+  cursor: pointer;
+}
+.content-footer {
+  line-height: 1.4!important;
+  font-size: 14px!important;
+  color: rgba(0,0,0,.44)!important;
+  margin-top: 60px;
+  text-align: left;
+}
+.content-footer a {
+  color: rgba(0,0,0,.44)!important;
+  text-decoration: underline;
+}
+
+// custom style for email sign in
+
+.custom-modal .email-title {
+  padding: 24px 24px 24px;
+  font-size: 18px;
+}
+.sign-up-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #9c1717;
+  margin-bottom: 20px;
+}
+.m-t-20 {
+  margin-top: 20px;
+}
+.sign-up-form {
+  text-align: left;
+}
+.sign-up-form input {
+  height: 40px;
+  -webkit-box-shadow: none ;
+  -moz-box-shadow: none;
+  box-shadow: none ;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-radius: 0;
+}
+.sign-up-form .form-control:focus {
+  //border-color: #fff;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.sign-up-form label {
+  margin-bottom: 5px;
+  color: rgba(0,0,0,.6);
+  font-weight: 400;
+}
+.sign-up-form .form-group {
+  margin-bottom: 25px;
+}
+.sign-up-form button {
+  text-align: center;
+  border-color: #fff;
+  color: #fff;
+  background-color: #9c1717;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.sign-up-form button:focus, .sign-up-form button:hover {
+  border-color: #9c1717;
+  color: #9c1717;
+  background-color: #fff;
+  outline: none;
+}
+
+.sign-up-form .terms-condition {
+  line-height: 1.4 !important;
+  font-size: 14px !important;
+  color: rgba(0, 0, 0, 0.44) !important;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.sign-up-form .terms-condition a {
+  color: rgba(0, 0, 0, 0.44) !important;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.sign-up-form hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+
+
