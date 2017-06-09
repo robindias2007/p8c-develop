@@ -1319,7 +1319,24 @@ ul.followers li {
   color: rgba(0,0,0,.44)!important;
   text-decoration: underline;
 }
-
+.social-media-buttons a:hover {
+  text-decoration: none;
+}
+.custom-modal .close {
+  margin-top: 15px;
+  margin-right: 15px;
+  opacity: 1;
+  text-shadow: none;
+  font-size: 25px;
+}
+.custom-modal .close:hover, .custom-modal .close:active {
+  opacity: 1;
+  outline: none;
+}
+.custom-modal .close span {
+  color: #fff;
+  font-weight: 100;
+}
 // custom style for email sign in
 
 .custom-modal .email-title {
@@ -1332,8 +1349,8 @@ ul.followers li {
   color: #9c1717;
   margin-bottom: 20px;
 }
-.m-t-20 {
-  margin-top: 20px;
+.m-t-30 {
+  margin-top: 30px;
 }
 .sign-up-form {
   text-align: left;
@@ -1362,7 +1379,7 @@ ul.followers li {
 .sign-up-form .form-group {
   margin-bottom: 25px;
 }
-.sign-up-form button {
+.sign-up-form input[type="submit"] {
   text-align: center;
   border-color: #fff;
   color: #fff;
@@ -1370,11 +1387,11 @@ ul.followers li {
   border-radius: 20px;
   margin-bottom: 10px;
 }
-.sign-up-form button:focus, .sign-up-form button:hover {
-  border-color: #9c1717;
+.sign-up-form input[type="submit"]:focus, .sign-up-form input[type="submit"]:hover {
   color: #9c1717;
   background-color: #fff;
   outline: none;
+  border: 1px solid #9c1717;
 }
 
 .sign-up-form .terms-condition {
