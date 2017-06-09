@@ -132,10 +132,10 @@
             <p class="text">Curate</p></div>
         </a>
     <% else %>
-        <a href="/users/sign_in">
-          <div id="cur"><i class="material-icons md-48" , id="addCircle">add</i>
-            <p class="text">Curate</p></div>
-        </a>
+        <%= link_to(new_user_session_path, remote: true) do %>
+            <div id="cur"><i class="material-icons md-48" , id="addCircle">add</i>
+              <p class="text">Curate</p></div>
+        <% end %>
     <% end %>
   </div>
 
