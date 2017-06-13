@@ -1,7 +1,5 @@
 <%= form_for(resource, as: resource_name, validate:true, url: session_path(resource_name), remote: true) do |f| %>
 
-    <%= devise_error_messages! %>
-
     <div class="form-group">
       <%= f.label :Email %>
       <%= f.email_field :email, placeholder:"E-mail", id:'textfield' %>

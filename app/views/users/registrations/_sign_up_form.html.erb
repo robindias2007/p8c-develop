@@ -1,7 +1,5 @@
 <%= form_for(resource, method: :post, url: user_registration_path, remote: true) do |f| %>
 
-    <%= devise_error_messages! %>
-
     <div class="form-group">
       <%= f.label :Email %>
       <%= f.email_field :email, placeholder: "E-mail", autofocus: true, required: true, class: "form-control" %>

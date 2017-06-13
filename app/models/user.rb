@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  acts_as_voter 
+  acts_as_voter
   acts_as_tagger
-  
+
   acts_as_followable
   acts_as_follower
-  
+
   act_as_mentionee
 
   has_many :forms
@@ -14,16 +14,16 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  # validates_uniqueness_of :username, :email       #username and email should be unique
- # validates :author, :presence => {:message => "Author can't be blank" }  #author  cannot be blank
+  validates_uniqueness_of :username, allow_blank: true
+  validates_presence_of :username, :author, if: :profile_completed?
 
- devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable    #this is used for user sign in and sign out
-                                                                  #to understand devise we have to refer devise on https://github.com/plataformatec/devise
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable #, :confirmable    #this is used for user sign in and sign out
+  #to understand devise we have to refer devise on https://github.com/plataformatec/devise
 
- has_attached_file :avatar, styles: { medium: "300x300", thumb: "100x100" }
- validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
- 
+  has_attached_file :avatar, styles: {medium: "300x300", thumb: "100x100"}
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   def update_without_password(params, *options)
 
     if params[:password].blank?
@@ -36,6 +36,13 @@ class User < ActiveRecord::Base
     result
   end
 
+  def profile_completed?
+    self.profile_completed
+  end
+
+  def photo_url(size = nil)
+    self.avatar.present? ? self.avatar.url((size.to_sym if size.present?)) : (self.social_image_url.present? ? self.social_image_url : "")
+  end
 
   def self.from_omniauth(auth, current_user)
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
@@ -43,8 +50,10 @@ class User < ActiveRecord::Base
       user = current_user || User.where('email = ?', auth["info"]["email"]).first
       if user.blank?
         user = User.new
-        user.password = Devise.friendly_token[0,10]
+        user.password = Devise.friendly_token[0, 10]
         user.email = auth.info.email
+        user.social_image_url = auth.info.image
+        user.fname = auth.info.name if user.fname.blank?
         if auth.provider == "twitter"
           user.save(:validate => false)
         else

@@ -18,9 +18,8 @@ Rails.application.routes.draw do
       put "difficulty", to: "forms#difficulty"
     end
   end
-  
 
-  resources :users, :only => [:index, :show] do
+  resources :users, :only => [:index, :show, :edit, :update] do
     resources :follows, :only => [:create, :destroy]
   end
   

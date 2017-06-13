@@ -1,5 +1,6 @@
-<% if resource.errors.present? %>
-$("#sign-in-form").html("<%= j render partial: "users/sessions/sign_in_form" %>")
+<% if resource.blank? %>
+$("#errorMsg").html("Invalid Email or Password")
 <% else %>
-window.location = "<%= edit_user_registration_path(resource) %>"
+<% path = resource.profile_completed ? root_path : edit_user_path(resource) %>
+window.location = "<%= path %>"
 <% end %>

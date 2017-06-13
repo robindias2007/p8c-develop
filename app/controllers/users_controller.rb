@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
-  def index 
+
+  before_action :authenticate_user!
+  before_action :set_user
+
+  def index
   end
 
   def show   #show.html.erb
@@ -7,6 +11,28 @@ class UsersController < ApplicationController
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
     @forms = Form.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id]).id  ).where(publish:true, bookmark:true)
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      redirect_to root_path
+    else
+      render "edit"
+    end
+  end
+
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :fname, :lname, :avatar, :author, :email).merge(profile_completed: true)
+  end
+
+  def set_user
+    @user = current_user
   end
 
 end

@@ -1,0 +1,33 @@
+<div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content sign-in-with-email">
+      <div class="modal-header">
+        <!-- Header content for sign in with email -->
+        <div class="sign-in-with-email">
+          <div class="email-title">
+            Almost There
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="sign-up-title">
+          <%= image_tag(@user.photo_url(:thumb)) %>
+        </div>
+        <div class="sign-up-form" id="sign-up-form">
+          <%= render partial: "edit" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+      $("#editUserModal").modal({
+          keyboard: false,
+          backdrop: 'static'
+      })
+  })
+
+</script>
