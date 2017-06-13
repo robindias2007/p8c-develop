@@ -11,7 +11,9 @@
       </div>
       <div class="modal-body">
         <div class="sign-up-title">
-          <%= image_tag(@user.photo_url(:thumb)) %>
+          <div class="thumbnail">
+            <%= image_tag(@user.photo_url(:thumb)) %>
+          </div>
         </div>
         <div class="sign-up-form" id="sign-up-form">
           <%= render partial: "edit" %>
