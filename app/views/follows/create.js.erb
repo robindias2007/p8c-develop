@@ -1,3 +1,4 @@
 $('#follow_user').html('<%= escape_javascript(render :partial => "follows/follow_user", :locals => {:user => @user}) %>');
 $("#followers").html('<%= @user.followers.count %>');
 $("#following").html("<%= @user.all_following.count %>");
+$('#follow_usermodal').html('<%= escape_javascript(render :partial => "follows/follow_usermodal", :locals => {:f => f} %>');
