@@ -1352,10 +1352,10 @@ ul.followers li {
 .m-t-30 {
   margin-top: 30px;
 }
-.sign-up-form {
+.form {
   text-align: left;
 }
-.sign-up-form input {
+.form input {
   height: 40px;
   -webkit-box-shadow: none ;
   -moz-box-shadow: none;
@@ -1365,21 +1365,21 @@ ul.followers li {
   border-top: none;
   border-radius: 0;
 }
-.sign-up-form .form-control:focus {
+.form .form-control:focus {
   //border-color: #fff;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-.sign-up-form label {
+.form label {
   margin-bottom: 5px;
   color: rgba(0,0,0,.6);
   font-weight: 400;
 }
-.sign-up-form .form-group {
+.form .form-group {
   margin-bottom: 25px;
 }
-.sign-up-form input[type="submit"] {
+.form input[type="submit"] {
   text-align: center;
   border-color: #fff;
   color: #fff;
@@ -1387,7 +1387,7 @@ ul.followers li {
   border-radius: 20px;
   margin-bottom: 10px;
 }
-.sign-up-form input[type="submit"]:focus, .sign-up-form input[type="submit"]:hover {
+.form input[type="submit"]:focus, .form input[type="submit"]:hover {
   color: #9c1717;
   background-color: #fff;
   outline: none;
