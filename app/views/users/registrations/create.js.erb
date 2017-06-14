@@ -1,5 +1,8 @@
 <% if resource.persisted? %>
-window.location = "<%= edit_user_path(resource) %>"
+  var emailConfirmationInfo = $('.confirm-info-after-sign-up');
+  $('.sign-in-with-email').hide();
+  emailConfirmationInfo.find('.email-id').html("<%= resource.email %>");
+  emailConfirmationInfo.show();
 <% else %>
-$("#sign-up-form").html("<%= j render partial: "users/registrations/sign_up_form" %>")
+  $("#sign-up-form").html("<%= j render partial: "users/registrations/sign_up_form" %>")
 <% end %>

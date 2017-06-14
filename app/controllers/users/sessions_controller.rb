@@ -1,6 +1,8 @@
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
 
+  before_action :check_user_confirmation, only: [:create]
+
 # GET /resource/sign_in
   def new
     self.resource = resource_class.new(sign_in_params)
@@ -23,7 +25,21 @@ class Users::SessionsController < Devise::SessionsController
 #   super
 # end
 
-# protected
+  protected
+
+  def check_user_confirmation
+    @unconfirmed_user = false
+    email = params[:user][:email]
+    password = params[:user][:password]
+
+    # TODO: Remove order from below query if uniqueness added for user 'email' column.
+    user = password.present? ? User.order(id: :asc).where(email: email).first : nil
+    if user && user.valid_password?(password) && !user.confirmed?
+      @unconfirmed_user = true
+      @unconfirmed_email = email
+      render 'create'
+    end
+  end
 
 # If you have extra params to permit, append them to the sanitizer.
 # def configure_sign_in_params

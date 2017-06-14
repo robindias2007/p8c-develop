@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :author, if: :profile_completed?
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable #, :confirmable    #this is used for user sign in and sign out
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable    #this is used for user sign in and sign out
   #to understand devise we have to refer devise on https://github.com/plataformatec/devise
 
   has_attached_file :avatar, styles: {medium: "300x300", thumb: "100x100"}

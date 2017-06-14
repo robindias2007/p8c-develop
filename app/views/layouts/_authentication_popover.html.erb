@@ -105,6 +105,27 @@
         <!--</div>-->
       </div>
     </div>
+    <div class="modal-content confirm-info-after-sign-up">
+      <div class="modal-header">
+        Confirm you email
+      </div>
+
+      <div class="modal-body">
+        <p>You have successfully signed up! Please confirm your email by clicking the link sent to your email address <strong class="email-id"></strong>.</p>
+        <%= link_to 'Resend confirmation email', new_user_confirmation_path %>
+      </div>
+    </div>
+
+    <div class="modal-content confirm-info-after-sign-in">
+      <div class="modal-header">
+        Email not verified
+      </div>
+
+      <div class="modal-body">
+        <p>Please confirm your email by clicking the link already sent to your email address <strong class="email-id"></strong> to sign in.</p>
+        <%= link_to 'Resend confirmation email', new_user_confirmation_path %>
+      </div>
+    </div>
   </div>
 </div>
 
