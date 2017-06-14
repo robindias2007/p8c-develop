@@ -116,9 +116,11 @@
               <hr>
               <%= f.author %></td>
               <td>
+                <% if user_signed_in? %>
                 <div id="follow_usermodal">
                   <%= render :partial => "follows/follow_usermodal", :locals => {:f => f} %>
                 </div>
+                <% end %>
               </td>
             </tr>
           </table>
