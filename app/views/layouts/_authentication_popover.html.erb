@@ -105,14 +105,16 @@
         <!--</div>-->
       </div>
     </div>
+
     <div class="modal-content confirm-info-after-sign-up">
       <div class="modal-header">
         Confirm you email
       </div>
 
       <div class="modal-body">
-        <p>You have successfully signed up! Please confirm your email by clicking the link sent to your email address <strong class="email-id"></strong>.</p>
-        <%= link_to 'Resend confirmation email', new_user_confirmation_path %>
+        <p>You have successfully signed up! Please confirm your email by clicking the link sent to <strong class="email-id"></strong>.</p>
+        <%= link_to 'Resend confirmation email', new_user_confirmation_path, remote: true %> |
+        <%= link_to 'Sign in', 'javascript:void(0)', class: 'sign-in-link' %>
       </div>
     </div>
 
@@ -122,8 +124,28 @@
       </div>
 
       <div class="modal-body">
-        <p>Please confirm your email by clicking the link already sent to your email address <strong class="email-id"></strong> to sign in.</p>
-        <%= link_to 'Resend confirmation email', new_user_confirmation_path %>
+        <p>Please confirm your email by clicking the link already sent to <strong class="email-id"></strong> to sign in.</p>
+        <%= link_to 'Resend confirmation email', new_user_confirmation_path, remote: true %> |
+        <%= link_to 'Sign in', 'javascript:void(0)', class: 'sign-in-link' %>
+      </div>
+    </div>
+
+    <div class="modal-content resend-confirmation-email">
+      <div class="modal-header">
+        Resend confirmation email
+      </div>
+
+      <div class="modal-body sign-up-form"></div>
+    </div>
+
+    <div class="modal-content resend-confirmation-email-info">
+      <div class="modal-header">
+        Confirmation email sent
+      </div>
+
+      <div class="modal-body">
+        <p>The confirmation email has been sent successfully to <strong class="email-id"></strong>. Please confirm your email to sign in.</p>
+        <%= link_to 'Sign in', 'javascript:void(0)', class: 'sign-in-link' %>
       </div>
     </div>
   </div>
@@ -139,6 +161,10 @@
             $('.sign-in-with-social-media').show();
             $('.sign-in-with-email').hide();
         });
+        $('.sign-in-link').click(function () {
+            $('.modal-content').hide();
+            $('.sign-in-with-social-media').show();
+        })
     });
 
 </script>

@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
         user.email = auth.info.email
         user.social_image_url = auth.info.image
         user.fname = auth.info.name if user.fname.blank?
+        user.confirm # Confirm the email
+
         if auth.provider == "twitter"
           user.save(:validate => false)
         else
