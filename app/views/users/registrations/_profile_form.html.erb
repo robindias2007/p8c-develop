@@ -9,9 +9,11 @@
     <div id="target">
     </div>
 
-    <% if @user.avatar.present? %>
-        <%= image_tag @user.avatar.url, id:"useravatar" %>
-    <% end %>
+    <div class="preview">
+      <% if @user.avatar.present? %>
+          <%= image_tag @user.avatar.url, id:"useravatar" %>
+      <% end %>
+    </div>
     <br>
 
     <div class="field">

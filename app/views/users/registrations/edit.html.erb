@@ -5,7 +5,7 @@
         Edit <%= resource_name.to_s.humanize %>
       </div>
       <div class="modal-body">
-        <div>
+        <div class="edit-user">
           <%= render partial: 'profile_form' %>
 
           <h3>Cancel my account</h3>
@@ -30,5 +30,21 @@
             $("#newpass").show();
             $("#newpasscof").show();
         });
+        
+        $('#user_avatar').change(function (e) {
+            var file = e.target.files[0];
+            var preview = $('.preview');
+            var reader = new FileReader();
+
+            reader.addEventListener('load', function () {
+                var image = new Image();
+                image.src = reader.result;
+                preview.html(image);
+            }, false);
+
+            if(file) {
+                reader.readAsDataURL(file);
+            }
+        })
     })
 </script>
