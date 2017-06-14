@@ -1107,7 +1107,7 @@ float: left;
 .currentheaderusername
 {
     font-family:Futura, sans-serif;
-    float: right;
+    float: left;
     font-size: 16px;
     font-weight: bold;
     margin-right: 6px;
@@ -1118,6 +1118,13 @@ float: left;
         color:#4a4a4a;
     }
 
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  float: right;
 }
 
 #fixedContainer {
