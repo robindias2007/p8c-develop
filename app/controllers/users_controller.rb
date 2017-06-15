@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :fname, :lname, :avatar, :author, :email).merge(profile_completed: true)
+    params.require(:user).permit(:username, :name, :avatar, :author, :email).merge(profile_completed: true)
   end
 
   def set_user

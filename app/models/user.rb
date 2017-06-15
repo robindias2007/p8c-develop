@@ -53,7 +53,9 @@ class User < ActiveRecord::Base
         user.password = Devise.friendly_token[0, 10]
         user.email = auth.info.email
         user.social_image_url = auth.info.image
-        user.fname = auth.info.name if user.fname.blank?
+        user.name = auth.info.name
+        user.username = auth.info.nickname
+        user.author = auth.info.description
         user.confirm # Confirm the email
 
         if auth.provider == "twitter"
