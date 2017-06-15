@@ -1447,6 +1447,47 @@ ul.followers li {
   width: 30%;
 }
 
+.cat-row {
+  margin: 2px;
+  width: 100%;
+  margin-left: 10%;
+  display: inline-block;
+}
 
+.cat-col {
+  margin: 2px;
+  padding: 20px;
+  width: 20%;
+}
 
+.sign-up-cat {
+  text-align: center;
+  border-color: #fff;
+  color: #fff;
+  background-color: #9c1717;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  padding-top: 10px;
+  height: 40px;
+}
 
+.sign-up-cat:focus, .sign-up-cat:hover {
+  color: #9c1717;
+  background-color: #fff;
+  outline: none;
+  border: 1px solid #9c1717;
+}
+
+.cat-text {
+  margin-bottom: 5px;
+  color: rgba(0,0,0,.6);
+  font-weight: 400;
+}
+
+.cat-title {
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 30px;
+}
