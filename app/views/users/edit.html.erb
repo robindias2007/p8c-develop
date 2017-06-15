@@ -33,7 +33,10 @@
       $("#editUserModal").modal({
           keyboard: false,
           backdrop: 'static'
-      })
+      });
+
+      $('#user_username').trigger('input');
+      $('#user_email').trigger('input');
   })
 
 </script>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  
+
   get 'users/index'
   get 'tags/:tag', to: 'forms#tagss', as: :tag 
 
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   resources :users, :only => [:index, :show, :edit, :update] do
     resources :follows, :only => [:create, :destroy]
   end
+
+  resources :profile_validation, only: [:index]
   
   get '/following' => 'follows#following'
   get '/followers' => 'follows#followers'
