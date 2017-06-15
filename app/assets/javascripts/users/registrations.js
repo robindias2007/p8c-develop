@@ -59,9 +59,9 @@ $(document).on('input', '#editUserModal #user_username, #editUserModal #user_ema
     validateProfile()
 });
 
-$(document).on('click', '#editUserModal .changepass', function () {
-    $("#newpass").show();
-    $("#newpasscof").show();
+$(document).on('click', '#editUserModal .change-password', function () {
+    $("#newpass").toggle();
+    $("#newpasscof").toggle();
 });
 
 $(document).on('change', '#editUserModal #user_avatar', function (e) {

@@ -31,5 +31,9 @@
 <script>
     $(document).ready(function () {
         $("#editUserModal").modal("show");
-    })
+    });
+
+    <% if @user.errors.messages.present? && (@user.errors.messages[:password].present? || @user.errors.messages[:password_confirmation].present?) %>
+      $('.change-password').trigger('click');
+    <% end %>
 </script>
