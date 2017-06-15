@@ -1,23 +1,13 @@
+<!-- ROBIN, CHANGED THIS FROM TEXT_FIELD TO TEXT_AREA -->
 <div class="field">
-    <%= f.label :firstname %>
-    <%= f.text_field :fname , placeholder:"First Name", id:'textfield'   %> 
-  </div>
-
-  <div class="field">
-    <%= f.label :lastname %>
-    <%= f.text_field :lname , placeholder:"Last Name", id:'textfield'   %> 
-  </div>
-
-  <!-- ROBIN, CHANGED THIS FROM TEXT_FIELD TO TEXT_AREA -->
-  <div class="field">
-    <%= f.label :About_You %>
-    <%= f.text_area :author , placeholder:"Tell us a little about yourself and your interests", rows:3 , id:'textfield'   %> 
-  </div>
+  <%= f.label :About_You %>
+  <%= f.text_area :author, placeholder: "Tell us a little about yourself and your interests", rows: 3, id: 'textfield' %>
+</div>
 
 
-  <div class="field">
-    <%= f.file_field :avatar, id:"pictureInput" %>
-  </div>
+<div class="field">
+  <%= f.file_field :avatar, id: "pictureInput" %>
+</div>
 
 <div id="target">
 </div>

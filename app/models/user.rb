@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
         user.social_image_url = auth.info.image
         user.name = auth.info.name
         user.username = auth.info.nickname
+        user.author = auth.info.description
         user.confirm # Confirm the email
 
         if auth.provider == "twitter"
