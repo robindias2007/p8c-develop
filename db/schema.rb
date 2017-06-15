@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612192904) do
+ActiveRecord::Schema.define(version: 20170614170128) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -175,6 +175,7 @@ ActiveRecord::Schema.define(version: 20170612192904) do
     t.string   "unconfirmed_email"
     t.boolean  "profile_completed",      default: false
     t.string   "social_image_url"
+    t.string   "name"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
