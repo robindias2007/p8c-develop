@@ -4,18 +4,18 @@ var userModal = $('#editUserModal');
   <% if @errors[:username].present? %>
     setProfileError('username', "<%= @errors[:username].first.titleize.html_safe %>");
   <% else %>
-    clearUsernameError();
+    clearProfileError('username');
   <% end %>
 
   <% if @errors[:email].present? %>
     setProfileError('email', "<%= @errors[:email].first.titleize.html_safe %>");
   <% else %>
-    clearEmailError();
+    clearProfileError('email');
   <% end %>
 
   userModal.find('input[type=submit]').prop('disabled', true);
 <% else %>
-  clearEmailError();
-  clearUsernameError();
+  clearProfileError('username');
+  clearProfileError('email');
   userModal.find('input[type=submit]').prop('disabled', false);
 <% end %>

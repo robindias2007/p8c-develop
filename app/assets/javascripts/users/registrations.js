@@ -21,37 +21,28 @@ function validateProfile() {
 }
 
 function setProfileError(field, message) {
-    var inputField = '#user_' + field;
-    var errorDiv = '.invalid_' + field;
+    var inputField = $('#user_' + field);
+    var errorDiv = $('.invalid_' + field);
+    var fieldWithError = inputField.parent('.field_with_errors');
 
-    if($(inputField).parent('.field_with_errors') && $(inputField).parent('.field_with_errors').length > 0) {
-        $(inputField).parent('.field_with_errors').find('.message').text(message);
-    } else if($(errorDiv) && $(errorDiv).length > 0) {
-        $(errorDiv).html(message);
+    if(fieldWithError && fieldWithError.length > 0) {
+        fieldWithError.find('.message').text(message);
+    } else if(errorDiv && errorDiv.length > 0) {
+        errorDiv.html(message);
     } else {
         $('<div class="error-message invalid_'+ field + '">' + message + '</div>').insertAfter(inputField);
     }
 }
 
-function clearUsernameError() {
-    var usernameField = $('#user_username');
-    var usernameErrorDiv = usernameField.parent('.field_with_errors');
+function clearProfileError(field) {
+    var errorField = $('#user_' + field);
+    var errorDiv = $('.invalid_' + field);
+    var fieldWithError = errorField.parent('.field_with_errors');
 
-    if(usernameErrorDiv && usernameErrorDiv.length > 0) {
-        usernameErrorDiv.find('.message').text("");
-    } else if($('.invalid_username') && $('.invalid_username').length > 0) {
-        $('.invalid_username').text("");
-    }
-}
-
-function clearEmailError() {
-    var emailField = $('#user_email');
-    var emailErrorDiv = emailField.parent('.field_with_errors');
-
-    if(emailErrorDiv && emailErrorDiv.length > 0) {
-        emailErrorDiv.find('.message').text("");
-    } else if($('.invalid_email') && $('.invalid_email').length > 0) {
-        $('.invalid_email').text("");
+    if(fieldWithError && fieldWithError.length > 0) {
+        fieldWithError.find('.message').text("");
+    } else if(errorDiv && errorDiv.length > 0) {
+        errorDiv.text("");
     }
 }
 
