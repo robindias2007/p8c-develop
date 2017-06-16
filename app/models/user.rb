@@ -59,6 +59,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.large_social_image_url(auth)
+    if auth.provider == 'twitter'
+      auth.info.image.gsub('_normal.', '_reasonably_small.')
+    elsif auth.provider == 'facebook'
+      "#{auth.info.image}?type=large"
+    else
+      auth.info.image
+    end
+  end
+
   def self.from_omniauth(auth, current_user)
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
     if authorization.user.blank?
@@ -67,7 +77,7 @@ class User < ActiveRecord::Base
         user = User.new
         user.password = Devise.friendly_token[0, 10]
         user.email = auth.info.email
-        user.social_image_url = auth.info.image
+        user.social_image_url = profile_image_url(auth)
         user.name = auth.info.name
         user.username = username_from_oauth(auth)
         user.author = auth.info.description

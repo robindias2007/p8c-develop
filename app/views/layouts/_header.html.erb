@@ -45,7 +45,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <% profile_photo_url = current_user.photo_url(:thumb) %>
                   <% if profile_photo_url.present? %>
-                    <%= image_tag profile_photo_url, alt: 'Profile image', class: 'profile-img' %>
+                    <%= image_tag profile_photo_url, alt: 'profile photo', class: 'profile-img' %>
                   <% else %>
                       <i class="material-icons" style="font-size:30px; color: #000000; float: right; ">account_circle</i>
                   <% end %>

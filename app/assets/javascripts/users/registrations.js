@@ -63,7 +63,6 @@ $(document).on('change', '#editUserModal #user_avatar', function (e) {
     reader.addEventListener('load', function () {
         var image = new Image();
         image.src = reader.result;
-        image.style = "width: 200px;";
         preview.html(image);
     }, false);
 
