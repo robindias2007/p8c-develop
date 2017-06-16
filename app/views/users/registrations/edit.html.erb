@@ -30,7 +30,11 @@
 
 <script>
     $(document).ready(function () {
-        $("#editUserModal").modal("show");
+        var editUserModal = $("#editUserModal");
+        editUserModal.modal("show");
+        editUserModal.on('hide.bs.modal', function () {
+            window.location.replace("/");
+        });
     });
 
     <% if @user.errors.messages.present? && (@user.errors.messages[:password].present? || @user.errors.messages[:password_confirmation].present?) %>

@@ -44,6 +44,21 @@ class User < ActiveRecord::Base
     self.avatar.present? ? self.avatar.url((size.to_sym if size.present?)) : (self.social_image_url.present? ? self.social_image_url : "")
   end
 
+  def self.username_from_oauth(auth)
+    if auth.provider == "twitter"
+      auth.info.nickname
+    else
+      first_name = auth.info.first_name
+      last_name = auth.info.last_name
+
+      if first_name && last_name
+        "#{first_name[0].downcase}#{last_name.downcase}"
+      else
+        first_name ? first_name.downcase : last_name.try(:downcase)
+      end
+    end
+  end
+
   def self.from_omniauth(auth, current_user)
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
     if authorization.user.blank?
@@ -54,7 +69,7 @@ class User < ActiveRecord::Base
         user.email = auth.info.email
         user.social_image_url = auth.info.image
         user.name = auth.info.name
-        user.username = auth.info.nickname
+        user.username = username_from_oauth(auth)
         user.author = auth.info.description
         user.confirm # Confirm the email
 
