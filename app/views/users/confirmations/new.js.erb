@@ -2,5 +2,5 @@ var resendEmailDiv = $('.resend-confirmation-email');
 
 resendEmailDiv.find('.modal-body').html("<%= j render partial: 'form' %>");
 
-$('.confirm-info-after-sign-in, .confirm-info-after-sign-up').hide();
+$('.modal-content').hide();
 resendEmailDiv.show();

@@ -1,0 +1,6 @@
+var forgotPasswordDiv = $('.forgot-password');
+
+forgotPasswordDiv.find('.modal-body').html("<%= j render partial: 'new_form' %>");
+
+$('.modal-content').hide();
+forgotPasswordDiv.show();
