@@ -54,14 +54,9 @@
                 
             <% end %>
 
-      <div>
-        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a>
+          <a href="/forms/<%= form.id %>"><h2 class="title inline-block pull-left"><%= form.title %></h2></a>
 
-        <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
-            <span class="date share-text">Share</span>
-            <i class="material-icons">share</i>
-        <% end %>
-
+      <div class="pull-right">
         <div class="social-share-options" style="display: none;">
           <div class="facebook-share option">
             <%= link_to "https://www.facebook.com/dialog/share?app_id=135926826974914&display=popup&href=#{form_url(form.id)}",
@@ -76,7 +71,14 @@
             <% end %>
           </div>
         </div>
+
+        <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+            <span class="date share-text">Share</span>
+            <i class="material-icons">share</i>
+        <% end %>
       </div>
+
+
     </div>
 
 
