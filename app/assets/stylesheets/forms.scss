@@ -1,3 +1,31 @@
 // Place all the styles related to the Forms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.social-share-link {
+  position: absolute;
+  top: 50px;
+  right: 0;
+}
+
+.social-share-link i,
+.social-share-options i {
+  vertical-align: middle;
+}
+
+.social-share-options {
+  position: absolute;
+  top: 50px;
+  right: 75px;
+  text-align: right;
+  margin-top: -3px;
+}
+
+.social-share-options img {
+  width: 100%
+}
+
+.social-share-options .option {
+  display: inline-block;
+  width: 27px;
+}
