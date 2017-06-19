@@ -11,7 +11,7 @@
         <% if @home_user %>
             <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp; &#183; &nbsp;
         <% else %>
-            <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
         <% end %>
         <% else %>
             <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
@@ -330,7 +330,6 @@
 
         <div class="col-md-12 container4">
 
-            <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
 
 
 

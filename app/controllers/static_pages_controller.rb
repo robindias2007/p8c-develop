@@ -6,14 +6,12 @@ class StaticPagesController < ApplicationController
   def home #home.html.erb
    @home_user = true;
    @forms = Form.order(created_at: :desc).where(publish:true)  #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
-   @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
-  end
+   end
 
   def publish   #publish.html.erb
    @home_banner = true;
    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)  #it shows published boards where user_id:current_user.id which means it will show only the current user logged in published boards
-   @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
-  end 
+   end 
 
   def drafts  #drafts.html.erb
    @home_banner = true;
@@ -22,8 +20,7 @@ class StaticPagesController < ApplicationController
     @form.update(:publish => "true")
     redirect_to publish_path , notice: 'Form was successfully created.' 
    end       
-   @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
-  end
+   end
   
   def destroy #to delete the form
    @form.destroy

@@ -261,8 +261,7 @@ respond_to :js, :json, :html
     if params[:tag]
       @forms = Form.tagged_with(params[:tag]) 
     end
-    @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
-  end
+    end
 
 
   private
