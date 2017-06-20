@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_user
+  before_action :check_profile_complted, only: :edit
 
   def index
   end
@@ -33,6 +34,12 @@ class UsersController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def check_profile_complted
+    if current_user.profile_completed
+      redirect_to root_path
+    end
   end
 
 end
