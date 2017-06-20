@@ -2,12 +2,16 @@
 <% @forms.each do |form| %>
 
       <%= content_for :social_meta_tags do %>
+          <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
           <meta name="twitter:card" content="summary"/>
           <!--<meta name="twitter:site" content="" />-->
           <meta name="twitter:title" content="<%= form.title %>"/>
           <meta name="twitter:description" content="<%= form.description[0..200] %>"/>
           <!--<meta name="twitter:image:src" content="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded" />-->
 
+          <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
+          <%# So, deploy before testing the changes in below meta tags %>
+          <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
           <meta property="og:title" content="<%= form.title %>"/>
           <meta property="og:type" content="article"/>
           <meta property="og:url" content="<%= form_url(form.id) %>"/>
