@@ -100,6 +100,8 @@ respond_to :js, :json, :html
         else
         end
 
+      @form.save_social_image # Save social image
+
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
        @form.update(:publish => "true")       #publish becomes true
       redirect_to publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
@@ -192,7 +194,8 @@ respond_to :js, :json, :html
        @form.update_attributes(advanced:true) 
       else
       end
-      
+
+      @form.save_social_image # Save social image
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
