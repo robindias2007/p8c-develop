@@ -1,0 +1,5 @@
+<% if resource.persisted? %>
+window.location = "<%= edit_user_registration_path(resource) %>"
+<% else %>
+$("#sign-up-form").html("<%= j render partial: "users/registrations/sign_up_form" %>")
+<% end %>

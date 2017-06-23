@@ -40,10 +40,13 @@ gem "punching_bag"
 gem "acts_as_follower"
 gem 'will_paginate', '~> 3.1.0'
 
-
 gem 'mention_system'
 
-
+# Social login
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
