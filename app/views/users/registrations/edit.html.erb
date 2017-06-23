@@ -1,79 +1,43 @@
-<br><br>
-<div class="form_container">
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        Edit <%= resource_name.to_s.humanize %>
+      </div>
+      <div class="modal-body">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+          <div class="preview">
+            <% if @user.photo_url.present? %>
+                <%= image_tag @user.photo_url, id:"useravatar", alt: 'profile photo' %>
+            <% end %>
+          </div>
 
-  <div class="field">
-    <%= f.label :Profile_Picture %><br />
-    <%= f.file_field :avatar %>
+        <div class="form">
+          <%= render partial: 'profile_form' %>
+
+          <div align="center">
+            <h3>Cancel my account</h3>
+            <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: "changepass" %></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
-  <div id="target">
-  </div>
-  
-  <% if @user.avatar.present? %>
-  <%= image_tag @user.avatar.url, id:"useravatar" %>
-  <% end %>
-  <br>
- 
-  <div class="field">
-    <%= f.label :Edit_Description %><br />
-    <%= f.text_area :author, id:"textfield" %>
-  </div>
-  
-
-  <div class="field">
-    <%= f.label :Change_Email %><br />
-    <%= f.email_field :email, id:"textfield", autofocus: true %>
-  </div>
-  
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <br>
-  To Change Password Click Here
-  <br><br>
-  <div class="changepass">
-  Change Pass
-  </div>
-
-  <div class="field" style="display: none", id="newpass">
-    <%= f.label :New_Password %> <br/>
-    <%= f.password_field :password, id:"textfield", autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field" style="display: none", id="newpasscof">
-    <%= f.label :New_Password_Confirmation %><br />
-    <%= f.password_field :password_confirmation, id:"textfield", autocomplete: "on" %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit "Update", class:"changepass" %>
-  </div>
-
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"changepass" %></p>
-
-<%= link_to "Back", :back %>
 </div>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-      $(".changepass").click(function(){
-      $("#newpass").show();
-      $("#newpasscof").show();
-      });
-      });
+<script>
+    $(document).ready(function () {
+        var editUserModal = $("#editUserModal");
+        editUserModal.modal("show");
+        editUserModal.on('hide.bs.modal', function () {
+            window.location.replace("/");
+        });
+    });
+
+    <% if @user.errors.messages.present? && (@user.errors.messages[:password].present? || @user.errors.messages[:password_confirmation].present?) %>
+      $('.change-password').trigger('click');
+    <% end %>
 </script>

@@ -1,5 +1,13 @@
-<% if resource.errors.present? %>
-$("#sign-in-form").html("<%= j render partial: "users/sessions/sign_in_form" %>")
+<% if resource.blank? %>
+  <% if @unconfirmed_user %>
+    var emailConfirmationInfo = $('.confirm-info-after-sign-in');
+    $('.sign-in-with-email').hide();
+    emailConfirmationInfo.find('.email-id').html("<%= @unconfirmed_email %>");
+    emailConfirmationInfo.show();
+  <% else %>
+    $("#errorMsg").html("Invalid Email or Password")
+  <% end %>
 <% else %>
-window.location = "<%= edit_user_registration_path(resource) %>"
+  <% path = resource.profile_completed ? root_path : edit_user_path(resource) %>
+  window.location = "<%= path %>"
 <% end %>

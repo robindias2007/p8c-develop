@@ -1,0 +1,6 @@
+var forgotPasswordInfo = $('.forgot-password-info');
+
+forgotPasswordInfo.find('.email-id').html("<%= resource.email %>");
+
+$('.forgot-password').hide();
+forgotPasswordInfo.show();

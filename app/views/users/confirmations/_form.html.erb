@@ -1,0 +1,11 @@
+<%= form_for(resource, as: resource_name, url: user_confirmation_path, html: { method: :post, remote: true }) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), id: 'textfield', placeholder: 'Email' %>
+  </div>
+
+  <div class="text-center">
+    <%= f.submit "Resend email", class: "btn btn-default" %>
+  </div>
+<% end %>

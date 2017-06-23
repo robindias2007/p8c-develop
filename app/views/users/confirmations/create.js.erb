@@ -1,0 +1,6 @@
+var resendEmailInfo = $('.resend-confirmation-email-info');
+
+resendEmailInfo.find('.email-id').html("<%= resource.email %>");
+
+$('.resend-confirmation-email').hide();
+resendEmailInfo.show();

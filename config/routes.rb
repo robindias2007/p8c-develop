@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   
-  
+
   get 'users/index'
   get 'tags/:tag', to: 'forms#tagss', as: :tag 
 
 
-  devise_for :users, :controllers => { sessions: "users/sessions", :registrations => 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks"}
+  devise_for :users, :controllers => { sessions: "users/sessions", :registrations => 'users/registrations',
+                                       :confirmations => 'users/confirmations', :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
 
   resources :user_steps
 
@@ -18,11 +19,12 @@ Rails.application.routes.draw do
       put "difficulty", to: "forms#difficulty"
     end
   end
-  
 
-  resources :users, :only => [:index, :show] do
+  resources :users, :only => [:index, :show, :edit, :update] do
     resources :follows, :only => [:create, :destroy]
   end
+
+  resources :profile_validation, only: [:index]
   
   get '/following' => 'follows#following'
   get '/followers' => 'follows#followers'

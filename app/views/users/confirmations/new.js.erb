@@ -1,0 +1,6 @@
+var resendEmailDiv = $('.resend-confirmation-email');
+
+resendEmailDiv.find('.modal-body').html("<%= j render partial: 'form' %>");
+
+$('.modal-content').hide();
+resendEmailDiv.show();

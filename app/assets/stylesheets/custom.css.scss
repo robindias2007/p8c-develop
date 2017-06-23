@@ -56,6 +56,10 @@ a {
   color: #9c1717;
 }
 
+textarea {
+  resize: vertical;
+}
+
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
@@ -1125,7 +1129,7 @@ float: left;
 .currentheaderusername
 {
     font-family:Futura, sans-serif;
-    float: right;
+    float: left;
     font-size: 16px;
     font-weight: bold;
     margin-right: 6px;
@@ -1136,6 +1140,13 @@ float: left;
         color:#4a4a4a;
     }
 
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  float: right;
 }
 
 #fixedContainer {
@@ -1231,6 +1242,7 @@ ul.followers li {
     font-style: normal;
     color: white;
     line-height: 30px;
+    text-align: center;
 }
 
 
@@ -1319,6 +1331,15 @@ ul.followers li {
 .google-button .head-text {
   color: rgba(0,0,0,.6);
 }
+.submit-btn {
+  text-align: center;
+  border-color: #fff;
+  color: #fff;
+  background-color: #9c1717;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
 .login-link {
   margin-bottom: 15px;
   margin-top: 30px;
@@ -1370,10 +1391,10 @@ ul.followers li {
 .m-t-30 {
   margin-top: 30px;
 }
-.sign-up-form {
+.form {
   text-align: left;
 }
-.sign-up-form input {
+.form input {
   height: 40px;
   -webkit-box-shadow: none ;
   -moz-box-shadow: none;
@@ -1383,21 +1404,21 @@ ul.followers li {
   border-top: none;
   border-radius: 0;
 }
-.sign-up-form .form-control:focus {
+.form .form-control:focus {
   //border-color: #fff;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-.sign-up-form label {
+.form label {
   margin-bottom: 5px;
   color: rgba(0,0,0,.6);
   font-weight: 400;
 }
-.sign-up-form .form-group {
+.form .form-group {
   margin-bottom: 25px;
 }
-.sign-up-form input[type="submit"] {
+.form input[type="submit"] {
   text-align: center;
   border-color: #fff;
   color: #fff;
@@ -1405,7 +1426,7 @@ ul.followers li {
   border-radius: 20px;
   margin-bottom: 10px;
 }
-.sign-up-form input[type="submit"]:focus, .sign-up-form input[type="submit"]:hover {
+.form input[type="submit"]:focus, .form input[type="submit"]:hover {
   color: #9c1717;
   background-color: #fff;
   outline: none;
@@ -1429,7 +1450,83 @@ ul.followers li {
   margin-bottom: 20px;
 }
 
+.field_with_errors .message {
+  position: relative;
+  margin-left: 0px;
+  color: #9c1717;
+}
 
+.error-message {
+  font-size: 11px;
+  font-family: "MARKPRO";
+  padding: 5px;
+  margin-left: 0;
+  color: #9c1717;
+}
 
+.invalid-sign-in {
+  color: #9c1717;
+}
 
+.preview {
+  padding-bottom: 10px;
+}
 
+.preview image{
+  width: 200px;
+}
+
+.alerts {
+  width: 100%;
+  position: absolute;
+  top: 82px;
+}
+
+#editUserModal .preview img {
+  width: 30%;
+}
+
+.cat-row {
+  margin: 2px;
+  width: 100%;
+  margin-left: 10%;
+  display: inline-block;
+}
+
+.cat-col {
+  margin: 2px;
+  padding: 20px;
+  width: 20%;
+}
+
+.sign-up-cat {
+  text-align: center;
+  border-color: #fff;
+  color: #fff;
+  background-color: #9c1717;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  padding-top: 10px;
+  height: 40px;
+}
+
+.sign-up-cat:focus, .sign-up-cat:hover {
+  color: #9c1717;
+  background-color: #fff;
+  outline: none;
+  border: 1px solid #9c1717;
+}
+
+.cat-text {
+  margin-bottom: 5px;
+  color: rgba(0,0,0,.6);
+  font-weight: 400;
+}
+
+.cat-title {
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 30px;
+}
