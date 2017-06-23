@@ -1,6 +1,29 @@
+<%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
+
 <div class="boardContainer">
 <% @forms.each do |form| %>
 
+      <% if current_page?(form_path(form)) %>
+          <%= content_for :social_meta_tags do %>
+              <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
+              <meta name="twitter:card" content="summary_large_image"/>
+              <%# TODO: Add twitter handle as content below after creating a twitter page for Lense APP %>
+              <!--<meta name="twitter:site" content="" /> -->
+              <meta name="twitter:title" content="<%= form.title %>"/>
+              <meta name="twitter:description" content="<%= form.description[0..200] %>"/>
+              <meta name="twitter:image:src" content="<%= image_url('/forms_social_images/form_' + form.id.to_s + '.png') %>"/>
+              <!--<meta name="twitter:image:src" content="Lense" />-->
+
+              <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
+              <%# So, deploy before testing the changes in below meta tags %>
+              <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
+              <meta property="og:title" content="<%= form.title %>"/>
+              <meta property="og:type" content="article"/>
+              <meta property="og:url" content="<%= form_url(form.id) %>"/>
+              <meta property="og:image" content="<%= image_url('/forms_social_images/form_' + form.id.to_s + '.png') %>"/>
+              <meta property="og:description" content="<%= form.description[0..200] %>"/>
+          <% end %>
+      <% end %>
 
 <div class="col-md-9 container1">  <!-- The elements of the entire box. -->
     
@@ -62,6 +85,7 @@
             
             <% end %>
 
+<<<<<<< HEAD
             <% if user_signed_in? %>
                 <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
                     <%= render :partial => "forms/likes", :locals => {:form => form} %>
@@ -79,6 +103,33 @@
             <% end %>  
         
         </div>
+=======
+          <a href="/forms/<%= form.id %>"><h2 class="title inline-block pull-left"><%= form.title %></h2></a>
+
+      <div class="pull-right">
+        <div class="social-share-options" style="display: none;">
+          <div class="facebook-share option">
+            <%= link_to "https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href=#{form_url(form.id)}",
+                        target: '_blank' do %>
+                <%= image_tag 'facebook.png' %>
+            <% end %>
+          </div>
+          <div class="twitter-share option">
+            <%= link_to "https://twitter.com/intent/tweet?url=#{form_url(form.id)}",
+                        target: '_blank' do %>
+                <%= image_tag 'twitter.png' %>
+            <% end %>
+          </div>
+        </div>
+
+        <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+            <span class="date share-text">Share</span>
+            <i class="material-icons">share</i>
+        <% end %>
+      </div>
+
+
+>>>>>>> social-share
     </div>
 
 
@@ -331,7 +382,16 @@
         <div class="col-md-12 container4">
 
             <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
-
+        <% if user_signed_in? %>
+            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                <%= render :partial => "forms/likes", :locals => {:form => form} %>
+              
+                <div class="date" id="likes">
+                    <%= form.get_likes.size %>
+                  <%-# It tells you the total count or the total likes on the current form  -%>
+                </div>
+            </div>
+            <% end %>
 
 
 

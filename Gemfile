@@ -48,6 +48,10 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 
+# For HTML to IMAGE conversion
+gem 'imgkit'
+gem 'wkhtmltoimage-binary'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

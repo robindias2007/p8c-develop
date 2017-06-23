@@ -1,0 +1,315 @@
+<div class="social-image">
+
+  <div class="col-md-12">  <!-- The elements of the entire box. -->
+
+    <div class="col-md-12 container5">
+      <%- # Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form   -%>
+
+      <div class="date pull-left m-t-10">
+        <i class="material-icons">account_circle</i>
+        <div class="inline-relative b-8"><%= form.user.username %></div>
+        <span class="inline-relative b-8">&nbsp; &#183; &nbsp;</span>
+
+        <span class="date inline-relative b-8"><%= form.updated_at.strftime('%b %d, %Y') %></span>
+        <%- # created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it  -%>
+
+        &nbsp;&nbsp;
+        <!--<h10 class="date"> &lt;!&ndash; < form.readtime.reading_time :format => :full %> &ndash;&gt;</h10>-->
+        <%- #reading time from readingtime gem  -%>
+
+      </div>
+
+
+      <div class="bookmark pull-right">
+        <span class="date">Save Collection &nbsp; </span><i class="material-icons empty">bookmark</i>
+      </div>
+
+      <a href="/forms/<%= form.id %>"><h2 class="title inline-block pull-left"><%= form.title %></h2></a>
+
+      <div class="pull-right">
+
+        <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+            <span class="date share-text">Share</span>
+            <i class="material-icons">share</i>
+        <% end %>
+      </div>
+
+
+    </div>
+
+
+    <div id="container2">
+
+      <div class="col-md-4" id="description"> <!-- Bootstrap to divide the entire page into colums -->
+
+        <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
+
+        <!--<a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a>
+      <%- # Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form   -%>
+
+        <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
+      <%- # created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it  -%>
+
+      Taken care of by overflow scroll
+      <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/, ' ...') rescue nil %></h3>  -->
+        <!--<h4 id="summary">Summary</h4>-->
+        <h5 class="internal_text"><%= form.description %></h5>
+        <!-- <div class="center-material">
+        <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
+        <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
+        <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
+      </div> -->
+        <!-- <div class="center-material">28 mins long</div> -->
+
+        <!--
+
+        <!--
+
+
+          <!-- <div class="bottom-material">
+                <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
+                <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+                <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
+            </div> -->
+
+      </div>
+
+      <div id="verticalLine"></div>
+
+      <div class="container3"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns -->
+        <ul class="row">
+
+          <%- # This is the url entered by the user so when you click anywhere on this section it redirects you to the url  -%>
+          <li class="col-md-2 col-sm-4" id="articleCard">
+            <a href=<%= form.url1 %> target="framename", id="formclick">
+              <%- # Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums   -%>
+              <hr>
+              <!-- We shouldn't put "..." on titles
+    <h10 class="title1"><%= form.title1[0..40].gsub(/\s\w+\s*$/, '...') rescue nil %></h10> -->
+
+              <h4 class="title1">
+                <%= form.title1 rescue nil %>
+              </h4>
+              <%- # It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters  -%>
+              <%- # rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form  -%>
+
+              <div class="container6">
+                <figure class="effect-sadie">
+                  <% if form.image1.present? %>
+                      <%= image_tag form.image1, id: "image" %>
+                  <% else %>
+                      <div id="image"></div>
+                  <% end %>
+
+                  <% if form.note1.present? %>
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="notes"><%= form.note1 rescue nil %></p>
+                      </figcaption>
+                  <% else %>
+                  <% end %>
+                </figure>
+              </div>
+
+              <%- # It renders the image of the entered url from orders controller using metainspector gem in the create method  -%>
+              <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/, '').split('/').first %></div>
+              <%- # It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda  -%>
+              <br>
+              <h6 class="internal_text1"><%= form.description1 rescue nil %></h6>
+              <%- # It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters  -%>
+              <hr>
+            </a>
+          </li>
+
+          <li class="col-md-2 col-sm-4" id="articleCard">
+            <a href=<%= form.url2 %>  target="_blank", id="formclick">
+              <hr>
+              <h4 class="title1">
+                <%= form.title2 rescue nil %>
+              </h4>
+
+
+              <div class="container6">
+                <figure class="effect-sadie">
+                  <% if form.image2.present? %>
+                      <%= image_tag form.image2, id: "image" %>
+                  <% else %>
+                      <div id="image"></div>
+                  <% end %>
+
+                  <% if form.note2.present? %>
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="notes"><%= form.note2 rescue nil %></p>
+                      </figcaption>
+                  <% else %>
+                  <% end %>
+                </figure>
+              </div>
+
+
+              <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/, '').split('/').first %>
+                <!-- to bring the icon on the link line (need to make the icon css float:right, color:black; link css width:100%, text-align:left, line-height:18px;)
+        <% if form.note2.present? %>
+            <i class="material-icons md-18">comment</i>
+        <% else %>
+        <% end %>
+        -->
+              </div>
+
+              <br>
+              <h6 class="internal_text1"><%= form.description2 rescue nil %></h6>
+              <hr>
+            </a>
+          </li>
+
+          <li class="col-md-2 col-sm-4" id="articleCard">
+            <a href=<%= form.url3 %>  target="_blank", id="formclick">
+              <hr>
+              <h4 class="title1">
+                <%= form.title3 rescue nil %>
+              </h4>
+
+              <div class="container6">
+                <figure class="effect-sadie">
+                  <% if form.image3.present? %>
+                      <%= image_tag form.image3, id: "image" %>
+                  <% else %>
+                      <div id="image"></div>
+                  <% end %>
+
+                  <% if form.note3.present? %>
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="notes"><%= form.note3 rescue nil %></p>
+                      </figcaption>
+                  <% else %>
+                  <% end %>
+                </figure>
+              </div>
+
+              <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/, '').split('/').first %></div>
+              <br>
+              <h6 class="internal_text1"><%= form.description3 rescue nil %></h6>
+              <hr>
+            </a>
+          </li>
+
+          <li class="col-md-2 col-sm-4" id="articleCard">
+            <a href=<%= form.url4 %>  target="_blank" , id="formclick">
+              <hr>
+              <!-- Title4 DB name is MIS-SPELLED! -->
+              <h4 class="title1">
+                <%= form.titel4 rescue nil %>
+              </h4>
+
+
+              <div class="container6">
+                <figure class="effect-sadie">
+                  <% if form.image4.present? %>
+                      <%= image_tag form.image4, id: "image" %>
+                  <% else %>
+                      <div id="image"></div>
+                  <% end %>
+
+                  <% if form.note4.present? %>
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="notes"><%= form.note4 rescue nil %></p>
+                      </figcaption>
+                  <% else %>
+                  <% end %>
+                </figure>
+              </div>
+
+
+              <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/, '').split('/').first %></div>
+              <br>
+              <h6 class="internal_text1"><%= form.description4 rescue nil %></h6>
+              <hr>
+            </a>
+          </li>
+
+          <li class="col-md-2 col-sm-4" id="articleCard">
+            <a href=<%= form.url5 %>  target="_blank" , id="formclick">
+              <hr>
+              <h4 class="title1">
+                <%= form.title5 rescue nil %>
+              </h4>
+
+              <div class="container6">
+                <figure class="effect-sadie">
+                  <% if form.image5.present? %>
+                      <%= image_tag form.image5, id: "image" %>
+                  <% else %>
+                      <div id="image"></div>
+                  <% end %>
+
+                  <% if form.note5.present? %>
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="notes"><%= form.note5 rescue nil %></p>
+                      </figcaption>
+                  <% else %>
+                  <% end %>
+                </figure>
+              </div>
+
+              <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/, '').split('/').first %></div>
+              <br>
+              <h6 class="internal_text1"><%= form.description5 rescue nil %></h6>
+              <hr>
+            </a>
+          </li>
+
+
+        </ul>
+      </div>
+      <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
+
+
+      <div class="col-md-12 container4">
+
+        <div class="like"><i class="material-icons" style="color:#9c1717">favorite_border</i>
+          <div class="date inline-relative b-8" id="total-likes"><%= form.get_likes.size %></div>
+        </div>
+
+
+        <div class="boardFooter date">
+          <!-- View Count <= form.hits %> -->
+
+          &nbsp; &#183; &nbsp;
+          <h10 class="date"></h10>
+          <%- #reading time from readingtime gem  -%>
+
+          <% if form.unspecified.present? %>
+              <!-- <i class="material-icons", style="color: red">linear_scale</i>
+              Unspecified -->
+          <% elsif form.easy.present? %>
+              Level: Easy
+          <% elsif form.involved.present? %>
+              Level: Involved
+          <% elsif form.advanced.present? %>
+              Level: Advanced
+          <% else %>
+          <% end %>
+        </div>
+        <div class="date" id="tagging"><%= raw form.tag_list.map { |t| content_tag(:span, t)}.join(' ') %></div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<style type="text/css">
+  .empty {
+    color: white;
+    text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
+  }
+</style>
