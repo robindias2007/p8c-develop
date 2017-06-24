@@ -79,7 +79,7 @@
   <!-- ROBIN, WE NEED TO ADD THESE FIELDS INTO THE DB -->
   <div class="field">
     <%= f.label :tag_list %>
-    <%= f.text_field :tag_list  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!", 'data-role'=>'tagsinput' %>
+    <%= f.text_field :tag_list  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!", 'data-role'=>'tagsinput',value: @form.tag_list.to_s  %>
   </div>
   
 
@@ -154,6 +154,42 @@ $('input[type="checkbox"]').on('change', function() {
   $('div').find('input[type="checkbox"]:eq(' + $(this).index() + ')').not(this).prop('checked', false);
 
 });
+
+$(function(){
+     var val = $('#note1').val();
+     if(val != ""){
+        $('#note1').show();
+     }
+});
+
+$(function(){
+     var val = $('#note2').val();
+     if(val != ""){
+        $('#note2').show();
+     }
+});
+
+$(function(){
+     var val = $('#note3').val();
+     if(val != ""){
+        $('#note3').show();
+     }
+});
+
+$(function(){
+     var val = $('#note4').val();
+     if(val != ""){
+        $('#note4').show();
+     }
+});
+
+$(function(){
+     var val = $('#note5').val();
+     if(val != ""){
+        $('#note5').show();
+     }
+});
+
 
 </script>
 

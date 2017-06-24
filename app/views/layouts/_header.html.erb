@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>TheLense</title>
@@ -132,8 +131,15 @@
   <div class="alerts">
     <%= render partial: 'layouts/flash_alerts' %>
   </div>
-
-
+          <ul class="dropdown-menu">
+            <li><a href="/user/<%= current_user.username  %>/publish">Published</a></li>
+            <li><a href="/user/<%= current_user.username  %>/saved">Saved</a></li>
+            <li><a href="/user/<%= current_user.username  %>/drafts">Drafts</a></li>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </nav>
   <div class="col-md-12" id="fixedContainer">
 
     <% if user_signed_in? %>
@@ -150,3 +156,4 @@
   </div>
 
 </head>
+</html>

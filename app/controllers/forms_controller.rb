@@ -99,16 +99,15 @@ respond_to :js, :json, :html
          @form.update_attributes(advanced:true) 
         else
         end
-
       @form.save_social_image # Save social image
 
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
-       @form.update(:publish => "true")       #publish becomes true
-      redirect_to publish_path , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
+        @form.update(:publish => "true")       #publish becomes true
+        redirect_to "/user/#{current_user.username}/publish" , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
 
       else params[:commit] == 'Save as Draft'   # it checks if the user has clicked drafs then publish becomes false so it updates it with false
         @form.update(:publish => "false")
-        redirect_to drafts_path  #then it redirects to static_pages/drafts and stores the form there. 
+        redirect_to "/user/#{current_user.username}/drafts" , notice: 'Form is successfully saved as draft'  #then it redirects to static_pages/drafts and stores the form there. 
       end
     
   
@@ -199,11 +198,11 @@ respond_to :js, :json, :html
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
-       redirect_to publish_path , notice: 'Form was successfully created.' 
+       redirect_to "/user/#{current_user.username}/publish" 
 
       else params[:commit] == 'Save as Draft'
         @form.update(:publish => "false")
-        redirect_to drafts_path
+        redirect_to "/user/#{current_user.username}/drafts"
       end
 
       else  #if this gives an error it will go back to edit page
@@ -222,7 +221,7 @@ respond_to :js, :json, :html
 
     @form.destroy
     respond_to do |format|
-      format.html { redirect_to publish_path, notice: 'Form was successfully destroyed.' }
+      format.html { redirect_to "/user/#{current_user.username}/publish", notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -264,8 +263,7 @@ respond_to :js, :json, :html
     if params[:tag]
       @forms = Form.tagged_with(params[:tag]) 
     end
-    @forms = Form.order(created_at: :desc).paginate(:page => params[:page], :per_page => 15)
-  end
+    end
 
 
   private

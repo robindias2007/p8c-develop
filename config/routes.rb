@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   get '/saved' =>  'static_pages#saved'
   
   get 'user/:id/publish'          =>   'users#show'
+  get 'user/:id/saved'          =>   'users#show_saved'
+  get 'user/:id/drafts'          =>   'users#show_drafts'
 
   root 'static_pages#home'
 

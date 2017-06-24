@@ -1,54 +1,50 @@
 
-
-
-
-
 <%-# For comments read thanks page  -%>
 <link rel="alternate" type="application/rss+xml" title="CEN RSS Feed" href="http://"/>
 
 <div class="maincont">
  
-<% if user = current_user %>
-<div class="col-md-10" id="userProfile">
-	<div id="username">
-		<i class="material-icons md-120">account_circle</i>
-		<div id="userDescription">
-			<h4><%= user.username %></h4>
-			<h5><%= user.author %></h5>
-		</div>
-	</div>
-	<div class="userStats">
-	<div class="formlist">
-		<ul class="count">
-			<li><%= Form.where(user_id:current_user.id, publish:true).count %></li>
-			<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
-			<li><%= Form.where(bookmark:true).count %></li>
-		</ul>
-	
-		<ul class="board">
-			<li><%= link_to 'Published', publish_path, id:"board" %></li>
-			<li><%= link_to 'Drafts', drafts_path, id:"board1" %></li>
-			<li><%= link_to 'Saved', saved_path, id:"board2" %></li>
-		</ul>
-	</div>
-		<ul class="followers">
-			<li><%= current_user.all_following.count %> Following</li>
-			<li></li>
-			<li><%= current_user.followers.count %> Followers</li>
-		</ul>
-	</div>
-</div>
+	<% if user = current_user %>
+		<div class="col-md-10" id="userProfile">
+			<div id="username">
+				<i class="material-icons md-120">account_circle</i>
+				<div id="userDescription">
+					<h4><%= user.username %></h4>
+					<h5><%= user.author %></h5>
+				</div>
+			</div>
+			<div class="userStats">
+				<div class="formlist">
+					<ul class="count">
+						<li><%= Form.where(user_id:current_user.id, publish:true).count %></li>
+						<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
+						<li><%= Form.where(bookmark:true).count %></li>
+					</ul>
+				
+					<ul class="board">
+						<li><%= link_to 'Published', publish_path, id:"board" %></li>
+						<li><%= link_to 'Drafts', drafts_path, id:"board1" %></li>
+						<li><%= link_to 'Saved', saved_path, id:"board2" %></li>
+					</ul>
+				</div>
+				<ul class="followers">
+					<li><%= current_user.all_following.count %> Following</li>
+					<li></li>
+					<li><%= current_user.followers.count %> Followers</li>
+				</ul>
+				</div>
+			</div>
 
 
-<%= render 'static_pages/boards'%>
+	<%= render 'static_pages/boards'%>
 
-<%= will_paginate @forms %>
 
-<br>
+	<br>
 
-<% else %>	
-  
-<% end %>
+	<% else %>	
+	  
+	<% end %>
+
 </div>
 
 

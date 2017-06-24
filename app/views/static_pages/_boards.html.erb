@@ -34,7 +34,7 @@
         <% if @home_user %>
             <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp; &#183; &nbsp;
         <% else %>
-            <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
         <% end %>
         <% else %>
             <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
@@ -85,7 +85,6 @@
             
             <% end %>
 
-<<<<<<< HEAD
             <% if user_signed_in? %>
                 <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
                     <%= render :partial => "forms/likes", :locals => {:form => form} %>
@@ -103,7 +102,6 @@
             <% end %>  
         
         </div>
-=======
           <a href="/forms/<%= form.id %>"><h2 class="title inline-block pull-left"><%= form.title %></h2></a>
 
       <div class="pull-right">
@@ -129,7 +127,6 @@
       </div>
 
 
->>>>>>> social-share
     </div>
 
 
@@ -381,18 +378,6 @@
 
         <div class="col-md-12 container4">
 
-            <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
-        <% if user_signed_in? %>
-            <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-                <%= render :partial => "forms/likes", :locals => {:form => form} %>
-              
-                <div class="date" id="likes">
-                    <%= form.get_likes.size %>
-                  <%-# It tells you the total count or the total likes on the current form  -%>
-                </div>
-            </div>
-            <% end %>
-
 
 
         <div class="boardFooter date">
@@ -444,9 +429,8 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <% if @home_banner %>
- 
-<%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
-<%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
+  <%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
+  <%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
 <% else %>
 <% end %>
 
