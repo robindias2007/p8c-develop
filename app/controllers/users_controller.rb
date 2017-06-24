@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show   #show.html.erb
+  	@home_banner = true;
   	@user = User.find_by_username(params[:id]) #User.find_by_username is to find a user with their username along  with its unique id.
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
