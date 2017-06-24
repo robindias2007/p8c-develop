@@ -27,13 +27,13 @@
         <ul class="count">
         	<li><%= Form.where(user_id:current_user.id, publish:true).count %></li>
         	<li><%= Form.where(user_id:current_user.id, publish:false).count %></li>
-        	<li><%= Form.where(id: current_user.find_up_voted_items).count %></li>
+        	<li><%= Form.where(user_id:current_user.id, bookmark:true).count %></li>
         </ul>
 
         <ul class="board">
-        	<li><%= link_to 'Published', publish_path, id:"board" %></li>
-        	<li><%= link_to 'Drafts', drafts_path, id:"board1" %></li>
-        	<li><%= link_to 'Saved', saved_path, id:"board2" %></li>
+        	<li><%= link_to 'Published', "/user/#{current_user.username }/publish", id:"board" %></li>
+        	<li><%= link_to 'Drafts', "/user/#{current_user.username }/drafts", id:"board1" %></li>
+        	<li><%= link_to 'Saved', "/user/#{current_user.username }/saved", id:"board2" %></li>
         </ul>
       </div>
 
