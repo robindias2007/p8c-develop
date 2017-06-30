@@ -2,12 +2,12 @@ class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
 before_action :authenticate_user!, :only => [:like]
 respond_to :js, :json, :html
-
+before_filter :authenticate_admin, :only => [:index]
   
   # GET /forms
   # GET /forms.json
   def index #index.html.erb
-    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true) 
+    @forms = Form.all 
     
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
@@ -277,5 +277,9 @@ respond_to :js, :json, :html
     #require means compulsary fields and permit is used to protect our data.
       
       params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5)
+    end
+
+    def authenticate_admin
+      authenticate_admin!
     end
 end
