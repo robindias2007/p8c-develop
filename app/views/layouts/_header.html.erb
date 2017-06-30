@@ -46,7 +46,7 @@
                   <div class="currentheaderusername"><%= current_user.username %></div>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/user/<%= current_user.username %>">My Boards</a></li>
+                  <li><a href="/user/<%= current_user.username %>/publish">My Boards</a></li>
                   <li><a href="/users/edit">Edit Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
