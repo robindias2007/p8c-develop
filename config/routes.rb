@@ -50,6 +50,12 @@ Rails.application.routes.draw do
   get 'user/:id/drafts'          =>   'users#show_drafts'
 
   root 'static_pages#home'
+   
+  get '/business' => 'categories#business'
+  get '/politics' => 'categories#politics'
+  get '/science' => 'categories#science'
+  get '/tv' => 'categories#tv'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
