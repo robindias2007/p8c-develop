@@ -51,7 +51,8 @@ class StaticPagesController < ApplicationController
   #  @forms = Form.where(bookmark:true).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
   # end    
 
-
+  def dashboard
+  end
 
 
 end
