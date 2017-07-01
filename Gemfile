@@ -33,6 +33,8 @@ gem 'client_side_validations'
 # gem 'unicorn'
 gem 'paperclip'
 gem 'acts-as-taggable-on', '~> 4.0'
+
+
 gem 'readingtime'
 gem 'bootstrap-tagsinput-rails'
 gem "punching_bag"
