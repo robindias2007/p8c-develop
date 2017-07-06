@@ -448,19 +448,23 @@ padding-bottom: 1px;
 /*----------board styling---------------- */
 
 
-.like {   
-    font-size: 20px;
-    margin-top: 1px;
-    vertical-align: text-bottom;
-    float: right;
-}
-
 .bookmark {   
     margin-top: 10px;
-    margin-right: 1px;
     float: right;
     display:inline-flex;
     color:#9c1717;
+}
+
+.like {   
+    display:inline-flex;
+    float: right;
+    color:#9c1717;
+}
+
+.share {   
+    display:inline-flex;
+    clear:both;
+    float:right;
 }
 
 #likes {

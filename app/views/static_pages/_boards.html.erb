@@ -80,52 +80,49 @@
             <% else %>
                 
                 <div class="bookmark">
-                    <h10 class="date">Save Collection &nbsp; </h10><i class="material-icons">bookmark</i>
+                    <h10 class="date">Save Collection &nbsp; </h10>
+                    <i class="material-icons">bookmark</i>
                 </div>    
             
             <% end %>
 
             <% if user_signed_in? %>
                 <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>
+                    <%-# It tells you the total count or the total likes on the current form  -%>
+
                     <%= render :partial => "forms/likes", :locals => {:form => form} %>
-                  
-                    <div class="date" id="likes">
-                        <%= form.get_likes.size %> 
-                      <%-# It tells you the total count or the total likes on the current form  -%>
-                    </div>
                 </div>
 
             <% else %>
-                <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> 
-                    <div class="date" id="likes"><%= form.get_likes.size %></div>
+                <div class="like">
+                  <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>
+                  <i class="material-icons">favorite</i> 
                 </div>
             <% end %>  
         
-        </div>
-          <a href="/forms/<%= form.id %>"><h2 class="title inline-block pull-left"><%= form.title %></h2></a>
-
-      <div class="pull-right">
-        <div class="social-share-options" style="display: none;">
-          <div class="facebook-share option">
-            <%= link_to "https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href=#{form_url(form.id)}",
-                        target: '_blank' do %>
-                <%= image_tag 'facebook.png' %>
-            <% end %>
+        <div class="share">
+          <div class="social-share-options" style="display: none;">
+            <div class="facebook-share option">
+              <%= link_to "https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href=#{form_url(form.id)}",
+                          target: '_blank' do %>
+                  <%= image_tag 'facebook.png' %>
+              <% end %>
+            </div>
+            <div class="twitter-share option">
+              <%= link_to "https://twitter.com/intent/tweet?url=#{form_url(form.id)}",
+                          target: '_blank' do %>
+                  <%= image_tag 'twitter.png' %>
+              <% end %>
+            </div>
           </div>
-          <div class="twitter-share option">
-            <%= link_to "https://twitter.com/intent/tweet?url=#{form_url(form.id)}",
-                        target: '_blank' do %>
-                <%= image_tag 'twitter.png' %>
-            <% end %>
-          </div>
-        </div>
 
-        <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
-            <span class="date share-text">Share</span>
-            <i class="material-icons">share</i>
-        <% end %>
+          <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+              <h10 class="date">Share</h10>
+              <i class="material-icons">share</i>
+          <% end %>
+        </div>
       </div>
-
 
     </div>
 
@@ -382,13 +379,13 @@
 
         <div class="boardFooter date">
         <!-- View Count <= form.hits %> --> 
-       
+       <!--
         &nbsp; &#183; &nbsp; <h10 class="date"></h10>
         <%-#reading time from readingtime gem -%>
         
         <% if form.unspecified.present? %>
-         <!-- <i class="material-icons", style="color: red">linear_scale</i>
-         Unspecified -->
+         <i class="material-icons", style="color: red">linear_scale</i>
+         Unspecified
         <% elsif form.easy.present? %>
           Level: Easy
         <% elsif form.involved.present? %>
@@ -396,9 +393,9 @@
         <% elsif form.advanced.present? %>
           Level: Advanced
         <% else %>
-        <% end %>
+        <% end %>-->
         </div>
-        <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
+        <!--<div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>-->
         </div>
         </div>
     </div>
