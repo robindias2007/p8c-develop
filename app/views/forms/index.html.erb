@@ -5,29 +5,14 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>User ID</th>
                     <th>Title</th>
-                    <th>Description</th>
-                    <th>Url 1</th>
-                    <th>Url 2</th>
-                    <th>Url 3</th>
-                    <th>Url 4</th>
-                    <th>Url 5</th>
-                    <th>Title1</th>
-                    <th>Title2</th>
-                    <th>Title3</th>
-                    <th>Title4</th>
-                    <th>Title5</th>
-                    <th>Description 1</th>
-                    <th>Description 2</th>
-                    <th>Description 3</th>
-                    <th>Description 4</th>
-                    <th>Description 5</th>
-                    <th>Note 1</th>
-                    <th>Note 2</th>
-                    <th>Note 3</th>
-                    <th>Note 4</th>
-                    <th>Note 5</th>
+                    <th>Users Name</th>
+                    <th>Title 1 and Domain</th>
+                    <th>Title 2 and Domain</th>
+                    <th>Title 3 and Domain</th>
+                    <th>Title 4 and Domain</th>
+                    <th>Title 5 and Domain</th>
+                    <th>Tags</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -36,30 +21,17 @@
             <tbody>
                 <tr>
                     <% @forms.each do |form| %>
+                    <% @userflname = form.user_id %>
+                    <% @user = User.find(@userflname) %>
                     <td><%= form.id %></td>
-                    <td><%= form.user_id %></td>
                     <td><%= form.title %></td>
-                    <td><%= form.description %></td>
-                    <td><%= form.url1 %></td>
-                    <td><%= form.url2 %></td>
-                    <td><%= form.url3 %></td>
-                    <td><%= form.url4 %></td>
-                    <td><%= form.url5 %></td>
-                    <td><%= form.title1 %></td>
-                    <td><%= form.title2 %></td>
-                    <td><%= form.title3 %></td>
-                    <td><%= form.titel4 %></td>
-                    <td><%= form.title5 %></td>
-                    <td><%= form.description1 %></td>
-                    <td><%= form.description2 %></td>
-                    <td><%= form.description3 %></td>
-                    <td><%= form.description4 %></td>
-                    <td><%= form.description5 %></td>
-                    <td><%= form.note1 %></td>
-                    <td><%= form.note2 %></td>
-                    <td><%= form.note3 %></td>
-                    <td><%= form.note4 %></td>
-                    <td><%= form.note5 %></td>
+                    <td><%= @user.name %></td>
+                    <td><%= form.title1 %> <hr> <%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
+                    <td><%= form.title2 %> <hr> <%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
+                    <td><%= form.title3 %> <hr> <%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
+                    <td><%= form.titel4 %> <hr> <%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
+                    <td><%= form.title5 %> <hr> <%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
+                    <td><%= form.tag_list %></td>
                     <td><%= link_to 'Edit', edit_form_path(form) %></td>
 
                            

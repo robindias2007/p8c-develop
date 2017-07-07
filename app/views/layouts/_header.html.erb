@@ -50,6 +50,12 @@
                   <li><a href="/users/edit">Edit Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
+                  <% if Admin.where(email:current_user.email) %>
+                    <li><a href="/forms">Admin Tools</a></li>
+                  <% end %>
+                  <% if admin_signed_in? %>
+                    <li><%= link_to('Sign Out Admin', destroy_admin_session_path, :method => :delete) %></li>
+                  <% end %>
                 </ul>
               </li>
             </ul>
