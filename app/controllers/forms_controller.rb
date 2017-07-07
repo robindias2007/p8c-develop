@@ -2,13 +2,12 @@ class FormsController < ApplicationController
 before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
 before_action :authenticate_user!, :only => [:like]
 respond_to :js, :json, :html
-
+before_filter :authenticate_admin, :only => [:index]
   
   # GET /forms
   # GET /forms.json
   def index #index.html.erb
-    @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true) 
-    
+    @forms = Form.order(created_at: :desc).all 
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
   
@@ -27,6 +26,7 @@ respond_to :js, :json, :html
 
   # GET /forms/1/edit
   def edit
+    @edit_tag = true;
   end
 
   
@@ -40,7 +40,7 @@ respond_to :js, :json, :html
         if @form.url1.empty?
           @form.update_attributes(content:"", title1:"", image1:"", description1:"") rescue nil
         else
-          @form.update_attributes(content:meta.content_type, title1:meta.title, image1:meta.images.best, description1:meta.description) rescue nil
+          @form.update_attributes(content:meta.content_type, title1:meta.title, image1:meta.images.best, description1:meta.description, tag_list:meta.meta_tags["name"]["keywords"]) rescue nil
             if @form.content == "application/pdf" 
               @form.update_attributes(title1:"#{@form.content}")
             end
@@ -51,7 +51,7 @@ respond_to :js, :json, :html
       if @form.url2.empty?
           @form.update_attributes(content2:"", title2:"", image2:"", description2:"") rescue nil
         else
-          @form.update_attributes(content2:meta1.content_type, title2:meta1.title, image2:meta1.images.best, description2:meta1.description) rescue nil
+          @form.update_attributes(content2:meta1.content_type, title2:meta1.title, image2:meta1.images.best, description2:meta1.description, tag_list:meta1.meta_tags["name"]["keywords"]) rescue nil
             if @form.content2 == "application/pdf" 
               @form.update_attributes(title2:"#{@form.content2}")
             end
@@ -61,7 +61,7 @@ respond_to :js, :json, :html
       if @form.url3.empty?
           @form.update_attributes(content3:"", title3:"", image3:"", description3:"") rescue nil
         else
-          @form.update_attributes(content3:meta2.content_type, title3:meta2.title, image3:meta2.images.best, description3:meta2.description) rescue nil
+          @form.update_attributes(content3:meta2.content_type, title3:meta2.title, image3:meta2.images.best, description3:meta2.description, tag_list:meta2.meta_tags["name"]["keywords"]) rescue nil
             if @form.content3 == "application/pdf" 
               @form.update_attributes(title3:"#{@form.content3}")
             end
@@ -71,7 +71,7 @@ respond_to :js, :json, :html
       if @form.url4.empty?
           @form.update_attributes(content4:"", titel4:"", image4:"", description4:"") rescue nil
         else
-          @form.update_attributes(content4:meta3.content_type, titel4:meta3.title, image4:meta3.images.best, description4:meta3.description) rescue nil
+          @form.update_attributes(content4:meta3.content_type, titel4:meta3.title, image4:meta3.images.best, description4:meta3.description, tag_list:meta3.meta_tags["name"]["keywords"]) rescue nil
             if @form.content4 == "application/pdf" 
               @form.update_attributes(titel4:"#{@form.content4}")
             end
@@ -81,7 +81,7 @@ respond_to :js, :json, :html
       if @form.url5.empty?
           @form.update_attributes(content5:"", title5:"", image5:"", description5:"") rescue nil
         else
-          @form.update_attributes(content5:meta4.content_type, title5:meta4.title, image5:meta4.images.best, description5:meta4.description) rescue nil
+          @form.update_attributes(content5:meta4.content_type, title5:meta4.title, image5:meta4.images.best, description5:meta4.description, tag_list:meta4.meta_tags["name"]["keywords"]) rescue nil
             if @form.content5 == "application/pdf" 
               @form.update_attributes(title5:"#{@form.content5}")
             end
@@ -100,7 +100,7 @@ respond_to :js, :json, :html
         else
         end
       @form.save_social_image # Save social image
-
+      
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
         @form.update(:publish => "true")       #publish becomes true
         redirect_to "/user/#{current_user.username}/publish" , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
@@ -276,6 +276,10 @@ respond_to :js, :json, :html
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5)
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :classifier_list => [])
     end
-end
+
+    def authenticate_admin
+      authenticate_admin!
+    end
+  end

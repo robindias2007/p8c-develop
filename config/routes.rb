@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
   
 
+   devise_for :admins, controllers: {
+        sessions: 'admins/sessions'
+      }
+  
+
+
+  
   get 'users/index'
   get 'tags/:tag', to: 'forms#tagss', as: :tag 
-
+ 
 
   devise_for :users, :controllers => { sessions: "users/sessions", :registrations => 'users/registrations',
                                        :confirmations => 'users/confirmations', :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
@@ -33,15 +40,22 @@ Rails.application.routes.draw do
 
   get 'forms/bookmarks' => 'forms#bookmarks'     
 
-  get '/publish' =>  'static_pages#publish'
-  get '/drafts' =>  'static_pages#drafts'
-  get '/saved' =>  'static_pages#saved'
+  # get '/publish' =>  'static_pages#publish'
+  # get '/drafts' =>  'static_pages#drafts'
+  # get '/saved' =>  'static_pages#saved'
+  get '/dashboard' => 'static_pages#dashboard'
   
   get 'user/:id/publish'          =>   'users#show'
   get 'user/:id/saved'          =>   'users#show_saved'
   get 'user/:id/drafts'          =>   'users#show_drafts'
 
   root 'static_pages#home'
+   
+  get '/business' => 'categories#business'
+  get '/politics' => 'categories#politics'
+  get '/science' => 'categories#science'
+  get '/tv' => 'categories#tv'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -77,17 +77,16 @@
   <hr>
 
   <!-- ROBIN, WE NEED TO ADD THESE FIELDS INTO THE DB -->
+  <% if admin_signed_in? %>
   <div class="field">
     <%= f.label :tag_list %>
     <%= f.text_field :tag_list  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!", 'data-role'=>'tagsinput',value: @form.tag_list.to_s  %>
   </div>
+  <% end %>
   
-
-
   <!-- ROBIN, THIS IS A RADIO GROUP, IT IS A TEXT FIELD THAT WILL TAKE IN ONE OF THESE VALUES.... NEEDS TO BE CREATED -->
   <div class="field">
     <%= f.label :Level %>
-
   <div class="row">
   <div class="col-md-12">
   <input type="checkbox" class="hidden" name="unspecified", id="cb1"><label for="cb1">Unspecified</label>
@@ -189,7 +188,6 @@ $(function(){
         $('#note5').show();
      }
 });
-
 
 </script>
 
