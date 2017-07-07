@@ -99,8 +99,9 @@ before_filter :authenticate_admin, :only => [:index]
          @form.update_attributes(advanced:true) 
         else
         end
+      debugger
       @form.save_social_image # Save social image
-
+      
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
         @form.update(:publish => "true")       #publish becomes true
         redirect_to "/user/#{current_user.username}/publish" , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
@@ -276,7 +277,7 @@ before_filter :authenticate_admin, :only => [:index]
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5)
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :classifier_list => [])
     end
 
     def authenticate_admin
