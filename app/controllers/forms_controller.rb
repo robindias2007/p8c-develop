@@ -7,7 +7,7 @@ before_filter :authenticate_admin, :only => [:index]
   # GET /forms
   # GET /forms.json
   def index #index.html.erb
-    @forms = Form.all 
+    @forms = Form.order(created_at: :desc).all 
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
   
@@ -26,6 +26,7 @@ before_filter :authenticate_admin, :only => [:index]
 
   # GET /forms/1/edit
   def edit
+    @edit_tag = true;
   end
 
   
@@ -281,4 +282,4 @@ before_filter :authenticate_admin, :only => [:index]
     def authenticate_admin
       authenticate_admin!
     end
-end
+  end
