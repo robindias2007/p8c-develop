@@ -7,7 +7,7 @@ before_filter :authenticate_admin, :only => [:index]
   # GET /forms
   # GET /forms.json
   def index #index.html.erb
-    @forms = Form.order(created_at: :desc).all 
+    @forms = Form.order(created_at: :desc).all
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
   end
   
@@ -40,7 +40,7 @@ before_filter :authenticate_admin, :only => [:index]
         if @form.url1.empty?
           @form.update_attributes(content:"", title1:"", image1:"", description1:"") rescue nil
         else
-          @form.update_attributes(content:meta.content_type, title1:meta.title, image1:meta.images.best, description1:meta.description, tag_list:meta.meta_tags["name"]["keywords"]) rescue nil
+          @form.update_attributes(content:meta.content_type, title1:meta.title, image1:meta.images.best, description1:meta.description, tag1:meta.meta_tags["name"]["keywords"]) rescue nil
             if @form.content == "application/pdf" 
               @form.update_attributes(title1:"#{@form.content}")
             end
@@ -51,7 +51,7 @@ before_filter :authenticate_admin, :only => [:index]
       if @form.url2.empty?
           @form.update_attributes(content2:"", title2:"", image2:"", description2:"") rescue nil
         else
-          @form.update_attributes(content2:meta1.content_type, title2:meta1.title, image2:meta1.images.best, description2:meta1.description, tag_list:meta1.meta_tags["name"]["keywords"]) rescue nil
+          @form.update_attributes(content2:meta1.content_type, title2:meta1.title, image2:meta1.images.best, description2:meta1.description, tag2:meta1.meta_tags["name"]["keywords"]) rescue nil
             if @form.content2 == "application/pdf" 
               @form.update_attributes(title2:"#{@form.content2}")
             end
@@ -61,7 +61,7 @@ before_filter :authenticate_admin, :only => [:index]
       if @form.url3.empty?
           @form.update_attributes(content3:"", title3:"", image3:"", description3:"") rescue nil
         else
-          @form.update_attributes(content3:meta2.content_type, title3:meta2.title, image3:meta2.images.best, description3:meta2.description, tag_list:meta2.meta_tags["name"]["keywords"]) rescue nil
+          @form.update_attributes(content3:meta2.content_type, title3:meta2.title, image3:meta2.images.best, description3:meta2.description, tag3:meta2.meta_tags["name"]["keywords"]) rescue nil
             if @form.content3 == "application/pdf" 
               @form.update_attributes(title3:"#{@form.content3}")
             end
@@ -71,7 +71,7 @@ before_filter :authenticate_admin, :only => [:index]
       if @form.url4.empty?
           @form.update_attributes(content4:"", titel4:"", image4:"", description4:"") rescue nil
         else
-          @form.update_attributes(content4:meta3.content_type, titel4:meta3.title, image4:meta3.images.best, description4:meta3.description, tag_list:meta3.meta_tags["name"]["keywords"]) rescue nil
+          @form.update_attributes(content4:meta3.content_type, titel4:meta3.title, image4:meta3.images.best, description4:meta3.description, tag4:meta3.meta_tags["name"]["keywords"]) rescue nil
             if @form.content4 == "application/pdf" 
               @form.update_attributes(titel4:"#{@form.content4}")
             end
@@ -81,14 +81,13 @@ before_filter :authenticate_admin, :only => [:index]
       if @form.url5.empty?
           @form.update_attributes(content5:"", title5:"", image5:"", description5:"") rescue nil
         else
-          @form.update_attributes(content5:meta4.content_type, title5:meta4.title, image5:meta4.images.best, description5:meta4.description, tag_list:meta4.meta_tags["name"]["keywords"]) rescue nil
+          @form.update_attributes(content5:meta4.content_type, title5:meta4.title, image5:meta4.images.best, description5:meta4.description, tag5:meta4.meta_tags["name"]["keywords"]) rescue nil
             if @form.content5 == "application/pdf" 
               @form.update_attributes(title5:"#{@form.content5}")
             end
         end
-
       @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
-      
+      @form.update(tag_list: @form.tag1 + @form.tag2 + @form.tag3 + @form.tag4 + @form.tag5) rescue nil     
         if params[:unspecified]
           @form.update_attributes(unspecified:true)
         elsif params[:easy] 
@@ -276,7 +275,7 @@ before_filter :authenticate_admin, :only => [:index]
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :classifier_list => [])
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5)
     end
 
     def authenticate_admin
