@@ -33,6 +33,9 @@ Rails.application.routes.draw do
 
   resources :profile_validation, only: [:index]
   
+  resources :categories
+
+
   get '/following' => 'follows#following'
   get '/followers' => 'follows#followers'
 
@@ -51,10 +54,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
    
-  get '/business' => 'categories#business'
-  get '/politics' => 'categories#politics'
-  get '/science' => 'categories#science'
-  get '/tv' => 'categories#tv'
+  
 
 
   # The priority is based upon order of creation: first created -> highest priority.
