@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if Admin.where(email:current_user.email)
+    if admin_signed_in?
       dashboard_path
     else
       root_url
