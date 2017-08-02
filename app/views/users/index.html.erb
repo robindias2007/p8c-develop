@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<div class="maincont">
+<table-responsive>
+    <table>
+        <div class ="table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Categories</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <% @users.each do |user| %>
+                    <td><%= user.id %></td>
+                    <td><%= user.username %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.categories.category_id %></td>      
+                </tr>   
+                    <% end %>
+            </tbody>
+        </div>
+    </table>
+<br>
+</table-responsive>
+
+</div>
+
+<style type="text/css">
+    table
+  {
+   border: 1px solid pink;
+  }
+
+  td
+  {
+   border: 1px solid pink;
+  }
+
+  th
+  {
+   border: 1px solid pink;
+  }
+</style>

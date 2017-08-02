@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709164514) do
+ActiveRecord::Schema.define(version: 20170723101712) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 20170709164514) do
     t.boolean  "profile_completed",      default: false
     t.string   "social_image_url"
     t.string   "name"
+    t.integer  "category_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

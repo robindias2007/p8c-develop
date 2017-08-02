@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!
+  before_filter :authenticate_admin, :only => [:index]
   before_action :set_user
   before_action :check_profile_complted, only: :edit
 
   def index
+    @users = User.all
   end
 
   def show   #show.html.erb
@@ -46,12 +47,16 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :avatar, :author, :email).merge(profile_completed: true)
+    params.require(:user).permit(:username, :name, :avatar, :author, :email, category_id: []).merge(profile_completed: true)
   end
 
   def set_user
     @user = current_user
   end
+
+  def authenticate_admin
+      authenticate_admin!
+    end
 
   def check_profile_complted
     if current_user.profile_completed

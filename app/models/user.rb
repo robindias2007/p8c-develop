@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :forms
   has_many :authorizations
+  has_many :categories
 
   validates_presence_of :email
 

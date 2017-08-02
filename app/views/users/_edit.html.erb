@@ -27,6 +27,14 @@
       <%= f.text_area :author, placeholder: "Description", autofocus: true, required: "required", class: "form-control" %>
     </div>
 
+    <div class="field">
+      <%= f.label :category_id %>
+  
+    <%= f.collection_check_boxes :category_id, Category.all, :id, :category_name %>   
+    </div>
+
+
+
     <div class="text-center">
       <a class="sign-up-link btn btn-default sign-up-cat">Next</a>
     </div>
