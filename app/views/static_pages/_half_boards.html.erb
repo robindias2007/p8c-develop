@@ -1,0 +1,337 @@
+<div class="halfBoard boardContainer">
+<% @forms_half.each do |form| %>
+
+
+<div class="col-md-4 halfBoard container1">  <!-- The elements of the entire box. -->
+    
+    <div class="col-md-12 halfBoard container5">
+        <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
+        <div class="halfBoard container7">
+        <% if user_signed_in? %>
+        <% if @home_user %>
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp;&#183;&nbsp;
+        <% else %>
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp;&#183;&nbsp;
+        <% end %>
+        <% else %>
+            <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp;&#183;&nbsp;
+        <% end %>
+
+            <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
+            <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
+
+            <h10 class="date"> <!-- < form.readtime.reading_time :format => :full %> --></h10>
+            <%-#reading time from readingtime gem -%> 
+
+            <div class="date">
+            <!-- View Count <= form.hits %> --> 
+           
+                &nbsp; &#183; &nbsp;
+                
+                <% if form.unspecified.present? %>
+                 <!-- <i class="material-icons", style="color: red">linear_scale</i>
+                 Unspecified -->
+                <% elsif form.easy.present? %>
+                  Level: Easy
+                <% elsif form.involved.present? %>
+                  Level: Involved
+                <% elsif form.advanced.present? %>
+                  Level: Advanced
+                <% else %>
+                <% end %>
+            </div>  
+
+        </div>
+
+
+        <a href="/forms/<%= form.id %>"><h2 class="halfBoard title"><%= form.title %></h2></a> 
+        </div>
+        <div class="halfBoard container8">
+            <% if user_signed_in? %>
+                <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <h10 class="date">Save &nbsp; </h10>
+                    <%= render :partial => "forms/books", :locals => {:form => form} %>
+                    <%-# It tells you the total count or the total likes on the current form  -%>
+                </div>
+
+            <% else %>
+                
+                <div class="bookmark">
+                    <h10 class="date">Save &nbsp; </h10><i class="material-icons">bookmark</i>
+                </div>    
+            
+            <% end %>
+
+            <% if user_signed_in? %>
+                <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <%= render :partial => "forms/likes", :locals => {:form => form} %>
+                  
+                    <div class="date" id="likes">
+                        <%= form.get_likes.size %> 
+                      <%-# It tells you the total count or the total likes on the current form  -%>
+                    </div>
+                </div>
+
+            <% else %>
+                <div class="like"><i class="material-icons" style="color:#9c1717">favorite</i> 
+                    <div class="date" id="likes"><%= form.get_likes.size %></div>
+                </div>
+            <% end %>  
+        
+        </div>
+    </div>
+
+
+
+
+    <div id="container2">
+
+    <div class="col-md-4 halfBoard" id="description"> <!-- Bootstrap to divide the entire page into colums -->    
+        
+      <h5 class="internal_text halfBoard"><%= form.description %></h5>  
+      
+    </div>
+
+   <div class="halfBoard" id="verticalLine"></div>
+
+    <div class="container3"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
+    <ul class="halfBoard row">
+    
+    <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
+    <li class="col-md-2 col-sm-4 halfBoard article1" id="articleCard">  
+    <a href= <%= form.url1 %> target="framename", id="formclick" > 
+    <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
+    <hr>
+    <!-- We shouldn't put "..." on titles 
+    <h10 class="title1"><%= form.title1[0..40].gsub(/\s\w+\s*$/,'...') rescue nil %></h10> -->
+
+    <h4 class="halfBoard title1">
+      <%= form.title1 rescue nil %>
+    </h4>
+    <%-# It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters -%>
+    <%-# rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form -%>
+
+    <div class="container6">
+        <figure class="halfBoard effect-sadie">
+            <% if form.image1.present? %>
+              <%= image_tag form.image1 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note1.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="curatorNotes"><%= form.note1 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
+    </div>
+
+    <%-# It renders the image of the entered url from orders controller using metainspector gem in the create method -%>
+    <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
+    <%-# It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda -%>
+    <br>
+    <h6 class="internal_text1"><%= form.description1 rescue nil %></h6> 
+    <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
+    <hr>
+    </a>
+    </li>  
+    
+    <li class="col-md-2 col-sm-4 halfBoard" id="articleCard">  
+    <a href= <%= form.url2 %>  target="_blank", id="formclick">
+    <hr>
+    <h4 class="halfBoard title1">
+      <%= form.title2 rescue nil %>
+    </h4>
+
+
+    <div class="container6">
+        <figure class="halfBoard effect-sadie">
+            <% if form.image2.present? %>
+              <%= image_tag form.image2 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note2.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="curatorNotes"><%= form.note2 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
+    </div>
+
+
+    <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %>
+        <!-- to bring the icon on the link line (need to make the icon css float:right, color:black; link css width:100%, text-align:left, line-height:18px;)
+        <% if form.note2.present? %>     
+            <i class="material-icons md-18">comment</i>
+        <% else %>
+        <% end %>
+        -->
+    </div>
+
+    <br>
+    <h6 class="internal_text1"><%= form.description2 rescue nil %></h6>
+    <hr>
+    </a>
+    </li>
+    
+    <li class="col-md-2 col-sm-4 halfBoard" id="articleCard">
+    <a href= <%= form.url3 %>  target="_blank", id="formclick" >
+    <hr>
+    <h4 class="halfBoard title1">
+      <%= form.title3 rescue nil %>
+    </h4>
+
+    <div class="container6">
+        <figure class="halfBoard effect-sadie">
+            <% if form.image3.present? %>
+              <%= image_tag form.image3 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note3.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="curatorNotes"><%= form.note3 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
+    </div>
+    
+    <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+    <br>
+    <h6 class="internal_text1"><%= form.description3 rescue nil %></h6>
+    <hr>
+    </a>
+    </li>
+
+    <li class="col-md-2 col-sm-4 halfBoard" id="articleCard">
+    <a href= <%= form.url4 %>  target="_blank" , id="formclick">
+    <hr>
+    <!-- Title4 DB name is MIS-SPELLED! -->
+    <h4 class="halfBoard title1">
+      <%= form.titel4 rescue nil %>
+    </h4>
+
+
+    <div class="container6">
+        <figure class="halfBoard effect-sadie">
+            <% if form.image4.present? %>
+              <%= image_tag form.image4 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note4.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="curatorNotes"><%= form.note4 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
+    </div>
+
+
+    <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+    <br>
+    <h6 class="internal_text1"><%= form.description4 rescue nil %></h6>
+    <hr>
+    </a>
+    </li>  
+    
+    <li class="col-md-2 col-sm-4 halfBoard" id="articleCard">
+    <a href= <%= form.url5 %>  target="_blank" , id="formclick">
+    <hr>
+    <h4 class="halfBoard title1">
+    <%= form.title5 rescue nil %>
+    </h4>
+
+    <div class="container6">
+        <figure class="halfBoard effect-sadie">
+            <% if form.image5.present? %>
+              <%= image_tag form.image5 , id:"image" %>
+            <% else %>
+              <%= image_tag "whiteimage.jpg" , id:"image" %>
+            <% end %>
+
+            <% if form.note5.present? %>     
+                <figcaption>
+                    <i class="material-icons md-18">comment</i>
+                    <h5>Curator Notes</h5>
+                    <p class="curatorNotes"><%= form.note5 rescue nil %></p>
+                </figcaption> 
+            <% else %>
+            <% end %>
+        </figure>
+    </div>
+    
+    <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+    <br>
+    <h6 class="internal_text1"><%= form.description5 rescue nil %></h6>
+    <hr>
+    </a>
+    </li>
+    
+    
+    </ul>
+    </div>
+        <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
+ 
+
+        <div class="col-md-12 container4">
+
+            <div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>
+
+        </div>
+        </div>
+    </div>
+
+
+ <!-- USING DISQUS FOR COMMENTS!!! 
+ <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://p8c.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+
+
+<% if @home_banner %>
+ 
+<%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
+<%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
+<% else %>
+<% end %>
+
+
+<% end %>
+</div>
+

@@ -6,11 +6,13 @@
 <% if @forms_design.present? %>
     <h1>Design</h1>
 	<%= render 'static_pages/boards_design'%>
+	<%= render 'static_pages/half_boards' %>
 <% end %>
 
 <% if @forms_startups.present? %>
 	<h1>StartUps</h1>
 	<%= render 'static_pages/boards_startups' %>
+    <%= render 'static_pages/half_boards' %>
 <% end %>
 
 <%= render 'static_pages/boards'%>
