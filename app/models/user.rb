@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email
 
   validates_uniqueness_of :username, case_sensitive: false, allow_blank: true
-  validates_presence_of :username, :author, if: :profile_completed?
+  validates_presence_of :username, :author
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable    #this is used for user sign in and sign out
