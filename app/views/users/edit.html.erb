@@ -37,7 +37,14 @@
       <div class="modal-body">
         <div id="category_edit">
           <p class="cat-title">Pick some topics you are interested in</p>
-      
+          <%= form_for @user do |f| %>
+          
+          <div class="col-md-12 checkbox-list">
+            <%= f.label :categories %>
+            <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %>   
+          </div>
+          <% end %>
+
           <!-- <div class="row cat-row">
             <div class="col-md-3 cat-col" style="background-color: plum"><p class="cat-text">Category 1</p></div>
             <div class="col-md-3 cat-col" style="background-color: cornflowerblue"><p class="cat-text">Category 2</p></div>

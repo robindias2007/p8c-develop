@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :avatar, :author, :email, category_id: []).merge(profile_completed: true)
+    params.require(:user).permit(:username, :name, :avatar, :author, :email, :categories_ids => [] ).merge(profile_completed: true)
   end
 
   def set_user

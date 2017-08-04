@@ -16,6 +16,14 @@ class StaticPagesController < ApplicationController
     @forms_half = @forms_start.last(2)
   end
 
+  def design 
+    @forms_design = Form.tagged_with('LenseDesign')
+  end
+
+  def startups 
+    @forms_startups = Form.tagged_with('LenseStartups')
+  end
+
   # def publish   #publish.html.erb
   #  @home_banner = true;
   #  @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)  #it shows published boards where user_id:current_user.id which means it will show only the current user logged in published boards

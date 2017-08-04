@@ -1536,3 +1536,20 @@ ul.followers li {
   text-align: left;
   margin-bottom: 30px;
 }
+
+.categoryheader
+{
+    width: 60%;
+    margin: 0px auto;
+}
+
+.categoryheader > h1
+{
+    text-align: left;
+}
+
+.categoryheader > a
+{
+    float: right;
+    margin-top: -5%;
+}

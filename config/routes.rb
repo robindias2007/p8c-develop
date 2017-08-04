@@ -41,8 +41,8 @@ Rails.application.routes.draw do
 
   resources :follows, :only => [:create, :destroy]
 
+  get '/forms/:id/edittag' => 'forms#edittag'
   get 'forms/bookmarks' => 'forms#bookmarks'     
-
   # get '/publish' =>  'static_pages#publish'
   # get '/drafts' =>  'static_pages#drafts'
   # get '/saved' =>  'static_pages#saved'
@@ -51,6 +51,10 @@ Rails.application.routes.draw do
   get 'user/:id/publish'          =>   'users#show'
   get 'user/:id/saved'          =>   'users#show_saved'
   get 'user/:id/drafts'          =>   'users#show_drafts'
+  
+  get '/design' => 'static_pages#design'
+  get '/startups' => 'static_pages#startups'
+  
 
   root 'static_pages#home'
    

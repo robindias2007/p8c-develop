@@ -9,7 +9,12 @@ before_filter :authenticate_admin, :only => [:index]
   def index #index.html.erb
     @forms = Form.order(created_at: :desc).all
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
-  end
+      @form = Form.find(params[:format]) rescue nil
+      if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
+        @form.update_attributes(form_params)      #publish becomes true
+        redirect_to :back
+      end
+    end
   
   # GET /forms/1
   # GET /forms/1.json
@@ -29,7 +34,6 @@ before_filter :authenticate_admin, :only => [:index]
     @edit_tag = true;
   end
 
-  
   # POST /forms
   # POST /forms.json
   def create
@@ -125,7 +129,6 @@ before_filter :authenticate_admin, :only => [:index]
   def update
     
     # When you draft your board and you want to publish that draft you edit and publish it here. So the form is updated or edited here using metainspector again with the update function
-    
     if @form.update(form_params)  
 
       meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information

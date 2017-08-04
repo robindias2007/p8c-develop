@@ -4,15 +4,21 @@
 
 
 <% if @forms_design.present? %>
-    <h1>Design</h1>
-	<%= render 'static_pages/boards_design'%>
-	<%= render 'static_pages/half_boards' %>
+    <div class="categoryheader">
+	    <h1>Design</h1>
+	    <a href="/design">See More</a>
+	</div>
+	<%= render 'static_pages/boards_design' rescue nil %>
+	<%= render 'static_pages/half_boards' rescue nil  %>
 <% end %>
 
 <% if @forms_startups.present? %>
-	<h1>StartUps</h1>
-	<%= render 'static_pages/boards_startups' %>
-    <%= render 'static_pages/half_boards' %>
+	<div class="categoryheader">
+		<h1>StartUps</h1>
+		<a href="/startups">See More</a>
+	</div>
+	<%= render 'static_pages/boards_startups' rescue nil  %>
+    <%= render 'static_pages/half_boards' rescue nil %>
 <% end %>
 
 <%= render 'static_pages/boards'%>

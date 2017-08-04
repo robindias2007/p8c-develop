@@ -13,8 +13,11 @@
                     <th>Title 4 and Domain</th>
                     <th>Title 5 and Domain</th>
                     <th>Tags</th>
+                    <th>Edit Tags</th>
+                    <th>Submit tag</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -32,11 +35,26 @@
                     <td><%= form.titel4 %> <hr> <%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
                     <td><%= form.title5 %> <hr> <%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
                     <td><%= form.tag_list %></td>
+                    <td>
+                      <%= form_for form, :url => forms_path(form), method: :get do |f| %>
+                        <!-- ROBIN, WE NEED TO ADD THESE FIELDS INTO THE DB -->
+                        <% if admin_signed_in? %>
+                        <div class="field">
+                          <%= f.text_field :tag_list  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!", 'data-role'=>'tagsinput', value:form.tag_list.to_s %>
+                        </div>
+                        <% end %>
+                    </td>    
+                    <td>
+                      <div class="actions">
+                          <%= f.submit 'Publish', id:"saves", name:"commit"%>
+                      </div>
+                      <% end %>
+                    </td>
                     <td><%= link_to 'Edit', edit_form_path(form) %></td>
 
                            
                     <td><%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                          
+                    <td></td>      
                 </tr>   
                     <% end %>
             </tbody>
@@ -51,15 +69,23 @@
     table
   {
    border: 1px solid pink;
+   width: 80%;
   }
 
   td
   {
-   border: 1px solid pink;
+   border: 1px solid black;
+   background-color: #D3D3D3;
   }
 
   th
   {
-   border: 1px solid pink;
+   background-color: #D3D3D3;
+   border: 1px solid black;
+  }
+
+  #saves
+  {
+    width: 100%;
   }
 </style>
