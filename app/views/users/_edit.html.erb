@@ -1,5 +1,3 @@
-<%= form_for @user, html: { id: "sign_up_edit" } do |f| %>
-
     <div class="form-group">
       <%= f.label :avatar %>
       <%= f.file_field :avatar, class: "form-control" %>
@@ -26,7 +24,11 @@
       <%= f.label :description %>
       <%= f.text_area :author, placeholder: "Description", autofocus: true, required: "required", class: "form-control" %>
     </div>
-
+    
+    <!-- <div class="col-md-12 checkbox-list">
+      <%= f.label :categories %>
+      <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %>   
+    </div> -->
    
 
 
@@ -34,5 +36,4 @@
       <a class="sign-up-link btn btn-default sign-up-cat">Next</a>
     </div>
 
-<% end %>
 

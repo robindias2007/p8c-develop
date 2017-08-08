@@ -1,5 +1,8 @@
 <div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
   <div class="modal-dialog modal-md" role="document">
+    
+    <%= form_for @user, html: { id: "sign_up_edit" } do |f| %>
+    
     <div class="modal-content sign-in-with-email">
       <div class="modal-header">
         <!-- Header content for sign in with email -->
@@ -20,7 +23,7 @@
 
         </div>
         <div class="form" id="sign-up-form">
-          <%= render partial: "edit" %>
+          <%= render partial: "edit", :locals => {:f => f} %>
         </div>
       </div>
     </div>
@@ -37,7 +40,6 @@
       <div class="modal-body">
         <div id="category_edit">
           <p class="cat-title">Pick some topics you are interested in</p>
-          <%= form_for @user do |f| %>
           
           <div class="col-md-12 checkbox-list">
             <%= f.label :categories %>
