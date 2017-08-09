@@ -49,27 +49,24 @@
         <div class="halfBoard container8">
             <% if user_signed_in? %>
                 <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-                    <h10 class="date">Save &nbsp; </h10>
+                    <h10 class="date">Save &nbsp;</h10>
                     <%= render :partial => "forms/books", :locals => {:form => form} %>
                     <%-# It tells you the total count or the total likes on the current form  -%>
                 </div>
 
             <% else %>
-                
                 <div class="bookmark">
-                    <h10 class="date">Save &nbsp; </h10><i class="material-icons">bookmark</i>
-                </div>    
-            
+                    <h10 class="date">Save &nbsp; </h10>
+                    <i class="material-icons">bookmark</i>
+                </div>
             <% end %>
 
             <% if user_signed_in? %>
                 <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
+                    <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>
+                    <%-# It tells you the total count or the total likes on the current form  -%>
+
                     <%= render :partial => "forms/likes", :locals => {:form => form} %>
-                  
-                    <div class="date" id="likes">
-                        <%= form.get_likes.size %> 
-                      <%-# It tells you the total count or the total likes on the current form  -%>
-                    </div>
                 </div>
 
             <% else %>

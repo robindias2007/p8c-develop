@@ -11,6 +11,17 @@ act_as_mentioner
 belongs_to :user
 belongs_to :category
 
+scope :published, -> {
+  where(:publish => true)
+}
+
+scope :drafts, -> {
+  where(:publish => false)
+}
+
+scope :saved, -> {
+  where(:bookmark => true)
+}
 # validates :description, length: { maximum: 200 }
 # validates :title, :title1, :title2, :title3, :titel4, :title5 , length: { maximum: 50 }
 
