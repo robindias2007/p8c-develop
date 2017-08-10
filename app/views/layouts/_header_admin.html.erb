@@ -38,19 +38,19 @@
 
 
         <!-- appearance based on whether the user as signed in or not -->
-        <% if user_signed_in? %>
+        <% if admin_signed_in? %>
 
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="material-icons" style="font-size:30px; color: #000000; float: right; ">account_circle</i>
-                  <div class="currentheaderusername"><%= current_user.username %></div>
+                  <div class="currentheaderusername"><%= current_admin.email %></div>
                 </a>
                 <ul class="dropdown-menu">
                   <li><a href="/user/<%= current_user.username %>/publish">My Boards</a></li>
                   <li><a href="/users/edit">Edit Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
-                  <% if Admin.where(email:current_user.email).present? %>
+                  <% if Admin.where(email:current_admin.email).present? %>
                       <li><a href="/dashboard">Admin Tools</a></li>
                     <% end %>
                   <% if admin_signed_in? %>
@@ -61,13 +61,13 @@
             </ul>
 
         <% else %>
-
+           
             <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to "Sign in / Sign Up", new_user_session_path, remote: true %></li>
-              <% if admin_signed_in? %>
-                <li><%= link_to('Sign Out Admin', destroy_admin_session_path, :method => :delete) %></li>
+              <% if admin_signed_in? %> 
+                <li><%= link_to "Sign Out Admin", destroy_admin_session_path, :method => :delete %></li>
               <% end %>
             </ul>
+
         <% end %>
 
       </div><!-- /.navbar-collapse -->
@@ -116,7 +116,7 @@
       </li>
 
       <!-- My Boards if user has signed in -->
-      <% if user_signed_in? %>
+      <% if admin_signed_in? %>
           <li role="presentation" class="dropdown" style="float:right;">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
               My Boards <span class="caret"></span>

@@ -52,10 +52,6 @@ Rails.application.routes.draw do
   get 'user/:id/saved'          =>   'users#show_saved'
   get 'user/:id/drafts'          =>   'users#show_drafts'
   
-  get '/design' => 'static_pages#design'
-  get '/startups' => 'static_pages#startups'
-  
-
   root 'static_pages#home'
    
   
