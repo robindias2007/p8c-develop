@@ -61,14 +61,14 @@
 <ul class="count">
 	<li></li>
   <li><%= Form.published.where("user_id = ?",User.find_by_username(params[:id])).count %></li>
-  <li><%= Form.saved.where("user_id = ?",User.find_by_username(params[:id])).count %></li>
+  <!-- <li><%= Form.saved.where("user_id = ?",User.find_by_username(params[:id])).count %></li> -->
   <li></li>
 </ul>
 
 <ul class="board">
 	<li></li>
 	<li><a href= "/user/<%= @user.username  %>/publish", id="board1">Published</a></li>
-  <li><a href= "/user/<%= @user.username  %>/saved", id="board1">Saved</a></li>
+  <!-- <li><a href= "/user/<%= @user.username  %>/saved", id="board1">Saved</a></li> -->
 	<li></li>
 </ul>
 

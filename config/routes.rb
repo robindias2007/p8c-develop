@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get 'user/:id/publish'          =>   'users#show'
   get 'user/:id/saved'          =>   'users#show_saved'
   get 'user/:id/drafts'          =>   'users#show_drafts'
+
+  get 'user/:id/liked'          =>   'users#show_liked'
   
   root 'static_pages#home'
    

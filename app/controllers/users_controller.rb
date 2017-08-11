@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin, :only => [:index]
   before_action :set_user
   before_action :check_profile_complted, only: :edit
-  before_filter :find_userid, :only => [:show, :show_saved, :show_drafts]
+  before_filter :find_userid, :only => [:show, :show_saved, :show_drafts, :show_liked]
 
 
   def index
@@ -11,25 +11,40 @@ class UsersController < ApplicationController
   end
 
   def show   #show.html.erb
-  	@home_banner = true;
+    @home_banner = true;
     @forms = Form.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).published
   	#it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
   end
   
   def show_saved   #show.html.erb
-    @forms = Form.saved.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id]))
-  	#it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
+    if @user == current_user
+      @forms = Form.saved.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
+  	else
+      redirect_to "/user/#{@user.username }/publish"
+    end
+    #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
   end
   
   def show_drafts   #show.html.erb
   	@home_banner = true;
-    @forms = Form.drafts.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
-  	#it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
+    if @user == current_user
+      @forms = Form.drafts.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
+  	else
+      redirect_to "/user/#{@user.username }/publish"
+    end
+    #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
   end
-
+  
+  def show_liked
+    if @user != current_user 
+      @forms = @user.get_up_voted(Form).order(created_at: :desc)
+    else
+      redirect_to "/user/#{current_user.username }/publish"
+    end
+  end
 
   def edit
   end
