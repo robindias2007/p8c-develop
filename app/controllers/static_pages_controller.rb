@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
-  
+  before_filter :authenticate_admin, :only => [:dashboard]
+
   def home #home.html.erb
     @home_user = true;
     @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
@@ -55,9 +56,14 @@ class StaticPagesController < ApplicationController
   #  @home_user1 = true;
   #  @forms = Form.where(bookmark:true).order(created_at: :desc) #id: current_user.find_voted_items means it shows current_users liked boards. find_voted_item is a predefined function by acts_as_votable.
   # end    
-
+ 
   def dashboard
   end
+  
+  private
 
+  def authenticate_admin
+    authenticate_admin!
+  end
 
 end

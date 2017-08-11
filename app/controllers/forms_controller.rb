@@ -90,8 +90,10 @@ before_filter :authenticate_admin, :only => [:index]
               @form.update_attributes(title5:"#{@form.content5}")
             end
         end
-      @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
-      @form.update(tag_list: @form.tag1 + @form.tag2 + @form.tag3 + @form.tag4 + @form.tag5) rescue nil     
+      # @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
+        tags = @form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)     
+        @form.update(tag_list: tags.join(',') )
+
         if params[:unspecified]
           @form.update_attributes(unspecified:true)
         elsif params[:easy] 
@@ -182,8 +184,9 @@ before_filter :authenticate_admin, :only => [:index]
             end
         end
 
-      @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
-
+      # @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
+      tags = @form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)     
+      @form.update(tag_list: tags.join(',') )
 
       if params[:unspecified]
         @form.update_attributes(unspecified:true)
