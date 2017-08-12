@@ -1,20 +1,14 @@
 {
   "name": "p8c-develop",
   "version": "1.0.0",
-  "description": "== README",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
+  "dependencies": {
+    "bower": "1.8.0"
+  },
+  "engine": {
+    "node": "6.11.1",
+    "npm": "5.3.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/robindias2007/p8c-develop.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/robindias2007/p8c-develop#readme"
+    "postinstall": "./node_modules/bower/bin/bower install"
+  }
 }
