@@ -12,8 +12,11 @@
                     <th>Title 3 and Domain</th>
                     <th>Title 4 and Domain</th>
                     <th>Title 5 and Domain</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
                     <th>Tags</th>
                     <th>Edit Tags</th>
+                    <th>Admins Date</th>
                     <th>Submit tag</th>
                     <!-- <th>Edit</th> -->
                     <th>Delete</th>
@@ -34,15 +37,20 @@
                     <td><%= form.title3 %> <hr> <%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
                     <td><%= form.titel4 %> <hr> <%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
                     <td><%= form.title5 %> <hr> <%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
+                    <td><%= form.created_at.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p") %></td>
+                    <td><%= form.updated_at.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p") %></td>
                     <td><%= form.tag_list %></td>
                     <td>
                       <%= form_for form, :url => forms_path(form), method: :get do |f| %>
                         <!-- ROBIN, WE NEED TO ADD THESE FIELDS INTO THE DB -->
-                        <% if admin_signed_in? %>
                         <div class="field">
                           <%= f.text_field :tag_list  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!", 'data-role'=>'tagsinput', value:form.tag_list.to_s %>
                         </div>
-                        <% end %>
+                    </td>
+                    <td>
+                        <div class="field">
+                          <%= f.text_field :admins_date, id:"notes", placeholder:"Date For Admins", value:form.admins_date %>
+                        </div>
                     </td>    
                     <td>
                       <div class="actions">
