@@ -41,7 +41,6 @@ gem "punching_bag"
 
 gem "acts_as_follower"
 gem 'will_paginate', '~> 3.1.0'
-
 # Social login
 gem 'omniauth'
 gem 'omniauth-facebook'
