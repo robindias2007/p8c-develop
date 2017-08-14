@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular
+//= require angular-ui-router
 //= require_tree .
-//= require jquery
 //= require bootstrap-sprockets
 //= require rails.validations
 //= require bootstrap-tagsinput

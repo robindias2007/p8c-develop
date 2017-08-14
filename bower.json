@@ -1,0 +1,22 @@
+{
+  "name": "p8c-develop",
+  "description": "== README",
+  "main": "index.js",
+  "authors": [
+    "Malav <malav1410@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular" : "v1.5.8",
+    "angular-ui-router" : "latest"
+  }
+}
