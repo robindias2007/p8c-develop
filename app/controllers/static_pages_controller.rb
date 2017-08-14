@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
 
   def home #home.html.erb
     @home_user = true;
-    @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
+    @forms = Form.order(created_at: :desc).published.paginate(:page => params[:page], :per_page => 2) #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
    
     @forms_des = Form.tagged_with('LenseDesign').first(3)
     @forms_design = @forms_des.first(1)

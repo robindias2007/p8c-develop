@@ -12,14 +12,16 @@ class UsersController < ApplicationController
 
   def show   #show.html.erb
     @home_banner = true;
-    @forms = Form.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).published
-  	#it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
+    @forms = Form.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).published.paginate(:page => params[:page], :per_page => 2)
+
+  	
+    #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
   end
   
   def show_saved   #show.html.erb
     if @user == current_user
-      @forms = Form.saved.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
+      @forms = Form.saved.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id).paginate(:page => params[:page], :per_page => 2)
   	else
       redirect_to "/user/#{@user.username }/publish"
     end
@@ -30,7 +32,7 @@ class UsersController < ApplicationController
   def show_drafts   #show.html.erb
   	@home_banner = true;
     if @user == current_user
-      @forms = Form.drafts.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
+      @forms = Form.drafts.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id).paginate(:page => params[:page], :per_page => 2)
   	else
       redirect_to "/user/#{@user.username }/publish"
     end
