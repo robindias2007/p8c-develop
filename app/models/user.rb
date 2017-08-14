@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
   acts_as_followable
   acts_as_follower
 
-  act_as_mentionee
-
+  
   has_many :forms
   has_many :authorizations
   has_many :categories
