@@ -1,8 +1,8 @@
 class FormsController < ApplicationController
-before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
-before_action :authenticate_user!, :only => [:like]
-respond_to :js, :json, :html
-before_filter :authenticate_admin, :only => [:index]
+  before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
+  before_action :authenticate_user!, :only => [:like]
+  respond_to :js, :json, :html
+  before_filter :authenticate_admin, :only => [:index]
   
   # GET /forms
   # GET /forms.json
@@ -266,7 +266,7 @@ before_filter :authenticate_admin, :only => [:index]
 
   def tagss
     if params[:tag]
-      @forms = Form.tagged_with(params[:tag]) 
+      @forms = Form.tagged_with(params[:tag]).paginate(:page => params[:page], :per_page => 2) 
     end
     end
 

@@ -18,6 +18,8 @@
 //= require bootstrap-sprockets
 //= require rails.validations
 //= require bootstrap-tagsinput
+//= require moment
+//= require bootstrap-datetimepicker
 
 
 
