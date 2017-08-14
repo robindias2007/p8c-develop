@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804112058) do
+ActiveRecord::Schema.define(version: 20170811115437) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -125,19 +125,6 @@ ActiveRecord::Schema.define(version: 20170804112058) do
   add_index "forms", ["cached_weighted_average"], name: "index_forms_on_cached_weighted_average"
   add_index "forms", ["cached_weighted_score"], name: "index_forms_on_cached_weighted_score"
   add_index "forms", ["cached_weighted_total"], name: "index_forms_on_cached_weighted_total"
-
-  create_table "mentions", force: :cascade do |t|
-    t.integer  "mentionee_id"
-    t.string   "mentionee_type"
-    t.integer  "mentioner_id"
-    t.string   "mentioner_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "mentions", ["mentionee_id", "mentionee_type", "mentioner_id", "mentioner_type"], name: "mentions_mentionee_mentioner_idx", unique: true
-  add_index "mentions", ["mentionee_id", "mentionee_type"], name: "mentions_mentionee_idx"
-  add_index "mentions", ["mentioner_id", "mentioner_type"], name: "mentions_mentioner_idx"
 
   create_table "punches", force: :cascade do |t|
     t.integer  "punchable_id",                          null: false
