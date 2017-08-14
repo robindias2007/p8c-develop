@@ -6,7 +6,6 @@ class Form < ActiveRecord::Base
 acts_as_votable
 acts_as_taggable
 acts_as_punchable
-act_as_mentioner
 
 belongs_to :user
 belongs_to :category
