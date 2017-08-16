@@ -394,6 +394,15 @@
   .flickity-page-dots {
     display: none;
   }
+  .article-cell {
+    width: 250px !important;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0px 1px 1px #888888;
+    z-index: 3;
+    margin: 20px 0.5%;
+    padding: 0px 15px;
+    background-color:white;
+  }
 </style>    
 
 <% @boards.each do |board| %>
@@ -437,7 +446,7 @@
       <% if user_signed_in? %>
         <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
           <h10 class="date">Save Collection &nbsp; </h10>
-          <%= render :partial => "forms/books", :locals => {:form => board} %>
+          
           <%-# It tells you the total count or the total likes on the current form  -%>
         </div>
       <% else %>          
@@ -450,7 +459,7 @@
         <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
           <h10 class="date"><%= board[:likes]%> &nbsp;</h10>
           <%-# It tells you the total count or the total likes on the current form  -%>
-          <%= render :partial => "forms/likes", :locals => {:form => board} %>
+          
         </div>
       <% else %>
         <div class="like">
@@ -480,7 +489,7 @@
       </div>
     </div>
   </div>
-  <div id="container2">
+  <div id="container2" style="width: 100%">
     <div class="col-md-4" id="description"> <!-- Bootstrap to divide the entire page into colums -->    
       
       <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
@@ -524,11 +533,10 @@
     </div>
     <div id="verticalLine"></div>
     <div class="container3" style="overflow-x: hidden"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
-      <ul class="row" bc-flickity="{{ flickityOptions }}">
-  
+      <div class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%">  
         <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
         <% board[:links].each do |link| %>
-          <li class="col-md-2 col-sm-4" id="articleCard">  
+          <div class="article-cell">  
             <a href= <%= link[:url] %> target="framename", id="formclick" > 
               <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
               <hr>
@@ -566,9 +574,22 @@
               <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
               <hr>
             </a>
-          </li>
+          </div>
         <% end %>
-      </ul>
+      </div>
+    </div>
+    <div id="hScroll">
+      <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
+    </div>
+    <div class="col-md-12 container4">
+      <div class="boardFooter date">
+        <!-- View Count <= form.hits %> --> 
+        <!--
+        &nbsp; &#183; &nbsp; <h10 class="date"></h10>
+        <%-#reading time from readingtime gem -%>
+        -->
+      </div>
+      <!--<div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>-->
     </div>
   </div>
 <% end %>

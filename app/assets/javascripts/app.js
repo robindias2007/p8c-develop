@@ -45,9 +45,14 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   $scope.imagePath = 'img/washedout.png';
   
   $scope.flickityOptions = {
-    cellSelector: '#articleCard',
-    initialIndex: 1,
+    cellSelector: '.article-cell',
+    initialIndex: 0,
     prevNextButtons: true,
+    freeScroll: true,
+    contain: true,
+    setGallerySize: true,
+    pageDots: false,
+    imagesLoaded: true
   };
   
   $scope.alert = '';
