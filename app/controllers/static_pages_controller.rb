@@ -10,6 +10,9 @@ class StaticPagesController < ApplicationController
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
       {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
       {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
+    puts @boards.count
+    puts @boards.first
+    puts @boards.last
     @formss = @forms.to_json
     @forms_des = Form.tagged_with('LenseDesign').first(3)
     @forms_design = @forms_des.first(1)
