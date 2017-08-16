@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :forms
   has_many :authorizations
   has_many :categories
+  has_many :user_form_bookmarks
+  has_many :bookmarks, through: :user_form_bookmarks, source: :form
 
   validates_presence_of :email
 

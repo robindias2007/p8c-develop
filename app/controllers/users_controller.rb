@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   
   def show_saved   #show.html.erb
     if @user == current_user
-      @forms = Form.saved.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id).paginate(:page => params[:page], :per_page => 2)
+      @forms = current_user.bookmarks.paginate(:page => params[:page], :per_page => 2)
   	else
       redirect_to "/user/#{@user.username }/publish"
     end

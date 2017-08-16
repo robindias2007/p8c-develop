@@ -9,6 +9,7 @@ acts_as_punchable
 
 belongs_to :user
 belongs_to :category
+has_many :user_form_bookmarks
 
 scope :published, -> {
   where(:publish => true)
