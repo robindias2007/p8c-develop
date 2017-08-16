@@ -93,7 +93,8 @@ class FormsController < ApplicationController
       # @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
         tags = @form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)     
         @form.update(tag_list: tags.join(',') )
-
+        
+        @form.update(admins_date: @form.created_at)
         if params[:unspecified]
           @form.update_attributes(unspecified:true)
         elsif params[:easy] 
