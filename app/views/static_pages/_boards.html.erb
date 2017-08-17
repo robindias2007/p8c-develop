@@ -277,7 +277,17 @@
         </div>
       </div>
     </div>
+    <% if @home_banner %> 
+      <% if user_signed_in? %>
+        <% if current_user.username == form.user.username %>
+          <%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
+          <%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
+        <% else %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
+  
   <style type="text/css">
     .flickity-page-dots {
       display: none;
@@ -437,18 +447,7 @@
       </div>
     </div>
   <% end %>
-
-  <% if @home_banner %> 
-    <% if user_signed_in? %>
-      <% if current_user.username == form.user.username %>
-        <%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
-        <%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
-      <% else %>
-      <% end %>
-    <% end %>
-  <% end %>
 </div>
-
 <style type="text/css">
     .empty
   { 
