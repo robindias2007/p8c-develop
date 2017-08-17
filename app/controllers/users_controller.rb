@@ -28,6 +28,13 @@ class UsersController < ApplicationController
   def show_saved   #show.html.erb
     if @user == current_user
       @forms = current_user.bookmarks.paginate(:page => params[:page], :per_page => 2)
+
+      @boards = @forms.map {|f| {id: f.id, title: f.title, bookmark: true ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
   	else
       redirect_to "/user/#{@user.username }/publish"
     end
@@ -48,7 +55,14 @@ class UsersController < ApplicationController
   
   def show_liked
     if @user != current_user 
-      @forms = @user.get_up_voted(Form).order(created_at: :desc)
+      @forms = @user.get_up_voted(Form).order(created_at: :desc).paginate(:page => params[:page], :per_page => 2)
+      
+      @boards = @forms.map {|f| {id: f.id, title: f.title, bookmark: true ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
     else
       redirect_to "/user/#{current_user.username }/publish"
     end
