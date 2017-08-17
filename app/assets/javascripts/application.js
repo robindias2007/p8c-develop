@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-ui-router
+//= require flickity
+//= require angular-flickity
 //= require_tree .
 //= require bootstrap-sprockets
 //= require rails.validations
