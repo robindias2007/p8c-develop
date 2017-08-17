@@ -1,418 +1,452 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
-<div class="boardContainer">
-<% @forms.each do |form| %>
+<div class="boardContainer" ng-controller="AppCtrl" ng-init="init(<%= @formss %>)">
+  <% @forms.each do |form| %>
+    <% if current_page?(form_path(form)) %>
+      <%= content_for :social_meta_tags do %>
+        <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <%# TODO: Add twitter handle as content below after creating a twitter page for Lense APP %>
+        <!--<meta name="twitter:site" content="" /> -->
+        <meta name="twitter:title" content="<%= form.title %>"/>
+        <meta name="twitter:description" content="<%= form.description[0..200] %>"/>
+        <meta name="twitter:image:src" content="<%= image_url('/forms_social_images/form_' + form.id.to_s + '.png') %>"/>
+        <!--<meta name="twitter:image:src" content="Lense" />-->
 
-      <% if current_page?(form_path(form)) %>
-          <%= content_for :social_meta_tags do %>
-              <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
-              <meta name="twitter:card" content="summary_large_image"/>
-              <%# TODO: Add twitter handle as content below after creating a twitter page for Lense APP %>
-              <!--<meta name="twitter:site" content="" /> -->
-              <meta name="twitter:title" content="<%= form.title %>"/>
-              <meta name="twitter:description" content="<%= form.description[0..200] %>"/>
-              <meta name="twitter:image:src" content="<%= image_url('/forms_social_images/form_' + form.id.to_s + '.png') %>"/>
-              <!--<meta name="twitter:image:src" content="Lense" />-->
-
-              <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
-              <%# So, deploy before testing the changes in below meta tags %>
-              <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
-              <meta property="og:title" content="<%= form.title %>"/>
-              <meta property="og:type" content="article"/>
-              <meta property="og:url" content="<%= form_url(form.id) %>"/>
-              <meta property="og:image" content="<%= image_url('/forms_social_images/form_' + form.id.to_s + '.png') %>"/>
-              <meta property="og:description" content="<%= form.description[0..200] %>"/>
-          <% end %>
+        <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
+        <%# So, deploy before testing the changes in below meta tags %>
+        <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
+        <meta property="og:title" content="<%= form.title %>"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:url" content="<%= form_url(form.id) %>"/>
+        <meta property="og:image" content="<%= image_url('/forms_social_images/form_' + form.id.to_s + '.png') %>"/>
+        <meta property="og:description" content="<%= form.description[0..200] %>"/>
       <% end %>
-
-<div class="col-md-9 container1">  <!-- The elements of the entire box. -->
-    
-    <div class="col-md-12 container5">
-        <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
+    <% end %>
+    <div class="col-md-9 container1">  <!-- The elements of the entire box. -->    
+      <div class="col-md-12 container5">        
         <div class="container7">
-        <% if user_signed_in? %>
-        <% if @home_user %>
-            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp; &#183; &nbsp;
-        <% else %>
-            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
-        <% end %>
-        <% else %>
-            <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp; &#183; &nbsp;
-        <% end %>
-
-            <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>
-            <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
-
-            <h10 class="date"> <!-- < form.readtime.reading_time :format => :full %> --></h10>
-            <%-#reading time from readingtime gem -%> 
-
-            <div class="date">
-            <!-- View Count <= form.hits %> --> 
-           
+          <% if user_signed_in? %>
+            <% if @home_user %>
+              <div class="date" id="profile">
+                <a href="/user/<%= form.user.username %>/publish">
+                  <i class="material-icons">account_circle</i>
+                  <div id="prouser"><%= form.user.username %></div>
+                </a> &nbsp; &#183; &nbsp;
+                <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
+                <h10 class="date"></h10>          
+                <div class="date">           
+                  &nbsp; &#183; &nbsp;
+                </div>
+              </div>
+            <% else %>
+              <div class="date" id="profile">
+                <a href="/user/<%= form.user.username %>/publish">
+                  <i class="material-icons">account_circle</i>
+                  <div id="prouser"><%= form.user.username %></div>
+                </a>&nbsp; &#183; &nbsp;
+                <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
+                <h10 class="date"></h10>          
+                <div class="date">           
+                  &nbsp; &#183; &nbsp;
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="date" id="profile">
+              <a href="/users/sign_in">
+                <i class="material-icons">account_circle</i>
+                <div id="prouser"><%= form.user.username %></div>
+              </a>&nbsp; &#183; &nbsp;
+              <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
+              <h10 class="date"></h10>          
+              <div class="date">           
                 &nbsp; &#183; &nbsp;
-                
-                 <!-- <i class="material-icons", style="color: red">linear_scale</i>
-                 Unspecified -->
-                <!--<% if form.unspecified.present? %>
-                <% elsif form.easy.present? %>
-                  Level: Easy
-                <% elsif form.involved.present? %>
-                  Level: Involved
-                <% elsif form.advanced.present? %>
-                  Level: Advanced
-                <% else %>
-                <% end %>-->
-            </div>  
-
-        </div>
-
-
-        <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a> 
+              </div>
+            </div>
+          <% end %>         
+          <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a>
         </div>
         <div class="container8">
-            <% if user_signed_in? %>
-                <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-                    <h10 class="date">Save Collection &nbsp; </h10>
-                    <%= render :partial => "forms/books", :locals => {:form => form} %>
-                    <%-# It tells you the total count or the total likes on the current form  -%>
-                </div>
-
-            <% else %>
-                
-                <div class="bookmark">
-                    <h10 class="date">Save Collection &nbsp; </h10>
-                    <i class="material-icons">bookmark</i>
-                </div>    
-            
-            <% end %>
-
-            <% if user_signed_in? %>
-                <div class="like">   <!-- This contains all the elements to like the button where we have the heart option -->
-                    <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>
-                    <%-# It tells you the total count or the total likes on the current form  -%>
-
-                    <%= render :partial => "forms/likes", :locals => {:form => form} %>
-                </div>
-
-            <% else %>
-                <div class="like">
-                  <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>
-                  <i class="material-icons">favorite</i> 
-                </div>
-            <% end %>  
-        
-        <div class="share">
-          <div class="social-share-options" style="display: none;">
-            <div class="facebook-share option">
-              <%= link_to "https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href=#{form_url(form.id)}",
-                          target: '_blank' do %>
-                  <%= image_tag 'facebook.png' %>
-              <% end %>
+          <% if user_signed_in? %>
+            <div class="bookmark">
+              <h10 class="date">Save Collection &nbsp; </h10>
+              <%= render :partial => "forms/books", :locals => {:form => form} %>            
             </div>
-            <div class="twitter-share option">
-              <%= link_to "https://twitter.com/intent/tweet?url=#{form_url(form.id)}",
-                          target: '_blank' do %>
-                  <%= image_tag 'twitter.png' %>
-              <% end %>
-            </div>
-          </div>
-
-          <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
-              <h10 class="date">Share</h10>
-              <i class="material-icons">share</i>
+          <% else %>            
+            <div class="bookmark">
+              <h10 class="date">Save Collection &nbsp; </h10>
+              <i class="material-icons">bookmark</i>
+            </div>        
           <% end %>
+          <% if user_signed_in? %>
+            <div class="like">
+              <!-- This contains all the elements to like the button where we have the heart option -->
+              <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>                
+              <%= render :partial => "forms/likes", :locals => {:form => form} %>
+            </div>
+          <% else %>
+            <div class="like">
+              <h10 class="date"><%= form.get_likes.size %> &nbsp;</h10>
+              <i class="material-icons">favorite</i> 
+            </div>
+          <% end %>          
+          <div class="share">
+            <div class="social-share-options" style="display: none;">
+              <div class="facebook-share option">
+                <%= link_to "https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href=#{form_url(form.id)}", target: '_blank' do %>
+                  <%= image_tag 'facebook.png' %>
+                <% end %>
+              </div>
+              <div class="twitter-share option">
+                <%= link_to "https://twitter.com/intent/tweet?url=#{form_url(form.id)}",
+                            target: '_blank' do %>
+                    <%= image_tag 'twitter.png' %>
+                <% end %>
+              </div>
+            </div>
+            <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+                <h10 class="date">Share</h10>
+                <i class="material-icons">share</i>
+            <% end %>
+          </div>
         </div>
       </div>
-
-    </div>
-
-
-
-
-    <div id="container2">
-
-    <div class="col-md-4" id="description"> <!-- Bootstrap to divide the entire page into colums -->    
-        
-      <!-- <i class="material-icons" id="matred" style="float:left">favorite_border</i><div class="like" id="matred"></div> -->
-      
-      <!--<a href="/forms/<%= form.id %>"><h3 class="title"><%= form.title[0..55] %></h3></a> 
-      <%-# Forms main title and anchor tag is used from show method where you click on the main title it takes you to seperate page to show the single form  -%>
-
-        <h10 class="date"><%= form.created_at.strftime('%b %d, %Y') %></h10>
-      <%-# created_at is a method where it tells us when was the form created or published and .strftime('%b %d, %Y') is used for a particular date format we want to show it -%>
-      
-      Taken care of by overflow scroll
-      <h3 class="internal_text"><%= form.description[0..250].gsub(/\s\w+\s*$/,' ...') rescue nil %></h3>  -->
-      <!--<h4 id="summary">Summary</h4>-->
-      <h5 class="internal_text"><%= form.description %></h5>  
-      <!-- <div class="center-material">
-      <i class="material-icons" id="matred" style="font-size:12px">bookmark_border</i>
-      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
-      <i class="material-icons" id="matred" style="font-size:12px">add_circle_outline</i>
-    </div> -->
-        <!-- <div class="center-material">28 mins long</div> -->
-    
-    <!--
-    <% if user_signed_in? %>
-    <% if @home_user %>
-    <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
-     <% else %>
-    <a href="/user/<%= form.user.username %>"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
-    <% end %>
-    <% else %>
-    <a href="/users/sign_in"><div id="profile"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></div></a>
-    <% end %>-->
-
-    <!--
-   
-
-      <!-- <div class="bottom-material">
-            <i class="material-icons" id="matred" style="font-size:16px">bookmark_border</i>
-            <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-            <i class="material-icons" id="matred" style="font-size:16px">add_circle_outline</i>
-        </div> -->
-    
-    </div>
-
-   <div id="verticalLine"></div>
-
-    <div class="container3"> <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
-    <ul class="row">
-    
-    <%-# This is the url entered by the user so when you click anywhere on this section it redirects you to the url -%>
-    <li class="col-md-2 col-sm-4" id="articleCard">  
-    <a href= <%= form.url1 %> target="framename", id="formclick" > 
-    <%-# Bootstrap used to make colums of the entire page. So the entire page is divided into 12 columns. so you can divide page into certain colums  -%>
-    <hr>
-    <!-- We shouldn't put "..." on titles 
-    <h10 class="title1"><%= form.title1[0..40].gsub(/\s\w+\s*$/,'...') rescue nil %></h10> -->
-
-    <h4 class="title1">
-      <%= form.title1 rescue nil %>
-    </h4>
-    <%-# It renders the title of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 30 characters -%>
-    <%-# rescue nil is predefined method where if there is no data it wont stop the code it will declare that part as nil and will rescue the form -%>
-
-    <div class="container6">
-        <figure class="effect-sadie">
-            <% if form.image1.present? %>
-              <%= image_tag form.image1 , id:"image" %>
-            <% else %>
-              <%= image_tag "whiteimage.jpg" , id:"image" %>
-            <% end %>
-
-            <% if form.note1.present? %>     
-                <figcaption>
-                    <i class="material-icons md-18">comment</i>
-                    <h5>Curator Notes</h5>
-                    <p class="curatorNotes"><%= form.note1 rescue nil %></p>
-                </figcaption> 
-            <% else %>
-            <% end %>
-        </figure>
-    </div>
-
-    <%-# It renders the image of the entered url from orders controller using metainspector gem in the create method -%>
-    <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
-    <%-# It takes the  url from orders controller using metainspector gem in the create method where we the user enters the url and used a substring where it captures only www.example.com instead of www.example.com/fasfasfa/asdasfda -%>
-    <br>
-    <h6 class="internal_text1"><%= form.description1 rescue nil %></h6> 
-    <%-# It renders the description of the entered url from orders controller using metainspector gem in the create method where i have used a substring where it takes only the first 100 characters -%>
-    <hr>
-    </a>
-    </li>  
-    
-    <li class="col-md-2 col-sm-4" id="articleCard">  
-    <a href= <%= form.url2 %>  target="_blank", id="formclick">
-    <hr>
-    <h4 class="title1">
-      <%= form.title2 rescue nil %>
-    </h4>
-
-
-    <div class="container6">
-        <figure class="effect-sadie">
-            <% if form.image2.present? %>
-              <%= image_tag form.image2 , id:"image" %>
-            <% else %>
-              <%= image_tag "whiteimage.jpg" , id:"image" %>
-            <% end %>
-
-            <% if form.note2.present? %>     
-                <figcaption>
-                    <i class="material-icons md-18">comment</i>
-                    <h5>Curator Notes</h5>
-                    <p class="curatorNotes"><%= form.note2 rescue nil %></p>
-                </figcaption> 
-            <% else %>
-            <% end %>
-        </figure>
-    </div>
-
-
-    <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %>
-        <!-- to bring the icon on the link line (need to make the icon css float:right, color:black; link css width:100%, text-align:left, line-height:18px;)
-        <% if form.note2.present? %>     
-            <i class="material-icons md-18">comment</i>
-        <% else %>
-        <% end %>
-        -->
-    </div>
-
-    <br>
-    <h6 class="internal_text1"><%= form.description2 rescue nil %></h6>
-    <hr>
-    </a>
-    </li>
-    
-    <li class="col-md-2 col-sm-4" id="articleCard">
-    <a href= <%= form.url3 %>  target="_blank", id="formclick" >
-    <hr>
-    <h4 class="title1">
-      <%= form.title3 rescue nil %>
-    </h4>
-
-    <div class="container6">
-        <figure class="effect-sadie">
-            <% if form.image3.present? %>
-              <%= image_tag form.image3 , id:"image" %>
-            <% else %>
-              <%= image_tag "whiteimage.jpg" , id:"image" %>
-            <% end %>
-
-            <% if form.note3.present? %>     
-                <figcaption>
-                    <i class="material-icons md-18">comment</i>
-                    <h5>Curator Notes</h5>
-                    <p class="curatorNotes"><%= form.note3 rescue nil %></p>
-                </figcaption> 
-            <% else %>
-            <% end %>
-        </figure>
-    </div>
-    
-    <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h6 class="internal_text1"><%= form.description3 rescue nil %></h6>
-    <hr>
-    </a>
-    </li>
-
-    <li class="col-md-2 col-sm-4" id="articleCard">
-    <a href= <%= form.url4 %>  target="_blank" , id="formclick">
-    <hr>
-    <!-- Title4 DB name is MIS-SPELLED! -->
-    <h4 class="title1">
-      <%= form.titel4 rescue nil %>
-    </h4>
-
-
-    <div class="container6">
-        <figure class="effect-sadie">
-            <% if form.image4.present? %>
-              <%= image_tag form.image4 , id:"image" %>
-            <% else %>
-              <%= image_tag "whiteimage.jpg" , id:"image" %>
-            <% end %>
-
-            <% if form.note4.present? %>     
-                <figcaption>
-                    <i class="material-icons md-18">comment</i>
-                    <h5>Curator Notes</h5>
-                    <p class="curatorNotes"><%= form.note4 rescue nil %></p>
-                </figcaption> 
-            <% else %>
-            <% end %>
-        </figure>
-    </div>
-
-
-    <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h6 class="internal_text1"><%= form.description4 rescue nil %></h6>
-    <hr>
-    </a>
-    </li>  
-    
-    <li class="col-md-2 col-sm-4" id="articleCard">
-    <a href= <%= form.url5 %>  target="_blank" , id="formclick">
-    <hr>
-    <h4 class="title1">
-    <%= form.title5 rescue nil %>
-    </h4>
-
-    <div class="container6">
-        <figure class="effect-sadie">
-            <% if form.image5.present? %>
-              <%= image_tag form.image5 , id:"image" %>
-            <% else %>
-              <%= image_tag "whiteimage.jpg" , id:"image" %>
-            <% end %>
-
-            <% if form.note5.present? %>     
-                <figcaption>
-                    <i class="material-icons md-18">comment</i>
-                    <h5>Curator Notes</h5>
-                    <p class="curatorNotes"><%= form.note5 rescue nil %></p>
-                </figcaption> 
-            <% else %>
-            <% end %>
-        </figure>
-    </div>
-    
-    <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
-    <br>
-    <h6 class="internal_text1"><%= form.description5 rescue nil %></h6>
-    <hr>
-    </a>
-    </li>
-    
-    
-    </ul>
-    </div>
+      <div class="container2">
+        <div class="col-md-4" id="description">
+          <!-- Bootstrap to divide the entire page into colums -->
+          <h5 class="internal_text"><%= form.description %></h5>
+        </div>
+        <div id="verticalLine"></div>
+        <div class="container3"> 
+          <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
+          <ul class="row">      
+            <li class="col-md-2 col-sm-4" id="articleCard">  
+              <a href= <%= form.url1 %> target="framename", id="formclick" > 
+                <hr>
+                <h4 class="title1">
+                  <%= form.title1 rescue nil %>
+                </h4>
+                <div class="container6">
+                  <figure class="effect-sadie">
+                    <% if form.image1.present? %>
+                      <%= image_tag form.image1 , id:"image" %>
+                    <% else %>
+                      <%= image_tag "whiteimage.jpg" , id:"image" %>
+                    <% end %>
+                    <% if form.note1.present? %>     
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="curatorNotes"><%= form.note1 rescue nil %></p>
+                      </figcaption> 
+                    <% else %>
+                    <% end %>
+                  </figure>
+                </div>
+                <div id="link"><%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div> 
+                <br>
+                <h6 class="internal_text1"><%= form.description1 rescue nil %></h6> 
+                <hr>
+              </a>
+            </li>
+            <li class="col-md-2 col-sm-4" id="articleCard">  
+              <a href= <%= form.url2 %>  target="_blank", id="formclick">
+                <hr>
+                <h4 class="title1">
+                  <%= form.title2 rescue nil %>
+                </h4>
+                <div class="container6">
+                  <figure class="effect-sadie">
+                    <% if form.image2.present? %>
+                      <%= image_tag form.image2 , id:"image" %>
+                    <% else %>
+                      <%= image_tag "whiteimage.jpg" , id:"image" %>
+                    <% end %>
+                    <% if form.note2.present? %>     
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="curatorNotes"><%= form.note2 rescue nil %></p>
+                      </figcaption> 
+                    <% else %>
+                    <% end %>
+                  </figure>
+                </div>
+                <div id="link"><%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %>
+                </div>
+                <br>
+                <h6 class="internal_text1"><%= form.description2 rescue nil %></h6>
+                <hr>
+              </a>
+            </li>
+            <li class="col-md-2 col-sm-4" id="articleCard">
+              <a href= <%= form.url3 %>  target="_blank", id="formclick" >
+                <hr>
+                <h4 class="title1">
+                  <%= form.title3 rescue nil %>
+                </h4>
+                <div class="container6">
+                  <figure class="effect-sadie">
+                    <% if form.image3.present? %>
+                      <%= image_tag form.image3 , id:"image" %>
+                    <% else %>
+                      <%= image_tag "whiteimage.jpg" , id:"image" %>
+                    <% end %>
+                    <% if form.note3.present? %>     
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="curatorNotes"><%= form.note3 rescue nil %></p>
+                      </figcaption> 
+                    <% else %>
+                    <% end %>
+                  </figure>
+                </div>          
+                <div id="link"><%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+                <br>
+                <h6 class="internal_text1"><%= form.description3 rescue nil %></h6>
+                <hr>
+              </a>
+            </li>
+            <li class="col-md-2 col-sm-4" id="articleCard">
+              <a href= <%= form.url4 %>  target="_blank" , id="formclick">
+                <hr>
+                <!-- Title4 DB name is MIS-SPELLED! -->
+                <h4 class="title1">
+                  <%= form.titel4 rescue nil %>
+                </h4>
+                <div class="container6">
+                  <figure class="effect-sadie">
+                    <% if form.image4.present? %>
+                      <%= image_tag form.image4 , id:"image" %>
+                    <% else %>
+                      <%= image_tag "whiteimage.jpg" , id:"image" %>
+                    <% end %>
+                    <% if form.note4.present? %>     
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="curatorNotes"><%= form.note4 rescue nil %></p>
+                      </figcaption> 
+                    <% else %>
+                    <% end %>
+                  </figure>
+                </div>
+                <div id="link"><%= form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+                <br>
+                <h6 class="internal_text1"><%= form.description4 rescue nil %></h6>
+                <hr>
+              </a>
+            </li>
+            <li class="col-md-2 col-sm-4" id="articleCard">
+              <a href= <%= form.url5 %>  target="_blank" , id="formclick">
+                <hr>
+                <h4 class="title1">
+                  <%= form.title5 rescue nil %>
+                </h4>
+                <div class="container6">
+                  <figure class="effect-sadie">
+                    <% if form.image5.present? %>
+                      <%= image_tag form.image5 , id:"image" %>
+                    <% else %>
+                      <%= image_tag "whiteimage.jpg" , id:"image" %>
+                    <% end %>
+                    <% if form.note5.present? %>     
+                      <figcaption>
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="curatorNotes"><%= form.note5 rescue nil %></p>
+                      </figcaption> 
+                    <% else %>
+                    <% end %>
+                  </figure>
+                </div>
+                <div id="link"><%= form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></div>
+                <br>
+                <h6 class="internal_text1"><%= form.description5 rescue nil %></h6>
+                <hr>
+              </a>
+            </li>     
+          </ul>
+        </div>
         <div id="hScroll"><i class="material-icons md-24" , id="addHScroll">chevron_right</i></div>
- 
-
         <div class="col-md-12 container4">
-
-
-
-        <div class="boardFooter date">
-        <!-- View Count <= form.hits %> --> 
-       <!--
-        &nbsp; &#183; &nbsp; <h10 class="date"></h10>
-        <%-#reading time from readingtime gem -%>
-        
-        <% if form.unspecified.present? %>
-         <i class="material-icons", style="color: red">linear_scale</i>
-         Unspecified
-        <% elsif form.easy.present? %>
-          Level: Easy
-        <% elsif form.involved.present? %>
-          Level: Involved
-        <% elsif form.advanced.present? %>
-          Level: Advanced
-        <% else %>
-        <% end %>-->
+          <div class="boardFooter date">
+          </div>
         </div>
-        <!--<div class="date" id="tagging"><%= raw form.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></div>-->
-        </div>
-        </div>
+      </div>
     </div>
+  <% end %>
+  <style type="text/css">
+    .flickity-page-dots {
+      display: none;
+    }
+    .article-cell {
+      width: 250px !important;
+      border: 1px solid #e3e3e3;
+      box-shadow: 0px 1px 1px #888888;
+      z-index: 3;
+      margin: 20px 0.5%;
+      padding: 0px 15px;
+      background-color:white;
+    }
+  </style>    
+  <% @boards.each do |board| %>
+    <div class="col-md-9 container1">  <!-- The elements of the entire box. -->  
+      <div class="col-md-12 container5">
+        <div class="container7">
+          <% if user_signed_in? %>
+            <% if @home_user %>
+              <div class="date" id="profile">
+                <a href="/user/<%= board[:user].username %>/publish">
+                  <i class="material-icons">account_circle</i>
+                  <div id="prouser"><%= board[:user].username %></div> 
+                </a> &nbsp; &#183; &nbsp;
+                <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
+                <h10 class="date"></h10>
+                <div class="date">
+                  &nbsp; &#183; &nbsp;
+                </div>
+              </div>
+            <% else %>
+              <div class="date" id="profile">
+                <a href="/user/<%= board[:user].username %>/publish">
+                  <i class="material-icons">account_circle</i>
+                  <div id="prouser"><%= board[:user].username %></div>
+                </a>&nbsp; &#183; &nbsp;
+                <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
+                <h10 class="date"></h10>
+                <div class="date">
+                  &nbsp; &#183; &nbsp;
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="date" id="profile">
+              <a href="/users/sign_in">
+                <i class="material-icons">account_circle</i>
+                <div id="prouser"><%= board[:user].username %></div>
+              </a>&nbsp; &#183; &nbsp;
+              <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
+              <h10 class="date"></h10>
+              <div class="date">
+                &nbsp; &#183; &nbsp;
+              </div>
+            </div>
+          <% end %>          
+          <a href="/forms/<%= board[:id] %>"><h2 class="title"><%= board[:title] %></h2></a> 
+        </div>
+        <div class="container8">
+          <% if user_signed_in? %>
+            <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
+              <h10 class="date">Save Collection &nbsp; </h10>
+              
+              <%-# It tells you the total count or the total likes on the current form  -%>
+            </div>
+          <% else %>          
+            <div class="bookmark">
+              <h10 class="date">Save Collection &nbsp; </h10>
+              <i class="material-icons">bookmark</i>
+            </div>      
+          <% end %>
+          <% if user_signed_in? %>
+            <div class="like">   
+              <!-- This contains all the elements to like the button where we have the heart option -->
+              <h10 class="date"><%= board[:likes]%> &nbsp;</h10>              
+            </div>
+          <% else %>
+            <div class="like">
+              <h10 class="date"><%= board[:likes] %> &nbsp;</h10>
+              <i class="material-icons">favorite</i> 
+            </div>
+          <% end %>  
+          <div class="share">
+            <div class="social-share-options" style="display: none;">
+              <div class="facebook-share option">
+                <%= link_to "https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href=#{form_url(board[:id])}",
+                            target: '_blank' do %>
+                  <%= image_tag 'facebook.png' %>
+                <% end %>
+              </div>
+              <div class="twitter-share option">
+                <%= link_to "https://twitter.com/intent/tweet?url=#{form_url(board[:id])}",
+                            target: '_blank' do %>
+                  <%= image_tag 'twitter.png' %>
+                <% end %>
+              </div>
+            </div>
+            <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+              <h10 class="date">Share</h10>
+              <i class="material-icons">share</i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="container2" style="width: 100%">
+        <div class="col-md-4" id="description"> 
+          <!-- Bootstrap to divide the entire page into colums -->    
+          <h5 class="internal_text"><%= board[:dsc] %></h5>
+        </div>
+        <div id="verticalLine"></div>
+        <div class="container3" style="overflow-x: hidden">
+          <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
+          <ul class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%">          
+            <% board[:links].each do |link| %>
+              <li class="article-cell">  
+                <a href= <%= link[:url] %> target="framename", id="formclick" >                 
+                  <hr>
+                  <h4 class="title1">
+                    <%= link[:title] rescue nil %>
+                  </h4>                
+                  <div class="container6">
+                    <figure class="effect-sadie">
+                      <% if link[:image].present? %>
+                        <%= image_tag link[:image] , id:"image" %>
+                      <% else %>
+                        <%= image_tag "whiteimage.jpg" , id:"image" %>
+                      <% end %>
 
+                      <% if link[:note].present? %>     
+                        <figcaption>
+                          <i class="material-icons md-18">comment</i>
+                          <h5>Curator Notes</h5>
+                          <p class="curatorNotes"><%= link[:note] rescue nil %></p>
+                        </figcaption> 
+                      <% else %>
+                      <% end %>
+                    </figure>
+                  </div>                
+                  <div id="link"><%= link[:url].sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %>                  
+                  </div>                 
+                  <br>
+                  <h6 class="internal_text1"><%= link[:dsc] rescue nil %></h6>                
+                  <hr>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div id="hScroll">
+          <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
+        </div>
+        <div class="col-md-12 container4">
+          <div class="boardFooter date">        
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-<% if @home_banner %> 
-  <% if user_signed_in? %>
-    <% if current_user.username == form.user.username %>
-      <%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
-      <%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
-    <% else %>
+  <% if @home_banner %> 
+    <% if user_signed_in? %>
+      <% if current_user.username == form.user.username %>
+        <%= link_to 'Edit and Publish', edit_form_path(form), type:"button", class:"btn btn-primary" %>
+        <%= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, type:"button", class:"btn btn-primary" %>
+      <% else %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-
-
-<% end %>
 </div>
 
 <style type="text/css">
