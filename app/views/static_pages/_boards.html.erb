@@ -33,6 +33,11 @@
                   <i class="material-icons">account_circle</i>
                   <div id="prouser"><%= form.user.username %></div>
                 </a> &nbsp; &#183; &nbsp;
+                <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
+                <h10 class="date"></h10>          
+                <div class="date">           
+                  &nbsp; &#183; &nbsp;
+                </div>
               </div>
             <% else %>
               <div class="date" id="profile">
@@ -40,6 +45,11 @@
                   <i class="material-icons">account_circle</i>
                   <div id="prouser"><%= form.user.username %></div>
                 </a>&nbsp; &#183; &nbsp;
+                <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
+                <h10 class="date"></h10>          
+                <div class="date">           
+                  &nbsp; &#183; &nbsp;
+                </div>
               </div>
             <% end %>
           <% else %>
@@ -48,13 +58,13 @@
                 <i class="material-icons">account_circle</i>
                 <div id="prouser"><%= form.user.username %></div>
               </a>&nbsp; &#183; &nbsp;
+              <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
+              <h10 class="date"></h10>          
+              <div class="date">           
+                &nbsp; &#183; &nbsp;
+              </div>
             </div>
-          <% end %>
-          <h10 class="date"><%= form.updated_at.strftime('%b %d, %Y') %></h10>          
-          <h10 class="date"></h10>          
-          <div class="date">           
-            &nbsp; &#183; &nbsp;
-          </div>
+          <% end %>         
           <a href="/forms/<%= form.id %>"><h2 class="title"><%= form.title %></h2></a>
         </div>
         <div class="container8">
@@ -288,18 +298,43 @@
         <div class="container7">
           <% if user_signed_in? %>
             <% if @home_user %>
-              <div class="date" id="profile"><a href="/user/<%= board[:user].username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= board[:user].username %></div> </a> &nbsp; &#183; &nbsp;
+              <div class="date" id="profile">
+                <a href="/user/<%= board[:user].username %>/publish">
+                  <i class="material-icons">account_circle</i>
+                  <div id="prouser"><%= board[:user].username %></div> 
+                </a> &nbsp; &#183; &nbsp;
+                <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
+                <h10 class="date"></h10>
+                <div class="date">
+                  &nbsp; &#183; &nbsp;
+                </div>
+              </div>
             <% else %>
-              <div class="date" id="profile"><a href="/user/<%= board[:user].username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= board[:user].username %></div></a>&nbsp; &#183; &nbsp;
+              <div class="date" id="profile">
+                <a href="/user/<%= board[:user].username %>/publish">
+                  <i class="material-icons">account_circle</i>
+                  <div id="prouser"><%= board[:user].username %></div>
+                </a>&nbsp; &#183; &nbsp;
+                <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
+                <h10 class="date"></h10>
+                <div class="date">
+                  &nbsp; &#183; &nbsp;
+                </div>
+              </div>
             <% end %>
           <% else %>
-            <div class="date" id="profile"><a href="/users/sign_in"><i class="material-icons">account_circle</i><div id="prouser"><%= board[:user].username %></div></a>&nbsp; &#183; &nbsp;
-          <% end %>
-          <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
-          <h10 class="date"></h10>
-          <div class="date">
-            &nbsp; &#183; &nbsp;
-          </div>
+            <div class="date" id="profile">
+              <a href="/users/sign_in">
+                <i class="material-icons">account_circle</i>
+                <div id="prouser"><%= board[:user].username %></div>
+              </a>&nbsp; &#183; &nbsp;
+              <h10 class="date"><%= board[:updated_at].strftime('%b %d, %Y') %></h10>
+              <h10 class="date"></h10>
+              <div class="date">
+                &nbsp; &#183; &nbsp;
+              </div>
+            </div>
+          <% end %>          
           <a href="/forms/<%= board[:id] %>"><h2 class="title"><%= board[:title] %></h2></a> 
         </div>
         <div class="container8">
@@ -356,9 +391,9 @@
         <div id="verticalLine"></div>
         <div class="container3" style="overflow-x: hidden">
           <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
-          <div class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%">          
+          <ul class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%">          
             <% board[:links].each do |link| %>
-              <div class="article-cell">  
+              <li class="article-cell">  
                 <a href= <%= link[:url] %> target="framename", id="formclick" >                 
                   <hr>
                   <h4 class="title1">
@@ -388,9 +423,9 @@
                   <h6 class="internal_text1"><%= link[:dsc] rescue nil %></h6>                
                   <hr>
                 </a>
-              </div>
+              </li>
             <% end %>
-          </div>
+          </ul>
         </div>
         <div id="hScroll">
           <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
