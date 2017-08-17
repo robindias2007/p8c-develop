@@ -301,6 +301,11 @@
       padding: 0px 15px;
       background-color:white;
     }
+    .bookmark-button {
+      border: none;
+      background: transparent;
+    }
+    .bookmark-button:focus {outline:0;}
   </style>    
   <% @boards.each do |board| %>
     <div class="col-md-9 container1">  <!-- The elements of the entire box. -->  
@@ -351,6 +356,10 @@
           <% if user_signed_in? %>
             <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
               <h10 class="date">Save Collection &nbsp; </h10>
+              <button class="bookmark-button" ng-click="bookmark(<%= board[:id] %>)">
+                <span ng-show="<%= board[:bookmark] %>"  class=''><i class="glyphicon glyphicon-bookmark"></i></span>
+                <span ng-hide="<%= board[:bookmark] %>"  class=''><i class="glyphicon glyphicon-bookmark empty"></i></span>
+              </button>
               
               <%-# It tells you the total count or the total likes on the current form  -%>
             </div>

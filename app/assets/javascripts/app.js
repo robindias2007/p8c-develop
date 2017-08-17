@@ -1,13 +1,17 @@
 var app = angular.module('app', ['bc.Flickity']);
 
 app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', function($scope, $http, $window, $document, FlickityService, $timeout){
-  
-  $scope.init = function (articles) {
-    console.log(articles);
-    $scope.articles = articles;    
-    $scope.isSearching = true;
-    $scope.notSearching = true;
-  };
+  $scope.init = function(){
+    $http({
+      method : "GET",
+      url : "/home.json"
+    }).then(function mySuccess(response) {
+        $scope.items = response.data;
+    }, function myError(response) {
+        $scope.items = response.statusText;
+    });
+
+  }
 
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
