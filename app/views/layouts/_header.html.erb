@@ -81,18 +81,11 @@
           Categories <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <a href="/science">
-            <li>Science &amp; Technology</li>
-          </a>
-          <a href="/business">
-            <li>Business &amp; Finanace</li>
-          </a>
-          <a href="/politics">
-            <li>Politics &amp; Economics</li>
-          </a>
-          <a href="/tv">
-            <li>TV &amp; Movies</li>
-          </a>
+          <% Category.all.each do |category| %>
+            <a href="/categories/<%= category.category_name %>">
+              <li><%= category.category_name %></li>
+            </a>
+          <% end %>
         </ul>
       </li>
       <li role="presentation" class="dropdown">
