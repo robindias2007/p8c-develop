@@ -73,6 +73,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
+      @user.update_attributes(categories_ids:params[:user][:categories_ids])
       redirect_to root_path
     else
       render "edit"
