@@ -4,17 +4,15 @@ class StaticPagesController < ApplicationController
   def home #home.html.erb
     @home_user = true;
     @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
-    
-    if user_signed_in?
-      puts current_user.inspect
-      @boards = @forms.map {|f| {id: f.id, title: f.title, bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+    if current_user
+      @boards = @forms.map {|f| {id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
       {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
       {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
     else
-      @boards = @forms.map {|f| {id: f.id, title: f.title ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
@@ -22,7 +20,7 @@ class StaticPagesController < ApplicationController
       {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
     end
     
-    @formss = @forms.to_json
+    @formss = @boards.to_json
 
     @forms_des = Form.tagged_with('LenseDesign').first(3)
     @forms_design = @forms_des.first(1)
@@ -31,11 +29,6 @@ class StaticPagesController < ApplicationController
     @forms_start = Form.tagged_with('LenseStartups').first(3)
     @forms_startups = @forms_start.first(1)
     @forms_half = @forms_start.last(2)
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @boards }
-     end
   end
 
   # def publish   #publish.html.erb

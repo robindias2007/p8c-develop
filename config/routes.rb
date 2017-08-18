@@ -53,8 +53,6 @@ Rails.application.routes.draw do
   get 'user/:id/drafts'          =>   'users#show_drafts'
 
   get 'user/:id/liked'          =>   'users#show_liked'
-
-  get '/home' => 'static_pages#home'
   
   root 'static_pages#home'
    

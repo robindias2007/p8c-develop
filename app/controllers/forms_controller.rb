@@ -256,7 +256,7 @@ class FormsController < ApplicationController
   end
 
   def book
-    @form.update_attributes(bookmark:true)
+    user_form = UserFormBookmark.create(user_id: current_user.id, form_id: @form.id)
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
@@ -264,7 +264,10 @@ class FormsController < ApplicationController
   end
 
   def booknot
-    @form.update_attributes(bookmark:false)
+    user_form = UserFormBookmark.where(user_id: current_user.id, form_id: @form.id)
+    if user_form
+      user_form.first.destroy
+    end
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
