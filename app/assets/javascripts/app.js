@@ -1,13 +1,9 @@
 var app = angular.module('app', ['bc.Flickity']);
 
 app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', function($scope, $http, $window, $document, FlickityService, $timeout){
-  
-  $scope.init = function (articles) {
-    console.log(articles);
-    $scope.articles = articles;    
-    $scope.isSearching = true;
-    $scope.notSearching = true;
-  };
+  $scope.init = function(boards){
+    $scope.boards = boards;
+  }
 
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
@@ -15,6 +11,21 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
 
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
+  };
+
+  $scope.update_bookmark = function(board){
+    $scope.board = board;
+    $scope.board.bookmark = !board.bookmark;
+  };
+
+  $scope.update_like = function(board, action){    
+    $scope.board = board;
+    $scope.board.liked = !board.liked;
+    if (action == 'like') {
+      $scope.board.likes++ 
+    } else {
+      $scope.board.likes--
+    }
   };
 
   $scope.callSearch = function(query) { 
