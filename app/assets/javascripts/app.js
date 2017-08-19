@@ -33,13 +33,10 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    initialIndex: 0,
     prevNextButtons: true,
-    freeScroll: true,
-    contain: true,
-    setGallerySize: true,
     pageDots: false,
-    imagesLoaded: true
+    imagesLoaded: true,
+    groupCells: 2
   };
   
   $scope.alert = '';
@@ -77,13 +74,10 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    initialIndex: 0,
     prevNextButtons: true,
-    freeScroll: true,
-    contain: true,
-    setGallerySize: true,
     pageDots: false,
-    imagesLoaded: true
+    imagesLoaded: true,
+    groupCells: 2
   };
   
   $scope.alert = '';
@@ -116,6 +110,14 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     } else {
       $scope.board.likes--
     }
+  };
+
+  $scope.flickityOptions = {
+    cellSelector: '.article-cell',
+    prevNextButtons: true,
+    pageDots: false,
+    imagesLoaded: true,
+    groupCells: 2
   };
 
   $scope.imagePath = 'img/washedout.png';
@@ -155,13 +157,10 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    initialIndex: 0,
     prevNextButtons: true,
-    freeScroll: true,
-    contain: true,
-    setGallerySize: true,
     pageDots: false,
-    imagesLoaded: true
+    imagesLoaded: true,
+    groupCells: 2
   };
   
   $scope.alert = '';
@@ -199,13 +198,10 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    initialIndex: 0,
     prevNextButtons: true,
-    freeScroll: true,
-    contain: true,
-    setGallerySize: true,
     pageDots: false,
-    imagesLoaded: true
+    imagesLoaded: true,
+    groupCells: 2
   };
   
   $scope.alert = '';
@@ -243,13 +239,10 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    initialIndex: 0,
     prevNextButtons: true,
-    freeScroll: true,
-    contain: true,
-    setGallerySize: true,
     pageDots: false,
-    imagesLoaded: true
+    imagesLoaded: true,
+    groupCells: 2
   };
   
   $scope.alert = '';
