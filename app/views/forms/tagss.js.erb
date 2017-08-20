@@ -1,6 +1,0 @@
-$('#forms').append('<%= j render "static_pages/boards" %>');
-<% if @forms.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate(@forms) %>');
-<% else %>
-  $('.pagination').remove()
-<% end %>
