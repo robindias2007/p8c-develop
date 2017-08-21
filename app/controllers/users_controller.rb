@@ -27,6 +27,11 @@ class UsersController < ApplicationController
     #It will show only published because publish is true.
     @boards = get_boards(@forms)    
     @pub_boards = @boards.to_json
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { boards: @pub_boards, next_page: @forms.next_page } }
+    end
   end
   
   def show_saved   #show.html.erb
@@ -34,6 +39,11 @@ class UsersController < ApplicationController
       @forms = current_user.bookmarks.paginate(:page => params[:page], :per_page => 2)
       @boards = get_boards(@forms)
       @saved_boards = @boards.to_json
+
+      respond_to do |format|
+        format.html
+        format.json { render json: { boards: @saved_boards, next_page: @forms.next_page } }
+      end
   	else
       redirect_to "/user/#{@user.username }/publish"
     end
@@ -47,6 +57,11 @@ class UsersController < ApplicationController
       @forms = Form.drafts.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id).paginate(:page => params[:page], :per_page => 2)
   	  @boards = get_boards(@forms)
       @draft_boards = @boards.to_json 
+
+      respond_to do |format|
+        format.html
+        format.json { render json: { boards: @draft_boards, next_page: @forms.next_page } }
+      end
     else
       redirect_to "/user/#{@user.username }/publish"
     end
@@ -60,6 +75,11 @@ class UsersController < ApplicationController
       
       @boards = get_boards(@forms)
       @liked_boards = @boards.to_json
+
+      respond_to do |format|
+        format.html
+        format.json { render json: { boards: @liked_boards, next_page: @forms.next_page } }
+      end
     else
       redirect_to "/user/#{current_user.username }/publish"
     end
