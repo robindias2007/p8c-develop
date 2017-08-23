@@ -371,3 +371,10 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.alert = '';
 }]);
+
+app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', function($scope, $http, $window, $document, FlickityService, $timeout){
+  $scope.init = function(user_profile, current_user){
+   console.log(user_profile);
+   console.log(current_user); 
+  }
+}]);
