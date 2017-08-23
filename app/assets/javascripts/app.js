@@ -338,7 +338,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     if ($scope.stop_loading == false) {
       $http({
       method: 'GET',
-      url: 'drafts.json?page='+ $scope.next_page
+      url: 'liked.json?page='+ $scope.next_page
       }).then(function successCallback(response) {
         boards = JSON.parse(response.data.boards);
         for(var i = 0; i <= (boards.length - 1) ; i++) {

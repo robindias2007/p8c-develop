@@ -75,7 +75,6 @@ class UsersController < ApplicationController
       
       @boards = get_boards(@forms)
       @liked_boards = @boards.to_json
-
       respond_to do |format|
         format.html
         format.json { render json: { boards: @liked_boards, next_page: @forms.next_page } }
