@@ -26,9 +26,9 @@
           <div class="categorytitle col-md-8" style="">{{cat_board.category}}</div>
           <div class="categorytitle col-md-4" style="padding-right: 0px; height: 50px">
             
-            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'most viewed' && cat_board.category != 'most recent' && cat_board.category != 'most liked' " class="" ng-href="/categories/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'most_viewed' && cat_board.category != 'most_recent' && cat_board.category != 'most_liked' " class="" ng-href="/categories/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
 
-            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'most viewed' || cat_board.category == 'most recent' || cat_board.category == 'most liked')" class="" ng-href="/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'most_viewed' || cat_board.category == 'most_recent' || cat_board.category == 'most_liked')" class="" ng-href="/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
           
           </div>
         </div>        

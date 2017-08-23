@@ -20,13 +20,13 @@ class StaticPagesController < ApplicationController
       trend_hash = { category: "trending", boards: get_customized_forms(trending)}
       
       most_recent = Form.most_recent
-      recent_hash = { category: "most recent", boards: get_customized_forms(most_recent)}
+      recent_hash = { category: "most_recent", boards: get_customized_forms(most_recent)}
       
       most_liked = Form.most_liked
-      liked_hash = {category: "most liked", boards: get_customized_forms(most_liked)}
+      liked_hash = {category: "most_liked", boards: get_customized_forms(most_liked)}
       
       most_viewed = Form.most_viewed
-      viewed_hash = {category: "most viewed", boards: get_customized_forms(most_viewed)}
+      viewed_hash = {category: "most_viewed", boards: get_customized_forms(most_viewed)}
 
       @cat_boards = []
       categories = current_user.categories_ids.reject { |c| c.empty? }
