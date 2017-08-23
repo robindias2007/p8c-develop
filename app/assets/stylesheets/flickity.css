@@ -146,5 +146,10 @@ https://flickity.metafizzy.co
  .flickity-slider 
  {
   margin-left: -2%;
- } 
+ }
+
+  .halfBoard .flickity-slider 
+   {
+    margin-left: 1%;
+   } 
 }
