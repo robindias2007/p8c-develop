@@ -27,7 +27,7 @@
         <ul class="count">
         	<li><%= Form.published.where(user_id:current_user.id).count %></li>
         	<li><%= Form.drafts.where(user_id:current_user.id).count %></li>
-        	<li><%= Form.saved.where(user_id:current_user.id).count %></li>
+        	<li><%= current_user.bookmarks.count %></li>
         </ul>
 
         <ul class="board">
@@ -77,8 +77,9 @@
 
   <% end %>
 
-
-  <%= render 'static_pages/boards'%>
+  <div id="forms">
+    <%= render 'static_pages/pub_boards' %>
+  </div>
   
   </div>
 

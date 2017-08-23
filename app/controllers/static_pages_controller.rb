@@ -4,14 +4,59 @@ class StaticPagesController < ApplicationController
   def home #home.html.erb
     @home_user = true;
     @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
-   
-    @forms_des = Form.tagged_with('LenseDesign').first(3)
-    @forms_design = @forms_des.first(1)
-    @forms_half = @forms_des.last(2)
-   
-    @forms_start = Form.tagged_with('LenseStartups').first(3)
-    @forms_startups = @forms_start.first(1)
-    @forms_half = @forms_start.last(2)
+    if current_user
+      @cat_boards = []
+      categories = current_user.categories_ids.reject { |c| c.empty? }
+      categories.each do |category|
+        cat_hash = { category: category, boards: [] }
+        forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
+        cat_hash[:boards] = forms.map {|f| {id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first},
+        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+        @cat_boards.push cat_hash
+      end
+      # TODO: Fetch categories
+      @formss = @cat_boards.to_json
+    else
+      @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
+      @formss = @boards.to_json
+    end
+  end
+
+  def categories
+    @home_user = true;
+    @cat_name = params[:name].downcase
+    if Category.pluck(:category_name).include?(@cat_name)
+      @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
+      puts @forms.count
+      if current_user
+        @boards = @forms.map {|f| {id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+      else
+        @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+      end
+    else
+      redirect_to root_url
+    end
+    
+    @formss = @boards.to_json
   end
 
   # def publish   #publish.html.erb

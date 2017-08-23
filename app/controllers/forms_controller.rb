@@ -1,8 +1,8 @@
 class FormsController < ApplicationController
-before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
-before_action :authenticate_user!, :only => [:like]
-respond_to :js, :json, :html
-before_filter :authenticate_admin, :only => [:index]
+  before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
+  before_action :authenticate_user!, :only => [:like]
+  respond_to :js, :json, :html
+  before_filter :authenticate_admin, :only => [:index]
   
   # GET /forms
   # GET /forms.json
@@ -21,6 +21,12 @@ before_filter :authenticate_admin, :only => [:index]
   def show
     @form.punch(request)
     @forms = Form.where(id: params[:id]) #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
+    @boards = @forms.map {|f| {id: f.id, title: f.title, bookmark: true ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
   end
 
   # GET /forms/new
@@ -93,7 +99,8 @@ before_filter :authenticate_admin, :only => [:index]
       # @form.update(readtime:meta.meta_tags + meta1.meta_tags + meta2.meta_tags + meta3.meta_tags + meta4.meta_tags) rescue nil 
         tags = @form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + @form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)     
         @form.update(tag_list: tags.join(',') )
-
+        
+        @form.update(admins_date: @form.created_at)
         if params[:unspecified]
           @form.update_attributes(unspecified:true)
         elsif params[:easy] 
@@ -249,7 +256,7 @@ before_filter :authenticate_admin, :only => [:index]
   end
 
   def book
-    @form.update_attributes(bookmark:true)
+    user_form = UserFormBookmark.create(user_id: current_user.id, form_id: @form.id)
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
@@ -257,7 +264,10 @@ before_filter :authenticate_admin, :only => [:index]
   end
 
   def booknot
-    @form.update_attributes(bookmark:false)
+    user_form = UserFormBookmark.where(user_id: current_user.id, form_id: @form.id)
+    if user_form
+      user_form.first.destroy
+    end
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
@@ -265,9 +275,17 @@ before_filter :authenticate_admin, :only => [:index]
   end
 
   def tagss
-    if params[:tag]
-      @forms = Form.tagged_with(params[:tag]) 
-    end
+    redirect_to root_url
+    # if params[:tag]
+    #   @forms = Form.tagged_with(params[:tag]).paginate(:page => params[:page], :per_page => 2)
+       
+    #   @boards = @forms.map {|f| {id: f.id, title: f.title, bookmark: true ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+    #   [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
+    #   {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
+    #   {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
+    #   {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
+    #   {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
+    # end
     end
 
 
@@ -281,7 +299,7 @@ before_filter :authenticate_admin, :only => [:index]
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5)
+      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5, :admins_date)
     end
 
     def authenticate_admin

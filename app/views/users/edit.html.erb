@@ -1,4 +1,3 @@
-<div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
   <div class="modal-dialog modal-md" role="document">
     
     <%= form_for @user, html: { id: "sign_up_edit" } do |f| %>
@@ -43,7 +42,7 @@
           
           <div class="col-md-12 checkbox-list">
             <%= f.label :categories %>
-            <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %>   
+            <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %> 
           </div>
           <% end %>
 

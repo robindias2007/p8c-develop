@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804112058) do
+ActiveRecord::Schema.define(version: 20170816111438) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20170804112058) do
     t.string   "tag3"
     t.string   "tag4"
     t.string   "tag5"
+    t.datetime "admins_date"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
@@ -164,6 +165,13 @@ ActiveRecord::Schema.define(version: 20170804112058) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+
+  create_table "user_form_bookmarks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "form_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: ""

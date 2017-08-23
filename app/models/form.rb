@@ -9,6 +9,7 @@ acts_as_punchable
 
 belongs_to :user
 belongs_to :category
+has_many :user_form_bookmarks
 
 scope :published, -> {
   where(:publish => true)
@@ -37,7 +38,6 @@ scope :saved, -> {
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('application.css')}"
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('material_icons.css')}"
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('form_social_image.css')}"
-
     kit.to_file(Rails.root + 'public/forms_social_images/' + "form_#{id}.png")
   end
 

@@ -2,28 +2,9 @@
 <% if user = current_user %>
 <div class="maincont">
 
-
-<% if @forms_design.present? %>
-    <div class="categoryheader">
-	    <h1>Design</h1>
-	    <a href="tags/lensedesign">See More</a>
-	</div>
-	<%= render 'static_pages/boards_design' rescue nil %>
-	<%= render 'static_pages/half_boards' rescue nil  %>
-<% end %>
-
-<% if @forms_startups.present? %>
-	<div class="categoryheader">
-		<h1>StartUps</h1>
-		<a href="tags/lensestartups">See More</a>
-	</div>
-	<%= render 'static_pages/boards_startups' rescue nil  %>
-    <%= render 'static_pages/half_boards' rescue nil %>
-<% end %>
-
 <%= render 'static_pages/boards'%>
-<input type="text" name="" ng-model="tmp">
-{{tmp}}
+
+
 </div>
 
 
@@ -40,5 +21,5 @@
 	In doing so each board offers a unique - i.e. your perspective on a topic So take your time and put a little thought into it before you express yourself!</p>
 	</div>-->
 </div>
-<%= render 'static_pages/boards'%>
+<%= render 'static_pages/home_boards'%>
 <% end %>
