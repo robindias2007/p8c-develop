@@ -43,9 +43,10 @@ Rails.application.routes.draw do
 
   get '/forms/:id/edittag' => 'forms#edittag'
   get 'forms/bookmarks' => 'forms#bookmarks'     
-  # get '/publish' =>  'static_pages#publish'
-  # get '/drafts' =>  'static_pages#drafts'
-  # get '/saved' =>  'static_pages#saved'
+  get '/trending' =>  'static_pages#trending'
+  get '/most_viewed' =>  'static_pages#most_viewed'
+  get '/most_liked' =>  'static_pages#most_liked'
+  get '/most_recent' =>  'static_pages#most_recent'
   get '/dashboard' => 'static_pages#dashboard'
   
   get 'user/:id/publish'          =>   'users#show'

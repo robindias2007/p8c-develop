@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816111438) do
+ActiveRecord::Schema.define(version: 20170823060330) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -117,6 +117,10 @@ ActiveRecord::Schema.define(version: 20170816111438) do
     t.string   "tag4"
     t.string   "tag5"
     t.datetime "admins_date"
+    t.integer  "view_count"
+    t.integer  "likes_count"
+    t.integer  "saved_count"
+    t.integer  "share_count"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"

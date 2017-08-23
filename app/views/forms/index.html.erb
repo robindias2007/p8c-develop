@@ -18,6 +18,7 @@
                     <th>Tags</th>
                     <th>Edit Tags</th>
                     <th>Admins Date</th>
+                    <th>View Count</th>
                     <th>Submit tag</th>
                     <!-- <th>Edit</th> -->
                     <th>Delete</th>
@@ -51,6 +52,9 @@
                     </td>
                     <td>
                       <%= f.date_select :admins_date,  id:"notes", placeholder:"mm/dd/yyyy", value:form.admins_date %>
+                    </td>
+                    <td>
+                      <%= f.number_field :view_count,  id:"notes", placeholder:"View Count", value:form.view_count %>
                     </td>    
                     <td>
                       <div class="actions">

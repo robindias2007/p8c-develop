@@ -27,6 +27,22 @@ scope :saved, -> {
 
 
 # before_validation :smart_add_url_protocol 
+  
+  def self.trending
+    Form.published.sample(3)
+  end
+
+  def self.most_recent
+    Form.order(created_at: :desc).published.limit(3)
+  end
+  
+  def self.most_liked
+    Form.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).published.limit(3)
+  end
+  
+  def self.most_viewed
+    Form.order(view_count: :desc).published.limit(3)
+  end
 
 
   def save_social_image
