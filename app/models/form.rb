@@ -44,6 +44,14 @@ scope :saved, -> {
     Form.order(view_count: :desc).published.limit(3)
   end
 
+  def self.most_shared
+    Form.order(share_count: :desc).published.limit(3)
+  end
+
+  def self.most_saved
+    Form.order(saved_count: :desc).published.limit(3)
+  end
+
 
   def save_social_image
     str = ApplicationController.new.render_to_string('forms/social_image', locals: {form: self}, layout: false)

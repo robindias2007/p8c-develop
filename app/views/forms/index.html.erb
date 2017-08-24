@@ -19,6 +19,8 @@
                     <th>Edit Tags</th>
                     <th>Admins Date</th>
                     <th>View Count</th>
+                    <th>Shared Count</th>
+                    <th>Saved Count</th>
                     <th>Submit tag</th>
                     <!-- <th>Edit</th> -->
                     <th>Delete</th>
@@ -55,6 +57,12 @@
                     </td>
                     <td>
                       <%= f.number_field :view_count,  id:"notes", placeholder:"View Count", value:form.view_count %>
+                    </td>
+                    <td>
+                      <%= f.number_field :share_count,  id:"notes", placeholder:"View Count", value:form.share_count %>
+                    </td>
+                    <td>
+                      <%= f.number_field :saved_count,  id:"notes", placeholder:"View Count", value:form.saved_count %>
                     </td>    
                     <td>
                       <div class="actions">
