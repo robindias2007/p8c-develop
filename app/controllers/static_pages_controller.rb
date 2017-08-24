@@ -26,7 +26,14 @@ class StaticPagesController < ApplicationController
       liked_hash = {category: "most_liked", boards: get_customized_forms(most_liked)}
       
       most_viewed = Form.most_viewed
-      viewed_hash = {category: "most_viewed", boards: get_customized_forms(most_viewed)}
+      viewed_hash = {category: "most viewed", boards: get_customized_forms(most_viewed)}
+      
+      most_shared = Form.most_shared
+      shared_hash = {category: "most shared", boards: get_customized_forms(most_shared)}
+
+      most_saved = Form.most_saved
+      saved_hash = {category: "most saved", boards: get_customized_forms(most_saved)}
+
 
       @cat_boards = []
       categories = current_user.categories_ids.reject { |c| c.empty? }
@@ -42,6 +49,8 @@ class StaticPagesController < ApplicationController
       @cat_boards.push recent_hash
       @cat_boards.push liked_hash
       @cat_boards.push viewed_hash
+      @cat_boards.push shared_hash
+      @cat_boards.push saved_hash
 
       # TODO: Fetch categories_ids
       @formss = @cat_boards.to_json
@@ -113,6 +122,18 @@ class StaticPagesController < ApplicationController
 
   def most_recent
     @forms = Form.order(created_at: :desc).published
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
+
+  def most_shared
+    @forms = Form.order(share_count: :desc).published
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
+
+  def most_saved
+    @forms = Form.order(saved_count: :desc).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
