@@ -93,8 +93,17 @@
             </div>
           <% end %>  
           <div class="share">
-            <div class="social-share-options" style="display: none;">
-              
+            <div class="social-share-options">
+              <div class="facebook-share option">
+                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=&display=popup&href={{location}}forms/{{board.id}}">
+                  <%= image_tag 'facebook.png' %>
+                </a>
+              </div>
+              <div class="twitter-share option" >
+                <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}forms/{{board.id}}">
+                  <%= image_tag 'twitter.png' %>
+                </a>
+              </div>
             </div>
             <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
               <h10 class="date">Share</h10>
