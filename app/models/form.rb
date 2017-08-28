@@ -28,20 +28,28 @@ scope :saved, -> {
 
 # before_validation :smart_add_url_protocol 
   
-  def self.trending
-    Form.published.sample(3)
+  def self.trending(ids)
+    Form.where.not(id: ids).published.limit(3)
   end
 
-  def self.most_recent
-    Form.order(created_at: :desc).published.limit(3)
+  def self.most_recent(ids)
+    Form.where.not(id: ids).order(created_at: :desc).published.limit(3)
   end
   
-  def self.most_liked
-    Form.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).published.limit(3)
+  def self.most_liked(ids)
+    Form.where.not(id: ids).where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).published.limit(3)
   end
   
-  def self.most_viewed
-    Form.order(view_count: :desc).published.limit(3)
+  def self.most_viewed(ids)
+    Form.where.not(id: ids).order(view_count: :desc).published.limit(3)
+  end
+
+  def self.most_saved(ids)
+    Form.where.not(id: ids).order(saved_count: :desc).published.limit(3)
+  end
+
+  def self.most_shared(ids)
+    Form.where.not(id: ids).order(share_count: :desc).published.limit(3)
   end
 
 
