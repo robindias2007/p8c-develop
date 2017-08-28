@@ -433,3 +433,50 @@ app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'Flickit
   }
 
 }]);
+
+app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+  $scope.init = function(boards, key){
+    $scope.pub_boards = boards;
+    $scope.current_page = 1;
+    $scope.next_page = 2;
+    $scope.stop_loading = false;
+    $scope.busy = false;
+    $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
+    $scope.facebook_key = key;
+  }
+
+  $scope.toggleSidenav = function(menuId) {
+    $mdSidenav(menuId).toggle();
+  };
+
+  $scope.redirectTo = function(link){
+    $window.open(link, '_blank');
+  };
+
+  $scope.update_bookmark = function(board){
+    $scope.board = board;
+    $scope.board.bookmark = !board.bookmark;
+  };
+
+  $scope.update_like = function(board, action){    
+    $scope.board = board;
+    $scope.board.liked = !board.liked;
+    if (action == 'like') {
+      $scope.board.likes++ 
+    } else {
+      $scope.board.likes--
+    }
+  };
+
+  $scope.flickityOptions = {
+    cellSelector: '.article-cell',
+    prevNextButtons: true,
+    pageDots: false,
+    imagesLoaded: true,
+    groupCells: 2
+  };
+
+  $scope.imagePath = 'img/washedout.png';
+  
+  $scope.alert = '';
+}]);
