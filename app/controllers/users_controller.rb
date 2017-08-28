@@ -20,10 +20,10 @@ class UsersController < ApplicationController
   end
 
   def show   #show.html.erb
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @user = User.find_by_username(params[:id])
     @home_banner = true;
     @forms = Form.order(created_at: :desc).where("user_id = ?", @user).published.paginate(:page => params[:page], :per_page => 2)
-  	
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
     @boards = get_boards(@forms)    
@@ -71,7 +71,8 @@ class UsersController < ApplicationController
   end
   
   def show_liked
-    if @user != current_user 
+    if @user != current_user
+      @keys = ENV['FACEBOOK_KEY'].to_json
       @forms = @user.get_up_voted(Form).order(created_at: :desc).paginate(:page => params[:page], :per_page => 2)
       
       @boards = get_boards(@forms)

@@ -1,6 +1,6 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
-<div class="boardContainer" ng-controller="LikedBoardCtrl" ng-init="init(<%= @liked_boards %>)">
+<div class="boardContainer" ng-controller="LikedBoardCtrl" ng-init="init(<%= @liked_boards %>, <%= @keys %>)">
   <style type="text/css">
     .flickity-page-dots {
       display: none;
@@ -96,7 +96,7 @@
           <div class="share">
             <div class="social-share-options">
               <div class="facebook-share option">
-                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href={{location}}forms/{{board.id}}">
+                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}forms/{{board.id}}">
                   <%= image_tag 'facebook.png' %>
                 </a>
               </div>

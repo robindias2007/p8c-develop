@@ -30,6 +30,7 @@ class FormsController < ApplicationController
   def show
     @form.punch(request)
     @forms = Form.where(id: params[:id])
+    @keys = ENV['FACEBOOK_KEY'].to_json
     #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
     @boards = get_boards(@forms)    
     @pub_boards = @boards.to_json

@@ -1,10 +1,11 @@
 var app = angular.module('app', ['bc.Flickity', 'infinite-scroll']);
 
 app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
-  $scope.init = function(boards){
+  $scope.init = function(boards,key){
     $scope.cat_boards = boards;
     $scope.category_boards = boards;
     $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
+    $scope.facebook_key = key;
   }
 
   $scope.toggleSidenav = function(menuId) {
@@ -87,13 +88,14 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
 
 
 app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
-  $scope.init = function(boards){
+  $scope.init = function(boards, key){
     $scope.pub_boards = boards;
     $scope.current_page = 1;
     $scope.next_page = 2;
     $scope.stop_loading = false;
     $scope.busy = false;
     $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
+    $scope.facebook_key = key;
   }
 
   $scope.toggleSidenav = function(menuId) {
@@ -306,13 +308,14 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
 }]);
 
 app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
-  $scope.init = function(boards){
+  $scope.init = function(boards, key){
     $scope.liked_boards = boards;
     $scope.current_page = 1;
     $scope.next_page = 2;
     $scope.stop_loading = false;
     $scope.busy = false;
     $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
+    $scope.facebook_key = key;
   }
 
   $scope.toggleSidenav = function(menuId) {

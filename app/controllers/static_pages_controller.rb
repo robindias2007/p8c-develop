@@ -29,7 +29,7 @@ class StaticPagesController < ApplicationController
   def home #home.html.erb
     @home_user = true;
     @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
-
+    @keys = ENV['FACEBOOK_KEY'].to_json
     if current_user
       @cat_boards = []
       @forms_uniq_ids = []
@@ -90,6 +90,7 @@ class StaticPagesController < ApplicationController
   def categories
     @home_user = true;
     @cat_name = params[:name].downcase
+    @keys = ENV['FACEBOOK_KEY'].to_json
     puts @cat_name
     if Category.pluck(:category_name).include?(@cat_name)
       @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
