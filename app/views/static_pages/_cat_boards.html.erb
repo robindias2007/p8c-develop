@@ -95,7 +95,7 @@
           <div class="share">
             <div class="social-share-options">
               <div class="facebook-share option">
-                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=&display=popup&href={{location}}forms/{{board.id}}">
+                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=#{ENV['FACEBOOK_KEY']}&display=popup&href={{location}}forms/{{board.id}}">
                   <%= image_tag 'facebook.png' %>
                 </a>
               </div>
