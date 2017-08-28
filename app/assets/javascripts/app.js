@@ -4,7 +4,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   $scope.init = function(boards){
     $scope.cat_boards = boards;
     $scope.category_boards = boards;
-    $scope.location = $location.$$protocol + "//" + $location.$$host + "/";
+    $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
   }
 
   $scope.toggleSidenav = function(menuId) {
@@ -93,7 +93,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     $scope.next_page = 2;
     $scope.stop_loading = false;
     $scope.busy = false;
-    $scope.location = $location.$$protocol + "//" + $location.$$host + "/";
+    $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
   }
 
   $scope.toggleSidenav = function(menuId) {
@@ -312,7 +312,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $scope.next_page = 2;
     $scope.stop_loading = false;
     $scope.busy = false;
-    $scope.location = $location.$$protocol + "//" + $location.$$host + "/";
+    $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
   }
 
   $scope.toggleSidenav = function(menuId) {
