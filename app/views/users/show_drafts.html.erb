@@ -1,9 +1,4 @@
-<div class="maincont">
-  <% if user_signed_in? %>
-    <div id="follow_user">
-      <%= render :partial => "follows/follow_user", :locals => {:user => @user} %>
-    </div>
-  <% end %>
+<div class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
   <div class="col-md-10" id="userProfile">
     <div id="username">
     	<i class="material-icons md-120">account_circle</i>
@@ -27,9 +22,9 @@
           </ul>
         </div>
         <ul class="followers">
-        	<li><div id="following1"><%= current_user.all_following.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Following</button></li>
+        	<li><div id="following1"><%= current_user.all_following.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)">Following</button></li>
         	<li></li>
-        	<li><div id="followers1"><%= current_user.followers.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Followers</button></li>
+        	<li><div id="followers1"><%= current_user.followers.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</button></li>
         </ul>
       </div>
     <% end %>
@@ -49,31 +44,30 @@
           <div class="follow">
             <% if current_user.username == @user.username %>
               <h2> Following </h2>
-              <% current_user.all_following.each do |f| %>
-                <table>
-                  <tr>
-                    <td>
-                      <% if f.avatar.present? %>
-                        <%= image_tag f.avatar.url,id:"useravatar" %>
-                      <% else %>
-                        <%= image_tag "image.png", size:"20x20" %>
-                      <% end %> 
-                    </td>
-                    <td>
-                      <%= f.username %>
-                      <hr>
-                      <%= f.author %>
-                    </td>
-                    <td>
-                      <% if user_signed_in? %>
-                        <div id="follow_usermodal">
-                          <%= render :partial => "follows/follow_usermodal", :locals => {:f => f} %>
-                        </div>
-                      <% end %>
-                    </td>
-                  </tr>
-                </table>
-              <% end %>
+              <ul style="margin: 10px 30px; list-style: none ">
+                <li ng-repeat="following in followings">
+                  <div class="row" style="width: 100%; margin-bottom: 20px">
+                    <div class="col-md-2" style="text-align: right">
+                      <a href="/user/{{following.username}}/publish">
+                        <img src="{{following.image}}" style="height: 40px; width: 40px"></img>
+                      </a>
+                    </div>                      
+                    <div class="col-md-6" style="text-align: left">
+                      <a href="/user/{{following.username}}/publish">
+                        {{following.name}}
+                      </a>
+                      <p style="margin-bottom: 0px">@{{following.username}}</p>
+                      <p style="margin-bottom: 0px">{{following.author}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <button ng-show="following.following" type="button" class="btn btn-info btn-sm" ng-click="following.following = false; unfollow(following.id, <%= current_user.id%>)">Following
+                      </button>
+                      <button ng-hide="following.following" type="button" class="btn btn-default btn-sm" ng-click="following.following = true; follow(following.id, <%= current_user.id%>)">Follow
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             <% end %>
           </div>
           <br>
@@ -97,29 +91,30 @@
           <div class="follwo">
             <% if current_user.username == @user.username %>
               <h2> Followers </h2>
-              <% current_user.followers.each do |f| %>
-                <table>
-                  <tr>
-                    <td>
-                      <% if f.avatar.present? %>
-                        <%= image_tag f.avatar.url,id:"useravatar" %>
-                      <% else %>
-                        <%= image_tag "image.png", size:"20x20" %>
-                      <% end %> 
-                    </td>
-                    <td>
-                      <%= f.username %>
-                      <hr>
-                      <%= f.author %>
-                    </td>
-                    <td>
-                      <div id="follow_usermodal">
-                        <%= render :partial => "follows/follow_usermodal", :locals => {:f => f} %>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              <% end %>
+              <ul style="margin: 10px 30px; list-style: none ">
+                <li ng-repeat="follower in followers">
+                  <div class="row" style="width: 100%; margin-bottom: 20px">
+                    <div class="col-md-2" style="text-align: right">
+                      <a href="/user/{{follower.username}}/publish">
+                        <img src="{{follower.image}}" style="height: 40px; width: 40px"></img>
+                      </a>
+                    </div>                      
+                    <div class="col-md-6" style="text-align: left">
+                      <a href="/user/{{follower.username}}/publish">
+                        {{follower.name}}
+                      </a>
+                      <p style="margin-bottom: 0px">@{{follower.username}}</p>
+                      <p style="margin-bottom: 0px">{{follower.author}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <button ng-show="follower.following" type="button" class="btn btn-info btn-sm" ng-click="follower.following = false; unfollow(follower.id, <%= current_user.id%>)">Following
+                      </button>
+                      <button ng-hide="follower.following" type="button" class="btn btn-default btn-sm" ng-click="follower.following = true; follow(follower.id, <%= current_user.id%>)">Follow
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             <% end %>
           </div>
         </div>
@@ -127,98 +122,6 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>        
-    </div>
-  </div>
-  <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
-        </div>
-        <div class="modal-body">
-          <div class="follow">
-            <% if current_user.username != @user.username %>
-              <h2> Following </h2>
-              <% @user.all_following.each do |f| %>
-                <table>
-                  <tr>
-                    <td>
-                      <% if f.avatar.present? %>
-                        <%= image_tag f.avatar.url,id:"useravatar" %>
-                      <% else %>
-                        <%= image_tag "image.png", size:"20x20" %>
-                      <% end %> 
-                    </td>
-                    <td>
-                      <%= f.username %>
-                      <hr>
-                      <%= f.author %>
-                    </td>
-                    <td>
-                      <div id="follow_usermodal">
-                        <%= render :partial => "follows/follow_usermodal", :locals => {:f => f} %>
-                      </div>  
-                    </td>
-                  </tr>
-                </table>
-              <% end %>
-            <% end %>
-            <br>
-            <br>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="myModal4" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
-        </div>
-        <div class="modal-body">
-          <div class="follow">
-            <% if current_user.username != @user.username %>
-              <h2> Followers </h2>
-              <% @user.followers.each do |f|  %>
-                <table>
-                  <tr>
-                    <td>
-                      <% if f.avatar.present? %>
-                        <%= image_tag f.avatar.url,id:"useravatar" %>
-                      <% else %>
-                        <%= image_tag "image.png", size:"20x20" %>
-                      <% end %> 
-                    </td>
-                    <td>
-                      <%= f.username %>
-                      <hr>
-                      <%= f.author %>
-                    </td>
-                    <td>
-                      <div id="follow_usermodal">
-                        <%= render :partial => "follows/follow_usermodal", :locals => {:f => f} %>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              <% end %>
-            <% end %>
-          </div>
-          <br>
-          <br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>  
     </div>
   </div>
 </div>

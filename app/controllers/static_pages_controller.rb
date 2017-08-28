@@ -34,6 +34,7 @@ class StaticPagesController < ApplicationController
   def categories
     @home_user = true;
     @cat_name = params[:name].downcase
+    puts @cat_name
     if Category.pluck(:category_name).include?(@cat_name)
       @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
       puts @forms.count
