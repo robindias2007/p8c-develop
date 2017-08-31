@@ -1,11 +1,15 @@
-<% if resource.blank? %>
+<% if resource.blank? %>  
   <% if @unconfirmed_user %>
     var emailConfirmationInfo = $('.confirm-info-after-sign-in');
     $('.sign-in-with-email').hide();
     emailConfirmationInfo.find('.email-id').html("<%= @unconfirmed_email %>");
     emailConfirmationInfo.show();
   <% else %>
-    $("#errorMsg").html("Invalid Email or Password")
+    <% if @user_email_exist %>
+      $("#errorMsg").html("Email already exist! Please try to login with social account!")
+    <% else %>
+      $("#errorMsg").html("Invalid Email or Password")
+    <% end %>
   <% end %>
 <% else %>
   <% path = resource.profile_completed ? root_path : edit_user_path(resource) %>

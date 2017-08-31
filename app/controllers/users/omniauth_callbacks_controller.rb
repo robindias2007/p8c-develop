@@ -2,7 +2,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   def all
-
+    
     user = User.from_omniauth(env["omniauth.auth"], current_user)
     if user.persisted?
       flash[:notice] = "You are in..!!!"

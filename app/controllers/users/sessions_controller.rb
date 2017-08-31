@@ -29,9 +29,12 @@ class Users::SessionsController < Devise::SessionsController
 
   def check_user_confirmation
     @unconfirmed_user = false
+    @user_email_exist = false
     email = params[:user][:email]
     password = params[:user][:password]
-
+    if User.find_by_email(email)
+      @user_email_exist = true
+    end
     # TODO: Remove order from below query if uniqueness added for user 'email' column.
     user = password.present? ? User.order(id: :asc).where(email: email).first : nil
     if user && user.valid_password?(password) && !user.confirmed?
