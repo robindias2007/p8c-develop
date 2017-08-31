@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_admin, :only => [:index]
-  before_action :set_user
+  before_action :set_user, except: [:followers]
   before_action :check_profile_complted, only: :edit
   before_filter :find_userid, :only => [:show, :show_saved, :show_drafts, :show_liked]
 
@@ -20,9 +20,10 @@ class UsersController < ApplicationController
   end
 
   def show   #show.html.erb
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    @user = User.find_by_username(params[:id])
     @home_banner = true;
-    @forms = Form.order(created_at: :desc).where("user_id = ?",User.find_by_username(params[:id])).published.paginate(:page => params[:page], :per_page => 2)
-  	
+    @forms = Form.order(created_at: :desc).where("user_id = ?", @user).published.paginate(:page => params[:page], :per_page => 2)
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
     @boards = get_boards(@forms)    
@@ -70,12 +71,12 @@ class UsersController < ApplicationController
   end
   
   def show_liked
-    if @user != current_user 
+    if @user != current_user
+      @keys = ENV['FACEBOOK_KEY'].to_json
       @forms = @user.get_up_voted(Form).order(created_at: :desc).paginate(:page => params[:page], :per_page => 2)
       
       @boards = get_boards(@forms)
       @liked_boards = @boards.to_json
-
       respond_to do |format|
         format.html
         format.json { render json: { boards: @liked_boards, next_page: @forms.next_page } }
@@ -94,6 +95,26 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       render "edit"
+    end
+  end
+
+  def followings
+    user = User.find(params[:user_id].to_i)
+    @followings = user.all_following
+    @followings_arr = @followings.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: f.avatar.url, following: current_user.following?(f) }}
+    respond_to do |format|
+      format.html
+      format.json { render json: { followings: @followings_arr.to_json } }
+    end
+  end
+
+  def followers
+    user = User.find(params[:user_id].to_i)
+    @followers = user.followers
+    @followers_arr = @followers.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: f.avatar.url, following: current_user.following?(f) }}
+    respond_to do |format|
+      format.html
+      format.json { render json: { followers: @followers_arr.to_json } }
     end
   end
 

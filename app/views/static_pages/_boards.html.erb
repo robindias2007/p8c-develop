@@ -1,6 +1,6 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
-<div class="" ng-controller="AppCtrl" ng-init="init(<%= @formss %>)">
+<div class="" ng-controller="AppCtrl" ng-init='init(<%= @formss %>, <%= @keys %>)'>
   <style type="text/css">
     .flickity-page-dots {
       display: none;
@@ -24,10 +24,16 @@
       <div class="">
         <div class="categoryheader">
           <div class="categorytitle col-md-8" style="">{{cat_board.category}}</div>
-          <div class="categorytitle col-md-4" style="padding-right: 0px; height: 50px"><a class="" ng-href="/categories/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+          <div class="categorytitle col-md-4" style="padding-right: 0px; height: 50px">
+            
+            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'most_viewed' && cat_board.category != 'most_recent' && cat_board.category != 'most_liked' " class="" ng-href="/categories/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+
+            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'most_viewed' || cat_board.category == 'most_recent' || cat_board.category == 'most_liked')" class="" ng-href="/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+          
           </div>
         </div>        
-        <div class="container1" ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">  <!-- The elements of the entire box. -->  
+        <div class="container1" ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">
+          <!-- The elements of the entire box. -->  
           <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
             <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
               <% if user_signed_in? %>
@@ -99,8 +105,17 @@
                 </div>
               <% end %>  
               <div class="share">
-                <div class="social-share-options" style="display: none;">
-                  
+                <div class="social-share-options" style="">
+                  <div class="facebook-share option">
+                    <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}forms/{{board.id}}">
+                      <%= image_tag 'facebook.png' %>
+                    </a>
+                  </div>
+                  <div class="twitter-share option" >
+                    <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}forms/{{board.id}}">
+                      <%= image_tag 'twitter.png' %>
+                    </a>
+                  </div>
                 </div>
                 <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
                   <h10 class="date">Share</h10>

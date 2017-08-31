@@ -1,24 +1,80 @@
 class StaticPagesController < ApplicationController
   before_filter :authenticate_admin, :only => [:dashboard]
-
-  def home #home.html.erb
-    @home_user = true;
-    @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
-    if current_user
-      @cat_boards = []
-      categories = current_user.categories_ids.reject { |c| c.empty? }
-      categories.each do |category|
-        cat_hash = { category: category, boards: [] }
-        forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
-        cat_hash[:boards] = forms.map {|f| {id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+  #before_action :set_boards, only: [:trending, :most_recent, :most_liked, :most_viewed]
+  
+  def get_customized_forms(forms)
+    forms.map {|f| {id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
         [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
         {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first},
         {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
         {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
         {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+  end
+
+  def get_uniq_forms_from_category(category, ids)
+    @forms_uniq_ids = ids
+    if @forms_uniq_ids == []
+      forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
+      @forms_uniq_ids = forms.pluck(:id)
+      puts @forms_uniq_ids.inspect
+      return forms
+    else
+      forms = Form.tagged_with("cat_#{category}").where.not(id: @forms_uniq_ids).order(created_at: :desc).published
+      @forms_uniq_ids = @forms_uniq_ids + forms.pluck(:id)
+      puts @forms_uniq_ids.inspect
+      return forms
+    end
+  end
+
+  def home #home.html.erb
+    @home_user = true;
+    @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    if current_user
+      @cat_boards = []
+      @forms_uniq_ids = []
+
+      categories = current_user.categories_ids.reject { |c| c.empty? }
+      categories.each do |category|
+        cat_hash = { category: category, boards: [] }
+        forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
+        cat_hash[:boards] = get_customized_forms(forms)
         @cat_boards.push cat_hash
       end
-      # TODO: Fetch categories
+
+      trending = Form.trending(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + trending.pluck(:id)      
+      trend_hash = { category: "trending", boards: get_customized_forms(trending)}
+      
+      most_recent = Form.most_recent(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_recent.pluck(:id)
+      recent_hash = { category: "most_recent", boards: get_customized_forms(most_recent)}
+      
+      most_liked = Form.most_liked(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_liked.pluck(:id)
+      liked_hash = {category: "most_liked", boards: get_customized_forms(most_liked)}
+      
+      most_viewed = Form.most_viewed(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_viewed.pluck(:id)
+      viewed_hash = {category: "most_viewed", boards: get_customized_forms(most_viewed)}
+
+      most_saved = Form.most_saved(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_saved.pluck(:id)
+      saved_hash = {category: "most_saved", boards: get_customized_forms(most_saved)}
+      
+      most_shared = Form.most_shared(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_shared.pluck(:id)
+      shared_hash = {category: "most_shared", boards: get_customized_forms(most_shared)}
+      
+
+      @cat_boards.push trend_hash
+      @cat_boards.push recent_hash
+      @cat_boards.push liked_hash
+      @cat_boards.push viewed_hash
+      @cat_boards.push saved_hash
+      @cat_boards.push shared_hash
+
+      # TODO: Fetch categories_ids
       @formss = @cat_boards.to_json
     else
       @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
@@ -34,6 +90,8 @@ class StaticPagesController < ApplicationController
   def categories
     @home_user = true;
     @cat_name = params[:name].downcase
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    puts @cat_name
     if Category.pluck(:category_name).include?(@cat_name)
       @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
       puts @forms.count
@@ -59,19 +117,38 @@ class StaticPagesController < ApplicationController
     @formss = @boards.to_json
   end
 
-  # def publish   #publish.html.erb
-  #  @home_banner = true;
-  #  @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:true)  #it shows published boards where user_id:current_user.id which means it will show only the current user logged in published boards
-  #  end 
+  def get_boards(forms)
+    forms.map {|f| {id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+  end
 
-  # def drafts  #drafts.html.erb
-  #  @home_banner = true;
-  #  @forms = Form.order(created_at: :desc).where(user_id:current_user.id, publish:false)   #this is for drafts for current__user
-  #  if params[:commit] == 'Publish'
-  #   @form.update(:publish => "true")
-  #   redirect_to publish_path , notice: 'Form was successfully created.' 
-  #  end       
-  #  end
+  def trending
+    @forms = Form.published.sample(5)
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
+
+  def most_viewed
+    @forms = Form.order(view_count: :desc).published
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
+
+  def most_liked
+    @forms = Form.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).published
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
+
+  def most_recent
+    @forms = Form.order(created_at: :desc).published
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
   
   def destroy #to delete the form
    @form.destroy
@@ -111,4 +188,5 @@ class StaticPagesController < ApplicationController
     authenticate_admin!
   end
 
+  
 end

@@ -140,3 +140,16 @@ https://flickity.metafizzy.co
   filter: alpha(opacity=100); /* IE8 */
   opacity: 1;
 }
+
+@media (min-width: 768px)
+{
+ .flickity-slider 
+ {
+  margin-left: -2%;
+ }
+
+  .halfBoard .flickity-slider 
+   {
+    margin-left: 1%;
+   } 
+}

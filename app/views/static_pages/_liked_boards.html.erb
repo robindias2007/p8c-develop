@@ -1,6 +1,6 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
-<div class="boardContainer" ng-controller="LikedBoardCtrl" ng-init="init(<%= @liked_boards %>)">
+<div class="boardContainer" ng-controller="LikedBoardCtrl" ng-init="init(<%= @liked_boards %>, <%= @keys %>)">
   <style type="text/css">
     .flickity-page-dots {
       display: none;
@@ -21,7 +21,7 @@
     .bookmark-button:focus {outline:0;}
   </style>
   <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy'>
-    <div class="container1" ng-repeat="board in liked_board.boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">  <!-- The elements of the entire box. -->  
+    <div class="container1" ng-repeat="board in liked_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">  <!-- The elements of the entire box. -->  
       <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
         <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
           <% if user_signed_in? %>
@@ -43,7 +43,7 @@
                   <i class="material-icons">account_circle</i>
                   <div id="prouser">{{board.user.username}}</div>
                 </a>&nbsp; &#183; &nbsp;
-                <h10 class="date">{{board.updated_at}} | date : format : timezone</h10>
+                <h10 class="date">{{board.updated_at  | date : format : timezone}}</h10>
                 <h10 class="date"></h10>
                 <div class="date">
                   &nbsp; &#183; &nbsp;
@@ -56,7 +56,7 @@
                 <i class="material-icons">account_circle</i>
                 <div id="prouser">{{board.user.username}}</div>
               </a>&nbsp; &#183; &nbsp;
-              <h10 class="date">{{board.updated_at}} | date : format : timezone</h10>
+              <h10 class="date">{{board.updated_at  | date : format : timezone}}</h10>
               <h10 class="date"></h10>
               <div class="date">
                 &nbsp; &#183; &nbsp;
@@ -82,9 +82,10 @@
           <% if user_signed_in? %>
             <div class="like">   
               <!-- This contains all the elements to like the button where we have the heart option -->
-              <h10 class="date">{{board.likes}} &nbsp;</h10> 
-              <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"></a>
-              <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"></a>             
+              <h10 class="date">{{board.likes}} &nbsp; </h10> 
+              <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
+              <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>             
+
             </div>
           <% else %>
             <div class="like">
@@ -93,7 +94,17 @@
             </div>
           <% end %>  
           <div class="share">
-            <div class="social-share-options" style="display: none;">
+            <div class="social-share-options">
+              <div class="facebook-share option">
+                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}forms/{{board.id}}">
+                  <%= image_tag 'facebook.png' %>
+                </a>
+              </div>
+              <div class="twitter-share option" >
+                <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}forms/{{board.id}}">
+                  <%= image_tag 'twitter.png' %>
+                </a>
+              </div>
               
             </div>
             <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
