@@ -57,7 +57,7 @@ scope :saved, -> {
     str = ApplicationController.new.render_to_string('forms/social_image', locals: {form: self}, layout: false)
 
     kit = IMGKit.new(str, :quality => 30, width: 1000, height: 500)
-
+    kit.javascripts << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('application.js')}"
     # Please make sure to check 'forms/social_image.html.erb' file if any of the below stylesheets are updated
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('application.css')}"
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('material_icons.css')}"
