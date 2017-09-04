@@ -15,18 +15,34 @@ class FormsController < ApplicationController
         redirect_to :back
       end
     end
+
+  def get_boards(forms)
+    forms.map {|f| {id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+  end
   
   # GET /forms/1
   # GET /forms/1.json
   def show
     @form.punch(request)
-    @forms = Form.where(id: params[:id]) #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
-    @boards = @forms.map {|f| {id: f.id, title: f.title, bookmark: true ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
+    @forms = Form.where(id: params[:id])
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    if current_user
+      #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
+      @boards = get_boards(@forms)    
+    else
+      @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
       {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
       {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
+    end   
+    @pub_boards = @boards.to_json
   end
 
   # GET /forms/new

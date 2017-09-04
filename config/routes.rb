@@ -56,6 +56,8 @@ Rails.application.routes.draw do
   get 'user/:id/drafts'          =>   'users#show_drafts'
 
   get 'user/:id/liked'          =>   'users#show_liked'
+  get 'user/:id/followings' => 'users#followings'
+  get 'user/:id/followers' => 'users#followers'
   
   root 'static_pages#home'
    

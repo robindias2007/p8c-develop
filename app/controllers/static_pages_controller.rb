@@ -11,46 +11,68 @@ class StaticPagesController < ApplicationController
         {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
   end
 
+  def get_uniq_forms_from_category(category, ids)
+    @forms_uniq_ids = ids
+    if @forms_uniq_ids == []
+      forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
+      @forms_uniq_ids = forms.pluck(:id)
+      puts @forms_uniq_ids.inspect
+      return forms
+    else
+      forms = Form.tagged_with("cat_#{category}").where.not(id: @forms_uniq_ids).order(created_at: :desc).published
+      @forms_uniq_ids = @forms_uniq_ids + forms.pluck(:id)
+      puts @forms_uniq_ids.inspect
+      return forms
+    end
+  end
+
   def home #home.html.erb
     @home_user = true;
     @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
-
+    @keys = ENV['FACEBOOK_KEY'].to_json
     if current_user
-      trending = Form.trending
-      trend_hash = { category: "trending", boards: get_customized_forms(trending)}
-      
-      most_recent = Form.most_recent
-      recent_hash = { category: "most_recent", boards: get_customized_forms(most_recent)}
-      
-      most_liked = Form.most_liked
-      liked_hash = {category: "most_liked", boards: get_customized_forms(most_liked)}
-      
-      most_viewed = Form.most_viewed
-      viewed_hash = {category: "most viewed", boards: get_customized_forms(most_viewed)}
-      
-      most_shared = Form.most_shared
-      shared_hash = {category: "most shared", boards: get_customized_forms(most_shared)}
-
-      most_saved = Form.most_saved
-      saved_hash = {category: "most saved", boards: get_customized_forms(most_saved)}
-
-
       @cat_boards = []
+      @forms_uniq_ids = []
+
       categories = current_user.categories_ids.reject { |c| c.empty? }
       categories.each do |category|
         cat_hash = { category: category, boards: [] }
-        forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
+        forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
         cat_hash[:boards] = get_customized_forms(forms)
         @cat_boards.push cat_hash
-
       end
+
+      trending = Form.trending(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + trending.pluck(:id)      
+      trend_hash = { category: "trending", boards: get_customized_forms(trending)}
       
+      most_recent = Form.most_recent(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_recent.pluck(:id)
+      recent_hash = { category: "most_recent", boards: get_customized_forms(most_recent)}
+      
+      most_liked = Form.most_liked(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_liked.pluck(:id)
+      liked_hash = {category: "most_liked", boards: get_customized_forms(most_liked)}
+      
+      most_viewed = Form.most_viewed(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_viewed.pluck(:id)
+      viewed_hash = {category: "most_viewed", boards: get_customized_forms(most_viewed)}
+
+      most_saved = Form.most_saved(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_saved.pluck(:id)
+      saved_hash = {category: "most_saved", boards: get_customized_forms(most_saved)}
+      
+      most_shared = Form.most_shared(@forms_uniq_ids)
+      @forms_uniq_ids = @forms_uniq_ids + most_shared.pluck(:id)
+      shared_hash = {category: "most_shared", boards: get_customized_forms(most_shared)}
+      
+
       @cat_boards.push trend_hash
       @cat_boards.push recent_hash
       @cat_boards.push liked_hash
       @cat_boards.push viewed_hash
-      @cat_boards.push shared_hash
       @cat_boards.push saved_hash
+      @cat_boards.push shared_hash
 
       # TODO: Fetch categories_ids
       @formss = @cat_boards.to_json
@@ -68,6 +90,8 @@ class StaticPagesController < ApplicationController
   def categories
     @home_user = true;
     @cat_name = params[:name].downcase
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    puts @cat_name
     if Category.pluck(:category_name).include?(@cat_name)
       @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
       puts @forms.count
