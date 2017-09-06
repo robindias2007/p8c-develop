@@ -1,7 +1,11 @@
 <div class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
   <div class="col-md-10" id="userProfile">
     <div id="username">
-    	<i class="material-icons md-120">account_circle</i>
+    	<% if @user.photo_url.present? %>
+        <div class="user-profile-avatar" style='background-image:url("<%= @user.photo_url %>")'></div>
+      <% else %>
+        <i class="material-icons md-120">account_circle</i>
+      <% end %>
     	<div id="userDescription">
     		<h4><%= @user.username  %></h4>
     		<h5><%= @user.author  %></h5>		
