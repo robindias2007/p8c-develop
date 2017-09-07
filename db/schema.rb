@@ -41,11 +41,22 @@ ActiveRecord::Schema.define(version: 20170907072229) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "beta", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "email"
+  end
+
   create_table "categories", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "category_name"
     t.integer  "weightage"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.boolean  "category_header"
   end
 
   create_table "follows", force: :cascade do |t|
