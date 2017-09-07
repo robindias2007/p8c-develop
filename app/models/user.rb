@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
         user = User.new
         user.password = Devise.friendly_token[0, 10]
         user.email = auth.info.email
-        user.social_image_url = large_social_image_url(auth)
+        user.avatar = large_social_image_url(auth)
         user.name = auth.info.name
         user.username = username_from_oauth(auth)
         user.author = auth.info.description
