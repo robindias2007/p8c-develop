@@ -1,0 +1,35 @@
+<div class="maincont">
+<%= form_for @user, :url => { :action => "user_create_for_admin" } do |f| %>
+
+  
+  <div class="field">
+  	<%= f.label :username %><br />
+  	<%= f.text_field :username, autofocus: true , id:'textfield' %>
+  </div>
+    <%= f.hidden_field :email, autofocus: true, id:'textfield' , value:(@user.username.to_s + "@curativ.com") %>
+  	<%= f.hidden_field :password, autofocus: true, id:'textfield', value:"123456789" %>
+    <%= f.hidden_field :password_confirmation, autofocus: true, id:'textfield', value:"123456789" %>
+  	<%= f.hidden_field :profile_completed, value:true, id:'textfield' %>
+  	<%= f.hidden_field :name, value:"curativ" %>
+
+  <div class="field">
+  	<%= f.label :author %><br />
+  	<%= f.text_field :author, autofocus: true, id:'textfield' %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :avatar %>
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div class="field">
+    <%= f.label :categories %>
+    <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %> 
+  </div>
+
+  <div class="field">
+  	<%= f.submit "Create_User", name:"commit" %>
+  </div>
+
+<% end %>
+</div>

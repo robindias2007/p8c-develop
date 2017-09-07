@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_admin, :only => [:index]
+  before_filter :authenticate_admin, :only => [:index, :user_for_admin]
   before_action :set_user, except: [:followers]
   before_action :check_profile_complted, only: :edit
   before_filter :find_userid, :only => [:show, :show_saved, :show_drafts, :show_liked]
@@ -118,11 +118,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_for_admin
+    @user = User.new
+  end
+
+  def user_create_for_admin
+    @user = User.new(user_params)
+    if params[:commit] == 'Create_User'
+      @user.update(email:@user.username + "@curativ.com", categories_ids:params[:user][:categories_ids], :confirmed_at => DateTime.now)
+      @user.skip_confirmation!
+      @user.save
+      redirect_to user_admin_path
+    else
+      redirect_to dashboard_path
+    end
+  end
+
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :avatar, :author, :email, :categories_ids).merge(profile_completed: true)
+    params.require(:user).permit(:username, :name, :password, :password_confirmation, :avatar, :author, :email, :categories_ids, :profile_completed).merge(profile_completed: true)
   end
 
   def set_user
@@ -143,4 +159,7 @@ class UsersController < ApplicationController
     end
   end
 
+  def authenticate_admin
+    authenticate_admin!
+  end
 end

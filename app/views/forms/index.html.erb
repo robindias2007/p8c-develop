@@ -17,6 +17,7 @@
                     <th>Admins Date</th>
                     <th>Tags</th>
                     <th>Edit Tags</th>
+                    <th>Curativ Accounts</th>
                     <th>Admins Date</th>
                     <th>View Count</th>
                     <th>Shared Count</th>
@@ -35,7 +36,7 @@
                     <% @user = User.find(@userflname) %>
                     <td><%= form.id %></td>
                     <td><%= form.title %></td>
-                    <td><%= @user.name %></td>
+                    <td><%= @user.username %></td>
                     <td><%= form.title1 %> <hr> <%= form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
                     <td><%= form.title2 %> <hr> <%= form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
                     <td><%= form.title3 %> <hr> <%= form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first %></td>
@@ -47,6 +48,12 @@
                     <td><%= form.tag_list %></td>
                     <td>
                       <%= form_for form, :url => forms_path(form), method: :get do |f| %>
+                      <% if form.user.id == current_admin.id %>
+                        <% @user_cur = User.where("email LIKE ?", "%@curativ.com%") %>
+                        <%= f.select :user_id, options_for_select(@user_cur.map { |cur| [cur.username, cur.id] }) %>
+                      <% end %>  
+                    </td>
+                    <td>
                         <!-- ROBIN, WE NEED TO ADD THESE FIELDS INTO THE DB -->
                         <div class="field">
                           <%= f.text_field :tag_list  , id:"textfield", rows:3 , placeholder:"List upto 5 keywords, separated by commas,to help people to discover your board!", 'data-role'=>'tagsinput', value:form.tag_list.to_s %>
@@ -100,7 +107,7 @@
 
   th
   {
-   background-color: #D3D3D3;
+   background-color: white;
    border: 1px solid black;
   }
 
