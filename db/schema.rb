@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823060330) do
+ActiveRecord::Schema.define(version: 20170907072229) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -121,6 +121,10 @@ ActiveRecord::Schema.define(version: 20170823060330) do
     t.integer  "likes_count"
     t.integer  "saved_count"
     t.integer  "share_count"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"

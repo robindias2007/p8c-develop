@@ -312,6 +312,27 @@ table, th, td{
     width:47%;
 }
 
+.user-avatar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+
+.user-profile-avatar {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;   
+}
+
 /*
 .dropdown-menu > li
 {

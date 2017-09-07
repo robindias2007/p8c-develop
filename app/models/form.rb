@@ -11,6 +11,12 @@ belongs_to :user
 belongs_to :category
 has_many :user_form_bookmarks
 
+has_attached_file :photo,
+        :url => ":s3_domain_url",
+        :path => "/:class/:attachment/:id_partition/:style/:filename",
+        :s3_host_name => "s3.us-east-2.amazonaws.com"
+validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+
 scope :published, -> {
   where(:publish => true)
 }
@@ -56,13 +62,18 @@ scope :saved, -> {
   def save_social_image
     str = ApplicationController.new.render_to_string('forms/social_image', locals: {form: self}, layout: false)
 
-    kit = IMGKit.new(str, :quality => 30, width: 1000, height: 500)
-
+    kit = IMGKit.new(str, :quality => 30, width: 1000, height: 450)
+    kit.javascripts << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('application.js')}"
     # Please make sure to check 'forms/social_image.html.erb' file if any of the below stylesheets are updated
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('application.css')}"
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('material_icons.css')}"
     kit.stylesheets << "#{Rails.root}/public#{ActionController::Base.helpers.asset_url('form_social_image.css')}"
-    kit.to_file(Rails.root + 'public/forms_social_images/' + "form_#{id}.png")
+    img = kit.to_img(:png)
+    file = File.new("#{Rails.root}/public/forms_social_images/template_#{self.id.to_s}.png", 'w', :encoding => 'ascii-8bit')
+    file.write(img)
+    self.photo = file
+    self.save
+    File.delete("#{Rails.root}/public/forms_social_images/template_#{self.id.to_s}.png")
   end
 
 # protected

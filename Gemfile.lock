@@ -45,6 +45,14 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.4.1.1)
       execjs
+    aws-sdk (2.10.40)
+      aws-sdk-resources (= 2.10.40)
+    aws-sdk-core (2.10.40)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.10.40)
+      aws-sdk-core (= 2.10.40)
+    aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -107,6 +115,7 @@ GEM
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
+    jmespath (1.3.1)
     jquery-rails (4.2.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -276,6 +285,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 4.0)
   acts_as_follower
   acts_as_votable (~> 0.10.0)
+  aws-sdk (~> 2.5, >= 2.5.5)
   bootstrap-sass (~> 3.3.6)
   bootstrap-tagsinput-rails
   bootstrap3-datetimepicker-rails (~> 4.17.47)
@@ -310,4 +320,4 @@ DEPENDENCIES
   wkhtmltoimage-binary
 
 BUNDLED WITH
-   1.14.6
+   1.15.3
