@@ -17,4 +17,5 @@
 /tmp
 .idea
 vendor/assets/bower_components
-public/forms_social_images
+/public/forms_social_images/*
+/public/system/*
