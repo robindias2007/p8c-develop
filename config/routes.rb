@@ -59,6 +59,10 @@ Rails.application.routes.draw do
   get 'user/:id/followings' => 'users#followings'
   get 'user/:id/followers' => 'users#followers'
   
+  get '/user_admin' => 'users#user_for_admin'
+  post '/user_admin' => 'users#user_create_for_admin'
+
+
   root 'static_pages#home'
    
   
