@@ -33,6 +33,7 @@ gem 'client_side_validations'
 # gem 'unicorn'
 gem 'paperclip'
 gem 'acts-as-taggable-on', '~> 4.0'
+gem 'aws-sdk', '~> 2.5', '>= 2.5.5'
 
 
 gem 'readingtime'

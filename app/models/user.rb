@@ -23,7 +23,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable    #this is used for user sign in and sign out
   #to understand devise we have to refer devise on https://github.com/plataformatec/devise
 
-  has_attached_file :avatar, styles: {medium: "300x300", thumb: "100x100"}
+  has_attached_file :avatar, styles: {medium: "300x300", thumb: "100x100"}, 
+  		:url => ":s3_domain_url",
+        :path => "/:class/:attachment/:id_partition/:style/:filename",
+        :s3_host_name => "s3.us-east-2.amazonaws.com"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   serialize :categories_ids, Array
 

@@ -30,7 +30,7 @@
           <!--<meta name="twitter:site" content="" /> -->
           <meta name="twitter:title" content="<%= @forms.first.title %>"/>
           <meta name="twitter:description" content="<%= @forms.first.description[0..200] %>"/>
-          <meta name="twitter:image:src" content="<%= image_url('/forms_social_images/form_' + @forms.first.id.to_s + '.png') %>"/>
+          <meta name="twitter:image:src" content="<%= @forms.first.photo.url %>"/>
           <!--<meta name="twitter:image:src" content="Lense" />-->
 
           <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
@@ -39,7 +39,7 @@
           <meta property="og:title" content="<%= @forms.first.title %>"/>
           <meta property="og:type" content="article"/>
           <meta property="og:url" content="<%= form_url(@forms.first.id) %>"/>
-          <meta property="og:image" content="<%= image_url('/forms_social_images/form_' + @forms.first.id.to_s + '.png') %>"/>
+          <meta property="og:image" content="<%= @forms.first.photo.url %>"/>
           <meta property="og:description" content="<%= @forms.first.description[0..200] %>"/>
         <% end %>
       <% end %>
