@@ -10,8 +10,7 @@ class FormsController < ApplicationController
     @forms = Form.order(created_at: :desc).all
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
       @form = Form.find(params[:format]) rescue nil
-      if params[:commit] == 'Publish'
-        debugger         # it checks if the user has clicked publish the it updates the form with publish
+      if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
         @form.update_attributes(form_params)      #publish becomes true
         redirect_to :back
       end
