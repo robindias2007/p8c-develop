@@ -21,47 +21,44 @@
     .bookmark-button:focus {outline:0;}
   </style>
     <div class="container1" ng-repeat="board in boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">  <!-- The elements of the entire box. -->  
+
       <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
         <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+          
+        <!-- Do we need this statement? If everyone needs to sign in its redundant -->
           <% if user_signed_in? %>
+
+            <!--Do we need this if statement? I think it was to distinguish the user paths but they are the same now for current and non-current users, so can be removed -->
             <% if @home_user %>
               <div class="date" id="profile">
                 <a href="/user/{{board.user.username}}/publish">
                   <i class="material-icons">account_circle</i>
                   <div id="prouser">{{board.user.username}}</div> 
-                </a> &nbsp; &#183; &nbsp;
+                </a>
+                &nbsp; &#183; &nbsp; HOMEBOARDS
                 <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                <h10 class="date"></h10>
-                <div class="date">
-                  &nbsp; &#183; &nbsp;
-                </div>
               </div>
             <% else %>
               <div class="date" id="profile">
                 <a href="/user/{{board.user.username}}/publish">
                   <i class="material-icons">account_circle</i>
                   <div id="prouser">{{board.user.username}}</div>
-                </a>&nbsp; &#183; &nbsp;
+                </a>
+                &nbsp; &#183; &nbsp; HOMEBOARDS
                 <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                <h10 class="date"></h10>
-                <div class="date">
-                  &nbsp; &#183; &nbsp;
-                </div>
               </div>
             <% end %>
+
           <% else %>
             <div class="date" id="profile">
               <a href="/users/sign_in">
                 <i class="material-icons">account_circle</i>
                 <div id="prouser">{{board.user.username}}</div>
-              </a>&nbsp; &#183; &nbsp;
+              </a>&nbsp; &#183; &nbsp; HOMEBOARDS
               <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-              <h10 class="date"></h10>
-              <div class="date">
-                &nbsp; &#183; &nbsp;
-              </div>
             </div>
-          <% end %>          
+          <% end %>   
+
           <a href="/forms/{{board.id}}"><h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2></a> 
         </div>
         <div class="container8" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
@@ -107,6 +104,7 @@
           <!-- Bootstrap to divide the entire page into colums -->    
           <h5 class="internal_text" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.dsc}}</h5>
         </div>
+
         <div id="verticalLine" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"></div>
         <div class="container3" style="overflow-x: hidden">
           <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
@@ -140,9 +138,6 @@
               </a>
             </li>
           </ul>
-        </div>
-        <div id="hScroll">
-          <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
         </div>
         <div class="col-md-12 container4">
           <div class="boardFooter date">        

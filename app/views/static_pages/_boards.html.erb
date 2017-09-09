@@ -1,36 +1,23 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
 <div class="" ng-controller="AppCtrl" ng-init='init(<%= @formss %>, <%= @keys %>)'>
-  <style type="text/css">
-    .flickity-page-dots {
-      display: none;
-    }
-    .article-cell {
-      width: 250px !important;
-      border: 1px solid #e3e3e3;
-      box-shadow: 0px 1px 1px #888888;
-      z-index: 3;
-      margin: 20px 0.5%;
-      padding: 0px 15px;
-      background-color:white;
-    }
-    .bookmark-button {
-      border: none;
-      background: transparent;
-    }
-    .bookmark-button:focus {outline:0;}
-  </style>    
+ 
     <div class="boardContainer" ng-repeat="cat_board in cat_boards">
       <div class="">
         <div class="categoryheader">
-          <div class="categorytitle col-md-8" style="">{{cat_board.category}}</div>
-          <div class="categorytitle col-md-4" style="padding-right: 0px; height: 50px">
+          <div class="categorytitle col-md-8" ><span>{{cat_board.category}}</span></div>
+          <div class="categorytitle col-md-4">
             
-            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'most_viewed' && cat_board.category != 'most_recent' && cat_board.category != 'most_liked' " class="" ng-href="/categories/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'most_viewed' && cat_board.category != 'most_recent' && cat_board.category != 'most_liked' " ng-href="/categories/{{cat_board.category}}">
+              <i class="material-icons">keyboard_arrow_right</i>  
+            </a>
 
-            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'most_viewed' || cat_board.category == 'most_recent' || cat_board.category == 'most_liked')" class="" ng-href="/{{cat_board.category}}" style="float: right"><i class="material-icons" style="font-size: 56px">keyboard_arrow_right</i></a>
+            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'most_viewed' || cat_board.category == 'most_recent' || cat_board.category == 'most_liked')" ng-href="/{{cat_board.category}}">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </a>
           
           </div>
+          <hr>
         </div>        
         <div class="container1" ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">
           <!-- The elements of the entire box. -->  
@@ -40,26 +27,18 @@
                 <% if @home_user %>
                   <div class="date" id="profile">
                     <a href="/user/{{board.user.username}}/publish">
-                      <i class="material-icons">account_circle</i>
+                      <i class="material-icons md-40">account_circle</i>
                       <div id="prouser">{{board.user.username}}</div> 
-                    </a> &nbsp; &#183; &nbsp;
-                    <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                    <h10 class="date"></h10>
-                    <div class="date">
-                      &nbsp; &#183; &nbsp;
-                    </div>
+                      <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
+                    </a>
                   </div>
                 <% else %>
                   <div class="date" id="profile">
                     <a href="/user/{{board.user.username}}/publish">
                       <i class="material-icons">account_circle</i>
                       <div id="prouser">{{board.user.username}}</div>
-                    </a>&nbsp; &#183; &nbsp;
+                    </a>&nbsp; &#183; &nbsp; BOARDS2
                     <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                    <h10 class="date"></h10>
-                    <div class="date">
-                      &nbsp; &#183; &nbsp;
-                    </div>
                   </div>
                 <% end %>
               <% else %>
@@ -67,27 +46,22 @@
                   <a href="/users/sign_in">
                     <i class="material-icons">account_circle</i>
                     <div id="prouser">{{board.user.username}}</div>
-                  </a>&nbsp; &#183; &nbsp;
+                  </a>&nbsp; &#183; &nbsp; BOARDS3
                   <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                  <h10 class="date"></h10>
-                  <div class="date">
-                    &nbsp; &#183; &nbsp;
-                  </div>
                 </div>
               <% end %>          
-              <a href="/forms/{{board.id}}"><h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2></a> 
             </div>
             <div class="container8" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
               <% if user_signed_in? %>
                 <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-                  <h10 class="date">Save Collection &nbsp; </h10>
+                  <h10 class="date">Save &nbsp; </h10>
                   <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
                   <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>              
                   <%-# It tells you the total count or the total likes on the current form  -%>
                 </div>
               <% else %>          
                 <div class="bookmark">
-                  <h10 class="date">Save Collection &nbsp; </h10>
+                  <h10 class="date">Save &nbsp; </h10>
                   <i class="material-icons">bookmark</i>
                 </div>      
               <% end %>
@@ -124,6 +98,9 @@
               </div>
             </div>
           </div>
+          <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+              <a href="/forms/{{board.id}}"><h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2></a> 
+            </div>
           <div class="container2" style="width: 100%">
             <div class="col-md-4" id="description" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"> 
               <!-- Bootstrap to divide the entire page into colums -->    
@@ -136,9 +113,6 @@
                 <li class="article-cell" ng-repeat="link in board.links" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">  
                   <a href="{{link.url}}" target="framename", id="formclick" >                 
                     <hr>
-                    <h4 class="title1" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-                      {{link.title}}
-                    </h4>                
                     <div class="container6">
                       <figure class="effect-sadie" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
                         
@@ -153,7 +127,10 @@
                           </figcaption> 
                         
                       </figure>
-                    </div>                
+                    </div>  
+                    <h4 class="title1" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+                      {{link.title}}
+                    </h4>               
                     <div id="link">{{link.host}}                  
                     </div>                 
                     <br>
@@ -162,9 +139,6 @@
                   </a>
                 </li>
               </ul>
-            </div>
-            <div id="hScroll">
-              <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
             </div>
             <div class="col-md-12 container4">
               <div class="boardFooter date">        
