@@ -79,6 +79,7 @@ textarea {
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
+.material-icons.md-40 { font-size: 40px; }
 .material-icons.md-48 { font-size: 48px; }
 .material-icons.md-120 { font-size: 120px; }
 
@@ -486,22 +487,21 @@ padding-bottom: 1px;
 
 
 .bookmark {   
-    margin-top: 10px;
-    float: right;
+    margin: 10px 0px 0px;
     display:inline-flex;
     color:#9c1717;
 }
 
 .like {   
+    margin: 10px 6px 0px;
     display:inline-flex;
-    float: right;
     color:#9c1717;
 }
 
 .share {   
+    margin: 10px 0px 0px;
     display:inline-flex;
-    clear:both;
-    float:right;
+    color:#9c1717;
 }
 
 #likes {
@@ -541,12 +541,12 @@ font-size:14px;
 .title
 {   
     font-family: Futura, sans-serif;
-    font-size: 33px;
+    font-size: 28px;
     font-weight: bold;
     text-transform: capitalize;
-    line-height: 1.3;
+    line-height: 1.4;
     color: #1c1c1c;
-    margin:18px 0px 0px;
+    margin:6px 0px 0px;
     text-align:left;
     width:100%;
     overflow: hidden;
@@ -559,7 +559,7 @@ font-size:14px;
 .title1
 {
     font-family: Futura, sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: normal;
     text-transform: none;
     float: left;
@@ -587,7 +587,7 @@ font-size:14px;
     font-weight: normal;
     font-style: Italic;
     width: 100%;
-    height:280px;
+    height:274px;
     line-height: 1.5;   
     margin: 6px auto 10px auto;
     overflow-y: hidden;
@@ -683,7 +683,7 @@ padding-bottom:1px;
 }
 
 #verticalLine{
-    height:291px;
+    height:280px;
     border-left:1px solid #e3e3e3;
     margin:1.3% 0;
     float:left;
@@ -709,8 +709,9 @@ padding-bottom:1px;
 
 .container4
 {
-    display: inline-block;
-    /*border-top:1px solid #e3e3e3;
+    display:none;
+    /*display: inline-block;
+    border-top:1px solid #e3e3e3;
     padding-top:6px;*/
     padding-right:0px;
 }
@@ -726,7 +727,7 @@ padding-bottom:1px;
 
 .container7 {
     float:left;
-    width:91%;
+    width:81%;
 }
 
 .halfBoard.container7 {
@@ -786,7 +787,7 @@ height: 50%;
     width: 214px;
     height: 150px;
     object-fit:cover;
-    margin-top:10px;
+    margin-bottom:10px;
 }
 
 
@@ -1000,6 +1001,35 @@ $transition : 0.35s;
 }
 
 
+/* --------- FLICKITY ----------*/
+
+
+.flickity-page-dots {
+      display:none;
+    }
+
+.article-cell {
+      width: 222px !important;
+      border: 1px solid #e3e3e3;
+      box-shadow: 0px 1px 1px #888888;
+      z-index: 3;
+      margin: 15px 1%;
+      padding: 0px 10px;
+      background-color:white;
+    }
+
+.bookmark-button {
+      border: none;
+      background: transparent;
+    }
+
+.bookmark-button:focus {outline:0;}
+
+
+
+
+
+
 /* --------------------------------- WHAT IS THIS? --*/
 .vertical
 {
@@ -1017,7 +1047,7 @@ $transition : 0.35s;
 
 #profile {        
     display:inline-flex; 
-    color: black;
+    color: #1c1c1c;
     float:left;
     margin-top:10px;
 }
@@ -1026,26 +1056,35 @@ $transition : 0.35s;
     background-color:white;
 }
 
-#useravatar
-{
+#profile i {        
+    float:left;
+    margin-right:6px;
+}
+
+#profile h10 {
+    display:block;
+    margin:0px 3px;
+    padding:0px 3px;
+    line-height:1;
+    text-align:left;
+}
+
+#useravatar {
     width: 30%;
     
 }
 
-
-
-#prouser
-{
-line-height:24px;
-margin: 0px 3px;
-color:#1c1c1c;
-float:right;
+#prouser {
+    margin: -3px 0px 0px;
+    color:#1c1c1c;
+    float:left;
+    font-size:14px;
+    font-weight:bold;
 }
 
-hr
-{
+hr {
     border: 1px solid #8B0000;
-    margin: 10px 0px;  
+    margin: 6px 0px;  
     clear:both;  
 }
 
@@ -1068,7 +1107,7 @@ hr
 
 #link
 {   
-    font-size: 15px;
+    font-size: 13px;
     color: #9c1717;
     font-family: 'PT Serif';
     font-weight: normal;
@@ -1155,23 +1194,6 @@ float: left;
 }
 
 -------------------*/
-
-#hScroll
-{   
-    z-index:5;
-
-    position:relative;
-
-    line-height:36px;
-    margin-top:100%;
-    height:50%;
-
-    border-radius:2px;
-    color: white;
-    background-color:#888888;
-
-    display:none;
-}
 
 
 #cur .text
@@ -1665,28 +1687,32 @@ ul.followers li {
   margin-bottom: 30px;
 }
 
-.categoryheader
-{
-    margin: 0px 9px;
+.categoryheader {
+    margin: 21px 0px 15px;
 }
 
-.categoryheader > h1
-{
-    text-align: left;
+.categoryheader hr {
+    width:97%;
+    margin:auto;
+    border:1px solid #ddd;
 }
+
+
 .categoryheader .categorytitle {
     text-align: left;
-    font-size: 36px;
+    font-size: 21px;
     font-family:Futura, sans-serif;
-    font-weight:bold;
-    text-transform:capitalize;
-    line-height:1.4;
-    color:#222222;
+    text-transform:uppercase;
+    line-height:1.2;
 }
 
-.categoryheader > a
-{
+.categorytitle > a {
     float: right;
-    padding: 10px 0px 0px 0px;
-    margin-top: -5%;
+    color:#1c1c1c;
+}
+
+.categorytitle span {
+    border-bottom:2px solid #1c1c1c;
+    padding-bottom:2px;
+    color:#1c1c1c;
 }
