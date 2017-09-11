@@ -101,7 +101,7 @@ class UsersController < ApplicationController
   def followings
     user = User.find(params[:user_id].to_i)
     @followings = user.all_following
-    @followings_arr = @followings.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: f.avatar.url, following: current_user.following?(f) }}
+    @followings_arr = @followings.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: (f.avatar_file_name == nil ? nil : f.avatar.url), following: current_user.following?(f) }}
     respond_to do |format|
       format.html
       format.json { render json: { followings: @followings_arr.to_json } }
@@ -111,7 +111,7 @@ class UsersController < ApplicationController
   def followers
     user = User.find(params[:user_id].to_i)
     @followers = user.followers
-    @followers_arr = @followers.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: f.avatar.url, following: current_user.following?(f) }}
+    @followers_arr = @followers.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: (f.avatar_file_name == nil ? nil : f.avatar.url), following: current_user.following?(f) }}
     respond_to do |format|
       format.html
       format.json { render json: { followers: @followers_arr.to_json } }
