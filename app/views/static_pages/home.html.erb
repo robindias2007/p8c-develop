@@ -2,7 +2,7 @@
 <% if user = current_user %>
 <div class="maincont">
 
-<%= render 'static_pages/boards'%>
+  <%= render 'static_pages/boards'%>
 
 
 </div>
@@ -10,6 +10,8 @@
 
 <!-- if user isn't signed in -->
 <% else %>
+
+<div id="showModal"></div>
 <!-- <div id="banner"> -->
 	<!--<div class="col-md-11" id="bannerContent">
 	<h4 class="bannerSubtitle">Collect & Engage With The Best Curated Content On The Web.</h4>
@@ -22,16 +24,28 @@
 <!-- </div> -->
 
 <div class="home_before_login">
-	<h1>Welcome to TheCurativ</h1>
-	<%= link_to 'Sign In/Up', new_user_session_path, remote:true %>
+  <br><br><br>
+  <p style="font-size:32px; color: white;">Welcome to TheCurativ
+  <br><br> Please Login To Continue <br><br>
+  <h3 style="color:white">Click here</h3>
+  </p>
+  <br><br>
+  <b><%= link_to 'Sign In/Up', new_user_session_path, remote:true, id:"Sign" %></b>
 </div>
 <style type="text/css">
-	.home_before_login
-	{
-		background: url('/assets/home-office-336378_960_720.jpg');
-		background-size: 100% 100%;
-	    background-repeat: no-repeat;
-		}
+  .home_before_login
+  {
+    background-image: url('/assets/69067345-writer-wallpapers.jpg');
+    height: 730px;
+    width: 100%;
+  }
+
+  #Sign
+  {
+  	color: white;
+  	font-size: 26px;
+  }
+
 </style>
 
 <% end %>
