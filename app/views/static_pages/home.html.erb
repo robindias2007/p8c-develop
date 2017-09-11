@@ -10,7 +10,6 @@
 
 <!-- if user isn't signed in -->
 <% else %>
-
 <!-- <div id="banner"> -->
 	<!--<div class="col-md-11" id="bannerContent">
 	<h4 class="bannerSubtitle">Collect & Engage With The Best Curated Content On The Web.</h4>
@@ -21,3 +20,18 @@
 	In doing so each board offers a unique - i.e. your perspective on a topic So take your time and put a little thought into it before you express yourself!</p>
 	</div>-->
 <!-- </div> -->
+
+<div class="home_before_login">
+	<h1>Welcome to TheCurativ</h1>
+	<%= link_to 'Sign In/Up', new_user_session_path, remote:true %>
+</div>
+<style type="text/css">
+	.home_before_login
+	{
+		background: url('/assets/home-office-336378_960_720.jpg');
+		background-size: 100% 100%;
+	    background-repeat: no-repeat;
+		}
+</style>
+
+<% end %>

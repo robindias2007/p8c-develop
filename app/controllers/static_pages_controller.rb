@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   before_filter :authenticate_admin, :only => [:dashboard]
+  # before_filter :authenticate_user, :only => [:home]
   #before_action :set_boards, only: [:trending, :most_recent, :most_liked, :most_viewed]
   
   def get_customized_forms(forms)
@@ -77,13 +78,7 @@ class StaticPagesController < ApplicationController
       # TODO: Fetch categories_ids
       @formss = @cat_boards.to_json
     else
-      @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
-      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
-      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
-      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
-      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
-      @formss = @boards.to_json
+      @skip_header = true;
     end
   end
 
@@ -198,6 +193,10 @@ class StaticPagesController < ApplicationController
 
   def authenticate_admin
     authenticate_admin!
+  end
+
+  def authenticate_user
+    authenticate_user!
   end
 
   
