@@ -99,9 +99,15 @@ textarea {
     display:inline-block;
 }
 
+.nav-pills
+{
+    width:50%;
+    text-align:center;
+}
+
 .nav-pills > li > a {
     border-radius:0px;
-
+    
     &:hover {
      color:#9c1717;
      background-color: transparent;

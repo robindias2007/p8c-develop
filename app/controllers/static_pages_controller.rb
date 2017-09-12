@@ -129,7 +129,10 @@ class StaticPagesController < ApplicationController
     b = a.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}
     c = b.sort_by{ |k, v| v }.reverse.to_h
     @d = c.select {|x| x.start_with? 'cat_'}
-    
+    @d.each do |f,v|
+      e = Category.where(category_name:f)      
+      puts e
+    end
     @cate_name = Category.pluck(:category_name)
   end
 
