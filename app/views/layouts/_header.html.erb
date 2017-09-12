@@ -79,8 +79,8 @@
     <!-- Secondary Nav -->
     <ul class="nav nav-pills col-md-11">
       <li><a href="/trending">Trending</a></li> 
-      <% a = Form.all.map {|e| e.tag_list}.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}.sort_by{ |k, v| v }.reverse.to_h.select {|x| x.start_with? 'cat_'} %>
-      <% a.first(3).each do |f,v| %>
+      <% tren_cat = Form.all.map {|e| e.tag_list}.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}.sort_by{ |k, v| v }.reverse.to_h.select {|x| x.start_with? 'cat_'} %>
+      <% tren_cat.first(3).each do |f,v| %>
         <li><a href="/categories/<%= f[4..-1] %>"><%= f[4..-1].capitalize %></a></li>
       <% end %>
       <!-- <li role="presentation" class="dropdown">
