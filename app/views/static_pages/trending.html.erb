@@ -1,6 +1,8 @@
 <div class="maincont">
 
-<%= render 'static_pages/cat_boards'%>
+  <% @d.each do |f,v| %>
+  	<%= f[4..-1] %>
+  <% end %>
 
 
 </div>

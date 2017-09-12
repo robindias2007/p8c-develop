@@ -46,7 +46,10 @@
                   <div class="currentheaderusername"><%= current_user.username %></div>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/user/<%= current_user.username %>/publish">My Boards</a></li>
+                  <!-- <li><a href="/user/<%= current_user.username %>/publish">My Boards</a></li> -->
+                  <li><a href="/user/<%= current_user.username %>/publish">Published</a></li>
+                  <li><a href="/user/<%= current_user.username %>/drafts">Drafts</a></li>
+                  <li><a href="/user/<%= current_user.username %>/saved">Saved</a></li>
                   <li><a href="/users/edit">Edit Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
@@ -110,7 +113,7 @@
 
       <!-- My Boards if user has signed in -->
       <% if user_signed_in? %>
-          <li role="presentation" class="dropdown" style="float:right;">
+          <!-- <li role="presentation" class="dropdown" style="float:right;">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
               My Boards <span class="caret"></span>
             </a>
@@ -121,7 +124,7 @@
             </ul>
           </li>
       <% end %>
-    </ul>
+    </ul> -->
   </nav>
 
 
