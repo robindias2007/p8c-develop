@@ -122,18 +122,9 @@ class StaticPagesController < ApplicationController
   end
 
   def trending
-    # @forms = Form.published.sample(5)
-    # @boards = get_boards(@forms)
-    # @formss = @boards.to_json
-    a = Form.all.map {|e| e.tag_list}
-    b = a.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}
-    c = b.sort_by{ |k, v| v }.reverse.to_h
-    @d = c.select {|x| x.start_with? 'cat_'}
-    @d.each do |f,v|
-      e = Category.where(category_name:f)      
-      puts e
-    end
-    @cate_name = Category.pluck(:category_name)
+    @forms = Form.published.sample(5)
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
   end
 
   def most_viewed
