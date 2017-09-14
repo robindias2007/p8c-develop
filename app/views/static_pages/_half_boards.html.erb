@@ -9,7 +9,7 @@
         <div class="halfBoard container7">
         <% if user_signed_in? %>
         <% if @home_user %>
-            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp;&#183;&nbsp;
+            <div class="date" id="profile"><a href="/user/<%= form.user.username %>/publish"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div> </a> &nbsp;&#183;&nbsp; 
         <% else %>
             <div class="date" id="profile"><a href="/user/<%= form.user.username %>"><i class="material-icons">account_circle</i><div id="prouser"><%= form.user.username %></div></a>&nbsp;&#183;&nbsp;
         <% end %>

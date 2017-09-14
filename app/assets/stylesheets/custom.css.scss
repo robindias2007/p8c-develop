@@ -5,6 +5,7 @@ $component-active-color:transparent;
 @import "bootstrap";
 @import 'bootstrap-datetimepicker';
 
+
 @font-face {
   font-family: "FuturaStd-Medium";
   src: url(/assets/FuturaStd-Medium.otf) format("truetype");
@@ -330,8 +331,8 @@ table, th, td{
 
 .user-avatar {
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -546,7 +547,7 @@ font-size:14px;
     text-transform: capitalize;
     line-height: 1.4;
     color: #1c1c1c;
-    margin:6px 0px 0px;
+    margin:10px 0px 0px;
     text-align:left;
     width:100%;
     overflow: hidden;
@@ -644,6 +645,8 @@ font-size:14px;
     width:33%;
     float:left;
     clear:both;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 .halfBoard#description {
@@ -685,7 +688,7 @@ padding-bottom:1px;
 #verticalLine{
     height:280px;
     border-left:1px solid #e3e3e3;
-    margin:1.3% 0;
+    margin:1.3% 6px;
     float:left;
     box-shadow: 2px 0px 8px #e3e3e3;
     z-index:4;
@@ -699,25 +702,27 @@ padding-bottom:1px;
 
 .container2 {
     display: inline-block;
+    border-bottom:1px solid #ddd;
 }
 
-#container2
-{
+#container2 {
     display: inline-block;
     /*border-top:1px solid #e3e3e3;*/
+    border-bottom:1px solid #ddd;
 }
 
 .container4
 {
-    display:none;
     /*display: inline-block;
-    border-top:1px solid #e3e3e3;
-    padding-top:6px;*/
+    border-top:1px solid #e3e3e3;*/
+    
     padding-right:0px;
+    padding-left:0px;
 }
 
 .container5 {
     padding-right:0px;
+    padding-left:0px;
     display: inline-flex;
 }
 
@@ -731,11 +736,13 @@ padding-bottom:1px;
 }
 
 .halfBoard.container7 {
-    width:100%;   
+    width:60%;   
 }
 
 .container8 {
     float:right;
+    display:inline-flex;
+    margin-top:4px;
 }
 
 ::-webkit-scrollbar
@@ -1025,9 +1032,10 @@ $transition : 0.35s;
 
 .bookmark-button:focus {outline:0;}
 
-
-
-
+.empty { 
+    color: white;
+    text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
+    }
 
 
 /* --------------------------------- WHAT IS THIS? --*/
@@ -1049,7 +1057,7 @@ $transition : 0.35s;
     display:inline-flex; 
     color: #1c1c1c;
     float:left;
-    margin-top:10px;
+    margin:6px 0px;
 }
 
 #profile:hover {        
@@ -1080,6 +1088,8 @@ $transition : 0.35s;
     float:left;
     font-size:14px;
     font-weight:bold;
+    min-width:91px;
+    text-align:left;
 }
 
 hr {

@@ -1,25 +1,7 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
 <div class="boardContainer" ng-controller="HomeAppCtrl" ng-init="init(<%= @formss %>)">
-  <style type="text/css">
-    .flickity-page-dots {
-      display: none;
-    }
-    .article-cell {
-      width: 250px !important;
-      border: 1px solid #e3e3e3;
-      box-shadow: 0px 1px 1px #888888;
-      z-index: 3;
-      margin: 20px 0.5%;
-      padding: 0px 15px;
-      background-color:white;
-    }
-    .bookmark-button {
-      border: none;
-      background: transparent;
-    }
-    .bookmark-button:focus {outline:0;}
-  </style>
+  
     <div class="container1" ng-repeat="board in boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">  <!-- The elements of the entire box. -->  
 
       <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
@@ -27,19 +9,6 @@
           
         <!-- Do we need this statement? If everyone needs to sign in its redundant -->
           <% if user_signed_in? %>
-
-            <!--Do we need this if statement? I think it was to distinguish the user paths but they are the same now for current and non-current users, so can be removed -->
-            <% if @home_user %>
-              <div class="date" id="profile">
-                <a href="/user/{{board.user.username}}/publish">
-                  <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
-                  <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
-                  <div id="prouser">{{board.user.username}}</div> 
-                </a>
-                &nbsp; &#183; &nbsp; HOMEBOARDS
-                <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-              </div>
-            <% else %>
               <div class="date" id="profile">
                 <a href="/user/{{board.user.username}}/publish">
                   <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
@@ -49,7 +18,6 @@
                 &nbsp; &#183; &nbsp; HOMEBOARDS
                 <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
               </div>
-            <% end %>
 
           <% else %>
             <div class="date" id="profile">
@@ -149,10 +117,3 @@
       </div>
     </div>
 </div>
-<style type="text/css">
-    .empty
-  { 
-    color: white;
-    text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
-  }
-</style>

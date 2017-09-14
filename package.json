@@ -2,7 +2,8 @@
   "name": "p8c-develop",
   "version": "1.0.0",
   "dependencies": {
-    "bower": "1.8.0"
+    "bower": "1.8.0",
+    "material-components-web": "^0.20.0"
   },
   "engine": {
     "node": "6.11.1",
