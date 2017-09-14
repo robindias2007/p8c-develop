@@ -100,9 +100,15 @@ textarea {
     display:inline-block;
 }
 
+.nav-pills
+{
+    width:50%;
+    text-align:center;
+}
+
 .nav-pills > li > a {
     border-radius:0px;
-
+    
     &:hover {
      color:#9c1717;
      background-color: transparent;
@@ -1725,4 +1731,15 @@ ul.followers li {
     border-bottom:2px solid #1c1c1c;
     padding-bottom:2px;
     color:#1c1c1c;
+}
+
+.home_before_login {
+    background-image: url('https://s3.us-east-2.amazonaws.com/thecurativ-master/69067345-writer-wallpapers.jpg');
+    height: 730px;
+    width: 100%;
+}
+
+#Sign {
+    color: white;
+    font-size: 26px;
 }

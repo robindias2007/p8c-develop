@@ -181,11 +181,16 @@
         <div id="hScroll">
           <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
         </div>
+          
         <div class="col-md-12 container4">
           <div class="boardFooter date">        
           </div>
         </div>
       </div>
+    <div class="footedit" ng-if="!current_user.id == board.user.id" >
+      <%= link_to 'Edit & Publish', '/forms/{{board.id}}/edit', class:"btn btn-info btn-md" %>
+      <%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %>  
+    </div>
     </div>
   </div>
 </div>
@@ -195,4 +200,6 @@
     color: white;
     text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
   }
+
+
 </style>

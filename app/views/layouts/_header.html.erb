@@ -46,7 +46,10 @@
                   <div class="currentheaderusername"><%= current_user.username %></div>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/user/<%= current_user.username %>/publish">My Boards</a></li>
+                  <!-- <li><a href="/user/<%= current_user.username %>/publish">My Boards</a></li> -->
+                  <li><a href="/user/<%= current_user.username %>/publish">Published</a></li>
+                  <li><a href="/user/<%= current_user.username %>/drafts">Drafts</a></li>
+                  <li><a href="/user/<%= current_user.username %>/saved">Saved</a></li>
                   <li><a href="/users/edit">Edit Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
@@ -75,8 +78,12 @@
 
     <!-- Secondary Nav -->
     <ul class="nav nav-pills col-md-11">
-      <li><a href="/">Home</a></li>
-      <li role="presentation" class="dropdown">
+      <li><a href="/trending">Trending</a></li> 
+      <% tren_cat = Form.all.map {|e| e.tag_list}.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}.sort_by{ |k, v| v }.reverse.to_h.select {|x| x.start_with? 'cat_'} %>
+      <% tren_cat.first(3).each do |f,v| %>
+        <li><a href="/categories/<%= f[4..-1] %>"><%= f[4..-1].capitalize %></a></li>
+      <% end %>
+      <!-- <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           Categories <span class="caret"></span>
         </a>
@@ -87,7 +94,7 @@
             </a>
           <% end %>
         </ul>
-      </li>
+      </li> -->
       <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           Discover <span class="caret"></span>
@@ -110,7 +117,7 @@
 
       <!-- My Boards if user has signed in -->
       <% if user_signed_in? %>
-          <li role="presentation" class="dropdown" style="float:right;">
+          <!-- <li role="presentation" class="dropdown" style="float:right;">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
               My Boards <span class="caret"></span>
             </a>
@@ -121,7 +128,7 @@
             </ul>
           </li>
       <% end %>
-    </ul>
+    </ul> -->
   </nav>
 
 
