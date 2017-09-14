@@ -304,6 +304,24 @@ class FormsController < ApplicationController
     # end
     end
 
+  def new_modal
+  end
+
+  def get_meta_data
+    meta = MetaInspector.new(params[:url], :allow_non_html_content => true)   rescue nil
+    @data = nil
+    if meta == nil
+      @data = meta
+    else
+      @data = {url: params[:url], content:meta.content_type, title:((meta.content_type == "application/pdf") ? meta.content_type : meta.title), image:meta.images.best, description:meta.description, tags: meta.meta_tags["name"]["keywords"], host: params[:url].sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first} 
+    end          
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @data.to_json }
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

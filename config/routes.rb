@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :user_steps
 
+  get '/forms/new_form' => 'forms#new_modal'
+  get '/forms/get_meta_data' => 'forms#get_meta_data'
   resources :forms do
     member do
       get "like"
