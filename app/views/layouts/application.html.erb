@@ -6,6 +6,9 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= javascript_include_tag :defaults, "rails.validations", "rails.validations.custom" %>
+  
+  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
   <%= yield :social_meta_tags %>
   <meta property="fb:app_id" content="<%= ENV['FACEBOOK_KEY'] %>" />
