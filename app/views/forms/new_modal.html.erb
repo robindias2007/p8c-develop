@@ -41,7 +41,7 @@
   @keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
 
 </style>
-<div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" ng-controller="newFormCtrl" ng-init="init()">
+<div class="modal fade custom-modal" id="createFormModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" ng-controller="newFormCtrl" ng-init="init()">
     <div class="modal-dialog" style="width: 80%">
       <!-- Modal content-->
       <div class="modal-content">
@@ -75,205 +75,81 @@
                   </div>
                   <div class="row" style="width: 100%">
                     <div class="col-md-12" style="text-align:left;padding-left: 15px">
-                      <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="" type="text" name="title" placeholder="Title"></h2>
+                      <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="" type="text" name="title" placeholder="Title" ng-model="formTitle"></h2>
                     </div>
                   </div>
                   <hr style="margin: 0px 20px 0px 20px; border-color: lightgrey">
                   <div class="row" style="width: 100%">
                     <div class="col-md-12"> 
                       <!-- Bootstrap to divide the entire page into colums -->    
-                      <h5 class="new-form-description"><textarea rows="2" placeholder="description"></textarea></h5>
+                      <h5 class="new-form-description"><textarea rows="2" placeholder="description" ng-model="formDsc"></textarea></h5>
                     </div>
                   </div>
                   <hr style="margin: 0px 20px 0px 20px; border-color: lightgrey">
                   <div class="row" style="width: 100%">
                     <div class="col-md-12"> 
-                      <ul class="row form-article-cells" style="width: 100%; margin-left: 0px">
+                      <ul class="row form-article-cells" ui-sortable ng-model="newFormLinks" style="width: 100%; margin-left: 0px">
+                        
                         <!-- 1st link -->
-                        <li class="form-article-cell">
+                        <li class="form-article-cell" ng-repeat="link in newFormLinks track by $index">
                           <hr>
-                          <div style="display: block; height:88%" ng-if="!newFormLinks[0].loading1 && !newFormLinks[0].displayLinkData">
+                          <div style="display: block; height:88%" ng-if="newFormLinks[$index].show.addLink">
                             <div style="display: block; height: 60%">
-                              <a ng-if="!newFormLinks[0].link1" href="" ng-click="AddLinkClicked('link1')" style="position: relative; top:45px">
+                              <a href="" ng-click="AddLinkClicked($index.toString())" style="position: relative; top:45px">
                                 <i class="material-icons" style="font-size:50px">add_circle</i>
                                 <p>Add a new link</p>
                               </a>
-                              <a ng-if="newFormLinks[0].link1" href="">
-                                <p style="color: red" ng-if="newFormLinks[0].error1">{{newFormLinks[0].error1}}</p>
-                                <input type="text" ng-model="newFormLinks[0].url1" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
-                              </a>  
+                            </div>                            
+                          </div>
+                          <div style="display: block; height:88%" ng-if="newFormLinks[$index].show.linkBox">
+                            <div style="display: block; height: 60%">
+                              <a href="">
+                                <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
+                                <input type="text" ng-model="newFormLinks[$index].url" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
+                              </a>
                             </div>                            
                             <div style="display: block; height: 40%">
-                              <a ng-if="newFormLinks[0].link1" href="" class="btn btn-sm" ng-click="uploadLink('link1')" style="position: relative; top: 5px">
+                              <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())" style="position: relative; top: 5px">
                                 <i class="material-icons" style="font-size: 35px">file_upload</i>
                               </a>
                             </div>
                           </div>
-                          <div style="display: block; height: 88%" ng-if="newFormLinks[0].loading1 && !newFormLinks[0].displayLinkData">
+                          <div style="display: block; height: 88%" ng-if="newFormLinks[$index].show.loading">
                             <i class="material-icons rotate-animation" style="">cached</i>
                           </div>
-                          <div style="display: block; height: 88%" ng-if="!newFormLinks[0].loading1 && newFormLinks[0].displayLinkData">
+                          <div style="display: block; height: 88%" ng-if="newFormLinks[$index].show.viewData">
                             <div style="display: block; height: 50%">
-                                <img ng-src="{{newFormLinks[0].image1}}" ng-if="newFormLinks[0].image1" style="height:100%; width: 100%"/>
-                                <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[0].image1" style="height:100%; width: 100%">
+                                <div class="" style="position: absolute;">
+                                  <a href="" ng-click="AddNoteClicked($index.toString())" style="">
+                                    <i class="material-icons" style="font-size:20px">insert_comment</i>
+                                  </a>
+                                  <a href="" ng-click="addNewLink($index.toString())" style="">
+                                    <i class="material-icons" style="font-size:20px">mode_edit</i>
+                                  </a>
+                                </div>
+                                <img ng-src="{{newFormLinks[$index].image}}" ng-if="newFormLinks[$index].image" style="height:100%; width: 100%"/>
+                                <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[$index].image" style="height:100%; width: 100%">
                             </div>
                             <div style="display:block; height: 40%">
-                              <p style="font-weight: bold; font-size: 13px; margin-bottom: 0px; position: relative; top: 10px">{{newFormLinks[0].title1}}</p>
+                              <p style="font-weight: bold; font-size: 13px; margin-bottom: 0px; position: relative; top: 10px">{{newFormLinks[$index].title | cut:true:70:' ...'}}</p>
                             </div>
                             <div style="display: block; height: 10%">
-                              <p style="font-size: 12px">{{newFormLinks[0].host1}}</p>
+                              <p style="font-size: 12px">{{newFormLinks[$index].host}}</p>
                             </div>
-                          </div>
-                          <hr>
-                        </li>
-                        <!-- 2nd link -->
-                        <li class="form-article-cell">  
-                          <hr>
-                          <div style="display: block; height:88%" ng-if="!newFormLinks[1].loading2 && !newFormLinks[1].displayLinkData">
+                          </div> 
+                          <div style="display: block; height: 88%" ng-if="newFormLinks[$index].show.noteBox">
                             <div style="display: block; height: 60%">
-                              <a ng-if="!newFormLinks[1].link2" href="" ng-click="AddLinkClicked('link2')" style="position: relative; top:45px">
-                                <i class="material-icons" style="font-size:50px">add_circle</i>
-                                <p>Add a new link</p>
-                              </a>
-                              <a ng-if="newFormLinks[1].link2" href="">
-                                <p style="color: red" ng-if="newFormLinks[1].error2">{{newFormLinks[1].error2}}</p>
-                                <input type="text" ng-model="newFormLinks[1].url2" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
-                              </a>  
-                            </div>                            
+                              <p style="">Add note</p>
+                              <textarea rows="2" placeholder="note" ng-model="newFormLinks[$index].note" style="position: relative; top: 50px; width: 100%"></textarea>
+                            </div>
                             <div style="display: block; height: 40%">
-                              <a ng-if="newFormLinks[1].link2" href="" class="btn btn-sm" ng-click="uploadLink('link2')" style="position: relative; top: 5px">
-                                <i class="material-icons" style="font-size: 35px">file_upload</i>
+                              <a href="" class="btn btn-sm" ng-click="saveNote($index.toString())" style="position: relative; top: 5px">
+                                <i class="material-icons" style="font-size: 35px">save</i>
                               </a>
                             </div>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="newFormLinks[1].loading2 && !newFormLinks[1].displayLinkData">
-                            <i class="material-icons rotate-animation" style="">cached</i>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="!newFormLinks[1].loading2 && newFormLinks[1].displayLinkData">
-                            <div style="display: block; height: 50%">
-                                <img ng-src="{{newFormLinks[1].image2}}" ng-if="newFormLinks[1].image2" style="height:100%; width: 100%"/>
-                                <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[1].image2" style="height:100%; width: 100%">
-                            </div>
-                            <div style="display:block; height: 40%">
-                              <p style="font-weight: bold; font-size: 13px; margin-bottom: 0px; position: relative; top: 10px">{{newFormLinks[1].title2}}</p>
-                            </div>
-                            <div style="display: block; height: 10%">
-                              <p style="font-size: 12px">{{newFormLinks[1].host2}}</p>
-                            </div>
-                          </div>
+                          </div>                         
                           <hr>
-                        </li>
-                        <!-- 3rd link -->
-                        <li class="form-article-cell">  
-                          <hr>
-                          <div style="display: block; height:88%" ng-if="!newFormLinks[2].loading3 && !newFormLinks[2].displayLinkData">
-                            <div style="display: block; height: 60%">
-                              <a ng-if="!newFormLinks[2].link3" href="" ng-click="AddLinkClicked('link3')" style="position: relative; top:45px">
-                                <i class="material-icons" style="font-size:50px">add_circle</i>
-                                <p>Add a new link</p>
-                              </a>
-                              <a ng-if="newFormLinks[2].link3" href="">
-                                <p style="color: red" ng-if="newFormLinks[2].error3">{{newFormLinks[2].error3}}</p>
-                                <input type="text" ng-model="newFormLinks[2].url3" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
-                              </a>  
-                            </div>                            
-                            <div style="display: block; height: 40%">
-                              <a ng-if="newFormLinks[2].link3" href="" class="btn btn-sm" ng-click="uploadLink('link3')" style="position: relative; top: 5px">
-                                <i class="material-icons" style="font-size: 35px">file_upload</i>
-                              </a>
-                            </div>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="newFormLinks[2].loading3 && !newFormLinks[2].displayLinkData">
-                            <i class="material-icons rotate-animation" style="">cached</i>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="!newFormLinks[2].loading3 && newFormLinks[2].displayLinkData">
-                            <div style="display: block; height: 50%">
-                                <img ng-src="{{newFormLinks[2].image3}}" ng-if="newFormLinks[2].image3" style="height:100%; width: 100%"/>
-                                <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[2].image3" style="height:100%; width: 100%">
-                            </div>
-                            <div style="display:block; height: 40%">
-                              <p style="font-weight: bold; font-size: 13px; margin-bottom: 0px; position: relative; top: 10px">{{newFormLinks[2].title3}}</p>
-                            </div>
-                            <div style="display: block; height: 10%">
-                              <p style="font-size: 12px">{{newFormLinks[2].host3}}</p>
-                            </div>
-                          </div>
-                          <hr>
-                        </li>
-                        <!-- 4th link -->
-                        <li class="form-article-cell">  
-                          <hr>
-                          <div style="display: block; height:88%" ng-if="!newFormLinks[3].loading4 && !newFormLinks[3].displayLinkData">
-                            <div style="display: block; height: 60%">
-                              <a ng-if="!newFormLinks[3].link4" href="" ng-click="AddLinkClicked('link4')" style="position: relative; top:45px">
-                                <i class="material-icons" style="font-size:50px">add_circle</i>
-                                <p>Add a new link</p>
-                              </a>
-                              <a ng-if="newFormLinks[3].link4" href="">
-                                <p style="color: red" ng-if="newFormLinks[3].error4">{{newFormLinks[3].error4}}</p>
-                                <input type="text" ng-model="newFormLinks[3].url4" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
-                              </a>  
-                            </div>                            
-                            <div style="display: block; height: 40%">
-                              <a ng-if="newFormLinks[3].link4" href="" class="btn btn-sm" ng-click="uploadLink('link4')" style="position: relative; top: 5px">
-                                <i class="material-icons" style="font-size: 35px">file_upload</i>
-                              </a>
-                            </div>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="newFormLinks[3].loading4 && !newFormLinks[3].displayLinkData">
-                            <i class="material-icons rotate-animation" style="">cached</i>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="!newFormLinks[3].loading4 && newFormLinks[3].displayLinkData">
-                            <div style="display: block; height: 50%">
-                                <img ng-src="{{newFormLinks[3].image4}}" ng-if="newFormLinks[3].image4" style="height:100%; width: 100%"/>
-                                <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[3].image4" style="height:100%; width: 100%">
-                            </div>
-                            <div style="display:block; height: 40%">
-                              <p style="font-weight: bold; font-size: 13px; margin-bottom: 0px; position: relative; top: 10px">{{newFormLinks[3].title4}}</p>
-                            </div>
-                            <div style="display: block; height: 10%">
-                              <p style="font-size: 12px">{{newFormLinks[3].host4}}</p>
-                            </div>
-                          </div>
-                          <hr>
-                        </li>
-                        <!-- 5th link -->
-                        <li class="form-article-cell">  
-                          <hr>
-                          <div style="display: block; height:88%" ng-if="!newFormLinks[4].loading5 && !newFormLinks[4].displayLinkData">
-                            <div style="display: block; height: 60%">
-                              <a ng-if="!newFormLinks[4].link5" href="" ng-click="AddLinkClicked('link5')" style="position: relative; top:45px">
-                                <i class="material-icons" style="font-size:50px">add_circle</i>
-                                <p>Add a new link</p>
-                              </a>
-                              <a ng-if="newFormLinks[4].link5" href="">
-                                <p style="color: red" ng-if="newFormLinks[4].error5">{{newFormLinks[4].error5}}</p>
-                                <input type="text" ng-model="newFormLinks[4].url5" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
-                              </a>  
-                            </div>                            
-                            <div style="display: block; height: 40%">
-                              <a ng-if="newFormLinks[4].link5" href="" class="btn btn-sm" ng-click="uploadLink('link5')" style="position: relative; top: 5px">
-                                <i class="material-icons" style="font-size: 35px">file_upload</i>
-                              </a>
-                            </div>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="newFormLinks[4].loading5 && !newFormLinks[4].displayLinkData">
-                            <i class="material-icons rotate-animation" style="">cached</i>
-                          </div>
-                          <div style="display: block; height: 88%" ng-if="!newFormLinks[4].loading5 && newFormLinks[4].displayLinkData">
-                            <div style="display: block; height: 50%">
-                                <img ng-src="{{newFormLinks[4].image5}}" ng-if="newFormLinks[4].image5" style="height:100%; width: 100%"/>
-                                <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[4].image5" style="height:100%; width: 100%">
-                            </div>
-                            <div style="display:block; height: 40%">
-                              <p style="font-weight: bold; font-size: 13px; margin-bottom: 0px; position: relative; top: 10px">{{newFormLinks[4].title5}}</p>
-                            </div>
-                            <div style="display: block; height: 10%">
-                              <p style="font-size: 12px">{{newFormLinks[4].host5}}</p>
-                            </div>
-                          </div>
-                          <hr>
-                        </li>
+                        </li>                      
                       </ul>
                     </div>
                   </div>
@@ -281,16 +157,26 @@
               </ul>
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft')" ng-disabled="checkFormValidation()">Draft</button>
+          <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish')" ng-disabled="checkFormValidation()">Publish</button>
+        </div>
       </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        var editUserModal = $("#editUserModal");
-        editUserModal.modal("show");
-        editUserModal.on('hide.bs.modal', function () {
+        var createFormModal = $("#createFormModal");
+        createFormModal.modal("show");
+        createFormModal.on('hide.bs.modal', function () {
             window.location.replace("/");
+        });
+        $( ".draft-btn" ).click(function() {
+            window.location.replace("/user/<%= current_user.username %>/drafts");
+        });
+        $( ".pub-btn" ).click(function() {
+            window.location.replace("/user/<%= current_user.username %>/publish");
         });
     });
 </script>

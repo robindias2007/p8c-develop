@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get '/forms/new_form' => 'forms#new_modal'
   get '/forms/get_meta_data' => 'forms#get_meta_data'
+  post '/forms/create_form' => 'forms#create_form'
   resources :forms do
     member do
       get "like"

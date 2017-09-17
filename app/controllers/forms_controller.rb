@@ -322,6 +322,74 @@ class FormsController < ApplicationController
     end
   end
 
+  def create_form
+   
+    form = Form.new
+    form.user_id = params[:user_id].to_i
+    form.title = params[:title]
+    form.description = params[:dsc]
+    form.publish = params[:text] == 'publish' ? true : false
+    params[:forms].each_with_index do |f, index|
+      if index == 0
+        form.title1 = f["title"]
+        form.url1 = f["url"] == nil ? "" : f["url"]
+        form.note1 = f["note"] == nil ? "" : f["note"]
+        form.description1 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content = f["content"] == nil ? "" : f["content"]
+        form.tag1 = f["tag"] == nil ? nil : f["tag"]
+        form.image1 = f["image"] == nil ? nil : f["image"]
+      elsif index == 1
+        form.title2 = f["title"]
+        form.url2 = f["url"] == nil ? "" : f["url"]
+        form.note2 = f["note"] == nil ? "" : f["note"]
+        form.description2 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content2 = f["content"] == nil ? "" : f["content"]
+        form.tag2 = f["tag"] == nil ? nil : f["tag"]
+        form.image2 = f["image"] == nil ? nil : f["image"]
+      elsif index == 2
+        form.title3 = f["title"]
+        form.url3 = f["url"] == nil ? "" : f["url"]
+        form.note3 = f["note"] == nil ? "" : f["note"]
+        form.description3 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content3 = f["content"] == nil ? "" : f["content"]
+        form.tag3 = f["tag"] == nil ? nil : f["tag"]
+        form.image3 = f["image"] == nil ? nil : f["image"]
+      elsif index == 3
+        form.titel4 = f["title"]
+        form.url4 = f["url"] == nil ? "" : f["url"]
+        form.note4 = f["note"] == nil ? "" : f["note"]
+        form.description4 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content4 = f["content"] == nil ? "" : f["content"]
+        form.tag4 = f["tag"] == nil ? nil : f["tag"]
+        form.image4 = f["image"] == nil ? nil : f["image"]
+      elsif index == 4
+        form.title5 = f["title"]
+        form.url5 = f["url"] == nil ? "" : f["url"]
+        form.note5 = f["note"] == nil ? "" : f["note"]
+        form.description5 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content5 = f["content"] == nil ? "" : f["content"]
+        form.tag5 = f["tag"] == nil ? nil : f["tag"]
+        form.image5 = f["image"] == nil ? nil : f["image"]
+      end
+    end
+
+    if form.save
+      tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
+      form.update(tag_list: tags.join(',') )
+      form.save_social_image
+
+      respond_to do |format|
+        format.html
+        format.json { render json: form }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json { render json: "Error" }
+      end
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -44,8 +44,8 @@ Rails.application.configure do
     :storage => :s3,
     :s3_credentials => {
       :bucket => 'thecurativ-development',
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+      :access_key_id => 'AKIAIWQ5GLXQHE5ID6GA',
+      :secret_access_key => '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',
       :s3_region => 'us-east-2'
     }
   }
