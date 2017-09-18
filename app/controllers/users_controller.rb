@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def get_boards(forms)
-    forms.map {|f| {id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @saved_boards, next_page: @forms.next_page } }
       end
   	else
-      redirect_to "/user/#{@user.username }/publish"
+      redirect_to "/#{@user.username }/publish"
     end
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @draft_boards, next_page: @forms.next_page } }
       end
     else
-      redirect_to "/user/#{@user.username }/publish"
+      redirect_to "/#{@user.username }/publish"
     end
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @liked_boards, next_page: @forms.next_page } }
       end
     else
-      redirect_to "/user/#{current_user.username }/publish"
+      redirect_to "/#{current_user.username }/publish"
     end
   end
 

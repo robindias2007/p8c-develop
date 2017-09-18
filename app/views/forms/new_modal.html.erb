@@ -217,10 +217,10 @@
             window.location.replace("/");
         });
         $( ".draft-btn" ).click(function() {
-            window.location.replace("/user/<%= current_user.username %>/drafts");
+            window.location.replace("/<%= current_user.username %>/drafts");
         });
         $( ".pub-btn" ).click(function() {
-            window.location.replace("/user/<%= current_user.username %>/publish");
+            window.location.replace("/<%= current_user.username %>/publish");
         });
     });
 </script>

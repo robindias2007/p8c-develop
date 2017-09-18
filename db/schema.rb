@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907072229) do
+ActiveRecord::Schema.define(version: 20170918110452) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -41,22 +41,11 @@ ActiveRecord::Schema.define(version: 20170907072229) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "beta", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "email"
-  end
-
   create_table "categories", force: :cascade do |t|
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "category_name"
     t.integer  "weightage"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
-    t.boolean  "category_header"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -136,6 +125,8 @@ ActiveRecord::Schema.define(version: 20170907072229) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "slug"
+    t.string   "secure_id"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
@@ -145,19 +136,8 @@ ActiveRecord::Schema.define(version: 20170907072229) do
   add_index "forms", ["cached_weighted_average"], name: "index_forms_on_cached_weighted_average"
   add_index "forms", ["cached_weighted_score"], name: "index_forms_on_cached_weighted_score"
   add_index "forms", ["cached_weighted_total"], name: "index_forms_on_cached_weighted_total"
-
-  create_table "mentions", force: :cascade do |t|
-    t.integer  "mentionee_id"
-    t.string   "mentionee_type"
-    t.integer  "mentioner_id"
-    t.string   "mentioner_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "mentions", ["mentionee_id", "mentionee_type", "mentioner_id", "mentioner_type"], name: "mentions_mentionee_mentioner_idx", unique: true
-  add_index "mentions", ["mentionee_id", "mentionee_type"], name: "mentions_mentionee_idx"
-  add_index "mentions", ["mentioner_id", "mentioner_type"], name: "mentions_mentioner_idx"
+  add_index "forms", ["secure_id"], name: "index_forms_on_secure_id", unique: true
+  add_index "forms", ["slug"], name: "index_forms_on_slug", unique: true
 
   create_table "punches", force: :cascade do |t|
     t.integer  "punchable_id",                          null: false

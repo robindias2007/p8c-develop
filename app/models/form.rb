@@ -33,6 +33,10 @@ scope :saved, -> {
 
 
 # before_validation :smart_add_url_protocol 
+
+  def slug_url
+    "#{self.slug}-#{self.secure_id}"
+  end
   
   def self.trending(ids)
     Form.where.not(id: ids).published.limit(3)

@@ -49,7 +49,7 @@
         <% if user_signed_in? %>
           <% if @home_user %>
             <div class="date" id="profile">
-              <a href="/user/{{board.user.username}}/publish">
+              <a href="/{{board.user.username}}/publish">
                 <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
                 <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
                 <div id="prouser">{{board.user.username}}</div> 
@@ -62,7 +62,7 @@
             </div>
           <% else %>
             <div class="date" id="profile">
-              <a href="/user/{{board.user.username}}/publish">
+              <a href="/{{board.user.username}}/publish">
                 <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
                 <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
                 <div id="prouser">{{board.user.username}}</div>
@@ -88,7 +88,7 @@
             </div>
           </div>
         <% end %>          
-        <a href="/forms/{{board.id}}"><h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2></a> 
+        <a href="/{{board.user.username}}/{{board.slug_url}}"><h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2></a> 
       </div>
       <div class="container8" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
         <% if user_signed_in? %>
@@ -120,12 +120,12 @@
         <div class="share">
           <div class="social-share-options">
             <div class="facebook-share option">
-              <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}forms/{{board.id}}">
+              <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
                 <%= image_tag 'facebook.png' %>
               </a>
             </div>
             <div class="twitter-share option" >
-              <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}forms/{{board.id}}">
+              <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
                 <%= image_tag 'twitter.png' %>
               </a>
             </div>

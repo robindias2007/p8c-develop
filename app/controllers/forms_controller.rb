@@ -1,5 +1,5 @@
 class FormsController < ApplicationController
-  before_action :set_form, only: [:show, :edit, :update, :destroy, :like, :unlike, :book, :booknot]
+  before_action :set_form, only: [:edit, :update, :destroy, :like, :unlike, :book, :booknot]
   before_action :authenticate_user!, :only => [:like]
   respond_to :js, :json, :html
   before_filter :authenticate_admin, :only => [:index]
@@ -17,7 +17,7 @@ class FormsController < ApplicationController
     end
 
   def get_boards(forms)
-    forms.map {|f| {id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -28,21 +28,30 @@ class FormsController < ApplicationController
   # GET /forms/1
   # GET /forms/1.json
   def show
-    @form.punch(request)
-    @forms = Form.where(id: params[:id])
-    @keys = ENV['FACEBOOK_KEY'].to_json
-    if current_user
-      #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
-      @boards = get_boards(@forms)    
+    puts params[:id]
+    puts params[:slug_url]
+    secure_id = params[:slug_url].split("-").last
+    @form = Form.find_by_secure_id(secure_id)
+    if @form.present?
+      @form.punch(request)
+      @forms = Form.where(id: @form.id)
+      @keys = ENV['FACEBOOK_KEY'].to_json
+      if current_user
+        #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
+        @boards = get_boards(@forms)    
+      else
+        @boards = @forms.map {|f| {slug_url: f.slug_url, id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
+        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
+        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
+        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
+        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
+      end   
+      @pub_boards = @boards.to_json  
     else
-      @boards = @forms.map {|f| {id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
-      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
-      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
-      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4 },
-      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5 }]}}
-    end   
-    @pub_boards = @boards.to_json
+      redirect_to "/"
+    end
+    
   end
 
   # GET /forms/new
@@ -58,10 +67,31 @@ class FormsController < ApplicationController
 
   # POST /forms
   # POST /forms.json
+
+  def generate_slug(form)
+    loop do
+      @slug = "#{form.id.to_s}-#{form.title.parameterize}"
+      break unless Form.where(slug: @slug).exists?
+    end
+    return @slug
+  end
+
+  def generate_secure_id(form)
+    loop do
+      @secure_id = SecureRandom.hex(6)
+      break unless Form.where(secure_id: @secure_id).exists?
+    end
+    return @secure_id
+  end
+
   def create
     @form = Form.new(form_params)  #Form.new shows the new form to the user
     if @form.save                  # if form.save means if it clicked on publish or draft
       
+      @form.slug = generate_slug(@form)
+      @form.secure_id = generate_secure_id(@form)
+      @form.update_attributes(slug:@form.slug, secure_id:@form.secure_id)
+
       meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
         if @form.url1.empty?
           @form.update_attributes(content:"", title1:"", image1:"", description1:"") rescue nil
@@ -131,11 +161,11 @@ class FormsController < ApplicationController
       
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
         @form.update(:publish => "true")       #publish becomes true
-        redirect_to "/user/#{current_user.username}/publish" , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
+        redirect_to "/#{current_user.username}/publish" , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
 
       else params[:commit] == 'Save as Draft'   # it checks if the user has clicked drafs then publish becomes false so it updates it with false
         @form.update(:publish => "false")
-        redirect_to "/user/#{current_user.username}/drafts" , notice: 'Form is successfully saved as draft'  #then it redirects to static_pages/drafts and stores the form there. 
+        redirect_to "/#{current_user.username}/drafts" , notice: 'Form is successfully saved as draft'  #then it redirects to static_pages/drafts and stores the form there. 
       end
     
   
@@ -155,6 +185,10 @@ class FormsController < ApplicationController
     
     # When you draft your board and you want to publish that draft you edit and publish it here. So the form is updated or edited here using metainspector again with the update function
     if @form.update(form_params)  
+
+      @form.slug = generate_slug(@form)
+      @form.secure_id = generate_secure_id(@form)
+      @form.update_attributes(slug:@form.slug, secure_id:@form.secure_id)
 
       meta = MetaInspector.new(@form.url1, :allow_non_html_content => true) rescue nil #meta is variable where you input the url in the form and stores it. MetaInspector is a predefined class taken from metainspector gem which fetches all the url information
         if @form.url1.empty?
@@ -226,11 +260,11 @@ class FormsController < ApplicationController
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
-       redirect_to "/user/#{current_user.username}/publish" 
+       redirect_to "/#{current_user.username}/publish" 
 
       else params[:commit] == 'Save as Draft'
         @form.update(:publish => "false")
-        redirect_to "/user/#{current_user.username}/drafts"
+        redirect_to "/#{current_user.username}/drafts"
       end
 
       else  #if this gives an error it will go back to edit page
@@ -249,7 +283,7 @@ class FormsController < ApplicationController
 
     @form.destroy
     respond_to do |format|
-      format.html { redirect_to "/user/#{current_user.username}/publish", notice: 'Form was successfully destroyed.' }
+      format.html { redirect_to "/#{current_user.username}/publish", notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -374,8 +408,10 @@ class FormsController < ApplicationController
     end
 
     if form.save
+      form.slug = generate_slug(form)
+      form.secure_id = generate_secure_id(form)      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
-      form.update(tag_list: tags.join(',') )
+      form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id )
       form.save_social_image
 
       respond_to do |format|
