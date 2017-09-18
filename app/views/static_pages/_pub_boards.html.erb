@@ -187,10 +187,12 @@
           </div>
         </div>
       </div>
-    <div class="footedit" ng-if="!current_user.id == board.user.id" >
-      <%= link_to 'Edit & Publish', '/forms/{{board.id}}/edit', class:"btn btn-info btn-md" %>
-      <%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %>  
-    </div>
+      <% if current_user.username == @user.username %>
+        <div class="footedit">
+          <%= link_to 'Edit & Publish', '/forms/{{board.id}}/edit', class:"btn btn-info btn-md" %>
+          <%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %>  
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

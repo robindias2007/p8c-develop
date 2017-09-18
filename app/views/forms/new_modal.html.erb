@@ -14,8 +14,19 @@
   }
   .new-form-description textarea {
     width:100%;
-    border: none;
+    border: 0px;
   }
+  .new-form-description textarea::-webkit-scrollbar {
+      background: grey !important;
+      width: 10px !important;
+  }
+
+  .new-form-description textarea::-webkit-scrollbar-thumb {
+      background: lightgrey !important;
+      height: 2px !important;
+      border-radius: 10px !important;
+    }
+  
   .new-form-description textarea:focus {
     outline: none;
   }
@@ -35,6 +46,8 @@
     position: relative;
     top: 35%;
   }
+  
+
 
   @-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
   @-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
@@ -82,7 +95,10 @@
                   <div class="row" style="width: 100%">
                     <div class="col-md-12"> 
                       <!-- Bootstrap to divide the entire page into colums -->    
-                      <h5 class="new-form-description"><textarea rows="2" placeholder="description" ng-model="formDsc"></textarea></h5>
+                      <style type="text/css">
+                        
+                      </style>
+                      <h5 class="new-form-description"><textarea style="overflow-y: auto;" rows="4" placeholder="description" ng-model="formDsc"></textarea></h5>
                     </div>
                   </div>
                   <hr style="margin: 0px 20px 0px 20px; border-color: lightgrey">
@@ -103,6 +119,11 @@
                           </div>
                           <div style="display: block; height:88%" ng-if="newFormLinks[$index].show.linkBox">
                             <div style="display: block; height: 60%">
+                              <div class="" style="position: absolute;">
+                                <a href="" ng-click="backToAddLinkClick($index.toString())" style="">
+                                  <i class="material-icons" style="font-size:20px">arrow_back</i>
+                                </a>                                  
+                              </div>
                               <a href="">
                                 <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
                                 <input type="text" ng-model="newFormLinks[$index].url" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
@@ -139,6 +160,11 @@
                           </div> 
                           <div style="display: block; height: 88%" ng-if="newFormLinks[$index].show.noteBox">
                             <div style="display: block; height: 60%">
+                              <div class="" style="position: absolute;">
+                                <a href="" ng-click="backToViewData($index.toString())" style="">
+                                  <i class="material-icons" style="font-size:20px">arrow_back</i>
+                                </a>                                  
+                              </div>
                               <p style="">Add note</p>
                               <textarea rows="2" placeholder="note" ng-model="newFormLinks[$index].note" style="position: relative; top: 50px; width: 100%"></textarea>
                             </div>
@@ -147,7 +173,25 @@
                                 <i class="material-icons" style="font-size: 35px">save</i>
                               </a>
                             </div>
-                          </div>                         
+                          </div>
+                          <div style="display: block; height:88%" ng-if="newFormLinks[$index].show.editLinkBox">
+                            <div style="display: block; height: 60%">
+                              <div class="" style="position: absolute;">
+                                <a href="" ng-click="backToViewData($index.toString())" style="">
+                                  <i class="material-icons" style="font-size:20px">arrow_back</i>
+                                </a>                                  
+                              </div>
+                              <a href="">
+                                <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
+                                <input type="text" ng-model="newFormLinks[$index].url" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
+                              </a>
+                            </div>                            
+                            <div style="display: block; height: 40%">
+                              <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())" style="position: relative; top: 5px">
+                                <i class="material-icons" style="font-size: 35px">file_upload</i>
+                              </a>
+                            </div>
+                          </div>                       
                           <hr>
                         </li>                      
                       </ul>
