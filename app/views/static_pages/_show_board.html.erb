@@ -20,9 +20,10 @@
     .bookmark-button:focus {outline:0;}
   </style>
   <div class="container1" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">
+    
     <!-- The elements of the entire box. -->
     <% if @forms.length == 1 %>  
-      <% if current_page?(form_path(@forms.first)) %>
+      
         <%= content_for :social_meta_tags do %>
           <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
           <meta name="twitter:card" content="summary_large_image"/>
@@ -38,11 +39,11 @@
           <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
           <meta property="og:title" content="<%= @forms.first.title %>"/>
           <meta property="og:type" content="article"/>
-          <meta property="og:url" content="<%= form_url(@forms.first.id) %>"/>
+          <meta property="og:url" content="<%= root_url %><%= @forms.first.user.username %>/<%= @forms.first.slug_url%>"/>
           <meta property="og:image" content="<%= @forms.first.photo.url %>"/>
           <meta property="og:description" content="<%= @forms.first.description[0..200] %>"/>
         <% end %>
-      <% end %>
+      
     <% end %>
     <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
       <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">

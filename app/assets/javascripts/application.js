@@ -20,7 +20,6 @@
 //= require ng-infinite-scroll.min
 //= require_tree .
 //= require bootstrap-sprockets
-//= require rails.validations
 //= require bootstrap-tagsinput
 //= require moment
 //= require bootstrap-datetimepicker
