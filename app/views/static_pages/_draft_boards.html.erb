@@ -21,7 +21,7 @@
     .bookmark-button:focus {outline:0;}
   </style>
   <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy'>   
-    <div class="container1" ng-repeat="board in draft_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">  <!-- The elements of the entire box. -->  
+    <div ng-repeat="board in draft_boards" ng-init="outerIndex=$index">
       <%= render 'static_pages/board'%>
       <% if current_user.username == @user.username %>
         <div class="footedit">

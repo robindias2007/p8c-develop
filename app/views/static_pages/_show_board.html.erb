@@ -19,32 +19,8 @@
     }
     .bookmark-button:focus {outline:0;}
   </style>
-  <div class="container1" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">
+  <div ng-repeat="board in pub_boards" ng-init="outerIndex=$index">
     
-    <!-- The elements of the entire box. -->
-    <% if @forms.length == 1 %>  
-      
-        <%= content_for :social_meta_tags do %>
-          <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
-          <meta name="twitter:card" content="summary_large_image"/>
-          <%# TODO: Add twitter handle as content below after creating a twitter page for Lense APP %>
-          <!--<meta name="twitter:site" content="" /> -->
-          <meta name="twitter:title" content="<%= @forms.first.title %>"/>
-          <meta name="twitter:description" content="<%= @forms.first.description[0..200] %>"/>
-          <meta name="twitter:image:src" content="<%= @forms.first.photo.url %>"/>
-          <!--<meta name="twitter:image:src" content="Lense" />-->
-
-          <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
-          <%# So, deploy before testing the changes in below meta tags %>
-          <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
-          <meta property="og:title" content="<%= @forms.first.title %>"/>
-          <meta property="og:type" content="article"/>
-          <meta property="og:url" content="<%= root_url %><%= @forms.first.user.username %>/<%= @forms.first.slug_url%>"/>
-          <meta property="og:image" content="<%= @forms.first.photo.url %>"/>
-          <meta property="og:description" content="<%= @forms.first.description[0..200] %>"/>
-        <% end %>
-      
-    <% end %>
     <%= render 'static_pages/board'%>    
   </div>
 </div>

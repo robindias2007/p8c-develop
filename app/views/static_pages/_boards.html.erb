@@ -18,10 +18,11 @@
           
           </div>
           <hr>
-        </div>        
-        <div class="container1" ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">
-          <%= render 'static_pages/board'%>
         </div>
+        <div ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index">
+          <%= render 'static_pages/board'%>  
+        </div>
+        
       </div>
       <br>
     </div>
