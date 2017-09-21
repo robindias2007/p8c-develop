@@ -1,4 +1,4 @@
-var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable']);
+var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable', 'ngMaterial']);
 
 app.filter('cut', function () {
   return function (value, wordwise, max, tail) {
