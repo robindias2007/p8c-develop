@@ -28,8 +28,6 @@ class FormsController < ApplicationController
   # GET /forms/1
   # GET /forms/1.json
   def show
-    puts params[:id]
-    puts params[:slug_url]
     secure_id = params[:slug_url].split("-").last
     @form = Form.find_by_secure_id(secure_id)
     if @form.present?
@@ -69,10 +67,7 @@ class FormsController < ApplicationController
   # POST /forms.json
 
   def generate_slug(form)
-    loop do
-      @slug = "#{form.id.to_s}-#{form.title.parameterize}"
-      break unless Form.where(slug: @slug).exists?
-    end
+    @slug = "#{form.title.parameterize}"
     return @slug
   end
 
@@ -161,7 +156,7 @@ class FormsController < ApplicationController
       
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
         @form.update(:publish => "true")       #publish becomes true
-        redirect_to "/#{current_user.username}/publish" , notice: 'Form was successfully created.' #then it redirects to static_pages/publish and stores the form there. 
+        redirect_to "/#{current_user.username}/published" , notice: 'Form was successfully created.' #then it redirects to static_pages/published and stores the form there. 
 
       else params[:commit] == 'Save as Draft'   # it checks if the user has clicked drafs then publish becomes false so it updates it with false
         @form.update(:publish => "false")
@@ -260,7 +255,7 @@ class FormsController < ApplicationController
 
       if params[:commit] == 'Publish'
        @form.update(:publish => "true")
-       redirect_to "/#{current_user.username}/publish" 
+       redirect_to "/#{current_user.username}/published" 
 
       else params[:commit] == 'Save as Draft'
         @form.update(:publish => "false")
@@ -283,7 +278,7 @@ class FormsController < ApplicationController
 
     @form.destroy
     respond_to do |format|
-      format.html { redirect_to "/#{current_user.username}/publish", notice: 'Form was successfully destroyed.' }
+      format.html { redirect_to "/#{current_user.username}/published", notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

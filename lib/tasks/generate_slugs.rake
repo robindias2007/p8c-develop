@@ -2,12 +2,9 @@ namespace :generate do
   task :slugs => :environment do
 		
 		def generate_slug(form)
-	    loop do
-	      @slug = "#{form.id.to_s}-#{form.title.parameterize}"
-	      break unless Form.where(slug: @slug).exists?
-	    end
+	    @slug = "#{form.title.parameterize}"   
 	    return @slug
-	  end
+		end
 
 	  def generate_secure_id(form)
 	    loop do

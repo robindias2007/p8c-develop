@@ -46,7 +46,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @saved_boards, next_page: @forms.next_page } }
       end
   	else
-      redirect_to "/#{@user.username }/publish"
+      redirect_to "/#{@user.username }/published"
     end
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @draft_boards, next_page: @forms.next_page } }
       end
     else
-      redirect_to "/#{@user.username }/publish"
+      redirect_to "/#{@user.username }/published"
     end
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @liked_boards, next_page: @forms.next_page } }
       end
     else
-      redirect_to "/#{current_user.username }/publish"
+      redirect_to "/#{current_user.username }/published"
     end
   end
 

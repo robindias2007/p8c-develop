@@ -46,7 +46,7 @@
                   <div class="currentheaderusername"><%= current_admin.email %></div>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/<%= current_user.username %>/publish">My Boards</a></li>
+                  <li><a href="/<%= current_user.username %>/published">My Boards</a></li>
                   <li><a href="/users/edit">Edit Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
@@ -122,7 +122,7 @@
               My Boards <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="/<%= current_user.username  %>/publish">Published</a></li>
+              <li><a href="/<%= current_user.username  %>/published">Published</a></li>
             <li><a href="/<%= current_user.username  %>/saved">Saved</a></li>
             <li><a href="/<%= current_user.username  %>/drafts">Drafts</a></li>
             </ul>

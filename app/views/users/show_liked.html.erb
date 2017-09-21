@@ -38,7 +38,7 @@
           </ul>
           <ul class="board">
             <li></li>
-            <li><a href= "/<%= @user.username  %>/publish", id="board1">Published</a></li>
+            <li><a href= "/<%= @user.username  %>/published", id="board1">Published</a></li>
             <li><a href= "/<%= @user.username  %>/liked", id="board1">Liked</a></li>
             <li></li>
           </ul>
@@ -74,13 +74,13 @@
                 <li ng-repeat="following in followings">
                   <div class="row" style="width: 100%; margin-bottom: 20px">
                     <div class="col-md-2" style="text-align: right">
-                      <a href="/{{following.username}}/publish">
+                      <a href="/{{following.username}}/published">
                         <div class="user-avatar" ng-if="!(following.image == null)" style='background-image:url("{{following.image}}")'></div>
                         <i class="material-icons" style="font-size: 30px" ng-if="(following.image == null)">account_circle</i>
                       </a>
                     </div>                      
                     <div class="col-md-6" style="text-align: left; padding-left: 0px; padding-top: 2px">
-                      <a href="/{{following.username}}/publish" style="font-size: 18px; color: black">
+                      <a href="/{{following.username}}/published" style="font-size: 18px; color: black">
                         {{following.username}}
                       </a>
                     </div>                    
@@ -121,13 +121,13 @@
                 <li ng-repeat="follower in followers">
                   <div class="row" style="width: 100%; margin-bottom: 20px">
                     <div class="col-md-2" style="text-align: right">
-                      <a href="/{{follower.username}}/publish">
+                      <a href="/{{follower.username}}/published">
                         <div class="user-avatar" ng-if="!(follower.image == null)" style='background-image:url("{{follower.image}}")'></div>
                         <i class="material-icons" style="font-size: 30px" ng-if="(follower.image == null)">account_circle</i>
                       </a>
                     </div>                      
                     <div class="col-md-6" style="text-align: left; padding-left: 0px; padding-top: 2px">
-                      <a href="/{{follower.username}}/publish" style="font-size: 18px; color: black">
+                      <a href="/{{follower.username}}/published" style="font-size: 18px; color: black">
                         {{follower.username}}
                       </a>                      
                     </div>                    

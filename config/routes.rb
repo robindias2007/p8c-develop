@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   get '/most_saved' =>  'static_pages#most_saved'
   get '/dashboard' => 'static_pages#dashboard'
   
-  get ':id/publish'          =>   'users#show'
+  get ':id/published'          =>   'users#show'
   get ':id/saved'          =>   'users#show_saved'
   get ':id/drafts'          =>   'users#show_drafts'
 

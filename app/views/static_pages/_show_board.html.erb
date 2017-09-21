@@ -50,7 +50,7 @@
         <% if user_signed_in? %>
           <% if @home_user %>
             <div class="date" id="profile">
-              <a href="/{{board.user.username}}/publish">
+              <a href="/{{board.user.username}}/published">
                 <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
                 <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
                 <div id="prouser">{{board.user.username}}</div> 
@@ -63,7 +63,7 @@
             </div>
           <% else %>
             <div class="date" id="profile">
-              <a href="/{{board.user.username}}/publish">
+              <a href="/{{board.user.username}}/published">
                 <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
                 <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
                 <div id="prouser">{{board.user.username}}</div>

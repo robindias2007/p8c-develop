@@ -67,7 +67,7 @@
           <div class="col-md-12 container4">
             <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
               <div class="date" id="profile">
-                <a href="/{{board.user.username}}/publish">
+                <a href="/{{board.user.username}}/published">
                   <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
                   <i class="material-icons md-40" ng-if="(board.user_image == null)">account_circle</i>
                   <div id="prouser">{{board.user.username}}</div> 
