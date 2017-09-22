@@ -1,4 +1,20 @@
-<div class=" field">
+<md-input-container class="md-block">
+  <label>Email</label>
+  <%= f.text_field :email, required: true %>
+</md-input-container>
+
+<md-input-container class="md-block">
+  <label>Password</label>
+  <%= f.password_field :password, required: true %>
+</md-input-container>
+
+<md-input-container class="md-block">
+  <label>Confirm Password</label>
+  <%= f.password_field :password_confirmation, required: true %>
+</md-input-container>
+
+
+<!-- <div class=" field">
   <%= f.label :Email %>
   <%= f.email_field :email, placeholder: "E-mail", autofocus: true, required: true, id: 'textfield' %>
 </div>
@@ -11,4 +27,4 @@
 <div class="field">
   <%= f.label :Confirm_Password %>
   <%= f.password_field :password_confirmation, placeholder: "Confirm Password", id: 'textfield' %>
-</div>
+</div> -->
