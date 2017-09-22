@@ -61,12 +61,63 @@ body md-dialog {
 }
 
 
+.md-headline{
+    font-family: "FuturaStd-Bold";
+}
+
+.md-headline a{
+    color:rgba(0,0,0,0.87);
+}
+
+md-card md-card-title md-card-title-text:only-child .md-subhead {
+    font-size:18px;
+    line-height:24px;
+    padding-top:8px;
+}
+
+md-card-header.md-subhead {
+    font-family: "FuturaStd-Medium"
+}
+
+.card-footer {
+    padding:0;
+}
+
+md-card-avatar {
+    margin-right:12px;
+}
+
+.md-user-avatar {
+    height:40px;
+    width:40px;
+    object-fit: cover;
+}
+
+.link-card-title{
+    height:75px;
+    overflow:hidden;
+}
+
+p.md-body-1 {
+    font-weight:100;
+    line-height:23px;
+}
+
+p.md-body-2 {
+    line-height:20px;
+    letter-spacing:normal;
+    font-family:FuturaStd-Medium;
+}
+
+span.md-button {
+    text-transform:none;
+    font-family:FuturaStd-Medium;
+}
 
 /* -------------- END Curativ material css  ---------------- */
     
 html body {
  margin: 0 auto;
- text-align: center;
  font-family:FuturaStd-Medium, sans-serif;
 }
 
@@ -104,7 +155,7 @@ h4 {font-size:18px;}
 h5 {font-size:15px;}
 
 ol, ul, td {
-    font-family:Futura, Sans-serif;
+    font-family:FuturaStd-Medium, Sans-serif;
 }
 
 p {
@@ -625,21 +676,15 @@ font-size:14px;
     color: white;
 }
 
-.internal_text
-{   
-    font-size: 15px;
-    color: #4A4A4A;
-    font-family: 'PT Serif';
-    font-weight: normal;
-    font-style: Italic;
-    width: 100%;
-    height:274px;
-    line-height: 1.5;   
-    margin: 6px auto 10px auto;
+.internal_text {   
+    font-family: 'Merriweather', serif;
+    font-weight: 100;
+    max-height:231px;
     overflow-y: hidden;
-    text-align:left;
-    margin-top:20px;
-    text-transform: none;
+
+    /*width: 100%;
+    line-height: 1.5;
+    margin: 6px auto 10px auto;*/
 }
 
 .halfBoard.internal_text {
@@ -815,8 +860,10 @@ padding-bottom:1px;
 }
 
 .row {
-    width: 204%;
-    margin: 0px 0px 0px 6px;
+    width: 100%;
+    margin: 0px 0px 0px 8px;
+    padding-left:20px;
+    padding-right:20px;
 }
 
 .halfBoard.row {
@@ -1050,24 +1097,19 @@ $transition : 0.35s;
 /* --------- FLICKITY ----------*/
 
 
-.flickity-page-dots {
-      display:none;
-    }
-
 .article-cell
 {
-    height: 300px;
+    height: 249px;
     position: absolute;
     left: 0%;
-    width: 250px !important;
+    width: 240px !important;
     border: 1px solid #e3e3e3;
     box-shadow: 0px 1px 1px #888888;
     z-index: 3;
-    background: white;    
+    background: white;   
+    margin-top: 1px;
+    margin-bottom:1px; 
 }
-
-
-
 
 .form-article-cell {
       width: 18% !important;

@@ -2,8 +2,18 @@ var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable'
 
 app.config(function($mdThemingProvider) {
 
+
  // $mdThemingProvider.disableTheming();
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette('grey')
+    .accentPalette('red');
+
 });
+
+
+
+
 
 app.filter('cut', function () {
   return function (value, wordwise, max, tail) {

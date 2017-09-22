@@ -17,7 +17,7 @@
       </span>
 
       <span class="md-subhead">
-        SUBHEADING
+        SUBHEADING??
       </span>
     </md-card-title-text>
   </md-card-title>
@@ -36,21 +36,21 @@
 
     <div class="card-body" layout="row">
       <div hide="" show-lg="" flex="33" class="hide show-lg flex">
-        <h5 class="internal_text" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.dsc}}</h5>
+        <p class="md-body-1 internal_text" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.dsc}}</p>
       </div>
       
       <div flex="66" layout="row">
         <ul class="row" bc-flickity="{{ flickityOptions }}">
-          <md-card class="article-cell" ng-repeat="link in board.links" style="height:300px;"> 
+          <md-card class="article-cell" ng-repeat="link in board.links" > 
               <img ng-src="{{link.image}}" class="md-card-image" id="image" alt="Image" ng-if="link.image">
               <img class="md-card-image" id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">
-              <md-card-title>
-                <md-card-title-text>
-                  <span class=" small-font">{{link.title}}</span>
-                </md-card-title-text>
-              </md-card-title>
+              <md-card-content class="link-card-title">
+                
+                <p class="md-body-2">{{link.title}}</p>
+                
+              </md-card-content>
               <md-card-actions>
-                <span class="md-subhead small-font">{{link.host}}</span>
+                <span class="md-button md-accent">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
               </md-card-actions>
             </md-card>
         </ul>
@@ -93,8 +93,8 @@
       
   
   </md-card-content>
-
-  <md-card-header layout="row" layout-align="start center">
+  <md-divider></md-divider>
+  <md-card-header class="card-footer" layout="row" layout-align="start center">
     <md-card-avatar>
       <img class="md-user-avatar" src="{{board.user_image}}"/>
     </md-card-avatar>
@@ -106,6 +106,24 @@
 
     <md-card-actions layout="row" layout-align="start center">
       <md-card-icon-actions>
+        <md-fab-speed-dial md-direction="left" class="md-fling">
+          <md-fab-trigger>
+            <md-button class="md-fab md-ink-ripple" style="width:45px;height:45px;""><i class="material-icons" >share</i></md-button>
+          </md-fab-trigger>
+          <md-fab-actions>
+            <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+              <md-icon>
+                <%= image_tag 'facebook.png' %>
+              </md-icon>
+            </md-button>
+            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+              <md-icon>
+                <%= image_tag 'twitter.png' %>
+              </md-icon>
+            </md-button>                  
+          </md-fab-actions>
+        </md-fab-speed-dial>
+
         <md-button class="md-icon-button" aria-label="Bookmark">
           <md-icon>
             <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
@@ -120,24 +138,6 @@
           </md-icon>
         </md-button>
             
-
-              <md-fab-speed-dial md-direction="right" class="md-fling">
-                <md-fab-trigger>
-                  <md-button class="md-fab md-ink-ripple" style="width:45px;height:45px; background-color: #9c1717"><i class="material-icons" >share</i></md-button>
-                </md-fab-trigger>
-                <md-fab-actions>
-                  <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
-                    <md-icon>
-                      <%= image_tag 'facebook.png' %>
-                    </md-icon>
-                  </md-button>
-                  <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
-                    <md-icon>
-                      <%= image_tag 'twitter.png' %>
-                    </md-icon>
-                  </md-button>                  
-                </md-fab-actions>
-              </md-fab-speed-dial>
       </md-card-icon-actions>
     </md-card-actions>
   </md-card-header>
