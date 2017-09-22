@@ -1,6 +1,36 @@
 <%= form_for(resource, method: :post, url: user_registration_path, remote: true) do |f| %>
 
-    <div class="form-group">
+
+  <md-input-container class="md-block">
+    <label>Email</label>
+    <%= f.text_field :email, required: true %>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Password</label>
+    <%= f.password_field :password, required: true %>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Confirm Password</label>
+    <%= f.password_field :password_confirmationor, required: true %>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Username</label>
+    <%= f.text_field :username, required: true %>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Description</label>
+    <%= f.text_field :author, required: true %>
+  </md-input-container>
+
+  By creating an account, I accept Lense's <a>terms of services</a> and <a>privacy policy</a>
+
+  <md-button><%= f.submit "Sign Up" %></md-button>
+
+    <!-- <div class="form-group">
       <%= f.label :Email %>
       <%= f.email_field :email, placeholder: "E-mail", autofocus: true, required: true, class: "form-control" %>
     </div>
@@ -31,6 +61,6 @@
 
     <div class="text-center">
       <%= f.submit "Sign Up", class: "btn btn-default" %>
-    </div>
+    </div> -->
 
 <% end %>

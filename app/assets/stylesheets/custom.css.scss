@@ -247,11 +247,6 @@ nav {
     font-family: Futura, sans-serif;
 }
 
-label {
-    text-transform:capitalize;
-    margin-bottom:10px;
-    display:inline-block;
-}
 
 #textfield {
     margin:0px auto;
@@ -1552,33 +1547,7 @@ ul.followers li {
 .social-media-buttons a:hover {
   text-decoration: none;
 }
-.custom-modal .close {
-  margin-top: 15px;
-  margin-right: 15px;
-  opacity: 1;
-  text-shadow: none;
-  font-size: 25px;
-}
-.custom-modal .close:hover, .custom-modal .close:active {
-  opacity: 1;
-  outline: none;
-}
-.custom-modal .close span {
-  color: #fff;
-  font-weight: 100;
-}
-// custom style for email sign in
 
-.custom-modal .email-title {
-  padding: 24px 24px 24px;
-  font-size: 18px;
-}
-.sign-up-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #9c1717;
-  margin-bottom: 20px;
-}
 .m-t-30 {
   margin-top: 30px;
 }
@@ -1677,50 +1646,6 @@ ul.followers li {
   width: 30%;
 }
 
-.cat-row {
-  margin: 2px;
-  width: 100%;
-  margin-left: 10%;
-  display: inline-block;
-}
-
-.cat-col {
-  margin: 2px;
-  padding: 20px;
-  width: 20%;
-}
-
-.sign-up-cat {
-  text-align: center;
-  border-color: #fff;
-  color: #fff;
-  background-color: #9c1717;
-  border-radius: 20px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-  margin-top: 15px;
-  padding-top: 10px;
-  height: 40px;
-}
-
-.sign-up-cat:focus, .sign-up-cat:hover {
-  color: #9c1717;
-  background-color: #fff;
-  outline: none;
-  border: 1px solid #9c1717;
-}
-
-.cat-text {
-  margin-bottom: 5px;
-  color: rgba(0,0,0,.6);
-  font-weight: 400;
-}
-
-.cat-title {
-  font-size: 16px;
-  text-align: left;
-  margin-bottom: 30px;
-}
 
 .categoryheader {
     margin: 21px 0px 15px;
