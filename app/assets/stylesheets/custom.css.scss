@@ -1,9 +1,6 @@
 $navbar-default-bg:#ffffff;
 $component-active-color:transparent;
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import 'bootstrap-datetimepicker';
 
 
 @font-face {
@@ -23,8 +20,6 @@ $component-active-color:transparent;
     
 html body {
  margin: 0 auto;
- text-align: center;
- font-family:Futura, sans-serif;
 }
 
 * {
@@ -187,11 +182,11 @@ textarea {
     width: 100%;
 }
 
-span {
+/*  span {
     color:#8b0000;
     font-weight:bold;
     font-style: italics;
-}
+}*/
 
 /*.container
 {   
@@ -790,17 +785,12 @@ width: 100%;
 height: 50%;
 }
 
-.image
-{
-    width: 100%;
-}
 
 #image
 {   
-    width: 214px;
-    height: 150px;
+    height: 120px;
     object-fit:cover;
-    margin-bottom:10px;
+    
 }
 
 
@@ -1021,15 +1011,20 @@ $transition : 0.35s;
       display:none;
     }
 
-.article-cell {
-      width: 222px !important;
-      border: 1px solid #e3e3e3;
-      box-shadow: 0px 1px 1px #888888;
-      z-index: 3;
-      margin: 15px 1%;
-      padding: 0px 10px;
-      background-color:white;
-    }
+.article-cell
+{
+    height: 300px;
+    position: absolute;
+    left: 0%;
+    width: 250px !important;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0px 1px 1px #888888;
+    z-index: 3;
+    background: white;    
+}
+
+
+
 
 .form-article-cell {
       width: 18% !important;
@@ -1739,3 +1734,15 @@ ul.followers li {
     color: white;
     font-size: 26px;
 }
+
+
+
+
+
+
+
+
+ .small-font
+ {
+    font-size: 12px;
+ }
