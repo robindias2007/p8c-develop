@@ -1,6 +1,9 @@
 $navbar-default-bg:#ffffff;
 $component-active-color:transparent;
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datetimepicker";
 
 
 @font-face {
