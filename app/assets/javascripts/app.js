@@ -2,7 +2,7 @@ var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable'
 
 app.config(function($mdThemingProvider) {
 
- $mdThemingProvider.disableTheming();
+ // $mdThemingProvider.disableTheming();
 });
 
 app.filter('cut', function () {
