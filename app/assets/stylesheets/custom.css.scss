@@ -45,6 +45,18 @@ body .md-open-menu-container{
     top: 50px;
 }
 
+body .md-select-menu-container{
+    z-index: 1001;
+    background-color: white;
+    top: 50px;
+}
+
+body md-dialog {
+    z-index: 1001;
+    background: white;
+    top: 50px;
+}
+
 
 
 /* -------------- END Curativ material css  ---------------- */
