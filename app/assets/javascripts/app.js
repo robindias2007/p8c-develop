@@ -1,5 +1,10 @@
 var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable', 'ngMaterial']);
 
+app.config(function($mdThemingProvider) {
+
+ $mdThemingProvider.disableTheming();
+});
+
 app.filter('cut', function () {
   return function (value, wordwise, max, tail) {
     if (!value) return '';
@@ -23,6 +28,15 @@ app.filter('cut', function () {
     return value + (tail || ' …');
   };
 });
+
+app.controller('headerCtrl', function DemoCtrl($mdDialog) {
+    var originatorEv;
+    this.openMenu = function($mdOpenMenu, ev)     {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
+  });
+
 
 app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
   $scope.init = function(boards,key){
