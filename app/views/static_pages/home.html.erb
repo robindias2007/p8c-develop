@@ -12,30 +12,49 @@
 <% else %>
 
 <div id="showModal"></div>
-<!-- <div id="banner"> -->
-	<!--<div class="col-md-11" id="bannerContent">
-	<h4 class="bannerSubtitle">Collect & Engage With The Best Curated Content On The Web.</h4>
-	<p class="bannerText">The Lense is a platform for you to express your opinions, thoughts or favorite collections around a topic by putting together the <span>5 most appropriate links</span> that make your case.<br><br>
-
-	By limiting you to 5 links, we want you to put only the best articles, videos, podcasts, slideshows forward… so that the collective entity is greater than any individual piece in your board.
-
-	In doing so each board offers a unique - i.e. your perspective on a topic So take your time and put a little thought into it before you express yourself!</p>
-	</div>-->
-<!-- </div> -->
-
-<div class="home_before_login">
-  <br><br><br>
-  <p style="font-size:32px; color: white;">Welcome to TheCurativ
-  <br><br> Please Login To Continue <br><br>
-  <h3 style="color:white">Click here</h3>
-  </p>
-  <br><br>
-  <b>
-  <%= link_to 'sign in / sign up', new_user_session_path, remote:true, id:"Sign" %></b>
-</div>
-<style type="text/css">
   
+  <div layout="row" align="middle">
+    <div flex="33"></div>
+    <div flex>
+      <%= image_tag 'thecurativ.png', id:"before-signup-logo" %>
+    </div>
+    <div flex="33">
+      <br><br>
+      <%= link_to 'Sign In/Up', new_user_session_path, remote:true %>
+    </div>
+  </div>
 
-</style>
+
+
+  <div layout="row" layout-align="center center">
+    <p class="before-signup-text">Aggregate, Discover & Share <br> truly great media & content on the web.</p>
+  </div>
+
+
+  <div layout="row" layout-align="center center">
+    <%= image_tag 'Screen Shot 2017-09-23 at 4.48.57 PM.png' %>
+  </div>
+
+
+
+  <div layout="row" layout-xs="column" layout-align="center center" class="picks">
+    <div flex><br>Pick a <br><b>TOPIC</b></div>
+    <div flex><br><%= image_tag 'Arrow 29 (1).svg' %></div>
+    <div flex><br>Choose <br><b>5 LINKS</b></div>
+    <div flex><br><%= image_tag 'Arrow 29 (1).svg' %></div>
+    <div flex><br>Publish &<br><b> Share</b></div>
+  </div>
+
+  <div layout="row" layout-align="center center">
+    <br><br><br>
+    <a data-remote="true" href="/users/sign_in"><md-button class="md-accent md-raised md-hue-1">Sign In/Up</md-button></a>
+  </div>
+
+  
+  <hr style="border:3px solid #9c1717;width: 90%;margin: 0px auto;margin-top:5%;">
+  <div layout="row" layout-align="center center">
+    <p class="before-signup-footer">tell a STORY | explain TOPIC | express a VIEW | build a COLLECTION | keep LEARNING<br><br><br></p>
+  </div>
+
 
 <% end %>

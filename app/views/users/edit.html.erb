@@ -1,3 +1,4 @@
+<div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
   <div class="modal-dialog modal-md" role="document">
     
     <%= form_for @user, html: { id: "sign_up_edit" } do |f| %>
@@ -6,17 +7,16 @@
       <div class="modal-header">
         <!-- Header content for sign in with email -->
         <div class="sign-in-with-email">
-          <div class="email-title">
+          <div class="email-title head-title-modal">
             Almost There
           </div>
         </div>
       </div>
       <div class="modal-body">
         <div class="sign-up-title">
-
           <div class="preview">
             <% if @user.photo_url.present? %>
-                <%= image_tag @user.photo_url, id:"useravatar", alt: 'profile photo' %>
+                <%= image_tag @user.photo_url, alt: 'profile photo', align:"middle" %>
             <% end %>
           </div>
 
@@ -31,7 +31,7 @@
       <div class="modal-header">
         <!-- Header content for sign in with email -->
         <div class="edit-user-category">
-          <div class="email-title">
+          <div class="email-title head-title-modal">
             <br><br>
             Choose Category
           </div>
@@ -39,21 +39,27 @@
       </div>
       <div class="modal-body">
         <br><br>
-        <p>Pick some topics you are interested in</p>
+        <p class="md-subhead text-modal-body">Pick some topics you are interested in</p>
+        <div class="form-group">
+          <%= f.label :categories %>
+          <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %>
+        </div>
+
         <md-divider></md-divider>
-          <% Category.all.each do |c| %>
+        
+         <!-- <% Category.all.each do |c| %>
+            
             <md-list>
               <md-list-item>
-                <p><%= c.category_name %></p>
+                <p class="md-subhead text-modal-body"><%= c.category_name.capitalize %></p>
                 <md-checkbox class="md-secondary"></md-checkbox>
               </md-list-item>
             </md-list>
           <% end %>
-        <% end %>
+        <% end %> -->
         <br>
-        <md-divider></md-divider>
-        <md-button class="sign-up-cat" onclick="document.getElementById('sign_up_edit').submit();">Finish</md-button>
-        <md-divider></md-divider>
+        
+        <md-button class="md-accent md-raised md-hue-1 sign-up-cat" onclick="document.getElementById('sign_up_edit').submit();">Finish</md-button>
         <br><br>
       </div>
 

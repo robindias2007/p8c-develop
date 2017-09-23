@@ -1,41 +1,22 @@
 <%= form_for(resource, as: resource_name, validate:true, url: session_path(resource_name), remote: true) do |f| %>
     
- 
-  <md-input-container class="md-block">
-    <label>Email</label>
-    <%= f.email_field :email, required: true %>
-  </md-input-container>
+  <div class="form-group">
+    <%= f.label :Email %>
+    <%= f.email_field :email, placeholder:"E-mail", id:'textfield' %>
+  </div>
 
-  <md-input-container class="md-block">
-    <label>Password</label>
-    <%= f.password_field :password, required: true %>
-  </md-input-container>
+  <div class="form-group">
+    <%= f.label :Password %>
+    <%= f.password_field :password, placeholder:"Password", id:'textfield'  %>
+  </div>
+  <div class="terms-condition">
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+        <%= link_to "Forgot your password?", new_password_path(resource_name), remote: true %>
+    <% end -%>
+  </div>
 
-  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-    <%= link_to "Forgot your password?", new_password_path(resource_name), remote: true %>
-  <% end -%>
-  
-  <md-button><%= f.submit "Sign In" %></md-button>
-
-
-
-    <!-- <div class="form-group">
-      <%= f.label :Email %>
-      <%= f.email_field :email, placeholder:"E-mail", id:'textfield' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :Password %>
-      <%= f.password_field :password, placeholder:"Password", id:'textfield'  %>
-    </div>
-    <div class="terms-condition">
-      <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-          <%= link_to "Forgot your password?", new_password_path(resource_name), remote: true %>
-      <% end -%>
-    </div>
-
-    <div class="text-center">
-      <%= f.submit "Sign In", class: "btn btn-default"%>
-    </div> -->
+  <div class="text-center">
+    <%= f.submit "Sign In", class: "btn btn-default"%>
+  </div>
 
 <% end %>
