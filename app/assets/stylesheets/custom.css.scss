@@ -26,6 +26,40 @@ $component-active-color:transparent;
     src: url(/assets/FuturaStd-Bold.otf) format("truetype");
 }
 
+.head-title-modal
+{
+    font-family: "FuturaStd-Heavy";
+    font-size: 24px;
+}
+
+.text-modal-body
+{
+    font-family: "FuturaStd-Medium";
+    
+}
+
+
+input
+{
+    letter-spacing: normal;
+    font-family: FuturaStd-Medium;
+}
+
+md-input-container .md-input
+{
+    letter-spacing: normal;
+    font-family: FuturaStd-Medium;
+    line-height: 20px;   
+}
+
+/* -------------- Buttons  ---------------- */
+
+.md-button
+{
+    color:white;
+}
+
+
 /* -------------- Curativ material css  ---------------- */
 
 
@@ -37,6 +71,7 @@ $component-active-color:transparent;
               0px 0px 2px 2px rgba(0, 0, 0, 0.098),
               0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
+
 
 .curativ-header img {
     height: 55px;
@@ -1579,14 +1614,7 @@ ul.followers li {
 .google-button .head-text {
   color: rgba(0,0,0,.6);
 }
-.submit-btn {
-  text-align: center;
-  border-color: #fff;
-  color: #fff;
-  background-color: #9c1717;
-  border-radius: 20px;
-  margin-bottom: 10px;
-}
+
 
 .login-link {
   margin-bottom: 15px;
@@ -1763,3 +1791,35 @@ font-size: 12px;
 {
     z-index:1000;
 }
+
+.before-signup-text
+{
+    font-family: FuturaStd-Medium;
+    font-size: 32px;
+    letter-spacing: 0.5px;
+    line-height: 50px;
+    text-align:center;
+    margin-top: 2%;
+}
+
+#before-signup-logo
+{
+    width: 40%;
+    margin-top: 2%;
+}
+
+.before-signup-footer
+{
+    font-family: FuturaStd-Light;
+    font-size: 20px;
+    color: #9c1717;
+    margin-top: 2%;
+    letter-spacing: 1.5px;
+}
+
+.picks
+{
+    width: 50%;
+    margin: 0px auto;
+}
+
