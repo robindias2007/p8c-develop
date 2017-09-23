@@ -1,78 +1,105 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="" ng-controller="headerCtrl as ctrl" ng-cloak>
-  <md-toolbar class="curativ-header md-tall" layout="row">
-    <div flex layout="column">
-      <div class="md-toolbar-tools">
-        <a href="/">
-          <img src="/assets/thecurativ.png" />
-        </a>
-        <md-menu md-offset="0 -7">
-          <md-button class="md-fab md-mini" aria-label="More" ng-click="$mdOpenMenu($event)" style="box-shadow: none">
-            <% if current_user.avatar_file_name != nil %>
-              <img class="user-avatar" src="<%= current_user.avatar.url %>" style="width: 30px; height: 30px;">
-            <% else %>
-              <md-icon md-font-icon="icon-home" style="font-size: 24px;"
-              class="step "><i class="material-icons" style="" >account_circle</i></md-icon>            
-            <% end %> 
-          </md-button>          
+<div layout="row" layout-align="center center" class="" ng-controller="headerCtrl as ctrl" ng-cloak>
+  <md-toolbar md-scroll-shrink class="curativ-header" layout="row">
+    <div class="md-toolbar-tools">
+      <a href="/">
+        <img src="/assets/thecurativ.png" />
+      </a>
+        
+        <md-button md-no-ink class=""><a href="/">Home</a></md-button>
+        <md-button md-no-ink class=""><a href="">Staff's Pick</a></md-button>
+        <md-button md-no-ink class=""><a href="/trending">Trending</a></md-button>
+        <md-menu md-position-mode="target target" md-offset="20 60">        
+          <md-button md-no-ink md-menu-origin class="" aria-label="More1" ng-click="$mdOpenMenu($event)" style="box-shadow: none">Discover<md-icon><i class="material-icons">keyboard_arrow_down</i></md-icon>
+          </md-button>        
           <md-menu-content width="3">
             <md-menu-item>
               <md-button ng-click="" aria-label="">              
-                <a href="/<%= current_user.username %>/published">Published</a>
+                <a md-menu-align-target href="/editors_pick">Editor's Picks</a>
               </md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button>
-                <a href="/<%= current_user.username %>/drafts">Drafts</a>
+                <a href="/most_recent">Most Recent</a>
               </md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button>
-                <a href="/<%= current_user.username %>/saved">Saved</a>
+                <a href="/most_popular">Most Popular</a>
               </md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button>
-                <a href="/users/edit">Edit Profile</a>
+                <a  href="/most_saved">Most Saved</a>
               </md-button>
             </md-menu-item>
-            <md-menu-divider style="background-color: rgba(0,0,0,0.11)"></md-menu-divider>
-            <md-menu-item>
-              <md-button>
-                <%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %>
-              </md-button>
-            </md-menu-item>
-            <% if Admin.where(email:current_user.email).present? %>
+            <md-divider></md-divider>
+            <% tren_cat = Form.all.map {|e| e.tag_list}.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}.sort_by{ |k, v| v }.reverse.to_h.select {|x| x.start_with? 'cat_'} %>
+            <% tren_cat.first(3).each do |f,v| %>
               <md-menu-item>
                 <md-button>
-                  <a href="/dashboard">Admin Tools</a>
+                  <a href='/"<%= f[4..-1] %>"'><%= f[4..-1].capitalize %></a>
                 </md-button>
-              </md-menu-item>            
-            <% end %>
-            <% if admin_signed_in? %>
-              <md-menu-item>
-                <md-button>
-                  <%= link_to('Sign Out Admin', destroy_admin_session_path, :method => :delete) %>
-                </md-button>
-              </md-menu-item>            
+              </md-menu-item>
             <% end %>
           </md-menu-content>
         </md-menu>
-      </div>
-      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <md-button md-no-ink class="md-primary"><a href="/trending">Trending</a></md-button>
-        <% tren_cat = Form.all.map {|e| e.tag_list}.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}.sort_by{ |k, v| v }.reverse.to_h.select {|x| x.start_with? 'cat_'} %>
-        <% tren_cat.first(3).each do |f,v| %>
-          <md-button md-no-ink class="md-primary"><a href="/categories/<%= f[4..-1] %>"><%= f[4..-1].capitalize %></a></md-button>          
-        <% end %> 
-        <md-select placeholder="Discover" class="md-no-underline" ng-model="Discover">          
-          <md-option value="Editor's Picks">Editor's Picks</md-option>
-          <md-option value="Most Recent">Most Recent</md-option>
-          <md-option value="Most Popular">Most Popular</md-option>
-          <md-option value="Most Saved">Most Saved</md-option>
-        </md-select>      
-      </section>          
-    </div>
+      <div class="md-truncate flex"></div>
+      <span style="font-size: 18px"><%= current_user.username %></span>
+      <md-menu md-position-mode="target-right target" md-offset="0 70">        
+        <md-button class="md-fab md-mini" aria-label="More" md-menu-origin ng-click="$mdOpenMenu($event)" style="box-shadow: none">          
+          <% if current_user.avatar_file_name != nil %>
+            <img class="user-avatar" src="<%= current_user.avatar.url %>" style="width: 30px; height: 30px;">
+          <% else %>
+            <md-icon md-font-icon="icon-home" style="font-size: 24px;"
+            class="step "><i class="material-icons" style="" >account_circle</i></md-icon>            
+          <% end %> 
+        </md-button>        
+        <md-menu-content width="3">
+          <md-menu-item>
+            <md-button ng-click="" aria-label="">              
+              <a md-menu-align-target href="/<%= current_user.username %>/published">Published</a>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button>
+              <a href="/<%= current_user.username %>/drafts">Drafts</a>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button>
+              <a href="/<%= current_user.username %>/saved">Saved</a>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button>
+              <a href="/users/edit">Edit Profile</a>
+            </md-button>
+          </md-menu-item>
+          <md-menu-divider style="background-color: rgba(0,0,0,0.11)"></md-menu-divider>
+          <md-menu-item>
+            <md-button>
+              <%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %>
+            </md-button>
+          </md-menu-item>
+          <% if Admin.where(email:current_user.email).present? %>
+            <md-menu-item>
+              <md-button>
+                <a href="/dashboard">Admin Tools</a>
+              </md-button>
+            </md-menu-item>            
+          <% end %>
+          <% if admin_signed_in? %>
+            <md-menu-item>
+              <md-button>
+                <%= link_to('Sign Out Admin', destroy_admin_session_path, :method => :delete) %>
+              </md-button>
+            </md-menu-item>            
+          <% end %>
+        </md-menu-content>
+      </md-menu>
+    </div>          
+    
   </md-toolbar>
   <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" docs-scroll-class="scrolling" style="position: fixed">
     <md-fab-trigger>

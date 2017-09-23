@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921055311) do
+ActiveRecord::Schema.define(version: 20170923094341) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20170921055311) do
     t.datetime "photo_updated_at"
     t.string   "secure_id"
     t.string   "slug"
+    t.text     "sub_header"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
