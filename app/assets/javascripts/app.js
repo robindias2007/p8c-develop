@@ -71,7 +71,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $scope.formFlickityOptions = {
       cellSelector: '.form-article-cell',
       prevNextButtons: true,
-      pageDots: false,
+      pageDots: true,
       imagesLoaded: true,
       groupCells: 2
     };
