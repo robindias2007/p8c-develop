@@ -106,21 +106,27 @@
 
     <md-card-actions layout="row" layout-align="start center">
       <md-card-icon-actions>
-        <md-fab-speed-dial md-direction="left" class="md-fling">
+         <md-fab-speed-dial ng-cloak md-direction="left" class="md-fling md-ink-ripple" docs-scroll-class="scrolling">
           <md-fab-trigger>
-            <md-button class="md-fab md-ink-ripple" style="width:45px;height:45px;""><i class="material-icons" >share</i></md-button>
+            <md-button class="md-fab md-ink-ripple" style="width:40px;height:40px"><i class="material-icons" >share</i></md-button>
           </md-fab-trigger>
+
           <md-fab-actions>
-            <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+            <md-button aria-label="Twitter" style="width:35px;height:35px" class="md-fab md-raised md-mini">
               <md-icon>
                 <%= image_tag 'facebook.png' %>
               </md-icon>
             </md-button>
-            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+            <md-button aria-label="Facebook" style="width:35px;height:35px" class="md-fab md-raised md-mini">
               <md-icon>
                 <%= image_tag 'twitter.png' %>
               </md-icon>
-            </md-button>                  
+            </md-button>
+            <md-button aria-label="Copy" style="width:35px;height:35px" class="md-fab md-raised md-mini">
+              <md-icon>
+                <i class="material-icons">link</i>
+              </md-icon>
+            </md-button>
           </md-fab-actions>
         </md-fab-speed-dial>
 

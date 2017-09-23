@@ -33,47 +33,27 @@ class StaticPagesController < ApplicationController
     @keys = ENV['FACEBOOK_KEY'].to_json
     if current_user
       @cat_boards = []
-      @forms_uniq_ids = []
+      @forms_uniq_ids = []      
+
+      staff_pick = Form.staff_pick()
+      staff_pick_hash = { category: "staff_pick", boards: get_customized_forms(staff_pick)}
+      @cat_boards.push staff_pick_hash
+
+      trending = Form.trending()
+      trend_hash = { category: "trending", boards: get_customized_forms(trending)}
 
       categories = current_user.categories_ids.reject { |c| c.empty? }
-      categories.each do |category|
+      puts categories.inspect
+      categories.each_with_index do |category, index|
+        next if index > 2
         cat_hash = { category: category, boards: [] }
         forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
         cat_hash[:boards] = get_customized_forms(forms)
+        if index == 1
+          @cat_boards.push trend_hash  
+        end
         @cat_boards.push cat_hash
       end
-
-      trending = Form.trending(@forms_uniq_ids)
-      @forms_uniq_ids = @forms_uniq_ids + trending.pluck(:id)      
-      trend_hash = { category: "trending", boards: get_customized_forms(trending)}
-      
-      most_recent = Form.most_recent(@forms_uniq_ids)
-      @forms_uniq_ids = @forms_uniq_ids + most_recent.pluck(:id)
-      recent_hash = { category: "most_recent", boards: get_customized_forms(most_recent)}
-      
-      most_liked = Form.most_liked(@forms_uniq_ids)
-      @forms_uniq_ids = @forms_uniq_ids + most_liked.pluck(:id)
-      liked_hash = {category: "most_liked", boards: get_customized_forms(most_liked)}
-      
-      most_viewed = Form.most_viewed(@forms_uniq_ids)
-      @forms_uniq_ids = @forms_uniq_ids + most_viewed.pluck(:id)
-      viewed_hash = {category: "most_viewed", boards: get_customized_forms(most_viewed)}
-
-      most_saved = Form.most_saved(@forms_uniq_ids)
-      @forms_uniq_ids = @forms_uniq_ids + most_saved.pluck(:id)
-      saved_hash = {category: "most_saved", boards: get_customized_forms(most_saved)}
-      
-      most_shared = Form.most_shared(@forms_uniq_ids)
-      @forms_uniq_ids = @forms_uniq_ids + most_shared.pluck(:id)
-      shared_hash = {category: "most_shared", boards: get_customized_forms(most_shared)}
-      
-
-      @cat_boards.push trend_hash
-      @cat_boards.push recent_hash
-      @cat_boards.push liked_hash
-      @cat_boards.push viewed_hash
-      @cat_boards.push saved_hash
-      @cat_boards.push shared_hash
 
       # TODO: Fetch categories_ids
       @formss = @cat_boards.to_json

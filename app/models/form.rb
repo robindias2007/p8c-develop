@@ -38,8 +38,12 @@ scope :saved, -> {
     "#{self.slug}-#{self.secure_id}"
   end
   
-  def self.trending(ids)
-    Form.where.not(id: ids).published.limit(3)
+  def self.staff_pick()
+    Form.published.limit(3)
+  end
+
+  def self.trending()
+    Form.published.limit(3)
   end
 
   def self.most_recent(ids)

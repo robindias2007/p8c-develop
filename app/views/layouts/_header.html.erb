@@ -7,30 +7,25 @@
       </a>
         
         <md-button md-no-ink class=""><a href="/">Home</a></md-button>
-        <md-button md-no-ink class=""><a href="">Staff's Pick</a></md-button>
+        <md-button md-no-ink class=""><a href="/staff_pick">Staff's Pick</a></md-button>
         <md-button md-no-ink class=""><a href="/trending">Trending</a></md-button>
         <md-menu md-position-mode="target target" md-offset="20 60">        
           <md-button md-no-ink md-menu-origin class="" aria-label="More1" ng-click="$mdOpenMenu($event)" style="box-shadow: none">Discover<md-icon><i class="material-icons">keyboard_arrow_down</i></md-icon>
           </md-button>        
-          <md-menu-content width="3">
+          <md-menu-content width="3">            
             <md-menu-item>
-              <md-button ng-click="" aria-label="">              
-                <a md-menu-align-target href="/editors_pick">Editor's Picks</a>
+              <md-button>
+                <a layout="row" layout-align="center center" style="width: 100%; height: 100%" md-menu-align-target href="/most_recent">Most Recent</a>
               </md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button>
-                <a href="/most_recent">Most Recent</a>
+                <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/most_popular">Most Popular</a>
               </md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button>
-                <a href="/most_popular">Most Popular</a>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button>
-                <a  href="/most_saved">Most Saved</a>
+                <a layout="row" layout-align="center center" style="width: 100%; height: 100%"  href="/most_saved">Most Saved</a>
               </md-button>
             </md-menu-item>
             <md-divider></md-divider>
@@ -38,7 +33,7 @@
             <% tren_cat.first(3).each do |f,v| %>
               <md-menu-item>
                 <md-button>
-                  <a href='/"<%= f[4..-1] %>"'><%= f[4..-1].capitalize %></a>
+                  <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href='/categories/<%= f[4..-1] %>'><%= f[4..-1].capitalize %></a>
                 </md-button>
               </md-menu-item>
             <% end %>
@@ -47,9 +42,9 @@
       <div class="md-truncate flex"></div>
       <span style="font-size: 18px"><%= current_user.username %></span>
       <md-menu md-position-mode="target-right target" md-offset="0 70">        
-        <md-button class="md-fab md-mini" aria-label="More" md-menu-origin ng-click="$mdOpenMenu($event)" style="box-shadow: none">          
+        <md-button class="md-fab md-mini" aria-label="More" md-menu-origin ng-click="$mdOpenMenu($event)" style="box-shadow: none; padding: 0px">          
           <% if current_user.avatar_file_name != nil %>
-            <img class="user-avatar" src="<%= current_user.avatar.url %>" style="width: 30px; height: 30px;">
+            <img class="user-avatar" src="<%= current_user.avatar.url %>" style="width: 40px; height: 40px;">
           <% else %>
             <md-icon md-font-icon="icon-home" style="font-size: 24px;"
             class="step "><i class="material-icons" style="" >account_circle</i></md-icon>            
@@ -58,41 +53,41 @@
         <md-menu-content width="3">
           <md-menu-item>
             <md-button ng-click="" aria-label="">              
-              <a md-menu-align-target href="/<%= current_user.username %>/published">Published</a>
+              <a layout="row" layout-align="center center" style="width: 100%; height: 100%" md-menu-align-target href="/<%= current_user.username %>/published">Published</a>
             </md-button>
           </md-menu-item>
           <md-menu-item>
             <md-button>
-              <a href="/<%= current_user.username %>/drafts">Drafts</a>
+              <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/<%= current_user.username %>/drafts">Drafts</a>
             </md-button>
           </md-menu-item>
           <md-menu-item>
             <md-button>
-              <a href="/<%= current_user.username %>/saved">Saved</a>
+              <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/<%= current_user.username %>/saved">Saved</a>
             </md-button>
           </md-menu-item>
           <md-menu-item>
             <md-button>
-              <a href="/users/edit">Edit Profile</a>
+              <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/users/edit">Edit Profile</a>
             </md-button>
           </md-menu-item>
           <md-menu-divider style="background-color: rgba(0,0,0,0.11)"></md-menu-divider>
           <md-menu-item>
             <md-button>
-              <%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %>
+              <a data-method="delete" layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/users/sign_out">Sign out</a>
             </md-button>
           </md-menu-item>
           <% if Admin.where(email:current_user.email).present? %>
             <md-menu-item>
               <md-button>
-                <a href="/dashboard">Admin Tools</a>
+                <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/dashboard">Admin Tools</a>
               </md-button>
             </md-menu-item>            
           <% end %>
           <% if admin_signed_in? %>
             <md-menu-item>
               <md-button>
-                <%= link_to('Sign Out Admin', destroy_admin_session_path, :method => :delete) %>
+                <a data-method="delete" layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/admins/sign_out">Sign out Admin</a>
               </md-button>
             </md-menu-item>            
           <% end %>
@@ -101,30 +96,12 @@
     </div>          
     
   </md-toolbar>
-  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" docs-scroll-class="scrolling" style="position: fixed">
-    <md-fab-trigger>
-      <md-button class="md-fab md-ink-ripple" style="width:45px;height:45px;background-color: white"><i class="material-icons" >add</i></md-button>
-    </md-fab-trigger>
-
-    <md-fab-actions>
-      <md-button aria-label="Add User" class="md-fab md-mini md-ink-ripple">
-        <a href="/<%= current_user.username %>/new_form">
-          <md-tooltip md-direction="left">Create Curate</md-tooltip>
-          <md-icon md-font-icon="icon-home" style="font-size: 30px;"
-                  class="step "><i class="material-icons" style="" >note_add</i></md-icon>
-        </a>
-      </md-button>
-
-      <md-button aria-label="Add Group" class="md-fab md-mini md-ink-ripple" ng-click='showAdvanced($event, "<%= current_user.username %>")'>
-         <md-tooltip md-direction="left">?</md-tooltip>
-        <md-icon md-font-icon="icon-home" style="font-size: 30px;"
-                class="step "><i class="material-icons" style="" >account_circle</i></md-icon>
-      </md-button>
-    </md-fab-actions>
-  </md-fab-speed-dial>
-
-
-
+  <md-button class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="width:45px;height:45px; position: fixed">
+    <a href="/<%= current_user.username %>/new_form">
+    <md-tooltip md-direction="left">Create Curate</md-tooltip>
+    <md-icon><i class="material-icons">add</i></md-icon>
+    </a>
+  </md-button>
 
   <script type="text/ng-template" id="dialog1.tmpl.html">
     <md-dialog aria-label="New Form" ng-controller="newFormCtrl" ng-init="init()" >
