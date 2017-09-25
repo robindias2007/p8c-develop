@@ -10,11 +10,12 @@
    
    <md-card-title>
     <md-card-title-text>
+      <a href="/{{board.user.username}}/{{board.slug_url}}">
       <span class="md-headline">
-        <a href="/{{board.user.username}}/{{board.slug_url}}">{{board.title}}
+        {{board.title}}
         <!--<h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2>-->
-        </a> 
-      </span>
+        </span>
+      </a> 
 
       <span class="md-subhead">
         SUBHEADING??
@@ -32,16 +33,14 @@
       </div>
     </md-virtual-repeat-container> -->
 
-
-
-    <div class="card-body" layout="row">
-      <div hide="" show-lg="" flex="33" class="hide show-lg flex">
-        <p class="md-body-1 internal_text" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.dsc}}</p>
+    <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+      <div flex="33" class="internal_text">
+        <p class="md-body-1">{{board.dsc}}</p>
       </div>
       
-      <div flex="66" layout="row">
+      <div class="flickity" ng-class="(outerIndex%3 == 0) ? 'flex-66' : 'flex-100'" layout="row">
         <ul class="row" bc-flickity="{{ flickityOptions }}">
-          <md-card class="article-cell" ng-repeat="link in board.links" > 
+          <md-card class="article-cell" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'" ng-repeat="link in board.links" > 
               <img ng-src="{{link.image}}" class="md-card-image" id="image" alt="Image" ng-if="link.image">
               <img class="md-card-image" id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">
               <md-card-content class="link-card-title">
@@ -50,7 +49,9 @@
                 
               </md-card-content>
               <md-card-actions>
+                <a href="{{link.url}}" target="_blank", id="formclick" >
                 <span class="md-button md-accent">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
+              </a>
               </md-card-actions>
             </md-card>
         </ul>
@@ -95,12 +96,16 @@
   </md-card-content>
   <md-divider></md-divider>
   <md-card-header class="card-footer" layout="row" layout-align="start center">
-    <md-card-avatar>
-      <img class="md-user-avatar" src="{{board.user_image}}"/>
+    
+      <md-card-avatar>
+      <a href="/{{board.user.username}}/publish">
+        <img class="md-user-avatar" src="{{board.user_image}}"/>
+      </a>
     </md-card-avatar>
+     
 
     <md-card-header-text>
-      <span class="md-title">{{board.user.username}}</span>
+      <a href="/{{board.user.username}}/publish"><span class="md-title">{{board.user.username}}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 

@@ -111,23 +111,22 @@ body md-dialog {
     cursor: pointer;
 }
 
-
 .md-headline{
     font-family: "FuturaStd-Bold";
-}
-
-.md-headline a{
-    color:rgba(0,0,0,0.87);
+    color:initial;
 }
 
 md-card md-card-title md-card-title-text:only-child .md-subhead {
     font-size:18px;
     line-height:24px;
-    padding-top:8px;
 }
 
 md-card-header.md-subhead {
     font-family: "FuturaStd-Medium"
+}
+
+span.md-subhead {
+    padding-top:8px !important;
 }
 
 .card-footer {
@@ -336,11 +335,9 @@ textarea {
     width: 100%;
 }
 
-/*  span {
-    color:#8b0000;
-    font-weight:bold;
-    font-style: italics;
-}*/
+span {
+    color:initial;
+}
 
 /*.container
 {   
@@ -722,6 +719,21 @@ font-size:14px;
     margin:0;
 }
 
+.internal_text > p {   
+    font-family: 'Merriweather', serif;
+    font-weight: 100;
+    max-height:231px;
+    overflow-y: hidden;
+}
+
+.card-body.halfBoard > .internal_text {
+    display:none;
+}
+
+.card-body.halfBoard > .flickity {
+    flex:100%;
+}
+
 .halfBoard.title1 {
     position: absolute;
     top: 50%;
@@ -731,20 +743,8 @@ font-size:14px;
     color: white;
 }
 
-.internal_text {   
-    font-family: 'Merriweather', serif;
-    font-weight: 100;
-    max-height:231px;
-    overflow-y: hidden;
-
-    /*width: 100%;
-    line-height: 1.5;
-    margin: 6px auto 10px auto;*/
-}
-
-.halfBoard.internal_text {
-    height: 46px;
-    margin-top: 10px;
+p.halfBoard.internal_text {
+    display:none;
 }
 
 .internal_text:hover
@@ -780,7 +780,7 @@ font-size:14px;
  border-radius:2px;
 }
 
-.halfBoard.container1{
+md-card.halfBoard {
     width:48%;
     margin:18px 9px;
     float:left;
@@ -800,6 +800,19 @@ font-size:14px;
     float:none;
 }
 
+.halfBoard.boardContainer {
+    display: table;
+    width:75%;
+    margin:auto;
+}
+
+
+.halfBoard#verticalLine {
+    margin: 0px 0px 10px 0px;
+    height: 244px;
+
+}
+
 #summary{
 text-transform:uppercase;
 margin-top:21px;
@@ -808,6 +821,15 @@ font-size:15px;
 font-weight:normal;
 border-bottom:1px solid #333333;
 padding-bottom:1px;
+}
+
+#verticalLine{
+    height:280px;
+    border-left:1px solid #e3e3e3;
+    margin:1.3% 6px;
+    float:left;
+    box-shadow: 2px 0px 8px #e3e3e3;
+    z-index:4;
 }
 
 .maincont {
@@ -822,27 +844,6 @@ padding-bottom:1px;
     display: table;
     width: 75%;
     margin: auto;
-}
-
-.halfBoard.boardContainer {
-    display: table;
-    width:75%;
-    margin:auto;
-}
-
-#verticalLine{
-    height:280px;
-    border-left:1px solid #e3e3e3;
-    margin:1.3% 6px;
-    float:left;
-    box-shadow: 2px 0px 8px #e3e3e3;
-    z-index:4;
-}
-
-.halfBoard#verticalLine {
-    margin: 0px 0px 10px 0px;
-    height: 244px;
-
 }
 
 .container2 {
@@ -1151,13 +1152,21 @@ $transition : 0.35s;
 
 /* --------- FLICKITY ----------*/
 
+.halfBoard .article-cell {
+    width:189px;
+    margin: 4px 5px;
+}
+
+.halfBoard .row {
+    margin-left:0px;
+}
 
 .article-cell
 {
     height: 249px;
     position: absolute;
     left: 0%;
-    width: 240px !important;
+    width: 240px;
     border: 1px solid #e3e3e3;
     box-shadow: 0px 1px 1px #888888;
     z-index: 3;
