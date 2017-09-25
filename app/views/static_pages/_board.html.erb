@@ -97,7 +97,7 @@
   <md-divider></md-divider>
   <md-card-header class="card-footer" layout="row" layout-align="start center">
     
-      <md-card-avatar>
+    <md-card-avatar>
       <a href="/{{board.user.username}}/publish">
         <img class="md-user-avatar" src="{{board.user_image}}"/>
       </a>
@@ -113,36 +113,48 @@
       <md-card-icon-actions>
          <md-fab-speed-dial ng-cloak md-direction="left" class="md-fling md-ink-ripple" docs-scroll-class="scrolling">
           <md-fab-trigger>
-            <md-button class="md-fab md-ink-ripple" style="width:40px;height:40px"><i class="material-icons" >share</i></md-button>
+            <md-button class="md-icon-button" style="width:40px;height:40px; background:white; margin: 0px">
+              <md-icon>
+                <a id="" data-remote="true" href="" ng-click="">
+                  <i class="material-icons" >share</i>
+                </a>
+              </md-icon>
+            </md-button>
           </md-fab-trigger>
 
           <md-fab-actions>
-            <md-button aria-label="Twitter" style="width:35px;height:35px" class="md-fab md-raised md-mini">
+            <md-button aria-label="Facebook" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
               <md-icon>
-                <%= image_tag 'facebook.png' %>
+                <a id="" target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
+                  <%= image_tag 'facebook.png' %>
+                </a>
               </md-icon>
             </md-button>
-            <md-button aria-label="Facebook" style="width:35px;height:35px" class="md-fab md-raised md-mini">
+            <md-button aria-label="Twitter" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
               <md-icon>
-                <%= image_tag 'twitter.png' %>
+                <a id="" target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
+                  <%= image_tag 'twitter.png' %>
+                </a>
               </md-icon>
             </md-button>
-            <md-button aria-label="Copy" style="width:35px;height:35px" class="md-fab md-raised md-mini">
+            <md-button aria-label="Copy" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
               <md-icon>
-                <i class="material-icons">link</i>
+                <a id="" data-remote="true" href="" ng-click="">
+                  <i class="material-icons">link</i>
+                </a>
               </md-icon>
             </md-button>
           </md-fab-actions>
         </md-fab-speed-dial>
 
-        <md-button class="md-icon-button" aria-label="Bookmark">
+        <md-button class="md-icon-button" aria-label="Bookmark" style="margin: 0px">
           <md-icon>
             <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
             <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>  
           </md-icon>
         </md-button>
         <p style="padding-top:5%">{{board.likes}}</p>
-        <md-button class="md-icon-button" aria-label="Favorite">
+        <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
           <md-icon>
             <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
             <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>
