@@ -36,17 +36,17 @@ class StaticPagesController < ApplicationController
       @forms_uniq_ids = []      
 
       staff_pick = Form.staff_pick()
-      staff_pick_hash = { category: "staff_pick", boards: get_customized_forms(staff_pick)}
+      staff_pick_hash = { category: "staff_pick", name: "staff's picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
 
       trending = Form.trending()
-      trend_hash = { category: "trending", boards: get_customized_forms(trending)}
+      trend_hash = { category: "trending", name: "trendings", boards: get_customized_forms(trending)}
 
       categories = current_user.categories_ids.reject { |c| c.empty? }
       puts categories.inspect
       categories.each_with_index do |category, index|
         next if index > 2
-        cat_hash = { category: category, boards: [] }
+        cat_hash = { category: category, name: category, boards: [] }
         forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
         cat_hash[:boards] = get_customized_forms(forms)
         if index == 1
