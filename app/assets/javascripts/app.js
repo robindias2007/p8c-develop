@@ -451,6 +451,18 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
     $window.open(link, '_blank');
   };
 
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
+
   $scope.update_bookmark = function(board){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
@@ -492,6 +504,18 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -540,6 +564,18 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -614,6 +650,18 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
+
   $scope.update_bookmark = function(board){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
@@ -686,6 +734,18 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -760,6 +820,18 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -887,6 +959,18 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
