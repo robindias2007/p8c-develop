@@ -483,8 +483,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -537,8 +536,7 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -622,8 +620,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -709,8 +706,7 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -794,8 +790,7 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -880,8 +875,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -991,7 +985,6 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
     prevNextButtons: true,
-    pageDots: false,
     imagesLoaded: true,
     groupCells: 2
   };
