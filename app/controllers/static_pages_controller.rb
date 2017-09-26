@@ -36,7 +36,7 @@ class StaticPagesController < ApplicationController
       @forms_uniq_ids = []      
 
       staff_pick = Form.staff_pick()
-      staff_pick_hash = { category: "staff_pick", name: "staff's picks", boards: get_customized_forms(staff_pick)}
+      staff_pick_hash = { category: "staff_picks", name: "staff's picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
 
       trending = Form.trending()

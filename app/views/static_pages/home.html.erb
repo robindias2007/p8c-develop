@@ -1,11 +1,11 @@
 <!-- if user has signed in -->
 <% if user = current_user %>
-<div class="maincont">
+<md-content flex>
 
   <%= render 'static_pages/boards'%>
   <br>
   <%= render 'static_pages/footer' %>
-</div>
+</md-content>
 
 
 <!-- if user isn't signed in -->

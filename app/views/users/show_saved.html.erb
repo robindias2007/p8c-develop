@@ -1,4 +1,4 @@
-<div class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
+<md-content flex ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
   <div class="col-md-10" id="userProfile">
     <div id="username">
       <% if @user.photo_url.present? %>
@@ -134,4 +134,4 @@
       </div>        
     </div>
   </div>
-</div>
+</md-content>
