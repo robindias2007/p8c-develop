@@ -8,11 +8,11 @@
           <div class="categorytitle col-md-8" ><span>{{cat_board.name}}</span></div>
           <div class="categorytitle col-md-4">
             
-            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'staff_pick' " ng-href="/categories/{{cat_board.category}}">
+            <a ng-if="cat_board.category != 'trending' && cat_board.category != 'staff_picks' " ng-href="/categories/{{cat_board.category}}">
               <i class="material-icons">keyboard_arrow_right</i>  
             </a>
 
-            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'staff_pick')" ng-href="/{{cat_board.category}}">
+            <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'staff_picks')" ng-href="/{{cat_board.category}}">
               <i class="material-icons">keyboard_arrow_right</i>
             </a>
           

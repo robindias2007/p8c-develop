@@ -1,4 +1,4 @@
-<div class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>, <%= current_user.following?(@user) %>, <%= @user.all_following.count %>, <%= @user.followers.count %>)">
+<md-content flex class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>, <%= current_user.following?(@user) %>, <%= @user.all_following.count %>, <%= @user.followers.count %>)">
   <div class="col-md-10" id="userProfile">
     <div id="username">
       <% if @user.photo_url.present? %>
@@ -267,4 +267,4 @@
       </div>  
     </div>
   </div>
-</div>
+</md-content>

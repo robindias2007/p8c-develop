@@ -1,13 +1,13 @@
 <!-- if user has signed in -->
 <% if user = current_user %>
-<div class="maincont">
+<md-content flex>
 	<div class="categoryheader">
 	    <h4><%= @cat_name %></h4>
 	</div>
 	<%= render 'static_pages/cat_boards'%>
 	<br>
   	<%= render 'static_pages/footer' %>
-</div>
+</md-content>
 
 
 <!-- if user isn't signed in -->

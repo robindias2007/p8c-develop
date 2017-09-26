@@ -1,25 +1,25 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div layout="row" layout-align="center center" class="" ng-controller="headerCtrl as ctrl" ng-cloak>
-  <md-toolbar md-scroll-shrink class="curativ-header" layout="row">
+
+  <md-toolbar md-scroll-shrink ng-if="true" class="curativ-header" ng-controller="headerCtrl as ctrl" ng-cloak>
     <div class="md-toolbar-tools">
       <a href="/">
         <img src="/assets/thecurativ.png" />
       </a>
         
         <md-button md-no-ink class=""><a href="/">Home</a></md-button>
-        <md-button md-no-ink class=""><a href="/staff_pick">Staff's Pick</a></md-button>
+        <md-button md-no-ink class=""><a href="/staff_picks">Staff's Pick</a></md-button>
         <md-button md-no-ink class=""><a href="/trending">Trending</a></md-button>
         <md-menu md-position-mode="target target" md-offset="20 60">        
           <md-button md-no-ink md-menu-origin class="" aria-label="More1" ng-click="$mdOpenMenu($event)" style="box-shadow: none">Discover<md-icon><i class="material-icons">keyboard_arrow_down</i></md-icon>
           </md-button>        
-          <md-menu-content width="3" layout-gt-sm="row" layout="column">
-            <div flex-gt-sm="50" flex>
-              <md-toolbar layout="row" class="md-hue-3">
+          <md-menu-content width="3" layout="row" style="" layout-xs="column">
+            <div layout-fill>
+              <md-toolbar>
                 <div class="md-toolbar-tools">
                   <span>Categories</span>
                 </div>
               </md-toolbar>
-               <md-content>
+              <md-content>
                 <% tren_cat = Form.all.map {|e| e.tag_list}.join(',').split(',').each_with_object(Hash.new(0)) {|b, hash| hash[b] += 1}.sort_by{ |k, v| v }.reverse.to_h.select {|x| x.start_with? 'cat_'} %>
                 <% tren_cat.first(3).each do |f,v| %>
                   <md-menu-item>
@@ -31,8 +31,8 @@
               </md-content>                         
             </div>
             <md-divider></md-divider>
-            <div flex-gt-sm="50" flex>
-              <md-toolbar layout="row" class="md-hue-3">
+            <div layout-fill>
+              <md-toolbar>
                 <div class="md-toolbar-tools">
                   <span>Filters</span>
                 </div>
@@ -116,173 +116,4 @@
     </div>          
     
   </md-toolbar>
-  <md-button class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="width:45px;height:45px; position: fixed">
-    <a href="/<%= current_user.username %>/new_form">
-    <md-tooltip md-direction="left">Create Curate</md-tooltip>
-    <md-icon><i class="material-icons">add</i></md-icon>
-    </a>
-  </md-button>
-
-  <script type="text/ng-template" id="dialog1.tmpl.html">
-    <md-dialog aria-label="New Form" ng-controller="newFormCtrl" ng-init="init()" >
-      <form ng-cloak>
-        <md-toolbar>
-          <div class="md-toolbar-tools">
-            <h2>New Form</h2>
-            <span flex></span>
-            <md-button class="md-icon-button" ng-click="cancel()">
-              <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-
-        <md-dialog-content>
-          
-          <div layout="row">
-            <md-list>
-              <md-list-item class="noright">
-                <% if current_user.photo_url.present? %>
-                  <img ng-src="<%= current_user.photo_url %>" class="md-avatar" />
-                <% else %>
-                  <i class="material-icons">account_circle</i>
-                <% end %>
-                <p><%= current_user.username.capitalize %></p>
-              </md-list-item>
-            </md-list>
-          </div>
-
-          <div flex-xs flex-gt-xs="100">
-            <md-input-container class="md-block">
-              <label>Title</label>
-              <input ng-model="formTitle">
-            </md-input-container>
-            
-            <md-input-container class="md-block">
-              <label>Description</label>
-              <textarea ng-model="formDsc" md-maxlength="315" rows="3" md-select-on-focus></textarea>
-            </md-input-container>
-          </div>
-            
-
-
-          <div class="md-dialog-content">
-
-            <div layout="row">
-
-              <div flex-xs flex-gt-xs="20" ng-repeat="link in newFormLinks track by $index">
-                <md-card>
-                  <md-card-content>
-                      
-                    <div ng-if="newFormLinks[$index].show.addLink">
-                      <a href="" ng-click="AddLinkClicked($index.toString())">
-                        <i class="material-icons" style="font-size:50px">add_circle</i>
-                        <p>Add a new link</p>
-                      </a>                            
-                    </div>
-
-                    <div ng-if="newFormLinks[$index].show.linkBox">
-                      <div>
-                        <a href="" ng-click="backToAddLinkClick($index.toString())" style="">
-                          <i class="material-icons" style="font-size:20px">arrow_back</i>
-                        </a>                                  
-                      </div>
-                      <a href="">
-                        <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
-                        <div flex-xs flex-gt-xs="100">
-                          <md-input-container class="md-block">
-                            <label>Enter Link</label>
-                            <input type="text" ng-model="newFormLinks[$index].url" >
-                          </md-input-container>
-                        </div>
-                      </a>                        
-                      <div>
-                        <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())">
-                          <i class="material-icons" style="font-size: 35px">file_upload</i>
-                        </a>
-                      </div>
-                    </div>
-
-                    <div ng-if="newFormLinks[$index].show.loading">
-                      <i class="material-icons rotate-animation" style="">cached</i>
-                    </div>
-
-                    <div ng-if="newFormLinks[$index].show.viewData">
-                      <div>
-                          <div>
-                            <a href="" ng-click="AddNoteClicked($index.toString())" style="">
-                              <i class="material-icons" style="font-size:20px">insert_comment</i>
-                            </a>
-                            <a href="" ng-click="addNewLink($index.toString())" style="">
-                              <i class="material-icons" style="font-size:20px">mode_edit</i>
-                            </a>
-                          </div>
-                          <img ng-src="{{newFormLinks[$index].image}}" ng-if="newFormLinks[$index].image"/>
-                          <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[$index].image">
-                      </div>
-                      <div>
-                        <p>{{newFormLinks[$index].title | cut:true:70:' ...'}}</p>
-                      </div>
-                      <div>
-                        <p style="font-size: 12px">{{newFormLinks[$index].host}}</p>
-                      </div>
-                    </div>
-
-                    <div ng-if="newFormLinks[$index].show.noteBox">
-                      <div>
-                        <div>
-                          <a href="" ng-click="backToViewData($index.toString())" style="">
-                            <i class="material-icons" style="font-size:20px">arrow_back</i>
-                          </a>                                  
-                        </div>
-                        <md-input-container class="md-block">
-                          <label>Add Note</label>
-                          <textarea ng-model="newFormLinks[$index].note" md-maxlength="150" rows="2" md-select-on-focus></textarea>
-                        </md-input-container>
-                      </div>
-                      <div>
-                        <a href="" class="btn btn-sm" ng-click="saveNote($index.toString())">
-                          <i class="material-icons" style="font-size: 35px">save</i>
-                        </a>
-                      </div>
-                    </div>
-
-                    <div ng-if="newFormLinks[$index].show.editLinkBox">
-                      <div>
-                        <div>
-                          <a href="" ng-click="backToViewData($index.toString())" style="">
-                            <i class="material-icons" style="font-size:20px">arrow_back</i>
-                          </a>                                  
-                        </div>
-                        <a href="">
-                          <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
-                          <input type="text" ng-model="newFormLinks[$index].url" style="width:100%; position: relative; top: 50px" placeholder="place your link here">
-                        </a>
-                      </div>                            
-                      <div>
-                        <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())">
-                          <i class="material-icons" style="font-size: 35px">file_upload</i>
-                        </a>
-                      </div>
-                    </div>
-
-                  </md-card-content>
-                  
-                </md-card>
-              </div>
-            </div>
-
-          </div>
-        </md-dialog-content>
-        <md-divider></md-divider>
-        <md-dialog-actions layout="row">
-          <md-button ng-click="saveForm(<%= current_user.id %>, 'draft')" ng-disabled="checkFormValidation()">Drafts</md-button>
-          <md-button ng-click="saveForm(<%= current_user.id %>, 'draft')" ng-disabled="checkFormValidation()">Publish</md-button>
-        </md-dialog-actions>
-      </form>
-    </md-dialog>
-  </script>
-
-
-
-
-</div>
+  
