@@ -17,7 +17,7 @@ class FormsController < ApplicationController
     end
 
   def get_boards(forms)
-    forms.map {|f| {form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,sub_header: f.sub_header, dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -38,7 +38,7 @@ class FormsController < ApplicationController
         #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
         @boards = get_boards(@forms)    
       else
-        @boards = @forms.map {|f| {form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+        @boards = @forms.map {|f| {form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
         [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1 },
         {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2 },
         {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3 },
@@ -356,6 +356,7 @@ class FormsController < ApplicationController
     form = Form.new
     form.user_id = params[:user_id].to_i
     form.title = params[:title]
+    form.sub_header = params[:sub_header]
     form.description = params[:dsc]
     form.publish = params[:text] == 'publish' ? true : false
     params[:forms].each_with_index do |f, index|
@@ -432,7 +433,7 @@ class FormsController < ApplicationController
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5, :admins_date, :view_count, :likes_count, :saved_count, :share_count)
+      params.require(:form).permit(:user_id,:title, :sub_header ,:description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5, :admins_date, :view_count, :likes_count, :saved_count, :share_count)
     end
 
     def authenticate_admin

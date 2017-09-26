@@ -77,6 +77,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     };
     $scope.formTitle = "";
     $scope.formDsc = "";
+    $scope.formSubheader = "";
     $scope.newFormLinks = [{ show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
                           { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false}, url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
                           { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false}, url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
@@ -357,7 +358,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $http({
       method: 'POST',
       url: 'create_form.json',
-      data: {user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc}
+      data: {user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc, sub_header: $scope.formSubheader}
     }).then(function successCallback(response) {
       data = response.data;
       assignData(data, text, url);
