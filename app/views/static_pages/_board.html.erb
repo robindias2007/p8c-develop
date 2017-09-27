@@ -98,14 +98,14 @@
   <md-card-header class="card-footer" layout="row" layout-align="start center">
     
     <md-card-avatar>
-      <a href="/{{board.user.username}}/publish">
+      <a href="/{{board.user.username}}/published">
         <img class="md-user-avatar" src="{{board.user_image}}"/>
       </a>
     </md-card-avatar>
      
 
     <md-card-header-text>
-      <a href="/{{board.user.username}}/publish"><span class="md-title">{{board.user.username}}</span></a>
+      <a href="/{{board.user.username}}/published"><span class="md-title">{{board.user.username}}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 

@@ -38,10 +38,6 @@ app.config(function($mdThemingProvider) {
     .accentPalette('deepRed');
 });
 
-
-
-
-
 app.filter('cut', function () {
   return function (value, wordwise, max, tail) {
     if (!value) return '';
@@ -65,6 +61,7 @@ app.filter('cut', function () {
     return value + (tail || ' …');
   };
 });
+
 app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
 
   $scope.init = function () {
@@ -435,7 +432,6 @@ app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'Flicki
       }
 }]);
 
-
 app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
   $scope.init = function(boards,key){
     $scope.cat_boards = boards;
@@ -544,7 +540,6 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   $scope.alert = '';
 }]);
 
-
 app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
   $scope.init = function(boards, key){
     $scope.pub_boards = boards;
@@ -597,7 +592,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     if ($scope.stop_loading == false) {
       $http({
       method: 'GET',
-      url: 'publish.json?page='+ $scope.next_page
+      url: 'published.json?page='+ $scope.next_page
       }).then(function successCallback(response) {
         boards = JSON.parse(response.data.boards);
         for(var i = 0; i <= (boards.length - 1) ; i++) {
@@ -933,7 +928,6 @@ app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'Flickit
       }, function errorCallback(response) {
     });
   }
-
 }]);
 
 app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
@@ -992,4 +986,57 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
   $scope.imagePath = 'img/washedout.png';
   
   $scope.alert = '';
-}]);  
+}]);
+
+app.controller('EditUserCtrl', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
+  
+  getCategoriesAndUserCategories = function (user) {
+    $http({
+      method: 'GET',
+      url: 'categories.json',
+      params: {user_id: user.id}
+      }).then(function successCallback(response) {
+        $scope.categories = JSON.parse(response.data.categories);
+        $scope.user_categories = JSON.parse(response.data.user_categories);        
+      }, function errorCallback(response) {
+    });
+  }
+
+  $scope.init = function (user) {
+    $scope.user_profile = user;
+    getCategoriesAndUserCategories(user);
+  }
+
+  $scope.toggle = function (item, list) {
+    var idx = list.indexOf(item);
+    if (idx > -1) {
+      list.splice(idx, 1);
+    }
+    else {
+      list.push(item);
+    }
+  };
+
+  $scope.exists = function (item, list) {
+    return list.indexOf(item) > -1;
+  };
+
+  $scope.checkBoxValidation = function () {
+    if ($scope.user_categories.length >= 3) {
+      return false;
+    };    
+
+    return true;
+  };
+
+  $scope.UpdateCategory = function () {    
+    $http({
+      method: 'POST',
+      url: 'update_categories.json',
+      data: {categories: $scope.user_categories, user_id: $scope.user_profile.id}
+    }).then(function successCallback(response) {      
+      },function errorCallback(response) {
+    });
+  }
+}]);
+

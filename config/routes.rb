@@ -19,7 +19,10 @@ Rails.application.routes.draw do
 
   get '/:id/new_form' => 'forms#new_modal'
   get '/:id/get_meta_data' => 'forms#get_meta_data'
-  post '/:id/create_form' => 'forms#create_form'  
+  post '/:id/create_form' => 'forms#create_form'
+
+  get '/users/categories' => 'users#categories'
+  post '/users/update_categories' => 'users#update_categories'  
  
   resources :forms, :only => [:index, :edit, :update] do
     member do
@@ -32,6 +35,10 @@ Rails.application.routes.draw do
   end
 
   resources :users, :only => [:index, :show, :edit, :update] do
+    member do
+      get 'categories' => 'users#categories'
+      post 'update_categories' => 'users#update_categories'  
+    end
     resources :follows, :only => [:create, :destroy]
   end
 

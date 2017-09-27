@@ -91,7 +91,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      @user.update_attributes(categories_ids:params[:user][:categories_ids])
+      #@user.update_attributes(categories_ids:params[:user][:categories_ids])
       redirect_to root_path
     else
       render "edit"
@@ -131,6 +131,27 @@ class UsersController < ApplicationController
       redirect_to user_admin_path
     else
       redirect_to dashboard_path
+    end
+  end
+
+  def categories
+    @categories = Category.pluck(:category_name)
+    user = User.find(params[:user_id].to_i)
+    user_categories = user.categories_ids.reject { |c| c.empty? }
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { categories: @categories.to_json, user_categories: user_categories.to_json } }
+    end
+  end
+
+  def update_categories
+    user = User.find(params[:user_id].to_i)
+    user.update_attributes(categories_ids: params[:categories])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: {status: "Updated"} }
     end
   end
 

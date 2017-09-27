@@ -1,5 +1,5 @@
 <div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
-  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-dialog modal-md" role="document" ng-controller="EditUserCtrl" ng-init="init(<%= @user.to_json %>)">
     
     <%= form_for @user, html: { id: "sign_up_edit" } do |f| %>
     
@@ -39,11 +39,14 @@
       </div>
       <div class="modal-body">
         <br><br>
-        <p class="md-subhead text-modal-body">Pick some topics you are interested in</p>
-        <div class="form-group">
-          <%= f.label :categories %>
-          <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %>
-        </div>
+        <p class=""> Select minimum 3 categories of your choice:</p>    
+          <md-list ng-repeat="item in categories">
+            <md-list-item>
+              <p class="md-subhead text-modal-body">{{item}}</p>              
+              <md-checkbox ng-checked="exists(item, user_categories)" ng-click="toggle(item, user_categories)" ng-cloak>                
+              </md-checkbox>
+            </md-list-item>
+          </md-list>
 
         <md-divider></md-divider>
         
@@ -59,7 +62,7 @@
         <% end %> -->
         <br>
         
-        <md-button class="md-accent md-raised md-hue-1 sign-up-cat" onclick="document.getElementById('sign_up_edit').submit();">Finish</md-button>
+        <md-button class="md-accent md-raised md-hue-1 sign-up-cat" ng-disabled="checkBoxValidation()" onclick="document.getElementById('sign_up_edit').submit();" ng-click="UpdateCategory()" data-dismiss="modal">Finish</md-button>
         <br><br>
       </div>
 

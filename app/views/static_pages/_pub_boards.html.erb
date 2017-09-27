@@ -8,7 +8,7 @@
     }
     .bookmark-button:focus {outline:0;}
   </style>
-  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy'>
+  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance="3">
     <div ng-repeat="board in pub_boards" ng-init="outerIndex=$index">
       <%= render 'static_pages/board'%>
       <% if current_user.username == @user.username %>
