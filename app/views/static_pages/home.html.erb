@@ -12,45 +12,75 @@
 <% else %>
 
 <div id="showModal"></div>
-  
-<div layout="row" align="middle">
-  <div flex="25"></div>
-  <div flex>
-    <%= image_tag 'thecurativ.png', id:"before-signup-logo" %>
-    <span align="top" style="position: absolute; top: 27px; color: #9c1717; font-weight: bold">BETA</span>    
+
+<br>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-xs-3 hidden-md hidden-lg"></div>
+  <div class="col-md-6 col-xs-6">
+
+    <div id="image-center">
+      <%= image_tag 'thecurativ.png', id:"before-signup-logo" %>
+    </div>
+    <!-- <div class="col-xs-1 visible-sm">
+      <%= link_to 'Sign In/Up', new_user_session_path, remote:true %>
+    </div> -->
   </div>
-  <div flex="25">
-    <br><br>
-    <%= link_to 'Sign In/Up', new_user_session_path, remote:true %>
+
+  <div class="col-md-3 col-xs-3">
+    <br>
+    <%= link_to 'Sign In/Up', new_user_session_path, remote:true, id:"signinup" %>
   </div>
 </div>
-<div layout="row" align="middle">
-  <p flex class="before-signup-text">Aggregate, Discover & Share <br> truly great media & content on the web.</p>
-</div>
-<div layout="row" align="middle">
-  <div flex="20"></div>
-  <div flex>
-    <img src="/assets/Screen Shot 2017-09-23 at 4.48.57 PM.png" alt="img" style="width: 80%">
+
+<br class="hidden-md hidden-lg">
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <p class="before-signup-text">Aggregate, Discover & Share <br> truly great media & content on the web.</p>  
   </div>
-  <div flex="20"></div>  
+  <div class="col-md-3"></div>
 </div>
-<div layout="row" align="middle" layout-align="center center" class="picks">  
-  <div flex><br></div>
-  <div flex><br>Pick a <br><b>TOPIC</b></div>
-  <div flex><br><%= image_tag 'Arrow 29 (1).svg', style: "width: 40%" %></div>
-  <div flex><br>Choose <br><b>5 LINKS</b></div>
-  <div flex><br><%= image_tag 'Arrow 29 (1).svg', style: "width: 40%" %></div>
-  <div flex><br>Publish &<br><b> Share</b></div>
-  <div flex><br></div>
+<br>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <%= image_tag 'Screen Shot 2017-09-23 at 4.48.57 PM.png', id:"screenshot" %>
+  </div>
+  <div class="col-md-3"></div>
 </div>
-<div layout="row" layout-align="center center" style="margin-top: 10px; margin-bottom: 5px">
-  <br>
-  <a data-remote="true" href="/users/sign_in"><md-button class="md-accent md-raised md-hue-1">Sign In/Up</md-button></a>
+<br><br>
+<div class="row picks">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="col-md-1"></div>
+    <div class="col-md-2 col-xs-3">Pick a <br><b>TOPIC</b></div>
+    <div class="col-md-2 col-xs-2"><%= image_tag 'Arrow 29 (1).svg', id:"arrows" %></div>
+    <div class="col-md-2 col-xs-3">Choose <br><b>5 LINKS</b></div>
+    <div class="col-md-2 col-xs-2"><%= image_tag 'Arrow 29 (1).svg', id:"arrows" %></div>
+    <div class="col-md-2 col-xs-2">Publish <br><b>& Share</b></div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="col-md-3"></div>
 </div>
-<hr style="border:1px solid #9c1717;width: 90%;margin: 0px auto;margin-top:1%;">
-<div layout="row" layout-align="center center">
-  <p class="before-signup-footer">tell a STORY | explain TOPIC | express a VIEW | build a COLLECTION | keep LEARNING<br></p>
+<br><br>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <hr style="border:1px solid #9c1717;">
+    <p class="before-signup-footer">tell a STORY &nbsp;&nbsp; |&nbsp;&nbsp; explain TOPIC &nbsp;&nbsp; |&nbsp;&nbsp; express a VIEW &nbsp;&nbsp;|&nbsp;&nbsp; build a COLLECTION &nbsp;&nbsp;|&nbsp;&nbsp; keep LEARNING</p>
+  </div>
+  <div class="col-md-1"></div>
 </div>
 
 
 <% end %>
+
+
+<style type="text/css">
+  html
+  {
+    overflow-x:hidden;
+  }
+
+</style>

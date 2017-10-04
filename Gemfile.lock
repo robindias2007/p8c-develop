@@ -296,7 +296,7 @@ DEPENDENCIES
   acts_as_follower
   acts_as_votable (~> 0.10.0)
   aws-sdk (~> 2.5, >= 2.5.5)
-  bootstrap-sass (~> 3.3.6)
+  bootstrap-sass
   bootstrap-tagsinput-rails
   bootstrap3-datetimepicker-rails (~> 4.17.47)
   byebug

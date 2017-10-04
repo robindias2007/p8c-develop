@@ -1823,7 +1823,7 @@ font-size: 12px;
     font-family: FuturaStd-Medium;
     font-size: 25px;
     letter-spacing: 0.5px;
-    line-height: 35px;
+    line-height: 45px;
     text-align:center;
     margin-top: 2.5%;
     margin-bottom: 1.5%;
@@ -1831,22 +1831,70 @@ font-size: 12px;
 
 #before-signup-logo
 {
-    width: 30%;
-    margin-top: 2%;
+    width: 100%;   
 }
+
+#image-center
+{
+    width: 45%;
+    margin: 0px auto;
+}
+
+#arrows
+{
+   width: 100%;
+}
+
+#screenshot
+{
+    width: 100%;
+    margin: 0px auto;
+}
+
 
 .before-signup-footer
 {
     font-family: FuturaStd-Light;
-    font-size: 16px;
+    font-size: 22px;
     color: #9c1717;
     margin-top: 2%;
     letter-spacing: 1.5px;
+    text-align:center;
 }
 
-.picks
+
+
+@media (max-width: 768px)
 {
-    width: 50%;
-    margin: 0px auto;
-}
+    .before-signup-text
+    {
+        font-size: 17px;
+        line-height: 24px;
+    }
 
+    .before-signup-footer
+    {
+        font-size: 9px;
+    }
+    #before-signup-logo
+    {
+        width: 100%;   
+    }
+    #image-center
+    {
+        width: 100%;
+    } 
+    #signinup
+    {
+        font-size: 10px;
+    }
+
+    .picks
+    {
+        padding-left: 0px;
+        padding-right: 0px;
+        font-size: 10px;
+        text-align:center;
+    }
+    
+}

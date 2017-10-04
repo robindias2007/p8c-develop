@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="82px" height="16px" viewBox="0 0 82 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Arrow 29</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Arrow-29">
+            <g>
+                <path d="M0,8 C0,8 0.447006226,8 1.0029907,8 L70,8" id="Stroke-29" stroke="#9C1717" stroke-width="6"></path>
+                <path d="M81.2835353,9.07989948 C82.2159928,8.48358855 82.2191798,7.51881557 81.2835353,6.92046658 L71.3693163,0.580277512 C69.5084943,-0.609726812 68,0.209898327 68,2.41657428 L68,13.5837918 C68,15.7879548 69.5041128,16.6128949 71.3693163,15.4200885 L81.2835353,9.07989948 Z" id="Arrow-head-29" fill="#9C1717"></path>
+            </g>
+        </g>
+    </g>
+</svg>
