@@ -125,9 +125,6 @@ md-card-header.md-subhead {
     font-family: "FuturaStd-Medium"
 }
 
-span.md-subhead {
-    padding-top:8px !important;
-}
 
 .card-footer {
     padding:0;
@@ -674,6 +671,7 @@ font-size:14px;
     margin-left:3px;
     border-radius:1px;
 }
+
 
 /* --------------------------------- WHAT IS THIS? --*/
 .vote
@@ -1746,16 +1744,17 @@ ul.followers li {
 
 .preview {
   padding-bottom: 10px;
-  width: 50%;
+  width: 35%;
   margin: 0px auto;
 }
 
 .preview img
 {
-  width: 100%;
+  width: 190px;
   border-radius: 50%;
-  height: 220px;
-  margin: 0px auto;  
+  height: 190px;
+  margin: 0px auto;
+  object-fit: cover;  
 }
 
 
@@ -1817,6 +1816,11 @@ font-size: 12px;
 {
     z-index:1000;
 }
+
+
+
+/* -------------- HomePage Before SignUp ---------------- */
+
 
 .before-signup-text
 {

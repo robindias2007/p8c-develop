@@ -60,16 +60,16 @@
         <h1 class="md-display-2"></h1>
         
         <md-button>
-          <p class="change-password submit-btn text-modal-body">Click Here To Change Password</p>
+          <p>Change Password</p>
         </md-button>
         <br>
 
-        <md-input-container class="md-block" style="display: none" id="newpass">
+        <md-input-container class="md-block">
           <label>Password</label>
           <%= f.password_field :password %>
         </md-input-container>
 
-        <md-input-container class="md-block" style="display: none" id="newpasscof">
+        <md-input-container class="md-block">
           <label>Password Confirmation</label>
           <%= f.password_field :password_confirmation %>
           <br><br><br>
@@ -80,10 +80,10 @@
         <md-divider></md-divider>
         <br><br>
 
-        Unhappy?
+        <!-- Unhappy?
         <br><br>
         <md-button data-confirm="Are you sure?" type="submit" class="md-accent text-modal-body" value="Cancel my account">Cancel My Account</md-button>
-        <br>
+        <br> -->
           
         
       </md-content>

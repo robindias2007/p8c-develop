@@ -3,7 +3,7 @@
   <md-toolbar md-scroll-shrink ng-if="true" class="curativ-header" ng-controller="headerCtrl as ctrl" ng-cloak>
     <div class="md-toolbar-tools">
       <a href="/">
-        <img src="/assets/thecurativ.png" />
+        <%= image_tag 'thecurativ.png' %>
       </a>
         
         <md-button md-no-ink class=""><a href="/">Home</a></md-button>
@@ -114,6 +114,12 @@
         </md-menu-content>
       </md-menu>
     </div>          
-    
+      
   </md-toolbar>
   
+  <md-button class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="width:45px;height:45px; position: fixed">
+    <a href="/<%= current_user.username %>/new_form">
+    <md-tooltip md-direction="left">Create Curate</md-tooltip>
+    <md-icon><i class="material-icons">add</i></md-icon>
+    </a>
+  </md-button>
