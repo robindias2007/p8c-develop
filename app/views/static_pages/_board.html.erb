@@ -1,0 +1,250 @@
+<!--CARD CONTAINER -->
+
+
+<md-card ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+<!-- <div class="container1" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'"> -->  
+
+
+  <!--TITLE AND HEADER -->
+  <!--<div class="container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"> -->
+   
+   <md-card-title>
+    <md-card-title-text>
+      <a href="/{{board.user.username}}/{{board.slug_url}}">
+      <span class="md-headline">
+        {{board.title}}
+        <!--<h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2>-->
+        </span>
+      </a> 
+
+      <span class="md-subhead">
+        {{board.sub_header}}
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+  
+
+  <md-card-content>
+
+    <!-- <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
+      <div md-virtual-repeat="link in board.links"
+        class="repeated-items" flex>
+      {{link.url}}
+      </div>
+    </md-virtual-repeat-container> -->
+
+    <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+      <div flex="33" class="internal_text">
+        <p class="md-body-1">{{board.dsc}}</p>
+      </div>
+      
+      <div class="flickity" ng-class="(outerIndex%3 == 0) ? 'flex-66' : 'flex-100'" layout="row">
+        <ul class="row" bc-flickity="{{ flickityOptions }}">
+          <md-card class="article-cell" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'" ng-repeat="link in board.links" > 
+              <img ng-src="{{link.image}}" class="md-card-image" id="image" alt="Image" ng-if="link.image">
+              <img class="md-card-image" id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">
+              <md-card-content class="link-card-title">
+                
+                <p class="md-body-2">{{link.title}}</p>
+                
+              </md-card-content>
+              <md-card-actions>
+                <a href="{{link.url}}" target="_blank", id="formclick" >
+                <span class="md-button md-accent">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
+              </a>
+              </md-card-actions>
+            </md-card>
+        </ul>
+      </div>
+    </div>
+
+        <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
+        <!-- <div class="container3" style="overflow-x: hidden">
+          <ul class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">            
+            <li class="article-cell" ng-repeat="link in board.links" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">  
+              <a href="{{link.url}}" target="framename", id="formclick" >                 
+                <hr>
+                <div class="container6">
+                  <figure class="effect-sadie" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+                    
+                      <img id="image" ng-src="{{link.image}}" ng-if="link.image" />
+                      <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">                      
+
+                         
+                      <figcaption ng-if="link.note">
+                        <i class="material-icons md-18">comment</i>
+                        <h5>Curator Notes</h5>
+                        <p class="curatorNotes">{{link.note}}</p>
+                      </figcaption> 
+                    
+                  </figure>
+                </div>  
+                <h4 class="title1" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+                  {{link.title}}
+                </h4>               
+                <div id="link">{{link.host}}                  
+                </div>                 
+                <br>
+                <h6 class="internal_text1">{{link.dsc}}</h6>                
+                <hr>
+              </a>
+            </li>
+          </ul>
+        </div> -->  
+      
+  
+  </md-card-content>
+  <md-divider></md-divider>
+  <md-card-header class="card-footer" layout="row" layout-align="start center">
+    
+    <md-card-avatar>
+      <a href="/{{board.user.username}}/published">
+        <img class="md-user-avatar" src="{{board.user_image}}"/>
+      </a>
+    </md-card-avatar>
+     
+
+    <md-card-header-text>
+      <a href="/{{board.user.username}}/published"><span class="md-title">{{board.user.username}}</span></a>
+      <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
+    </md-card-header-text>
+
+    <md-card-actions layout="row" layout-align="start center">
+      <md-card-icon-actions>
+         <md-fab-speed-dial ng-cloak md-direction="left" class="md-fling md-ink-ripple" docs-scroll-class="scrolling">
+          <md-fab-trigger>
+            <md-button class="md-icon-button" style="width:40px;height:40px; background:white; margin: 0px">
+              <md-icon>
+                <a id="" data-remote="true" href="" ng-click="">
+                  <i class="material-icons" >share</i>
+                </a>
+              </md-icon>
+            </md-button>
+          </md-fab-trigger>
+
+          <md-fab-actions>
+            <md-button aria-label="Facebook" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
+              <md-icon>
+                <a id="" target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
+                  <%= image_tag 'facebook.png' %>
+                </a>
+              </md-icon>
+            </md-button>
+            <md-button aria-label="Twitter" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
+              <md-icon>
+                <a id="" target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
+                  <%= image_tag 'twitter.png' %>
+                </a>
+              </md-icon>
+            </md-button>
+            <md-button aria-label="Copy" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
+              <md-icon>
+                <a id="" data-remote="true" href="" ng-click="copyToClipboard(board.form_url);">
+                  <i class="material-icons">link</i>
+                </a>
+              </md-icon>
+            </md-button>
+          </md-fab-actions>
+        </md-fab-speed-dial>
+
+        <md-button class="md-icon-button" aria-label="Bookmark" style="margin: 0px">
+          <md-icon>
+            <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
+            <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>  
+          </md-icon>
+        </md-button>
+        <p style="padding-top:5%">{{board.likes}}</p>
+        <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
+          <md-icon>
+            <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
+            <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>
+          </md-icon>
+        </md-button>
+            
+      </md-card-icon-actions>
+    </md-card-actions>
+  </md-card-header>
+</md-card>
+
+
+
+
+
+
+
+
+<!-- FOOTER CONTAINER -->
+
+<!--
+ <div class="col-md-12 container4">
+ -->
+    
+    <!--FOOTER _ USER PROFILE -->
+    
+    <!--
+    <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+      <div class="date" id="profile">
+        <a href="/{{board.user.username}}/publish">
+          <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
+          <i class="material-icons md-40" ng-if="(board.user_image == null)">account_circle</i>
+          <div id="prouser">{{board.user.username}}</div> 
+          <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
+        </a>
+      </div>         
+    </div>
+    -->
+
+
+    <!-- FOOTER - ICONS BUTTONS -->
+
+    <!--
+    <div class="container8" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+    <% if user_signed_in? %>
+      <div class="bookmark">   
+        <h10 class="date">Save &nbsp; </h10>
+        <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
+        <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>              
+        <%-# It tells you the total count or the total likes on the current form  -%>
+      </div>
+    <% else %>          
+      <div class="bookmark">
+        <h10 class="date">Save &nbsp; </h10>
+        <i class="material-icons">bookmark</i>
+      </div>      
+    <% end %>
+    <% if user_signed_in? %>
+      <div class="like">   
+        <h10 class="date">{{board.likes}} &nbsp;</h10> 
+        <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
+        <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>             
+      </div>
+    <% else %>
+      <div class="like">
+        <h10 class="date">{{board.likes}} &nbsp;</h10>
+        <i class="material-icons">favorite</i> 
+      </div>
+    <% end %>  
+    <div class="share">
+      <div class="social-share-options" style="">
+        <div class="facebook-share option">
+          <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
+            <%= image_tag 'facebook.png' %>
+          </a>
+        </div>
+        <div class="twitter-share option" >
+          <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
+            <%= image_tag 'twitter.png' %>
+          </a>
+        </div>
+      </div>
+      <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
+        <h10 class="date">Share</h10>
+        <i class="material-icons">share</i>
+      <% end %>
+      </div>
+    </div>
+    -->
+
+<!-- FOOTER CONTAINER END TAG
+</div>
+-->

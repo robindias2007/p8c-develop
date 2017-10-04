@@ -1,9 +1,37 @@
-    <div class="form-group">
-      <%= f.label :avatar %>
-      <%= f.file_field :avatar, class: "form-control" %>
-    </div>
+<div class="form-group">
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar, class: "form-control" %>
+</div>
 
-    <% if @user.email.blank? %>
+<% if @user.email.blank? %>
+  <md-input-container class="md-block">
+    <label>Email</label>
+    <%= f.text_field :email %>
+  </md-input-container>
+<% end %>
+
+
+<md-input-container class="md-block md-accent">
+  <label>Username</label>
+  <%= f.text_field :username %>
+</md-input-container>
+
+<md-input-container class="md-block md-accent">
+  <label>Name</label>
+  <%= f.text_field :name %>
+</md-input-container>
+
+<md-input-container class="md-block md-accent">
+  <label>Edit Description</label>
+  <%= f.text_field :author %>
+</md-input-container>
+
+<a class="sign-up-link sign-up-cat">
+  <md-button class="md-accent md-hue-1 md-raised md-dark">Next</md-button>
+</a>
+
+
+    <!-- <% if @user.email.blank? %>
         <div class="form-group">
           <%= f.label :email %>
           <%= f.text_field :email, placeholder: "Email", autofocus: true, class: "form-control" %>
@@ -25,15 +53,15 @@
       <%= f.text_area :author, placeholder: "Description", autofocus: true, required: "required", class: "form-control" %>
     </div>
     
-    <!-- <div class="col-md-12 checkbox-list">
+     <div class="col-md-12 checkbox-list">
       <%= f.label :categories %>
       <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %> 
-    </div> -->
+    </div> 
    
 
 
     <div class="text-center">
-      <a class="sign-up-link btn btn-default sign-up-cat">Next</a>
-    </div>
+      <a class="sign-up-link sign-up-cat">Next</a>
+    </div> -->
 
 

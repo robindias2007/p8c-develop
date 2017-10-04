@@ -1,9 +1,10 @@
 
 /*!
- * Client Side Validations - v4.2.10 (https://github.com/DavyJonesLocker/client_side_validations)
- * Copyright (c) 2016 Geremia Taglialatela, Brian Cardarella
+ * Client Side Validations - v4.2.12 (https://github.com/DavyJonesLocker/client_side_validations)
+ * Copyright (c) 2017 Geremia Taglialatela, Brian Cardarella
  * Licensed under MIT (http://opensource.org/licenses/mit-license.php)
  */
+
 
 (function() {
   var $, validateElement, validateForm, validatorsFor,
@@ -56,7 +57,7 @@
       for (validator_name in validators) {
         validator = validators[validator_name];
         if (validator_name.match("\\[" + captures[1] + "\\].*\\[\\]\\[" + captures[2] + "\\]$")) {
-          name = name.replace(/\[[\da-z_]+\]\[(\w+)\]$/g, "[][$1]");
+          name = name.replace(/\[[\da-z_]+\]\[(\w+)\]$/g, '[][$1]');
         }
       }
     }
@@ -118,7 +119,7 @@
     };
     if (element.attr('name').search(/\[([^\]]*?)\]$/) >= 0) {
       destroyInputName = element.attr('name').replace(/\[([^\]]*?)\]$/, '[_destroy]');
-      if ($("input[name='" + destroyInputName + "']").val() === "1") {
+      if ($("input[name='" + destroyInputName + "']").val() === '1') {
         passElement();
         return afterValidate();
       }
@@ -342,7 +343,7 @@
           }
           return options.messages.numericality;
         }
-        val = val.replace(new RegExp("\\" + ClientSideValidations.number_format.delimiter, 'g'), "").replace(new RegExp("\\" + ClientSideValidations.number_format.separator, 'g'), ".");
+        val = val.replace(new RegExp("\\" + ClientSideValidations.number_format.delimiter, 'g'), '').replace(new RegExp("\\" + ClientSideValidations.number_format.separator, 'g'), '.');
         if (options.only_integer && !/^[+-]?\d+$/.test(val)) {
           return options.messages.only_integer;
         }
@@ -484,7 +485,7 @@
           if (name_prefix && name_suffix) {
             form = element.closest('form');
             valid = true;
-            form.find(':input[name^="' + name_prefix + '"][name$="' + name_suffix + '"]').each(function() {
+            form.find(":input[name^=\"" + name_prefix + "\"][name$=\"" + name_suffix + "\"]").each(function() {
               if ($(this).attr('name') !== name) {
                 if ($(this).val() === value) {
                   valid = false;
@@ -548,7 +549,7 @@
           name = element.attr('name');
         }
         if (options['class']) {
-          name = options['class'] + '[' + name.split('[')[1];
+          name = options['class'] + "[" + (name.split('[')[1]);
         }
         data[name] = element.val();
         if ($.ajax({

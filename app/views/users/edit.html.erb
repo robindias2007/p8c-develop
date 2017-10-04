@@ -1,4 +1,5 @@
-  <div class="modal-dialog modal-md" role="document">
+<div class="modal fade custom-modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+  <div class="modal-dialog modal-md" role="document" ng-controller="EditUserCtrl" ng-init="init(<%= @user.to_json %>)">
     
     <%= form_for @user, html: { id: "sign_up_edit" } do |f| %>
     
@@ -6,17 +7,16 @@
       <div class="modal-header">
         <!-- Header content for sign in with email -->
         <div class="sign-in-with-email">
-          <div class="email-title">
+          <div class="email-title head-title-modal">
             Almost There
           </div>
         </div>
       </div>
       <div class="modal-body">
         <div class="sign-up-title">
-
           <div class="preview">
             <% if @user.photo_url.present? %>
-                <%= image_tag @user.photo_url, id:"useravatar", alt: 'profile photo' %>
+                <%= image_tag @user.photo_url, alt: 'profile photo', align:"middle" %>
             <% end %>
           </div>
 
@@ -31,40 +31,40 @@
       <div class="modal-header">
         <!-- Header content for sign in with email -->
         <div class="edit-user-category">
-          <div class="email-title">
+          <div class="email-title head-title-modal">
+            <br><br>
             Choose Category
           </div>
         </div>
       </div>
       <div class="modal-body">
-        <div id="category_edit">
-          <p class="cat-title">Pick some topics you are interested in</p>
-          
-          <div class="col-md-12 checkbox-list">
-            <%= f.label :categories %>
-            <%= f.collection_check_boxes :categories_ids, Category.all, :category_name, :category_name %> 
-          </div>
-          <% end %>
+        <br><br>
+        <p class=""> Select minimum 3 categories of your choice:</p>    
+          <md-list ng-repeat="item in categories">
+            <md-list-item>
+              <p class="md-subhead text-modal-body">{{item}}</p>              
+              <md-checkbox ng-checked="exists(item, user_categories)" ng-click="toggle(item, user_categories)" ng-cloak>                
+              </md-checkbox>
+            </md-list-item>
+          </md-list>
 
-          <!-- <div class="row cat-row">
-            <div class="col-md-3 cat-col" style="background-color: plum"><p class="cat-text">Category 1</p></div>
-            <div class="col-md-3 cat-col" style="background-color: cornflowerblue"><p class="cat-text">Category 2</p></div>
-            <div class="col-md-3 cat-col" style="background-color: lightsalmon"><p class="cat-text">Category 3</p></div>
-            <div class="col-md-3 cat-col" style="background-color: lavender"><p class="cat-text">Category 4</p></div>
-          </div>
-          <div class="row cat-row">
-            <div class="col-md-3 cat-col" style="background-color: lavender"><p class="cat-text">Category 5</p></div>
-            <div class="col-md-3 cat-col" style="background-color: lightsalmon"><p class="cat-text">Category 6</p></div>
-            <div class="col-md-3 cat-col" style="background-color: cornflowerblue"><p class="cat-text">Category 7</p></div>
-            <div class="col-md-3 cat-col" style="background-color: plum"><p class="cat-text">Category 8</p></div>
-          </div>
-        </div>
-        <div class="text-center">
-          <a class="sign-up-back sign-up-cat  btn btn-default">Back</a> -->
-          <input type='button' class="btn btn-default sign-up-cat" onclick="document.getElementById('sign_up_edit').submit();" value="Finish">
-        </div>
+        <md-divider></md-divider>
+        
+         <!-- <% Category.all.each do |c| %>
+            
+            <md-list>
+              <md-list-item>
+                <p class="md-subhead text-modal-body"><%= c.category_name.capitalize %></p>
+                <md-checkbox class="md-secondary"></md-checkbox>
+              </md-list-item>
+            </md-list>
+          <% end %>
+        <% end %> -->
+        <br>
+        
+        <md-button class="md-accent md-raised md-hue-1 sign-up-cat" ng-disabled="checkBoxValidation()" onclick="document.getElementById('sign_up_edit').submit();" ng-click="UpdateCategory()" data-dismiss="modal">Finish</md-button>
+        <br><br>
       </div>
-    </div>
 
   </div>
 </div>

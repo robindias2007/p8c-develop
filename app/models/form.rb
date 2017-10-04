@@ -33,9 +33,17 @@ scope :saved, -> {
 
 
 # before_validation :smart_add_url_protocol 
+
+  def slug_url
+    "#{self.slug}-#{self.secure_id}"
+  end
   
-  def self.trending(ids)
-    Form.where.not(id: ids).published.limit(3)
+  def self.staff_pick()
+    Form.published.limit(3)
+  end
+
+  def self.trending()
+    Form.published.limit(3)
   end
 
   def self.most_recent(ids)
@@ -57,6 +65,14 @@ scope :saved, -> {
   def self.most_shared(ids)
     Form.where.not(id: ids).order(share_count: :desc).published.limit(3)
   end
+
+  # def self.most_shared
+  #   Form.order(share_count: :desc).published.limit(3)
+  # end
+
+  # def self.most_saved
+  #   Form.order(saved_count: :desc).published.limit(3)
+  # end
 
 
   def save_social_image

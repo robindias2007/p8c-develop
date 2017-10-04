@@ -2,26 +2,21 @@
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-dialog modal-md" role="document" ng-controller="EditUserCtrl" ng-init="init(<%= @user.to_json %>)" ng-cloak>
     <div class="modal-content">
-      <div class="modal-header">
-        Edit <%= resource_name.to_s.humanize %>
+      <div class="modal-header head-title-modal">
+        Edit <%= resource_name.to_s.humanize %> Preferences
       </div>
       <div class="modal-body">
 
           <div class="preview">
             <% if @user.photo_url.present? %>
-                <%= image_tag @user.photo_url, id:"useravatar", alt: 'profile photo' %>
+                <%= image_tag @user.photo_url, id:"", alt: 'profile photo' %>
             <% end %>
           </div>
 
         <div class="form">
           <%= render partial: 'profile_form' %>
-
-          <div align="center">
-            <h3>Cancel my account</h3>
-            <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: "changepass" %></p>
-          </div>
         </div>
       </div>
     </div>

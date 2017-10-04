@@ -12,14 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require bootstrap
 //= require angular
 //= require angular-ui-router
 //= require flickity
 //= require angular-flickity
 //= require ng-infinite-scroll.min
 //= require_tree .
-//= require bootstrap-sprockets
-//= require rails.validations
+//= require bootstrap.min.js
 //= require bootstrap-tagsinput
 //= require moment
 //= require bootstrap-datetimepicker

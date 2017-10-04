@@ -17,7 +17,14 @@ Rails.application.routes.draw do
 
   resources :user_steps
 
-  resources :forms do
+  get '/:id/new_form' => 'forms#new_modal'
+  get '/:id/get_meta_data' => 'forms#get_meta_data'
+  post '/:id/create_form' => 'forms#create_form'
+
+  get '/users/categories' => 'users#categories'
+  post '/users/update_categories' => 'users#update_categories'  
+ 
+  resources :forms, :only => [:index, :edit, :update] do
     member do
       get "like"
       get "unlike"
@@ -28,6 +35,10 @@ Rails.application.routes.draw do
   end
 
   resources :users, :only => [:index, :show, :edit, :update] do
+    member do
+      get 'categories' => 'users#categories'
+      post 'update_categories' => 'users#update_categories'  
+    end
     resources :follows, :only => [:create, :destroy]
   end
 
@@ -47,16 +58,23 @@ Rails.application.routes.draw do
   get '/most_viewed' =>  'static_pages#most_viewed'
   get '/most_liked' =>  'static_pages#most_liked'
   get '/most_recent' =>  'static_pages#most_recent'
+  get '/most_shared' =>  'static_pages#most_shared'
+  get '/most_saved' =>  'static_pages#most_saved'
   get '/dashboard' => 'static_pages#dashboard'
   
-  get 'user/:id/publish'          =>   'users#show'
-  get 'user/:id/saved'          =>   'users#show_saved'
-  get 'user/:id/drafts'          =>   'users#show_drafts'
+  get ':id/published'          =>   'users#show'
+  get ':id/saved'          =>   'users#show_saved'
+  get ':id/drafts'          =>   'users#show_drafts'
 
-  get 'user/:id/liked'          =>   'users#show_liked'
+  get ':id/liked'          =>   'users#show_liked'
   get 'user/:id/followings' => 'users#followings'
   get 'user/:id/followers' => 'users#followers'
   
+  get '/user_admin' => 'users#user_for_admin'
+  post '/user_admin' => 'users#user_create_for_admin'
+
+  get '/:id/:slug_url' => 'forms#show'
+
   root 'static_pages#home'
    
   

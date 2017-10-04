@@ -1,4 +1,4 @@
-<div class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>, <%= current_user.following?(@user) %>, <%= @user.all_following.count %>, <%= @user.followers.count %>)">
+<md-content flex class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>, <%= current_user.following?(@user) %>, <%= @user.all_following.count %>, <%= @user.followers.count %>)">
   <div class="col-md-10" id="userProfile">
     <div id="username">
       <% if @user.photo_url.present? %>
@@ -31,9 +31,9 @@
           	<li><%= current_user.bookmarks.count %></li>
           </ul>
           <ul class="board">
-          	<li><%= link_to 'Published', "/user/#{current_user.username }/publish", id:"board" %></li>
-          	<li><%= link_to 'Drafts', "/user/#{current_user.username }/drafts", id:"board1" %></li>
-          	<li><%= link_to 'Saved', "/user/#{current_user.username }/saved", id:"board2" %></li>
+          	<li><%= link_to 'Published', "/#{current_user.username }/published", id:"board" %></li>
+          	<li><%= link_to 'Drafts', "/#{current_user.username }/drafts", id:"board1" %></li>
+          	<li><%= link_to 'Saved', "/#{current_user.username }/saved", id:"board2" %></li>
           </ul>
         </div>
         <ul class="followers">
@@ -67,8 +67,8 @@
 
           <ul class="board">
           	<li></li>
-          	<li><a href= "/user/<%= @user.username  %>/publish", id="board1">Published</a></li>
-            <li><a href= "/user/<%= @user.username  %>/liked", id="board1">Liked</a></li>
+          	<li><a href= "/<%= @user.username  %>/published", id="board1">Published</a></li>
+            <li><a href= "/<%= @user.username  %>/liked", id="board1">Liked</a></li>
           	<li></li>
           </ul>
           <ul class="followers">
@@ -86,31 +86,32 @@
     <%= render 'static_pages/pub_boards' %>
   </div>
   <div class="modal fade" id="myModal1" role="dialog">
-    <div class="modal-dialog"> follower.id, <%= current_user.id%>
+    <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title"><%= @user.username %> follows</h4>
         </div>
         <div class="modal-body">
           <div class="follow">
-            <% if current_user.username == @user.username %>
-              <h2> Following </h2>
+            <% if current_user.username == @user.username %>              
               <ul style="margin: 10px 30px; list-style: none ">
+                <li ng-if="followings.length == 0">
+                  <h3>You follows no one</h3>
+                </li>
                 <li ng-repeat="following in followings">
                   <div class="row" style="width: 100%; margin-bottom: 20px">
                     <div class="col-md-2" style="text-align: right">
-                      <a href="/user/{{following.username}}/publish">
-                        <img src="{{following.image}}" style="height: 40px; width: 40px"></img>
+                      <a href="/{{following.username}}/published">
+                        <div class="user-avatar" ng-if="!(following.image == null)" style='background-image:url("{{following.image}}")'></div>
+                        <i class="material-icons" style="font-size: 30px" ng-if="(following.image == null)">account_circle</i>
                       </a>
                     </div>                      
-                    <div class="col-md-6" style="text-align: left">
-                      <a href="/user/{{following.username}}/publish">
-                        {{following.name}}
+                    <div class="col-md-6" style="text-align: left; padding-left: 0px; padding-top: 2px">
+                      <a href="/{{following.username}}/published" style="font-size: 18px; color: black">
+                        {{following.username}}
                       </a>
-                      <p style="margin-bottom: 0px">@{{following.username}}</p>
-                      <p style="margin-bottom: 0px">{{following.author}}</p>
                     </div>
                     <div class="col-md-4">
                       <button ng-show="following.following" type="button" class="btn btn-info btn-sm" ng-click="following.following = false; unfollow(following.id, <%= current_user.id%>)">Following
@@ -125,10 +126,7 @@
           </div>
           <br>
           <br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
@@ -138,26 +136,27 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title"><%= @user.username %> is followed by</h4>
         </div>
         <div class="modal-body">
           <div class="follwo">
-            <% if current_user.username == @user.username %>
-              <h2> Followers </h2>
+            <% if current_user.username == @user.username %>              
               <ul style="margin: 10px 30px; list-style: none ">
+                <li ng-if="followers.length == 0">
+                  <h3>There are no followers</h3>
+                </li>
                 <li ng-repeat="follower in followers">
                   <div class="row" style="width: 100%; margin-bottom: 20px">
                     <div class="col-md-2" style="text-align: right">
-                      <a href="/user/{{follower.username}}/publish">
-                        <img src="{{follower.image}}" style="height: 40px; width: 40px"></img>
+                      <a href="/{{follower.username}}/published">
+                        <div class="user-avatar" ng-if="!(follower.image == null)" style='background-image:url("{{follower.image}}")'></div>
+                        <i class="material-icons" style="font-size: 30px" ng-if="(follower.image == null)">account_circle</i>
                       </a>
                     </div>                      
-                    <div class="col-md-6" style="text-align: left">
-                      <a href="/user/{{follower.username}}/publish">
-                        {{follower.name}}
+                    <div class="col-md-6" style="text-align: left; padding-left: 0px; padding-top: 2px">
+                      <a href="/{{follower.username}}/published" style="font-size: 18px; color: black">
+                        {{follower.username}}
                       </a>
-                      <p style="margin-bottom: 0px">@{{follower.username}}</p>
-                      <p style="margin-bottom: 0px">{{follower.author}}</p>
                     </div>
                     <div class="col-md-4">
                       <button ng-show="follower.following" type="button" class="btn btn-info btn-sm" ng-click="follower.following = false; unfollow(follower.id, <%= current_user.id%>)">Following
@@ -171,9 +170,6 @@
             <% end %>
           </div>
   			</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
       </div>        
     </div>
   </div>
@@ -183,26 +179,27 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title"><%= @user.username %> follows</h4>
         </div>
         <div class="modal-body">
           <div class="follow">
-            <% if current_user.username != @user.username %>
-              <h2> Following </h2>
+            <% if current_user.username != @user.username %>              
               <ul style="margin: 10px 30px; list-style: none ">
+                <li ng-if="followings.length == 0">
+                  <h3>User follows no one</h3>
+                </li>
                 <li ng-repeat="following in followings">
                   <div class="row" style="width: 100%; margin-bottom: 20px">
                     <div class="col-md-2" style="text-align: right">
-                      <a href="/user/{{following.username}}/publish">
-                        <img src="{{following.image}}" style="height: 40px; width: 40px"></img>
+                      <a href="/{{following.username}}/published">
+                        <div class="user-avatar" ng-if="!(following.image == null)" style='background-image:url("{{following.image}}")'></div>
+                        <i class="material-icons" style="font-size: 30px" ng-if="(following.image == null)">account_circle</i>
                       </a>
                     </div>                      
-                    <div class="col-md-6" style="text-align: left">
-                      <a href="/user/{{following.username}}/publish">
-                        {{following.name}}
+                    <div class="col-md-6" style="text-align: left; padding-left: 0px; padding-top: 2px">
+                      <a href="/{{following.username}}/published" style="font-size: 18px; color: black">
+                        {{following.username}}
                       </a>
-                      <p style="margin-bottom: 0px">@{{following.username}}</p>
-                      <p style="margin-bottom: 0px">{{following.author}}</p>
                     </div>                    
                     <div class="col-md-4">
                       <div ng-hide="following.id == <%= current_user.id %>">
@@ -220,9 +217,6 @@
             <br>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
       </div>
     </div>
   </div>
@@ -232,26 +226,27 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title"><%= @user.username %> is followed by</h4>
         </div>
         <div class="modal-body">
           <div class="follow">
       			<% if current_user.username != @user.username %>
-    			    <h2> Followers </h2>
     			    <ul style="margin: 10px 30px; list-style: none ">
+                <li ng-if="followers.length == 0">
+                  <h3>There are no followers</h3>
+                </li>
                 <li ng-repeat="follower in followers">
                   <div class="row" style="width: 100%; margin-bottom: 20px">
                     <div class="col-md-2" style="text-align: right">
-                      <a href="/user/{{follower.username}}/publish">
-                        <img src="{{follower.image}}" style="height: 40px; width: 40px"></img>
+                      <a href="/{{follower.username}}/published">
+                        <div class="user-avatar" ng-if="!(follower.image == null)" style='background-image:url("{{follower.image}}")'></div>
+                        <i class="material-icons" style="font-size: 30px" ng-if="(follower.image == null)">account_circle</i>
                       </a>
                     </div>                      
-                    <div class="col-md-6" style="text-align: left">
-                      <a href="/user/{{follower.username}}/publish">
-                        {{follower.name}}
-                      </a>
-                      <p style="margin-bottom: 0px">@{{follower.username}}</p>
-                      <p style="margin-bottom: 0px">{{follower.author}}</p>
+                    <div class="col-md-6" style="text-align: left; padding-left: 0px; padding-top: 2px">
+                      <a href="/{{follower.username}}/published" style="font-size: 18px; color: black">
+                        {{follower.username}}
+                      </a>                      
                     </div>                    
                     <div class="col-md-4">
                       <div ng-hide="follower.id == <%= current_user.id %>">
@@ -269,10 +264,7 @@
           <br>
           <br>
   			</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
       </div>  
     </div>
   </div>
-</div>
+</md-content>

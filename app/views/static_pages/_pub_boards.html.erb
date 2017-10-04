@@ -1,191 +1,22 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
 <div class="boardContainer" ng-controller="PubBoardCtrl" ng-init="init(<%= @pub_boards %>, <%= @keys %>)">
-  <style type="text/css">
-    .flickity-page-dots {
-      display: none;
-    }
-    .article-cell {
-      width: 250px !important;
-      border: 1px solid #e3e3e3;
-      box-shadow: 0px 1px 1px #888888;
-      z-index: 3;
-      margin: 20px 0.5%;
-      padding: 0px 15px;
-      background-color:white;
-    }
+  <style type="text/css">       
     .bookmark-button {
       border: none;
       background: transparent;
     }
     .bookmark-button:focus {outline:0;}
   </style>
-  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy'>
-    <div class="container1" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'">
-      <!-- The elements of the entire box. -->
-      <% if @forms.length == 1 %>  
-        <% if current_page?(form_path(@forms.first)) %>
-          <%= content_for :social_meta_tags do %>
-            <%# Test the meta tags: https://cards-dev.twitter.com/validator %>
-            <meta name="twitter:card" content="summary_large_image"/>
-            <%# TODO: Add twitter handle as content below after creating a twitter page for Lense APP %>
-            <!--<meta name="twitter:site" content="" /> -->
-            <meta name="twitter:title" content="<%= @forms.first.title %>"/>
-            <meta name="twitter:description" content="<%= @forms.first.description[0..200] %>"/>
-            <meta name="twitter:image:src" content="<%= @forms.first.photo.url %>"/>
-            <!--<meta name="twitter:image:src" content="Lense" />-->
-
-            <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
-            <%# So, deploy before testing the changes in below meta tags %>
-            <%# Test the meta tags: https://developers.facebook.com/tools/debug/sharing/ %>
-            <meta property="og:title" content="<%= @forms.first.title %>"/>
-            <meta property="og:type" content="article"/>
-            <meta property="og:url" content="<%= form_url(@forms.first.id) %>"/>
-            <meta property="og:image" content="<%= @forms.first.photo.url %>"/>
-            <meta property="og:description" content="<%= @forms.first.description[0..200] %>"/>
-          <% end %>
-        <% end %>
+  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance="3">
+    <div ng-repeat="board in pub_boards" ng-init="outerIndex=$index">
+      <%= render 'static_pages/board'%>
+      <% if current_user.username == @user.username %>
+        <div class="footedit">
+          <%= link_to 'Edit & Publish', '/forms/{{board.id}}/edit', class:"btn btn-info btn-md" %>
+          <%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %>  
+        </div>
       <% end %>
-      <div class="col-md-12 container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-        <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-          <% if user_signed_in? %>
-            <% if @home_user %>
-              <div class="date" id="profile">
-                <a href="/user/{{board.user.username}}/publish">
-                  <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
-                  <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
-                  <div id="prouser">{{board.user.username}}</div> 
-                </a> &nbsp; &#183; &nbsp;
-                <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                <h10 class="date"></h10>
-                <div class="date">
-                  &nbsp; &#183; &nbsp;
-                </div>
-              </div>
-            <% else %>
-              <div class="date" id="profile">
-                <a href="/user/{{board.user.username}}/publish">
-                  <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
-                  <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
-                  <div id="prouser">{{board.user.username}}</div>
-                </a>&nbsp; &#183; &nbsp;
-                <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-                <h10 class="date"></h10>
-                <div class="date">
-                  &nbsp; &#183; &nbsp;
-                </div>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="date" id="profile">
-              <a href="/users/sign_in">
-                <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
-                <i class="material-icons" ng-if="(board.user_image == null)">account_circle</i>
-                <div id="prouser">{{board.user.username}}</div>
-              </a>&nbsp; &#183; &nbsp;
-              <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-              <h10 class="date"></h10>
-              <div class="date">
-                &nbsp; &#183; &nbsp;
-              </div>
-            </div>
-          <% end %>          
-          <a href="/forms/{{board.id}}"><h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2></a> 
-        </div>
-        <div class="container8" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-          <% if user_signed_in? %>
-            <div class="bookmark">   <!-- This contains all the elements to like the button where we have the heart option -->
-              <h10 class="date">Save Collection &nbsp; </h10>
-              <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
-              <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>              
-              <%-# It tells you the total count or the total likes on the current form  -%>
-            </div>
-          <% else %>          
-            <div class="bookmark">
-              <h10 class="date">Save Collection &nbsp; </h10>
-              <i class="material-icons">bookmark</i>
-            </div>      
-          <% end %>
-          <% if user_signed_in? %>
-            <div class="like">   
-              <!-- This contains all the elements to like the button where we have the heart option -->
-              <h10 class="date">{{board.likes}} &nbsp;</h10> 
-              <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
-              <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>             
-            </div>
-          <% else %>
-            <div class="like">
-              <h10 class="date">{{board.likes}} &nbsp;</h10>
-              <i class="material-icons">favorite</i> 
-            </div>
-          <% end %>  
-          <div class="share">
-            <div class="social-share-options">
-              <div class="facebook-share option">
-                <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}forms/{{board.id}}">
-                  <%= image_tag 'facebook.png' %>
-                </a>
-              </div>
-              <div class="twitter-share option" >
-                <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}forms/{{board.id}}">
-                  <%= image_tag 'twitter.png' %>
-                </a>
-              </div>
-            </div>
-            <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
-              <h10 class="date">Share</h10>
-              <i class="material-icons">share</i>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <div class="container2" style="width: 100%">
-        <div class="col-md-4" id="description" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"> 
-          <!-- Bootstrap to divide the entire page into colums -->    
-          <h5 class="internal_text" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.dsc}}</h5>
-        </div>
-        <div id="verticalLine" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"></div>
-        <div class="container3" style="overflow-x: hidden">
-          <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
-          <ul class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">            
-            <li class="article-cell" ng-repeat="link in board.links" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">  
-              <a href="{{link.url}}" target="framename", id="formclick" >                 
-                <hr>
-                <h4 class="title1" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-                  {{link.title}}
-                </h4>                
-                <div class="container6">
-                  <figure class="effect-sadie" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-                    
-                      <img id="image" ng-src="{{link.image}}" ng-if="link.image" />
-                      <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">                      
-
-                         
-                      <figcaption ng-if="link.note">
-                        <i class="material-icons md-18">comment</i>
-                        <h5>Curator Notes</h5>
-                        <p class="curatorNotes">{{link.note}}</p>
-                      </figcaption> 
-                    
-                  </figure>
-                </div>                
-                <div id="link">{{link.host}}                  
-                </div>                 
-                <br>
-                <h6 class="internal_text1">{{link.dsc}}</h6>                
-                <hr>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="hScroll">
-          <i class="material-icons md-24" , id="addHScroll">chevron_right</i>
-        </div>
-        <div class="col-md-12 container4">
-          <div class="boardFooter date">        
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -195,4 +26,6 @@
     color: white;
     text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
   }
+
+
 </style>

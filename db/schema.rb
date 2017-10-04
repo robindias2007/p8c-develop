@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907072229) do
+ActiveRecord::Schema.define(version: 20170923094341) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -125,6 +125,9 @@ ActiveRecord::Schema.define(version: 20170907072229) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "secure_id"
+    t.string   "slug"
+    t.text     "sub_header"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
@@ -134,6 +137,7 @@ ActiveRecord::Schema.define(version: 20170907072229) do
   add_index "forms", ["cached_weighted_average"], name: "index_forms_on_cached_weighted_average"
   add_index "forms", ["cached_weighted_score"], name: "index_forms_on_cached_weighted_score"
   add_index "forms", ["cached_weighted_total"], name: "index_forms_on_cached_weighted_total"
+  add_index "forms", ["secure_id"], name: "index_forms_on_secure_id", unique: true
 
   create_table "punches", force: :cascade do |t|
     t.integer  "punchable_id",                          null: false

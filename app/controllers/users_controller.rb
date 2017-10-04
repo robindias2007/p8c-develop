@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_admin, :only => [:index]
+  before_filter :authenticate_admin, :only => [:index, :user_for_admin]
   before_action :set_user, except: [:followers]
   before_action :check_profile_complted, only: :edit
   before_filter :find_userid, :only => [:show, :show_saved, :show_drafts, :show_liked]
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def get_boards(forms)
-    forms.map {|f| {id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id), sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @saved_boards, next_page: @forms.next_page } }
       end
   	else
-      redirect_to "/user/#{@user.username }/publish"
+      redirect_to "/#{@user.username }/published"
     end
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @draft_boards, next_page: @forms.next_page } }
       end
     else
-      redirect_to "/user/#{@user.username }/publish"
+      redirect_to "/#{@user.username }/published"
     end
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         format.json { render json: { boards: @liked_boards, next_page: @forms.next_page } }
       end
     else
-      redirect_to "/user/#{current_user.username }/publish"
+      redirect_to "/#{current_user.username }/published"
     end
   end
 
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      @user.update_attributes(categories_ids:params[:user][:categories_ids])
+      #@user.update_attributes(categories_ids:params[:user][:categories_ids])
       redirect_to root_path
     else
       render "edit"
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
   def followings
     user = User.find(params[:user_id].to_i)
     @followings = user.all_following
-    @followings_arr = @followings.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: f.avatar.url, following: current_user.following?(f) }}
+    @followings_arr = @followings.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: (f.avatar_file_name == nil ? nil : f.avatar.url), following: current_user.following?(f) }}
     respond_to do |format|
       format.html
       format.json { render json: { followings: @followings_arr.to_json } }
@@ -111,10 +111,47 @@ class UsersController < ApplicationController
   def followers
     user = User.find(params[:user_id].to_i)
     @followers = user.followers
-    @followers_arr = @followers.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: f.avatar.url, following: current_user.following?(f) }}
+    @followers_arr = @followers.map {|f| {id: f.id, name: f.name, author: f.author, username: f.username, image: (f.avatar_file_name == nil ? nil : f.avatar.url), following: current_user.following?(f) }}
     respond_to do |format|
       format.html
       format.json { render json: { followers: @followers_arr.to_json } }
+    end
+  end
+
+  def user_for_admin
+    @user = User.new
+  end
+
+  def user_create_for_admin
+    @user = User.new(user_params)
+    if params[:commit] == 'Create_User'
+      @user.update(email:@user.username + "@curativ.com", categories_ids:params[:user][:categories_ids], :confirmed_at => DateTime.now)
+      @user.skip_confirmation!
+      @user.save
+      redirect_to user_admin_path
+    else
+      redirect_to dashboard_path
+    end
+  end
+
+  def categories
+    @categories = Category.pluck(:category_name)
+    user = User.find(params[:user_id].to_i)
+    user_categories = user.categories_ids.reject { |c| c.empty? }
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { categories: @categories.to_json, user_categories: user_categories.to_json } }
+    end
+  end
+
+  def update_categories
+    user = User.find(params[:user_id].to_i)
+    user.update_attributes(categories_ids: params[:categories])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: {status: "Updated"} }
     end
   end
 
@@ -122,7 +159,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :avatar, :author, :email, :categories_ids).merge(profile_completed: true)
+    params.require(:user).permit(:username, :name, :password, :password_confirmation, :avatar, :author, :email, :categories_ids, :profile_completed).merge(profile_completed: true)
   end
 
   def set_user
@@ -143,4 +180,7 @@ class UsersController < ApplicationController
     end
   end
 
+  def authenticate_admin
+    authenticate_admin!
+  end
 end

@@ -5,16 +5,32 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag :defaults, "rails.validations", "rails.validations.custom" %>
 
+  <meta name="viewport" content="width=device-width" />
   <%= yield :social_meta_tags %>
   <meta property="fb:app_id" content="<%= ENV['FACEBOOK_KEY'] %>" />
-
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i" rel="stylesheet">
+  <%= favicon_link_tag 'thecurativ-favicon.png'%>
+  
 </head>
 <body>
+  <div layout="column" ng-cloak style="height: 100%">
+    <% if @skip_header %>
+    <% else %>
+      <%= render 'layouts/header'%>
+    <% end %>
+    <%= yield %>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.17.2/sortable.min.js"></script>
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
-<%= render 'layouts/header'%>
-<%= yield %>
-
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 </body>
 </html>

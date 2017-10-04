@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(resource)
-    redirect_to '/publish' # Or :prefix_to_your_route
+    redirect_to '/published' # Or :prefix_to_your_route
   end
 
   def after_sign_in_path_for(resource)

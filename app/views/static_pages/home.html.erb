@@ -1,28 +1,86 @@
 <!-- if user has signed in -->
 <% if user = current_user %>
-<div class="maincont">
+<md-content flex>
 
-<%= render 'static_pages/boards'%>
-
-
-</div>
+  <%= render 'static_pages/boards'%>
+  <br>
+  <%= render 'static_pages/footer' %>
+</md-content>
 
 
 <!-- if user isn't signed in -->
 <% else %>
 
-<div id="banner">
-	<!--<div class="col-md-11" id="bannerContent">
-	<h4 class="bannerSubtitle">Collect & Engage With The Best Curated Content On The Web.</h4>
-	<p class="bannerText">The Lense is a platform for you to express your opinions, thoughts or favorite collections around a topic by putting together the <span>5 most appropriate links</span> that make your case.<br><br>
+<div id="showModal"></div>
 
-	By limiting you to 5 links, we want you to put only the best articles, videos, podcasts, slideshows forward… so that the collective entity is greater than any individual piece in your board.
+<br>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-xs-3 hidden-md hidden-lg"></div>
+  <div class="col-md-6 col-xs-6">
 
-	In doing so each board offers a unique - i.e. your perspective on a topic So take your time and put a little thought into it before you express yourself!</p>
-	</div>-->
+    <div id="image-center">
+      <%= image_tag 'thecurativ.png', id:"before-signup-logo" %>
+    </div>
+    <!-- <div class="col-xs-1 visible-sm">
+      <%= link_to 'Sign In/Up', new_user_session_path, remote:true %>
+    </div> -->
+  </div>
+
+  <div class="col-md-3 col-xs-3">
+    <br>
+    <%= link_to 'Sign In/Up', new_user_session_path, remote:true, id:"signinup" %>
+  </div>
 </div>
-<div id="notice">
-    <strong><h5><%= notice %></h5></strong>
+
+<br class="hidden-md hidden-lg">
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <p class="before-signup-text">Aggregate, Discover & Share <br> truly great media & content on the web.</p>  
+  </div>
+  <div class="col-md-3"></div>
 </div>
-<%= render 'static_pages/home_boards'%>
+<br>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <%= image_tag 'Screen Shot 2017-09-23 at 4.48.57 PM.png', id:"screenshot" %>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<br><br>
+<div class="row picks">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="col-md-1"></div>
+    <div class="col-md-2 col-xs-3">Pick a <br><b>TOPIC</b></div>
+    <div class="col-md-2 col-xs-2"><%= image_tag 'Arrow 29 (1).svg', id:"arrows" %></div>
+    <div class="col-md-2 col-xs-3">Choose <br><b>5 LINKS</b></div>
+    <div class="col-md-2 col-xs-2"><%= image_tag 'Arrow 29 (1).svg', id:"arrows" %></div>
+    <div class="col-md-2 col-xs-2">Publish <br><b>& Share</b></div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<br><br>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <hr style="border:1px solid #9c1717;">
+    <p class="before-signup-footer">tell a STORY &nbsp;&nbsp; |&nbsp;&nbsp; explain TOPIC &nbsp;&nbsp; |&nbsp;&nbsp; express a VIEW &nbsp;&nbsp;|&nbsp;&nbsp; build a COLLECTION &nbsp;&nbsp;|&nbsp;&nbsp; keep LEARNING</p>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+
 <% end %>
+
+
+<style type="text/css">
+  html
+  {
+    overflow-x:hidden;
+  }
+
+</style>

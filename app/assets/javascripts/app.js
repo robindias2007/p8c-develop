@@ -1,4 +1,436 @@
-var app = angular.module('app', ['bc.Flickity', 'infinite-scroll']);
+var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable', 'ngMaterial']);
+
+app.config(function($mdThemingProvider) {
+
+  // Extend the red theme with a different color and make the contrast color black instead of white.
+  // For example: raised button text will be black instead of white.
+  var whiteThemeMap = $mdThemingProvider.extendPalette('grey', {
+    '100': '#fafafa',
+    '50': '#ffffff',
+    '600': '#c7c7c7'
+  });
+
+  // Register the new color palette map with the name <code>neonRed</code>
+  $mdThemingProvider.definePalette('whiteTheme', whiteThemeMap);
+
+
+  // Extend the red theme with a different color and make the contrast color black instead of white.
+  // For example: raised button text will be black instead of white.
+  var deepRedMap = $mdThemingProvider.extendPalette('red', {
+    'A200': '#9c1717',
+    'A100': '#d44d3f',
+    'A400': '#670000'
+  });
+
+  // Register the new color palette map with the name <code>neonRed</code>
+  $mdThemingProvider.definePalette('deepRed', deepRedMap);
+
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette('whiteTheme', {
+      'default': '50', // by default use shade 400 from the pink palette for primary intentions
+      'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+      'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
+      'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+    })
+     // If you specify less than all of the keys, it will inherit from the
+    // default shades
+    .accentPalette('deepRed');
+});
+
+app.filter('cut', function () {
+  return function (value, wordwise, max, tail) {
+    if (!value) return '';
+
+    max = parseInt(max, 10);
+    if (!max) return value;
+    if (value.length <= max) return value;
+
+    value = value.substr(0, max);
+    if (wordwise) {
+        var lastspace = value.lastIndexOf(' ');
+        if (lastspace !== -1) {
+          //Also remove . and , so its gives a cleaner result.
+          if (value.charAt(lastspace-1) === '.' || value.charAt(lastspace-1) === ',') {
+            lastspace = lastspace - 1;
+          }
+          value = value.substr(0, lastspace);
+        }
+    }
+
+    return value + (tail || ' …');
+  };
+});
+
+app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+
+  $scope.init = function () {
+    $scope.formFlickityOptions = {
+      cellSelector: '.form-article-cell',
+      prevNextButtons: true,
+      pageDots: true,
+      imagesLoaded: true,
+      groupCells: 2
+    };
+    $scope.formTitle = "";
+    $scope.formDsc = "";
+    $scope.formSubheader = "";
+    $scope.newFormLinks = [{ show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
+                          { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false}, url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
+                          { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false}, url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
+                          { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false}, url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""},
+                          { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false}, url: "", title: null, dsc: null, image: null, note: null, content: null, tag: null, host: null, error: ""}]
+  };
+
+  $scope.AddLinkClicked = function (text) {
+    switch (text) {
+      case '0':
+        $scope.newFormLinks[0].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        break;
+      case '1':
+        $scope.newFormLinks[1].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        break;
+      case '2':
+        $scope.newFormLinks[2].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        break;
+      case '3':
+        $scope.newFormLinks[3].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        break;
+      case '4':
+        $scope.newFormLinks[4].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        break;
+      default:
+    }
+  }
+
+  $scope.AddNoteClicked = function (text) {
+    switch (text) {
+      case '0':
+        $scope.newFormLinks[0].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: true, editLinkBox: false};
+        break;
+      case '1':
+        $scope.newFormLinks[1].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: true, editLinkBox: false};
+        break;
+      case '2':
+        $scope.newFormLinks[2].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: true, editLinkBox: false};
+        break;
+      case '3':
+        $scope.newFormLinks[3].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: true, editLinkBox: false};
+        break;
+      case '4':
+        $scope.newFormLinks[4].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: true, editLinkBox: false};
+        break;
+      default:
+    }
+  }
+
+  $scope.saveNote = function (text) {
+    switch (text) {
+      case '0':
+        $scope.newFormLinks[0].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        break;
+      case '1':
+        $scope.newFormLinks[1].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        break;
+      case '2':
+        $scope.newFormLinks[2].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        break;
+      case '3':
+        $scope.newFormLinks[3].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        break;
+      case '4':
+        $scope.newFormLinks[4].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        break;
+      default:
+    } 
+  }
+
+  $scope.backToAddLinkClick = function (text) {
+    switch (text) {
+      case '0':        
+        $scope.newFormLinks[0].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[0].url = "";
+        break;
+      case '1':        
+        $scope.newFormLinks[1].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[1].url = "";
+        break;
+      case '2':        
+        $scope.newFormLinks[2].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};        
+        $scope.newFormLinks[2].url = "";
+        break;
+      case '3':                
+        $scope.newFormLinks[3].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[3].url = "";
+        break;
+      case '4':        
+        $scope.newFormLinks[4].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[4].url = "";
+        break;
+      default:
+    }
+  }
+
+  $scope.backToViewData = function (text) {
+    switch (text) {
+      case '0':        
+        $scope.newFormLinks[0].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[0].note = "";
+        break;
+      case '1':        
+        $scope.newFormLinks[1].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[1].note = "";
+        break;
+      case '2':        
+        $scope.newFormLinks[2].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};        
+        $scope.newFormLinks[2].note = "";
+        break;
+      case '3':                
+        $scope.newFormLinks[3].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[3].note = "";
+        break;
+      case '4':        
+        $scope.newFormLinks[4].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false};
+        $scope.newFormLinks[4].note = "";
+        break;
+      default:
+    } 
+  }
+
+  $scope.addNewLink = function (text) {
+    switch (text) {
+      case '0':        
+        $scope.newFormLinks[0].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: true};        
+        break;
+      case '1':        
+        $scope.newFormLinks[1].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: true};        
+        break;
+      case '2':        
+        $scope.newFormLinks[2].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: true};        
+        break;
+      case '3':                
+        $scope.newFormLinks[3].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: true};
+        break;
+      case '4':        
+        $scope.newFormLinks[4].show = {addLink: false, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: true};
+        break;
+      default:
+    } 
+  }
+
+  assignData = function(data, text, url) {
+    switch (text) {
+      case '0':
+        if (data == null){
+          $scope.newFormLinks[0].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
+          $scope.newFormLinks[0].error = "Invalid url!"
+        } else {          
+          $scope.newFormLinks[0].url = url;
+          $scope.newFormLinks[0].title = data.title;
+          $scope.newFormLinks[0].image = data.image;
+          $scope.newFormLinks[0].dsc = data.description;
+          $scope.newFormLinks[0].content = data.content;
+          $scope.newFormLinks[0].tag = data.tags;
+          $scope.newFormLinks[0].host = data.host;
+          $scope.newFormLinks[0].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false}
+        }
+        break;
+      case '1':
+        if (data == null){
+          $scope.newFormLinks[1].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
+          $scope.newFormLinks[1].error = "Invalid url!"
+        } else {          
+          $scope.newFormLinks[1].url = url;
+          $scope.newFormLinks[1].title = data.title;
+          $scope.newFormLinks[1].image = data.image;
+          $scope.newFormLinks[1].dsc = data.description;
+          $scope.newFormLinks[1].content = data.content;
+          $scope.newFormLinks[1].tag = data.tags;
+          $scope.newFormLinks[1].host = data.host;
+          $scope.newFormLinks[1].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false}
+        }
+        break;
+      case '2':
+        if (data == null){
+          $scope.newFormLinks[2].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
+          $scope.newFormLinks[2].error = "Invalid url!"
+        } else {          
+          $scope.newFormLinks[2].url = url;
+          $scope.newFormLinks[2].title = data.title;
+          $scope.newFormLinks[2].image = data.image;
+          $scope.newFormLinks[2].dsc = data.description;
+          $scope.newFormLinks[2].content = data.content;
+          $scope.newFormLinks[2].tag = data.tags;
+          $scope.newFormLinks[2].host = data.host;          
+          $scope.newFormLinks[2].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false}
+        }
+        break;
+      case '3':
+        if (data == null){
+          $scope.newFormLinks[3].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
+          $scope.newFormLinks[3].error = "Invalid url!"
+        } else {          
+          $scope.newFormLinks[3].url = url;
+          $scope.newFormLinks[3].title = data.title;
+          $scope.newFormLinks[3].image = data.image;
+          $scope.newFormLinks[3].dsc = data.description;
+          $scope.newFormLinks[3].content = data.content;
+          $scope.newFormLinks[3].tag = data.tags;
+          $scope.newFormLinks[3].host = data.host;
+          $scope.newFormLinks[3].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false}
+        }
+        break;
+      case '4':
+        if (data == null){
+          $scope.newFormLinks[4].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
+          $scope.newFormLinks[4].error = "Invalid url!"
+        } else {          
+          $scope.newFormLinks[4].url = url;
+          $scope.newFormLinks[4].title = data.title;
+          $scope.newFormLinks[4].image = data.image;
+          $scope.newFormLinks[4].dsc = data.description;
+          $scope.newFormLinks[4].content = data.content;
+          $scope.newFormLinks[4].tag = data.tags;
+          $scope.newFormLinks[4].host = data.host;
+          $scope.newFormLinks[4].show = {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false}
+        }
+        break;
+      default:
+    }
+  };
+
+  getMetaInspectorData = function (url, text) {
+    $http({
+      method: 'GET',
+      url: 'get_meta_data.json?url='+ url
+    }).then(function successCallback(response) {
+      data = response.data;
+      assignData(data, text, url);
+      },function errorCallback(response) {
+    }); 
+  };
+
+  $scope.uploadLink = function (text) {
+    switch (text) {
+      case '0':
+        $scope.newFormLinks[0].error = "";
+        if ($scope.newFormLinks[0].url != ""){
+          $scope.newFormLinks[0].show = {addLink: false, linkBox: false, loading: true, viewData: false, noteBox: false, editLinkBox: false};
+          getMetaInspectorData($scope.newFormLinks[0].url, '0');
+        }
+        break;
+      case '1':
+        $scope.newFormLinks[1].error = "";
+        if ($scope.newFormLinks[1].url != ""){
+          $scope.newFormLinks[1].show = {addLink: false, linkBox: false, loading: true, viewData: false, noteBox: false, editLinkBox: false};
+          getMetaInspectorData($scope.newFormLinks[1].url, '1');
+        }
+        break;
+      case '2':
+        $scope.newFormLinks[2].error = "";
+        if ($scope.newFormLinks[2].url != ""){
+          $scope.newFormLinks[2].show = {addLink: false, linkBox: false, loading: true, viewData: false, noteBox: false, editLinkBox: false};
+          getMetaInspectorData($scope.newFormLinks[2].url, '2');
+        }
+        break;
+      case '3':
+        $scope.newFormLinks[3].error = "";
+        if ($scope.newFormLinks[3].url != ""){
+          $scope.newFormLinks[3].show = {addLink: false, linkBox: false, loading: true, viewData: false, noteBox: false, editLinkBox: false};
+          getMetaInspectorData($scope.newFormLinks[3].url, '3');
+        }
+        break;
+      case '4':
+        $scope.newFormLinks[4].error = "";
+        if ($scope.newFormLinks[4].url != ""){
+          $scope.newFormLinks[4].show = {addLink: false, linkBox: false, loading: true, viewData: false, noteBox: false, editLinkBox: false};
+          getMetaInspectorData($scope.newFormLinks[4].url, '4');
+        }
+        break;
+      default:
+    }
+  };
+
+  $scope.saveForm = function (user_id, text) {
+    $http({
+      method: 'POST',
+      url: 'create_form.json',
+      data: {user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc, sub_header: $scope.formSubheader}
+    }).then(function successCallback(response) {
+      data = response.data;
+      assignData(data, text, url);
+      },function errorCallback(response) {
+    });
+  };
+
+  $scope.checkFormValidation = function () {
+    if ($scope.formTitle == '') {
+      return true;
+    };
+    
+    if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null)) {
+      return true;
+    };
+
+    return false;
+  }
+}]);
+
+app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdDialog', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdDialog){
+    var self = this;
+
+      $scope.hidden = false;
+      $scope.isOpen = false;
+      $scope.hover = false;
+
+      // On opening, add a delayed property which shows tooltips after the speed dial has opened
+      // so that they have the proper position; if closing, immediately hide the tooltips
+      $scope.$watch('isOpen', function(isOpen) {
+        if (isOpen) {
+          $timeout(function() {
+            $scope.tooltipVisible = $scope.isOpen;
+          }, 600);
+        } else {
+          $scope.tooltipVisible = $scope.isOpen;
+        }
+      });
+
+      $scope.items = [
+        { name: "Twitter", icon: "img/icons/twitter.svg", direction: "bottom" },
+        { name: "Facebook", icon: "img/icons/facebook.svg", direction: "top" },
+        { name: "Google Hangout", icon: "img/icons/hangout.svg", direction: "bottom" }
+      ];
+
+      $scope.showAdvanced = function(ev, user_name) {
+        $mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'dialog1.tmpl.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose:true,
+          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+        .then(function(answer) {
+          $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+      };
+
+      function DialogController($scope, $mdDialog) {
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+          $mdDialog.hide(answer);
+        };
+      }
+}]);
 
 app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
   $scope.init = function(boards,key){
@@ -15,6 +447,18 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -35,8 +479,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -58,6 +501,18 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $window.open(link, '_blank');
   };
 
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
+
   $scope.update_bookmark = function(board){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
@@ -77,15 +532,13 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
   
   $scope.alert = '';
 }]);
-
 
 app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
   $scope.init = function(boards, key){
@@ -105,6 +558,18 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -127,7 +592,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     if ($scope.stop_loading == false) {
       $http({
       method: 'GET',
-      url: 'publish.json?page='+ $scope.next_page
+      url: 'published.json?page='+ $scope.next_page
       }).then(function successCallback(response) {
         boards = JSON.parse(response.data.boards);
         for(var i = 0; i <= (boards.length - 1) ; i++) {
@@ -150,8 +615,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -178,6 +642,18 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -225,8 +701,7 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -251,6 +726,18 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -298,8 +785,7 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -325,6 +811,18 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.redirectTo = function(link){
     $window.open(link, '_blank');
   };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
 
   $scope.update_bookmark = function(board){
     $scope.board = board;
@@ -372,8 +870,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,
-    pageDots: false,
+    prevNextButtons: true,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -431,7 +928,6 @@ app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'Flickit
       }, function errorCallback(response) {
     });
   }
-
 }]);
 
 app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
@@ -453,6 +949,18 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
     $window.open(link, '_blank');
   };
 
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent = link;
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand('copy');
+    body.removeChild(copyElement);    
+  }
+
   $scope.update_bookmark = function(board){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
@@ -471,7 +979,6 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
     prevNextButtons: true,
-    pageDots: false,
     imagesLoaded: true,
     groupCells: 2
   };
@@ -480,3 +987,56 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
   
   $scope.alert = '';
 }]);
+
+app.controller('EditUserCtrl', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
+  
+  getCategoriesAndUserCategories = function (user) {
+    $http({
+      method: 'GET',
+      url: 'categories.json',
+      params: {user_id: user.id}
+      }).then(function successCallback(response) {
+        $scope.categories = JSON.parse(response.data.categories);
+        $scope.user_categories = JSON.parse(response.data.user_categories);        
+      }, function errorCallback(response) {
+    });
+  }
+
+  $scope.init = function (user) {
+    $scope.user_profile = user;
+    getCategoriesAndUserCategories(user);
+  }
+
+  $scope.toggle = function (item, list) {
+    var idx = list.indexOf(item);
+    if (idx > -1) {
+      list.splice(idx, 1);
+    }
+    else {
+      list.push(item);
+    }
+  };
+
+  $scope.exists = function (item, list) {
+    return list.indexOf(item) > -1;
+  };
+
+  $scope.checkBoxValidation = function () {
+    if ($scope.user_categories.length >= 3) {
+      return false;
+    };    
+
+    return true;
+  };
+
+  $scope.UpdateCategory = function () {    
+    $http({
+      method: 'POST',
+      url: 'update_categories.json',
+      data: {categories: $scope.user_categories, user_id: $scope.user_profile.id}
+    }).then(function successCallback(response) {      
+      },function errorCallback(response) {
+    });
+  }
+}]);
+
