@@ -60,6 +60,8 @@ Rails.application.routes.draw do
   get '/most_recent' =>  'static_pages#most_recent'
   get '/most_shared' =>  'static_pages#most_shared'
   get '/most_saved' =>  'static_pages#most_saved'
+  get '/staff_picks' =>  'static_pages#staff_picks'
+  get '/most_popular' =>  'static_pages#most_popular'
   get '/dashboard' => 'static_pages#dashboard'
   
   get ':id/published'          =>   'users#show'

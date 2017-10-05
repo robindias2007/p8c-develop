@@ -19,6 +19,8 @@
                     <th>Edit Tags</th>
                     <th>Curativ Accounts</th>
                     <th>Admins Date</th>
+                    <th>Staff Picks</th>
+                    <th>Most Popular</th>
                     <th>View Count</th>
                     <th>Shared Count</th>
                     <th>Saved Count</th>
@@ -61,6 +63,12 @@
                     </td>
                     <td>
                       <%= f.date_select :admins_date,  id:"notes", placeholder:"mm/dd/yyyy", value:form.admins_date %>
+                    </td>
+                    <td>
+                      <%= f.text_field :staff_picks, placeholder:"Staff Picks", value:form.staff_picks %>
+                    </td>
+                    <td>
+                      <%= f.text_field :most_popular, placeholder:"Most Popular", value:form.most_popular %>
                     </td>
                     <td>
                       <%= f.number_field :view_count,  id:"notes", placeholder:"View Count", value:form.view_count %>

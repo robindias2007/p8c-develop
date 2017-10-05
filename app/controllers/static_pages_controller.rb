@@ -102,41 +102,61 @@ class StaticPagesController < ApplicationController
   end
 
   def trending
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @forms = Form.published.sample(5)
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_viewed
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @forms = Form.order(view_count: :desc).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_liked
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @forms = Form.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_recent
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @forms = Form.order(created_at: :desc).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_shared
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @forms = Form.order(share_count: :desc).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_saved
+    @keys = ENV['FACEBOOK_KEY'].to_json
     @forms = Form.order(saved_count: :desc).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
+
+  def most_popular
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    @forms = Form.all.where(most_popular:true).published
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
   
+  def staff_picks
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    @forms = Form.all.where(staff_picks:true)
+    @boards = get_boards(@forms)
+    @formss = @boards.to_json
+  end
+
   def destroy #to delete the form
    @form.destroy
    respond_to do |format|
