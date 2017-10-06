@@ -401,6 +401,13 @@ app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'Flicki
         { name: "Google Hangout", icon: "img/icons/hangout.svg", direction: "bottom" }
       ];
 
+      $scope.resetMixpanel = function (user) {
+        mixpanel.track("Sign Out", {
+          "Username": user.username,          
+        });
+        mixpanel.reset()
+      };
+
       $scope.showAdvanced = function(ev, user_name) {
         $mdDialog.show({
           controller: DialogController,
@@ -440,6 +447,106 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
     $scope.facebook_key = key;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -448,7 +555,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -457,21 +564,29 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user);  
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user);
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 
@@ -493,6 +608,106 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $scope.location = $location.$$absUrl;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -501,7 +716,7 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -510,21 +725,29 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user);    
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user);
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 
@@ -551,6 +774,106 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     $scope.facebook_key = key;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -559,7 +882,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -568,21 +891,29 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user); 
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user); 
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 
@@ -635,6 +966,106 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $scope.location = $location.$$absUrl;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -643,7 +1074,7 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -652,21 +1083,29 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user);
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user);
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 
@@ -719,6 +1158,106 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $scope.location = $location.$$absUrl;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -727,7 +1266,7 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -736,21 +1275,29 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user);    
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user); 
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 
@@ -804,6 +1351,106 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $scope.facebook_key = key;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -812,7 +1459,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -821,21 +1468,29 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user);
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user); 
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 
@@ -941,6 +1596,106 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
     $scope.facebook_key = key;
   }
 
+  $scope.trackBoardClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Board Title Clicked"
+
+    });
+  };
+
+  $scope.boardAuthorClick = function (board, user) {
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": "any",
+        "Appreciation Action": "any",
+        "Other Action": "Author Name Clicked"
+
+    });
+  };
+
+  $scope.trackLinkClicked = function (board, user, link) {
+    link_text = "Board Link " + link +" click"
+    mixpanel.track("Board Interaction", {
+        "User": user.username,
+        "Author Title": board.user.username,
+        "Board id": board.secure_id,
+        "Category": "any",
+        "Link Action": link_text,
+        "Appreciation Action": "any",
+        "Other Action": "any"
+
+    });
+  }
+
+  trackLikedUnlikedClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  trackSaveUnsaveClicked = function (board, action, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": action,
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackFacebookShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Facebook",
+      "Other Action": "any"
+    });
+  };
+
+  $scope.trackTwitterShareClicked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Twitter",
+      "Other Action": "any"
+    });
+  };
+
+  trackCopyLinkCliked = function (board, user) {
+    mixpanel.track("Board Interaction", {
+      "User": user.username,
+      "Author Title": board.user.username,
+      "Board id": board.secure_id,
+      "Category": "any",
+      "Link Action": "any",
+      "Appreciation Action": "Share - Copy Link",
+      "Other Action": "any"
+    });
+  };
+
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -949,7 +1704,7 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
     $window.open(link, '_blank');
   };
 
-  $scope.copyToClipboard = function (link) {
+  $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
     copyElement.style.opacity = '0';
@@ -958,21 +1713,29 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
     body.appendChild(copyElement);
     copyElement.select();
     document.execCommand('copy');
-    body.removeChild(copyElement);    
+    body.removeChild(copyElement);
+    trackCopyLinkCliked(board, user);    
   }
 
-  $scope.update_bookmark = function(board){
+  $scope.update_bookmark = function(board, user){
     $scope.board = board;
     $scope.board.bookmark = !board.bookmark;
+    if ($scope.board.bookmark == true) {
+      trackSaveUnsaveClicked(board, 'save', user);
+    } else {
+      trackSaveUnsaveClicked(board, 'unsave', user);
+    };
   };
 
-  $scope.update_like = function(board, action){    
+  $scope.update_like = function(board, action, user){    
     $scope.board = board;
     $scope.board.liked = !board.liked;
     if (action == 'like') {
-      $scope.board.likes++ 
+      $scope.board.likes++
+      trackLikedUnlikedClicked(board, action, user); 
     } else {
       $scope.board.likes--
+      trackLikedUnlikedClicked(board, action, user);
     }
   };
 

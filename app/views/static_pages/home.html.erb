@@ -6,11 +6,46 @@
   <br>
   <%= render 'static_pages/footer' %>
 </md-content>
-
+  <% if request.referrer == edit_user_url(user) %>
+    <script type="text/javascript">
+      mixpanel.alias('<%= current_user.username %>');      
+      mixpanel.people.set({
+        "$first_name": '<%= current_user.name %>',
+        "$created": '<%= current_user.created_at %>',
+        "$email": '<%= current_user.email %>'
+      });            
+      mixpanel.track("Sign Up Completed", {
+        "Username": '<%= current_user.username %>',
+        "Authentication Method": '<%= current_user.provider %>',
+        "email": '<%= current_user.email %>'
+      });
+    </script>
+    <script type="text/javascript">
+      mixpanel.identify('<%= current_user.username %>');
+      mixpanel.track("Sign In", {
+        "Username": '<%= current_user.username %>',
+        "Authentication Method": '<%= current_user.provider %>',
+        "First Sign-in": '<%= current_user.created_at.to_date %>',
+        "Last Sign-in": '<%= current_user.last_sign_in_at.to_date %>',
+        "# of Sign-ins": '<%= current_user.sign_in_count %>'
+      });
+    </script>
+  <% end %>
+  <% if request.referrer == root_url %>
+    <script type="text/javascript">
+      mixpanel.identify('<%= current_user.username %>');
+      mixpanel.track("Sign In", {
+        "Username": '<%= current_user.username %>',
+        "Authentication Method": '<%= current_user.provider %>',
+        "First Sign-in": '<%= current_user.created_at.to_date %>',
+        "Last Sign-in": '<%= current_user.last_sign_in_at.to_date %>',
+        "# of Sign-ins": '<%= current_user.sign_in_count %>'
+      });
+    </script>
+  <% end %>
 
 <!-- if user isn't signed in -->
-<% else %>
-
+<% else %>  
 <div id="showModal"></div>
   
 <div layout="row" align="middle">
