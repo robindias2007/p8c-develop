@@ -64,7 +64,7 @@
       <md-menu md-position-mode="target-right target" md-offset="0 70">        
         <md-button class="md-fab md-mini" aria-label="More" md-menu-origin ng-click="$mdOpenMenu($event)" style="box-shadow: none; padding: 0px">          
           <% if current_user.avatar_file_name != nil %>
-            <img class="user-avatar" src="<%= current_user.avatar.url %>" style="width: 40px; height: 40px;">
+            <img class="user-avatar" src="<%= current_user.avatar.url %>">
           <% else %>
             <md-icon md-font-icon="icon-home" style="font-size: 24px;"
             class="step "><i class="material-icons" style="" >account_circle</i></md-icon>            
@@ -117,7 +117,7 @@
       
   </md-toolbar>
   
-  <md-button class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="width:45px;height:45px; position: fixed">
+  <md-button class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="position: fixed">
     <a href="/<%= current_user.username %>/new_form">
     <md-tooltip md-direction="left">Create Curate</md-tooltip>
     <md-icon><i class="material-icons">add</i></md-icon>

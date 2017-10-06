@@ -72,6 +72,7 @@ md-input-container .md-input
 
 .curativ-header img {
     height: 55px;
+    object-fit:cover;
 }
 
 .curativ-header md-select {
@@ -114,6 +115,10 @@ body md-dialog {
 .md-headline{
     font-family: "FuturaStd-Bold";
     color:initial;
+}
+
+md-card.fullBoard {
+    clear:both;
 }
 
 md-card md-card-title md-card-title-text:only-child .md-subhead {
@@ -779,6 +784,7 @@ md-card.halfBoard {
     width:48%;
     margin:18px 9px;
     float:left;
+    clear:none;
 }
 
 #description {
@@ -795,11 +801,13 @@ md-card.halfBoard {
     float:none;
 }
 
+/*
 .halfBoard.boardContainer {
     display: table;
     width:75%;
     margin:auto;
 }
+*/
 
 
 .halfBoard#verticalLine {
@@ -833,12 +841,12 @@ padding-bottom:1px;
 }
 
 .boardContainer {
-    padding:15px 0px 10px 0px;
+    padding:15px 5% 10px;
     background-color:#fafafa;   
-    clear:both;
+    /*clear:both;
     display: table;
     width: 75%;
-    margin: auto;
+    margin: auto;*/
 }
 
 .container2 {
@@ -1768,6 +1776,7 @@ ul.followers li {
 
 .categoryheader {
     margin: 21px 0px 15px;
+    clear:both;
 }
 
 .categoryheader hr {
