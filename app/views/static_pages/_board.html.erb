@@ -1,7 +1,7 @@
 <!--CARD CONTAINER -->
 
 
-<md-card ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
+<md-card ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoards'">
 <!-- <div class="container1" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'"> -->  
 
 
@@ -9,7 +9,7 @@
   <!--<div class="container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"> -->
    
    <md-card-title>
-    <md-card-title-text>
+    <md-card-title-text> 
       <a href="/{{board.user.username}}/{{board.slug_url}}">
       <span class="md-headline">
         {{board.title}}
@@ -26,14 +26,7 @@
 
   <md-card-content>
 
-    <!-- <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
-      <div md-virtual-repeat="link in board.links"
-        class="repeated-items" flex>
-      {{link.url}}
-      </div>
-    </md-virtual-repeat-container> -->
-
-    <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+    <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoards'">
       <div flex="33" class="internal_text">
         <p class="md-body-1">{{board.dsc}}</p>
       </div>
@@ -57,6 +50,7 @@
         </ul>
       </div>
     </div>
+  </md-card-content>
 
         <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
         <!-- <div class="container3" style="overflow-x: hidden">
@@ -92,18 +86,16 @@
           </ul>
         </div> -->  
       
-  
-  </md-card-content>
+
   <md-divider></md-divider>
-  <md-card-header class="card-footer" layout="row" layout-align="start center">
-    
+
+  <md-card-header class="card-footer" layout="row" layout-align="start center">    
     <md-card-avatar>
       <a href="/{{board.user.username}}/published">
         <img class="md-user-avatar" src="{{board.user_image}}"/>
       </a>
     </md-card-avatar>
      
-
     <md-card-header-text>
       <a href="/{{board.user.username}}/published"><span class="md-title">{{board.user.username}}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
@@ -160,91 +152,48 @@
             <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>
           </md-icon>
         </md-button>
-            
+
+
+        
+        <% if current_user.username == @user.username %>
+        <md-menu>
+          <md-button aria-label="More" class="md-icon-button" style="margin: 0px">
+            <md-icon md-menu-origin ><i class="material-icons">more_vert</i></md-icon>
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item>
+              <md-button><%= link_to 'Edit', '/forms/{{board.id}}/edit', class:"md-accent md-hue-1" %></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button><%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <% end %>
+
+
       </md-card-icon-actions>
     </md-card-actions>
   </md-card-header>
+
+
+
+      <!-- INCASE OF BUTTONS UNDER THE BOARD
+
+      IF STATEMENT TO CHECK CURRENT USER GOES HERE
+      
+      <md-divider></md-divider>
+      <md-card-header class="card-footer" layout="row" layout-align="start center">
+        <md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row">
+          <md-button><%= link_to 'Edit', '/forms/{{board.id}}/edit', class:"md-accent md-hue-1" %></md-button>
+          <md-button><%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %></md-button>
+        </md-card-actions>
+      </md-card-header>
+      
+    -->
+  
+
+
 </md-card>
 
-
-
-
-
-
-
-
-<!-- FOOTER CONTAINER -->
-
-<!--
- <div class="col-md-12 container4">
- -->
-    
-    <!--FOOTER _ USER PROFILE -->
-    
-    <!--
-    <div class="container7" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-      <div class="date" id="profile">
-        <a href="/{{board.user.username}}/publish">
-          <div class="user-avatar" ng-if="!(board.user_image == null)" style='background-image:url("{{board.user_image}}")'></div>
-          <i class="material-icons md-40" ng-if="(board.user_image == null)">account_circle</i>
-          <div id="prouser">{{board.user.username}}</div> 
-          <h10 class="date">{{board.updated_at | date : format : timezone}}</h10>
-        </a>
-      </div>         
-    </div>
-    -->
-
-
-    <!-- FOOTER - ICONS BUTTONS -->
-
-    <!--
-    <div class="container8" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-    <% if user_signed_in? %>
-      <div class="bookmark">   
-        <h10 class="date">Save &nbsp; </h10>
-        <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
-        <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>              
-        <%-# It tells you the total count or the total likes on the current form  -%>
-      </div>
-    <% else %>          
-      <div class="bookmark">
-        <h10 class="date">Save &nbsp; </h10>
-        <i class="material-icons">bookmark</i>
-      </div>      
-    <% end %>
-    <% if user_signed_in? %>
-      <div class="like">   
-        <h10 class="date">{{board.likes}} &nbsp;</h10> 
-        <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
-        <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>             
-      </div>
-    <% else %>
-      <div class="like">
-        <h10 class="date">{{board.likes}} &nbsp;</h10>
-        <i class="material-icons">favorite</i> 
-      </div>
-    <% end %>  
-    <div class="share">
-      <div class="social-share-options" style="">
-        <div class="facebook-share option">
-          <a target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
-            <%= image_tag 'facebook.png' %>
-          </a>
-        </div>
-        <div class="twitter-share option" >
-          <a target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
-            <%= image_tag 'twitter.png' %>
-          </a>
-        </div>
-      </div>
-      <%= link_to 'javascript:void(0)', class: 'social-share-link' do %>
-        <h10 class="date">Share</h10>
-        <i class="material-icons">share</i>
-      <% end %>
-      </div>
-    </div>
-    -->
-
-<!-- FOOTER CONTAINER END TAG
-</div>
--->
