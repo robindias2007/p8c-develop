@@ -12,8 +12,10 @@
   -->
 
   <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance="4">
-    <section class="cards">
-    <div ng-repeat="board in pub_boards" ng-init="outerIndex=$index" >
+    
+    <section class="cards" layout="row" layout-wrap>
+   
+    <div class="repeatBoard" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'flex-100' : 'flex-50'">
       <%= render 'static_pages/board'%>
       
       <!--

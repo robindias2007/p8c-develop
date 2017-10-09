@@ -187,16 +187,15 @@ span.md-button {
 
 .cards {
     width: 90%;
-    max-width: 1280px;
     margin: 0 auto;
 
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto; 
-    grid-gap: 16px;
+    display: flex;
 }
 
+.repeatBoard {
+    display: flex;
+    align-items:stretch;
+}
 
 
 
