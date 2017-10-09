@@ -19,10 +19,12 @@
           </div>
           <hr>
         </div>
-        <div ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index">
+
+      <section class="cards" layout="row" layout-wrap>  
+        <div class ="repeatBoard" ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
           <%= render 'static_pages/board'%>  
         </div>
-        
+      </section>  
       </div>
       <br>
     </div>
