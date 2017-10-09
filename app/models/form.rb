@@ -38,8 +38,8 @@ scope :saved, -> {
     "#{self.slug}-#{self.secure_id}"
   end
   
-  def self.staff_pick()
-    Form.published.limit(3)
+  def self.staff_pick
+    where(staff_picks:true)
   end
 
   def self.trending()
