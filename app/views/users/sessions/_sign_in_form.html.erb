@@ -1,9 +1,21 @@
 <%= form_for(resource, as: resource_name, validate:true, url: session_path(resource_name), remote: true) do |f| %>
     
-  <div class="form-group">
+<!--   <div class="form-group">
     <%= f.label :Email %>
     <%= f.email_field :email, placeholder:"E-mail", id:'textfield' %>
   </div>
+ -->
+  <md-input-container>
+    <label>Title</label>
+    <input>
+  </md-input-container>  
+
+
+  <md-input-container class="md-block md-accent">
+    <label>Email</label>
+    <%= f.text_field :email %>
+  </md-input-container>
+
 
   <div class="form-group">
     <%= f.label :Password %>
