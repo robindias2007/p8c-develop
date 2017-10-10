@@ -11,11 +11,14 @@ belongs_to :user
 belongs_to :category
 has_many :user_form_bookmarks
 
+
+
 has_attached_file :photo,
         :url => ":s3_domain_url",
         :path => "/:class/:attachment/:id_partition/:style/:filename",
         :s3_host_name => "s3.us-east-2.amazonaws.com"
 validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+
 
 scope :published, -> {
   where(:publish => true)
