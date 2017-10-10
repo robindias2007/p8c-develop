@@ -22,8 +22,29 @@
             <p id="new_form_avatar_text"><b><%= current_user.username.capitalize %> </b><br> Draft</p>
           </md-list-item>
         </md-list>
-    
-        <div layout="row">
+        
+        <div class="row" style="width: 100%">
+          <div class="col-md-12" style="text-align:left;padding-left: 15px">
+            <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="" type="text" name="title" placeholder="Title" ng-model="formTitle"></h2>
+          </div>
+        </div>
+        <div class="row" style="width: 100%">
+          <div class="col-md-12" style="text-align:left;padding-left: 15px">
+            <h4 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="" type="text" name="title" placeholder="Sub header" ng-model="formSubheader"></h4>
+          </div>
+        </div>
+        
+        <div class="row" style="width: 100%">
+          <div class="col-md-12"> 
+            <!-- Bootstrap to divide the entire page into colums -->    
+            <style type="text/css">
+              
+            </style>
+            <h5 class="new-form-description"><textarea style="overflow-y: auto;" rows="4" placeholder="description" ng-model="formDsc"></textarea></h5>
+          </div>
+        </div>
+
+        <!-- <div layout="row">
           <div flex="100">
             <md-input-container class="md-block md-accent">
               <label>Title</label>
@@ -48,7 +69,7 @@
               <textarea ng-model="formDsc" md-maxlength="350" rows="3" md-select-on-focus></textarea>
             </md-input-container>
           </div>
-        </div>
+        </div> -->
         
         <div class="row" style="width: 100%">
           
