@@ -1903,3 +1903,18 @@ font-size: 12px;
     }
     
 }
+
+
+/* -------------- New Board ---------------- */
+
+#cur_image
+{
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.new-title
+{
+    text-align: center;
+}
