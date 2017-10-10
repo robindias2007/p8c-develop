@@ -1,19 +1,6 @@
 <style type="text/css">
 
-  .rotate-animation {
-    -webkit-animation:spin 1s linear infinite;
-    -moz-animation:spin 1s linear infinite;
-    animation:spin 1s linear infinite;
-    font-size: 50px;
-    position: relative;
-    top: 35%;
-  }
   
-
-
-  @-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
-  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
-  @keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
 
 </style>
 <div class="modal fade custom-modal" id="createFormModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" ng-controller="newFormCtrl" ng-init="init()">
@@ -25,25 +12,17 @@
         <h4 class="new-title">New Board</h4>
       </div>
       <div class="modal-body">
-        <div class="row ng-scope" style="width: 100%; margin: 0px">
-          <div class="col-md-9" style="text-align: left; padding: 0px">
-            <div class="row" style="width: 100%">
-              <div class="col-md-1" style="padding: 0px; text-align: right">
-                <% if current_user.photo_url.present? %>
-                  <div class="user-avatar" style='background-image:url("<%= current_user.photo_url %>"); width: 40px; height: 40px'>
-                  </div>
-                <% else %>
-                  <i class="material-icons md-120" style="float: left; font-size: 40px !important">account_circle</i>
-                <% end %>
-              </div>
-              <div class="col-md-4" style="padding: 0px">
-                <div style="margin-left: 10px; font-weight: bold"><%= current_user.username %></div>
-                <div style="margin-left: 10px">Draft</div>
-              </div>
-            </div>                      
-          </div>
-        </div>
-
+        <md-list>
+          <md-list-item>
+            <% if current_user.photo_url.present? %>
+              <%= image_tag current_user.photo_url, id:"new_form_avatar_image", class:"user-avatar" %>
+            <% else %>
+              <i class="material-icons md-120">account_circle</i>
+            <% end %>
+            <p id="new_form_avatar_text"><b><%= current_user.username.capitalize %> </b><br> Draft</p>
+          </md-list-item>
+        </md-list>
+    
         <div layout="row">
           <div flex="100">
             <md-input-container class="md-block md-accent">
@@ -80,69 +59,88 @@
               <!-- 1st link -->
               <div flex="20" ng-repeat="link in newFormLinks track by $index">
                 <md-card>
-                  <div ng-if="newFormLinks[$index].show.addLink">
-                    <div>
-                      <a href="" ng-click="AddLinkClicked($index.toString())">
-                        <i class="material-icons">add_circle</i>
-                        <p>Add a new link</p>
+                  <md-card-header>
+                    <div class="" ng-if="newFormLinks[$index].show.viewData">
+                      <a href="" ng-click="AddNoteClicked($index.toString())" style="">
+                        <i class="material-icons" style="font-size:20px">insert_comment</i>
                       </a>
-                    </div>                            
-                  </div>
+                      <a href="" ng-click="addNewLink($index.toString())" style="">
+                        <i class="material-icons" style="font-size:20px">mode_edit</i>
+                      </a>
+                    </div>  
+
+                    <md-card-header-text ng-if="newFormLinks[$index].show.addLink" class="new_form_link_text">
+                      <a href="" ng-click="AddLinkClicked($index.toString())">
+                        <span class="md-title">
+                          <div class="center-align_add_link">
+                            <i class="material-icons" id="add_link_new_form">add_circle</i>
+                           </div> 
+                        </span>   
+                        <br>
+                        <span class="md-subhead">Add a new link</p></span>
+                      </a>
+
+                    </md-card-header-text>
+                    <md-card-header-text ng-if="newFormLinks[$index].show.linkBox">
+                      <a href="" ng-click="backToAddLinkClick($index.toString())" style="">
+                        <span class="md-title">
+                          <div class="center-align">
+                            <i class="material-icons" id="primary-color">arrow_back</i>
+                           </div>
+                        </span>
+                      </a>
+                    </md-card-header-text>
+                  </md-card-header>
+
+
                   <div ng-if="newFormLinks[$index].show.linkBox">
                     <div>
-                      <div class="">
-                        <a href="" ng-click="backToAddLinkClick($index.toString())" style="">
-                          <i class="material-icons">arrow_back</i>
-                        </a>                                  
-                      </div>
                       <a href="">
                         <p ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
                         <md-input-container class="md-block md-accent">
-                          <label>Enter Link</label>
+                          <label>Place Your Link Here</label>
                           <input ng-model="newFormLinks[$index].url">
                         </md-input-container>
                       </a>
                     </div>                            
-                    <div>
+                    <div class="center-align">
                       <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())">
-                        <i class="material-icons" >file_upload</i>
+                        <i class="material-icons" id="primary-color">file_upload</i>
                       </a>
                     </div>
                   </div>
                   <div ng-if="newFormLinks[$index].show.loading">
-                    <i class="material-icons rotate-animation" style="">cached</i>
+                    <i class="material-icons rotate-animation"  id="primary-color">cached</i>
                   </div>
                   <div ng-if="newFormLinks[$index].show.viewData">
                     <div>
-                      <div class="">
-                        <a href="" ng-click="AddNoteClicked($index.toString())" style="">
-                          <i class="material-icons" style="font-size:20px">insert_comment</i>
-                        </a>
-                        <a href="" ng-click="addNewLink($index.toString())" style="">
-                          <i class="material-icons" style="font-size:20px">mode_edit</i>
-                        </a>
-                      </div>
                       <img id="cur_image" ng-src="{{newFormLinks[$index].image}}" ng-if="newFormLinks[$index].image"/>
                       <img id="cur_image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[$index].image">
                     </div>
-                    <div>
-                      <p>{{newFormLinks[$index].title | cut:true:70:' ...'}}</p>
-                    </div>
-                    <md-card-actions>
-                      <span class="md-button md-accent">{{newFormLinks[$index].host}}<i class="material-icons md-18">open_in_new</i></span>
+                    
+                    <md-card-content>
+                      <p>{{newFormLinks[$index].title | cut:true:60:' ...'}}</p>
+                    </md-card-content>
+                    
+                    <md-card-actions layout="column" layout-align="start">
+                      <span class="md-button md-accent">{{newFormLinks[$index].host}}</span>
                     </md-card-actions>
                   </div> 
                   <div ng-if="newFormLinks[$index].show.noteBox">
+                    
                     <div>
-                      <div class="">
+                      <div class="center-align">
                         <a href="" ng-click="backToViewData($index.toString())" style="">
-                          <i class="material-icons">arrow_back</i>
+                          <i class="material-icons" id="primary-color">arrow_back</i>
                         </a>                                  
-                      </div>
-                      <p style="">Add note</p>
-                      <textarea rows="2" placeholder="note" ng-model="newFormLinks[$index].note"></textarea>
+                        </div>
+                      <md-input-container class="md-block md-accent">
+                        <label>Add Note</label>
+                        <textarea ng-model="newFormLinks[$index].note" md-maxlength="100" rows="2" md-select-on-focus></textarea>
+                      </md-input-container>
                     </div>
-                    <div>
+
+                    <div class="center-align">
                       <a href="" class="btn btn-sm" ng-click="saveNote($index.toString())">
                         <i class="material-icons" style="font-size: 35px">save</i>
                       </a>
@@ -150,7 +148,7 @@
                   </div>
                   <div ng-if="newFormLinks[$index].show.editLinkBox">
                     <div>
-                      <div class="">
+                      <div class="center-align">
                         <a href="" ng-click="backToViewData($index.toString())" style="">
                           <i class="material-icons">arrow_back</i>
                         </a>                                  
@@ -163,7 +161,7 @@
                         </md-input-container>
                       </a>
                     </div>                            
-                    <div>
+                    <div class="center-align">
                       <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())">
                         <i class="material-icons" style="font-size: 35px">file_upload</i>
                       </a>

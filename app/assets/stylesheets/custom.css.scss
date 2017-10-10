@@ -1917,4 +1917,63 @@ font-size: 12px;
 .new-title
 {
     text-align: center;
+    font-family: FuturaStd-Bold;
 }
+
+#new_form_avatar_image
+{
+    width: 50px;
+    height: 50px;
+}
+
+#new_form_avatar_text
+{
+    padding-left: 10px;
+    font-family: FuturaStd-Medium;
+}
+
+.new_form_link_text
+{
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: FuturaStd-Heavy;
+}
+
+.center-align_add_link
+{
+width: 60%;
+margin: 0px auto;
+}
+
+.center-align
+{
+width: 30%;
+margin: 0px auto;
+}
+
+#primary-color
+{
+    color: #9c1717;
+}
+
+#add_link_new_form
+{
+    margin-top: 15px;
+    font-size: 60px;
+    color: #9c1717;
+    margin-bottom: 15px;
+}
+
+.rotate-animation {
+    -webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
+    font-size: 50px;
+    position: relative;
+    top: 35%;
+  }
+
+
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
