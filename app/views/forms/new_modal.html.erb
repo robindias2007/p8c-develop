@@ -31,7 +31,7 @@
             <% else %>
               <i class="material-icons md-120">account_circle</i>
             <% end %>
-            <p id="new_form_avatar_text"><b><%= current_user.username.capitalize %> </b><br> Draft</p>
+            <p id="new_form_avatar_text"><b><%= current_user.username %> </b><br> Draft</p>
           </md-list-item>
         </md-list>
         
@@ -49,37 +49,11 @@
         <div layout="row">
           <div flex="100"> 
             <h5 class="new-form-description"><textarea class="font-text-new-form" style="overflow-y: auto;" rows="4" placeholder="Description" ng-model="formDsc"></textarea></h5>
-            <hr style="width:90%;margin:0px auto;color:grey">
+            <hr id="below-description">
+            
           </div>
         </div>
-
-        <!-- <div layout="row">
-          <div flex="100">
-            <md-input-container class="md-block md-accent">
-              <label>Title</label>
-              <input ng-model="formTitle">
-            </md-input-container>
-          </div>
-        </div>
-        
-        <div layout="row">
-          <div flex="100">
-            <md-input-container class="md-block md-accent">
-              <label>Sub Header</label>
-              <input ng-model="formSubheader">
-            </md-input-container>
-          </div>
-        </div>
-        
-        <div layout="row">
-          <div flex="100"> 
-            <md-input-container class="md-block md-accent">
-              <label>Description</label>
-              <textarea ng-model="formDsc" md-maxlength="350" rows="3" md-select-on-focus></textarea>
-            </md-input-container>
-          </div>
-        </div> -->
-        
+        <br><br>
         <div class="row" style="width: 100%">
           
           <div class="col-md-12"> 
@@ -90,12 +64,16 @@
               <div flex="20" ng-repeat="link in newFormLinks track by $index">
                 <md-card>
                   <md-card-header>
-                    <div class="" ng-if="newFormLinks[$index].show.viewData">
-                      <a href="" ng-click="AddNoteClicked($index.toString())" style="">
+                    <div class="header-new-form" ng-if="newFormLinks[$index].show.viewData">
+                      <!-- <a href="" ng-click="AddNoteClicked($index.toString())" style="">
                         <i class="material-icons" style="font-size:20px">insert_comment</i>
+                      </a> -->
+                      <a href="" ng-click="backToAddLinkClick($index.toString())" class="clear-board-new-form">
+                        <i class="material-icons" id="">clear</i>
                       </a>
-                      <a href="" ng-click="addNewLink($index.toString())" style="">
+                      <a href="" ng-click="addNewLink($index.toString())" class="edit-board-new-form">
                         <i class="material-icons" style="font-size:20px">mode_edit</i>
+                        Edit Board
                       </a>
                     </div>  
 
@@ -153,7 +131,10 @@
                     </md-card-content>
                     
                     <md-card-actions layout="column" layout-align="start">
-                      <span class="md-button md-accent">{{newFormLinks[$index].host}}</span>
+                      <span class="md-button md-accent link-text-new-form">
+                        {{newFormLinks[$index].host}}
+                        <i class="material-icons md-18">open_in_new</i>
+                      </span>
                     </md-card-actions>
                   </div> 
                   <div ng-if="newFormLinks[$index].show.noteBox">
