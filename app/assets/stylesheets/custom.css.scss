@@ -10,7 +10,7 @@ $component-active-color:transparent;
   font-family: "FuturaStd-Medium";
   src: url(/assets/FuturaStd-Medium.otf) format("truetype");
 }
-
+ 
 @font-face {
     font-family: "FuturaStd-Heavy";
     src: url(/assets/FuturaStd-Heavy.otf) format("truetype");
@@ -73,6 +73,7 @@ md-input-container .md-input
 .curativ-header img {
     height: 55px;
     object-fit:cover;
+    max-height: -webkit-fill-available;
 }
 
 .curativ-header md-select {
@@ -117,9 +118,25 @@ body md-dialog {
     color:initial;
 }
 
+
+
 md-card.fullBoard {
-    clear:both;
+    /*clear:both;*/
+    min-height:97%;
 }
+
+md-card.halfBoards {
+    min-height:97%
+}
+
+/*
+md-card.halfBoard {
+    width:48%;
+    margin:18px 9px;
+    float:left;
+    clear:none;
+}
+*/
 
 md-card md-card-title md-card-title-text:only-child .md-subhead {
     font-size:18px;
@@ -166,6 +183,21 @@ span.md-button {
     text-transform:none;
     font-family:FuturaStd-Medium;
 }
+
+
+.cards {
+    width: 90%;
+    margin: 0 auto;
+
+    display: flex;
+}
+
+.repeatBoard {
+    display: flex;
+    align-items:stretch;
+}
+
+
 
 /* -------------- END Curativ material css  ---------------- */
     
@@ -723,10 +755,19 @@ font-size:14px;
     font-family: 'Merriweather', serif;
     font-weight: 100;
     max-height:231px;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
-.card-body.halfBoard > .internal_text {
+
+.card-body {
+    flex: 1;
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body.halfBoards > .internal_text {
     display:none;
 }
 
@@ -778,13 +819,6 @@ p.halfBoard.internal_text {
  box-shadow: 0px 2px 6px #e3e3e3;
  z-index: 2;
  border-radius:2px;
-}
-
-md-card.halfBoard {
-    width:48%;
-    margin:18px 9px;
-    float:left;
-    clear:none;
 }
 
 #description {
@@ -843,10 +877,11 @@ padding-bottom:1px;
 .boardContainer {
     padding:15px 5% 10px;
     background-color:#fafafa;   
+    
     /*clear:both;
     display: table;
     width: 75%;
-    margin: auto;*/
+    margin: auto;*/ 
 }
 
 .container2 {
@@ -925,7 +960,7 @@ padding-bottom:1px;
     padding-right:20px;
 }
 
-.halfBoard.row {
+.halfBoards.row {
     width: 294%;
 }
 
@@ -1155,14 +1190,16 @@ $transition : 0.35s;
 
 /* --------- FLICKITY ----------*/
 
-.halfBoard .article-cell {
+.halfBoards .article-cell {
     width:189px;
     margin: 4px 5px;
 }
 
-.halfBoard .row {
+.halfBoards .row {
     margin-left:0px;
+    width: 294%;
 }
+
 
 .article-cell
 {
