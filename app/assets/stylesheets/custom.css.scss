@@ -176,7 +176,7 @@ span.md-button {
 @media (min-width: 960px) {
  
     .boardContainer {
-    padding:15px 2em 10px;
+        padding:15px 2em 10px;
     }
 
     .cards {
@@ -188,8 +188,8 @@ span.md-button {
     }
 
     .halfBoard.repeatBoard {
-    display:flex;
-    flex: 1 1 50%;
+        display:flex;
+        flex: 1 1 50%;
     }
 
     .halfBoard.repeatBoard > md-card {
@@ -209,9 +209,6 @@ span.md-button {
         display:none;
     }
 
-
-    /* --------- FLICKITY ----------*/
-
     .card-body.halfBoard > .flickity {
         flex:100%;
     }
@@ -225,15 +222,14 @@ span.md-button {
         width:189px;
         margin: 4px 5px;
     }
-
-
 }
 
 
-@media (max-width: 960px) {
+@media (min-width: 744px) 
+    and (max-width: 960px) {
     
     .boardContainer {
-    padding:15px 2% 10px;
+        padding:15px 2% 10px;
     }
 
     .cards {
@@ -257,8 +253,66 @@ span.md-button {
         display:flex;
         flex: 1 1 100%;
     }
+}
 
+@media (max-width: 744px) {
+    
+    .boardContainer {
+        padding:15px 2% 10px;
+    }
 
+    .cards {
+        layout:column;
+    }
+
+    .article-cell {
+        width: 189px;
+        margin: 4px 5px;
+    }
+
+    .halfBoard.repeatBoard > md-card {
+        flex: 1 1 100%;
+    }
+
+    .fullBoard.repeatBoard {
+        display:flex;
+        flex: 1 1 100%;
+    }
+
+    .card-body.halfBoard > .internal_text {
+    display:none;
+    }
+
+    .fullBoard .card-body > .internal_text {
+        display:none;
+    }
+
+    p.halfBoard.internal_text {
+        display:none;
+    }
+
+    p.fullBoard.internal_text {
+        display:none;
+    }
+
+    .card-body.halfBoard > .flickity {
+        flex:100%;
+    }
+
+    .fullBoard .card-body > .flickity {
+        flex:1 1 100%;
+        max-width: 100%;
+    }
+
+    .halfBoard .row {
+        width: 194%;
+        margin-left:0px;
+    }
+
+    .fullBoard .row {
+        width: 194%;
+        margin-left:0px;
+    }
 
 }
 
@@ -277,8 +331,6 @@ span.md-button {
     flex: 1 1 100%;
 
 }
-
-
 
 .article-cell {
     height: 249px;
