@@ -1964,6 +1964,11 @@ margin: 0px auto;
     margin-bottom: 15px;
 }
 
+.new-form-title
+{
+    width: 90%;
+    margin: 0px auto;
+}
 .new-form-title input {
     width: 100%;
     border: 0px;
@@ -1976,6 +1981,8 @@ outline: none;
 }
 .new-form-description {
 text-align: left;
+width: 90%;
+margin: 0px auto;
 }
 .new-form-description textarea {
 width:100%;
@@ -2003,19 +2010,31 @@ outline: none;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    margin-left: 3%;
+    margin-left: 4%;
 }
 
-.rotate-animation {
-    -webkit-animation:spin 1s linear infinite;
-    -moz-animation:spin 1s linear infinite;
-    animation:spin 1s linear infinite;
-    font-size: 50px;
-    position: relative;
-    top: 35%;
-  }
+.center-align_add_rotate
+{
+    width: 40%;
+    margin: 0px auto;
 
+}
 
-  @-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
-  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
-  @keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
+.font-text-new-form
+{
+    font-family: FuturaStd-Medium;
+}
+
+.footer-new-form 
+{
+    text-align: left;
+    font-family: FuturaStd-Medium;
+    font-style: italic;
+    color:grey;
+}
+
+.new-form-footer
+{
+    width: 90%;
+    margin: 0px auto;
+}

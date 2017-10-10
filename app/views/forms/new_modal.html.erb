@@ -1,6 +1,18 @@
 <style type="text/css">
 
-  
+.rotate-animation {
+    -webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
+    font-size: 80px;
+    margin-top: 41px;
+    margin-bottom: 41px;    
+  }
+
+
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }  
 
 </style>
 <div class="modal fade custom-modal" id="createFormModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" ng-controller="newFormCtrl" ng-init="init()">
@@ -23,20 +35,21 @@
           </md-list-item>
         </md-list>
         
-        <div class="row" style="width: 100%">
-          <div class="col-md-12" style="text-align:left;padding-left: 15px">
-            <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="" type="text" name="title" placeholder="Title" ng-model="formTitle"></h2>
+        <div layout="row" class="input-new-form">
+          <div flex="100">
+            <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Title" ng-model="formTitle"></h2>
           </div>
         </div>
-        <div class="row" style="width: 100%">
-          <div class="col-md-12" style="text-align:left;padding-left: 15px">
-            <h4 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="" type="text" name="title" placeholder="Sub header" ng-model="formSubheader"></h4>
+        <div layout="row">
+          <div flex="100">
+            <h4 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Sub header" ng-model="formSubheader"></h4>
           </div>
         </div>
-        
-        <div class="row" style="width: 100%">
-          <div class="col-md-12"> 
-            <h5 class="new-form-description"><textarea style="overflow-y: auto;" rows="4" placeholder="description" ng-model="formDsc"></textarea></h5>
+        <br>
+        <div layout="row">
+          <div flex="100"> 
+            <h5 class="new-form-description"><textarea class="font-text-new-form" style="overflow-y: auto;" rows="4" placeholder="Description" ng-model="formDsc"></textarea></h5>
+            <hr style="width:90%;margin:0px auto;color:grey">
           </div>
         </div>
 
@@ -101,9 +114,7 @@
                     <md-card-header-text ng-if="newFormLinks[$index].show.linkBox">
                       <a href="" ng-click="backToAddLinkClick($index.toString())" style="">
                         <span class="md-title">
-                          <div class="center-align">
-                            <i class="material-icons" id="primary-color">arrow_back</i>
-                           </div>
+                          <i class="material-icons" id="primary-color">arrow_back</i>
                         </span>
                       </a>
                     </md-card-header-text>
@@ -127,7 +138,9 @@
                     </div>
                   </div>
                   <div ng-if="newFormLinks[$index].show.loading">
-                    <i class="material-icons rotate-animation"  id="primary-color">cached</i>
+                    <div class="center-align_add_rotate">
+                      <i class="material-icons rotate-animation" id="primary-color">cached</i>  
+                    </div>
                   </div>
                   <div ng-if="newFormLinks[$index].show.viewData">
                     <div>
@@ -146,11 +159,11 @@
                   <div ng-if="newFormLinks[$index].show.noteBox">
                     
                     <div>
-                      <div class="center-align">
-                        <a href="" ng-click="backToViewData($index.toString())" style="">
-                          <i class="material-icons" id="primary-color">arrow_back</i>
-                        </a>                                  
-                        </div>
+                      
+                      <a href="" ng-click="backToViewData($index.toString())" style="">
+                        <i class="material-icons" id="primary-color">arrow_back</i>
+                      </a>                                  
+                        
                       <md-input-container class="md-block md-accent">
                         <label>Add Note</label>
                         <textarea ng-model="newFormLinks[$index].note" md-maxlength="100" rows="2" md-select-on-focus></textarea>
@@ -165,11 +178,9 @@
                   </div>
                   <div ng-if="newFormLinks[$index].show.editLinkBox">
                     <div>
-                      <div class="center-align">
-                        <a href="" ng-click="backToViewData($index.toString())" style="">
+                      <a href="" ng-click="backToViewData($index.toString())" style="">
                           <i class="material-icons">arrow_back</i>
-                        </a>                                  
-                      </div>
+                        </a>                                
                       <a href="">
                         <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
                         <md-input-container class="md-block">
@@ -201,7 +212,10 @@
 
 
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer new-form-footer">
+        <div class="footer-new-form">
+          To edit the order of the links, simply click on the card to drag & drop.
+        </div>
         <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft')" ng-disabled="checkFormValidation()">Draft</button>
         <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish')" ng-disabled="checkFormValidation()">Publish</button>
       </div>
