@@ -11,6 +11,7 @@ class FormsController < ApplicationController
     #index is method where you get a list of all the forms avaliable in your database. In this they are showing all the published forms. We have set the value of publish to be true so its shows all the published forms
       @form = Form.find(params[:format]) rescue nil
       if params[:commit] == 'Publish'         # it checks if the user has clicked publish the it updates the form with publish
+        @form.record_timestamps=false
         @form.update_attributes(form_params)      #publish becomes true
         redirect_to :back
       end
@@ -433,7 +434,7 @@ class FormsController < ApplicationController
     #these are the list of parameters for a form
     #require means compulsary fields and permit is used to protect our data.
       
-      params.require(:form).permit(:user_id,:title, :sub_header ,:description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5, :admins_date, :staff_picks, :view_count, :likes_count, :saved_count, :share_count)
+      params.require(:form).permit(:user_id,:title, :sub_header ,:description, :title1, :title2, :title3, :titel4, :title5, :url1, :url2, :url3, :url4, :url5, :tag_list, :note1, :note2, :note3, :note4, :note5, :readtime, :unspecified, :easy, :involved, :advanced, :description1, :description2, :description3, :description4, :description5, :content, :content2, :content3, :content4, :content5, :tag1, :tag2, :tag3, :tag4, :tag5, :admins_date, :staff_picks, :view_count, :likes_count, :saved_count, :share_count, :most_popular)
     end
 
     def authenticate_admin

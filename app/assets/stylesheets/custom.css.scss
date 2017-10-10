@@ -1776,7 +1776,7 @@ ul.followers li {
 
 .categoryheader {
     margin: 21px 0px 15px;
-    clear:both;
+    text-align:center;
 }
 
 .categoryheader hr {
@@ -1910,4 +1910,166 @@ font-size: 12px;
         text-align:center;
     }
     
+}
+
+
+/* -------------- New Board ---------------- */
+
+#cur_image
+{
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.new-title
+{
+    text-align: center;
+    font-family: FuturaStd-Bold;
+}
+
+#new_form_avatar_image
+{
+    width: 50px;
+    height: 50px;
+}
+
+#new_form_avatar_text
+{
+    padding-left: 10px;
+    font-family: FuturaStd-Medium;
+}
+
+.new_form_link_text
+{
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: FuturaStd-Heavy;
+}
+
+.center-align_add_link
+{
+width: 60%;
+margin: 0px auto;
+}
+
+.center-align
+{
+width: 30%;
+margin: 0px auto;
+}
+
+#primary-color
+{
+    color: #9c1717;
+}
+
+#add_link_new_form
+{
+    margin-top: 15px;
+    font-size: 60px;
+    color: #9c1717;
+    margin-bottom: 15px;
+}
+
+.new-form-title
+{
+    width: 90%;
+    margin: 0px auto;
+}
+.new-form-title input {
+    width: 100%;
+    border: 0px;
+  }
+.new-form-title input:focus {
+outline: none;
+}
+.new-form-title input:active {
+outline: none;
+}
+.new-form-description {
+text-align: left;
+width: 90%;
+margin: 0px auto;
+}
+.new-form-description textarea {
+width:100%;
+border: 0px;
+}
+.new-form-description textarea::-webkit-scrollbar {
+  background: grey !important;
+  width: 10px !important;
+}
+
+.new-form-description textarea::-webkit-scrollbar-thumb {
+  background: lightgrey !important;
+  height: 2px !important;
+  border-radius: 10px !important;
+}
+
+.new-form-description textarea:focus {
+outline: none;
+}
+
+.user-avatar-new-form {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-left: 4%;
+}
+
+.center-align_add_rotate
+{
+    width: 40%;
+    margin: 0px auto;
+
+}
+
+.font-text-new-form
+{
+    font-family: FuturaStd-Medium;
+}
+
+.footer-new-form 
+{
+    text-align: left;
+    font-family: FuturaStd-Medium;
+    font-style: italic;
+    color:grey;
+}
+
+.new-form-footer
+{
+    width: 90%;
+    margin: 0px auto;
+}
+
+.link-text-new-form
+{
+    text-align:left;
+}
+
+#below-description
+{
+    width:90%;
+    margin:0px auto;
+    border:1px solid #e5e5e5;
+}
+
+a.edit-board-new-form
+{
+    font-size: 10px;
+}
+
+.header-new-form
+{
+    width: 100%;
+}
+
+.clear-board-new-form
+{
+    float:right;
 }

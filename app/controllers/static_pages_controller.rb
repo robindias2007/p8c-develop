@@ -152,7 +152,7 @@ class StaticPagesController < ApplicationController
   
   def staff_picks
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.all.where(staff_picks:true)
+    @forms = Form.staff_pick() 
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end

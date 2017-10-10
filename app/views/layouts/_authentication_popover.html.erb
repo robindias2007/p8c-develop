@@ -1,3 +1,4 @@
+<md-button class="md-accent">Yo</md-button>
 <div class="modal fade custom-modal" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
@@ -13,8 +14,9 @@
         </div>
       </div>
       <div class="modal-body">
+        <md-button class="md-accent"></md-button>
         <div class="sign-up-title">
-          Sign In
+          Sign In<br>
         </div>
         <div class="form sign-up-form" id="sign-in-form">
           <div id="errorMsg" class="invalid-sign-in text-center"></div>
@@ -34,7 +36,6 @@
     </div>
     <div class="modal-content sign-in-with-social-media">
       <div class="modal-header">
-
         <div class="sign-in-title">
           THE LENSE
         </div>
@@ -171,20 +172,20 @@
   </div>
 </div>
 
-<script>
-    $( document ).ready(function() {
-        $( "#emailModal" ).click(function() {
-            $('.sign-in-with-social-media').hide();
-            $('.sign-in-with-email').show();
-        });
-        $( "#socialModal" ).click(function() {
-            $('.sign-in-with-social-media').show();
-            $('.sign-in-with-email').hide();
-        });
-        $('.sign-in-link').click(function () {
-            $('.modal-content').hide();
-            $('.sign-in-with-social-media').show();
-        })
-    });
+<script>    
+  $( document ).ready(function() {
+      $( "#emailModal" ).click(function() {
+          $('.sign-in-with-social-media').hide();
+          $('.sign-in-with-email').show();
+      });
+      $( "#socialModal" ).click(function() {
+          $('.sign-in-with-social-media').show();
+          $('.sign-in-with-email').hide();
+      });
+      $('.sign-in-link').click(function () {
+          $('.modal-content').hide();
+          $('.sign-in-with-social-media').show();
+      })
+  });
 
 </script>

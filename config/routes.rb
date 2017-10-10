@@ -44,7 +44,7 @@ Rails.application.routes.draw do
 
   resources :profile_validation, only: [:index]
   
-  resources :categories, :only => [:index, :new, :create, :update, :destroy]
+  resources :categories, :only => [:index, :new, :create, :update, :destroy, :edit]
   get '/categories/:name' => 'static_pages#categories'
 
   get '/following' => 'follows#following'
