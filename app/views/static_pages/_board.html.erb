@@ -155,8 +155,8 @@
 
 
         
-        <% if current_user.username == @user.username %>
-        <md-menu>
+        
+        <md-menu ng-if="board.user.username == '<%= current_user.username %>'">
           <md-button aria-label="More" class="md-icon-button" style="margin: 0px">
             <md-icon md-menu-origin ><i class="material-icons">more_vert</i></md-icon>
           </md-button>
@@ -170,8 +170,7 @@
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-        <% end %>
-
+        
 
       </md-card-icon-actions>
     </md-card-actions>
