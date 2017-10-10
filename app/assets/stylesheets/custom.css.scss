@@ -1964,6 +1964,48 @@ margin: 0px auto;
     margin-bottom: 15px;
 }
 
+.new-form-title input {
+    width: 100%;
+    border: 0px;
+  }
+.new-form-title input:focus {
+outline: none;
+}
+.new-form-title input:active {
+outline: none;
+}
+.new-form-description {
+text-align: left;
+}
+.new-form-description textarea {
+width:100%;
+border: 0px;
+}
+.new-form-description textarea::-webkit-scrollbar {
+  background: grey !important;
+  width: 10px !important;
+}
+
+.new-form-description textarea::-webkit-scrollbar-thumb {
+  background: lightgrey !important;
+  height: 2px !important;
+  border-radius: 10px !important;
+}
+
+.new-form-description textarea:focus {
+outline: none;
+}
+
+.user-avatar-new-form {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-left: 3%;
+}
+
 .rotate-animation {
     -webkit-animation:spin 1s linear infinite;
     -moz-animation:spin 1s linear infinite;

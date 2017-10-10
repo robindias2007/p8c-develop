@@ -15,7 +15,7 @@
         <md-list>
           <md-list-item>
             <% if current_user.photo_url.present? %>
-              <%= image_tag current_user.photo_url, id:"new_form_avatar_image", class:"user-avatar" %>
+              <%= image_tag current_user.photo_url, id:"new_form_avatar_image", class:"user-avatar-new-form" %>
             <% else %>
               <i class="material-icons md-120">account_circle</i>
             <% end %>
@@ -36,10 +36,6 @@
         
         <div class="row" style="width: 100%">
           <div class="col-md-12"> 
-            <!-- Bootstrap to divide the entire page into colums -->    
-            <style type="text/css">
-              
-            </style>
             <h5 class="new-form-description"><textarea style="overflow-y: auto;" rows="4" placeholder="description" ng-model="formDsc"></textarea></h5>
           </div>
         </div>
