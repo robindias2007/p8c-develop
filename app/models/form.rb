@@ -19,8 +19,6 @@ has_attached_file :photo,
         :s3_host_name => "s3.us-east-2.amazonaws.com"
 validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
-validates_length_of :description, :maximum => 349
-
 scope :published, -> {
   where(:publish => true)
 }
