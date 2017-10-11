@@ -22,7 +22,7 @@
 
     <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
       <div flex="33" class="internal_text">
-        <p class="md-body-1">{{board.dsc}}</p>
+        <p class="md-body-1"><%= "{{board.avatar_file_name}}" %></p>
       </div>
       
       <div class="flickity" ng-class="(outerIndex%3 == 0) ? 'flex-66' : 'flex-100'" layout="row">
@@ -52,7 +52,8 @@
   <md-card-header class="card-footer" layout="row" layout-align="start center">    
     <md-card-avatar>
       <a href="/{{board.user.username}}/published">
-        <img class="md-user-avatar" src="{{board.user_image}}"/>
+        <img ng-if="board.user_image" class="md-user-avatar" src="{{board.user_image}}"/>
+        <i ng-if="!board.user_image" class="material-icons" style="font-size:32px" >account_circle</i>            
       </a>
     </md-card-avatar>
      
