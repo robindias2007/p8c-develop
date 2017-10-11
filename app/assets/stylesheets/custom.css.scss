@@ -2257,3 +2257,40 @@ a.edit-board-new-form
     float:right;
     font-size: 10px;
 }
+
+
+/* -------------- Mobile Header ---------------- */
+
+
+.logo img{
+    width: 100%;
+    
+  }
+
+  a.logo.img-responsive.img-center
+  {
+    background:transparent;
+  }
+
+  .navbar-toggle{
+    float: left;
+  }
+  .navbar-toggle .icon-bar{
+      background-color: black;
+  }
+
+  #header-links
+  {
+      background:rgba(0,0,0,0);    
+
+  }
+  .navbar-collapse
+  {
+    float: left;
+    width: 40%;
+  }
+
+  #header-color
+  {
+    color: black;
+  }
