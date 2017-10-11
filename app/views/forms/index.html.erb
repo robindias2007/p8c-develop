@@ -16,8 +16,8 @@
                     <th>Updated At</th>
                     <th>Admins Date</th>
                     <th>Tags</th>
-                    <th>Edit Tags</th>
                     <th>Curativ Accounts</th>
+                    <th>Edit Tags</th>
                     <th>Admins Date</th>
                     <th>Staff Picks</th>
                     <th>Most Popular</th>
@@ -50,7 +50,7 @@
                     <td><%= form.tag_list %></td>
                     <td>
                       <%= form_for form, :url => forms_path(form), method: :get do |f| %>
-                      <% if form.user.id == current_admin.id %>
+                      <% if form.user.email == current_admin.email %>
                         <% @user_cur = User.where("email LIKE ?", "%@curativ.com%") %>
                         <%= f.select :user_id, options_for_select(@user_cur.map { |cur| [cur.username, cur.id] }) %>
                       <% end %>  
