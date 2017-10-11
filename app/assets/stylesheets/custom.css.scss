@@ -229,6 +229,10 @@ span.md-button {
         flex: 1 1 100%;
     }
 
+    .fullBoard.repeatBoard > md-card {
+        flex: 1 1 100%;
+    }
+
     .card-body.halfBoard > .internal_text {
     display:none;
     }
@@ -279,6 +283,10 @@ span.md-button {
 
     .fullBoard.repeatBoard {
         display:flex;
+        flex: 1 1 100%;
+    }
+
+    .fullBoard.repeatBoard > md-card {
         flex: 1 1 100%;
     }
 }
