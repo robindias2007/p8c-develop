@@ -1,43 +1,15 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
 <div class="boardContainer" ng-controller="PubBoardCtrl" ng-init="init(<%= @pub_boards %>, <%= @keys %>)">
-  
-  <!--<style type="text/css">       
-    .bookmark-button {
-      border: none;
-      background: transparent;
-    }
-    .bookmark-button:focus {outline:0;}
-  </style> 
-  -->
 
-  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance="4">
+  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance="3">
     
     <section class="cards" layout="row" layout-wrap>
-   
-    <div class="repeatBoard" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'flex-100' : 'flex-50'">
-      <%= render 'static_pages/board'%>
-      
-      <!--
-      <% if current_user.username == @user.username %>
-      <div class="footedit">
-          <%= link_to 'Edit', '/forms/{{board.id}}/edit', class:"md-accent" %>
-          <%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"md-accent" %>  
-      </div>
-      <% end %>
-      -->
+      <div class ="repeatBoard" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
 
-    </div>
+        <%= render 'static_pages/board'%>
+
+      </div>
   </section>
   </div>
 </div>
-
-<!--
-<style type="text/css">
-    .empty
-  { 
-    color: white;
-    text-shadow: -2px 0 #9c1717, 0 2px #9c1717, 2px 0 #9c1717, 0 -2px #9c1717;
-  }
-</style>
--->

@@ -26,27 +26,23 @@ $component-active-color:transparent;
     src: url(/assets/FuturaStd-Bold.otf) format("truetype");
 }
 
-.head-title-modal
-{
+
+.head-title-modal {
     font-family: "FuturaStd-Heavy";
     font-size: 24px;
 }
 
-.text-modal-body
-{
+.text-modal-body {
     font-family: "FuturaStd-Medium";
-    
 }
 
 
-input
-{
+input {
     letter-spacing: normal;
     font-family: FuturaStd-Medium;
 }
 
-md-input-container .md-input
-{
+md-input-container .md-input {
     letter-spacing: normal;
     font-family: FuturaStd-Medium;
     line-height: 20px;   
@@ -54,8 +50,7 @@ md-input-container .md-input
 
 /* -------------- Buttons  ---------------- */
 
-.md-button
-{
+.md-button {
     color:white;
 }
 
@@ -80,6 +75,8 @@ md-input-container .md-input
     margin: 0px
 }
 
+
+
 body .md-open-menu-container{
     z-index: 1001;
     background-color: white;
@@ -98,6 +95,9 @@ body md-dialog {
     top: 50px;
 }
 
+
+
+
 .footer-section md-whiteframe {
     background: #fff;
     margin: 30px;
@@ -113,11 +113,13 @@ body md-dialog {
     cursor: pointer;
 }
 
+
+
+
 .md-headline{
     font-family: "FuturaStd-Bold";
     color:initial;
 }
-
 
 
 md-card.fullBoard {
@@ -163,7 +165,7 @@ md-card-avatar {
     object-fit: cover;
 }
 
-.link-card-title{
+.link-card-title {
     height:75px;
     overflow:hidden;
 }
@@ -184,7 +186,6 @@ span.md-button {
     font-family:FuturaStd-Medium;
 }
 
-
 .cards {
     width: 90%;
     margin: 0 auto;
@@ -195,7 +196,213 @@ span.md-button {
 .repeatBoard {
     display: flex;
     align-items:stretch;
+    }
+/* ----------- CARD LAYOUTS ------------ */
+
+
+
+@media (min-width: 960px) {
+ 
+    .boardContainer {
+        padding:15px 2em 10px;
+    }
+
+    .cards {
+        layout:row;
+    }
+
+    .article-cell {
+        width: 240px;
+    }
+
+    .halfBoard.repeatBoard {
+        display:flex;
+        flex: 1 1 50%;
+    }
+
+    .halfBoard.repeatBoard > md-card {
+        flex: 1 1 100%;
+    }
+
+    .fullBoard.repeatBoard {
+        display:flex;
+        flex: 1 1 100%;
+    }
+
+    .card-body.halfBoard > .internal_text {
+    display:none;
+    }
+
+    p.halfBoard.internal_text {
+        display:none;
+    }
+
+    .card-body.halfBoard > .flickity {
+        flex:100%;
+    }
+
+    .halfBoard .row {
+        width: 194%;
+        margin-left:0px;
+    }
+
+    .halfBoard .article-cell {
+        width:189px;
+        margin: 4px 5px;
+    }
 }
+
+
+@media (min-width: 744px) 
+    and (max-width: 960px) {
+    
+    .boardContainer {
+        padding:15px 2% 10px;
+    }
+
+    .cards {
+        layout:column;
+    }
+
+    .article-cell {
+        width: 189px;
+    }
+
+    .internal_text.flex-33 {
+        flex-shrink: 0 !important;
+    }    
+
+    .halfBoard.repeatBoard {
+    display:flex;
+    flex: 1 1 100%;
+    }
+
+    .fullBoard.repeatBoard {
+        display:flex;
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 744px) {
+    
+    .boardContainer {
+        padding:15px 2% 10px;
+    }
+
+    .cards {
+        layout:column;
+    }
+
+    .article-cell {
+        width: 189px;
+        margin: 4px 5px;
+    }
+
+    .halfBoard.repeatBoard > md-card {
+        flex: 1 1 100%;
+    }
+
+    .fullBoard.repeatBoard {
+        display:flex;
+        flex: 1 1 100%;
+    }
+
+    .card-body.halfBoard > .internal_text {
+    display:none;
+    }
+
+    .fullBoard .card-body > .internal_text {
+        display:none;
+    }
+
+    p.halfBoard.internal_text {
+        display:none;
+    }
+
+    p.fullBoard.internal_text {
+        display:none;
+    }
+
+    .card-body.halfBoard > .flickity {
+        flex:100%;
+    }
+
+    .fullBoard .card-body > .flickity {
+        flex:1 1 100%;
+        max-width: 100%;
+    }
+
+    .halfBoard .row {
+        width: 194%;
+        margin-left:0px;
+    }
+
+    .fullBoard .row {
+        width: 194%;
+        margin-left:0px;
+    }
+
+}
+
+
+.cards {
+    display:flex;
+    margin:0 auto;
+    width:100%;
+    max-width:1080px;
+}
+
+
+.repeatBoard {
+    display: flex;
+    align-items: stretch;
+    flex: 1 1 100%;
+
+}
+
+.article-cell {
+    height: 249px;
+    position: absolute;
+    left: 0%;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0px 1px 1px #888888;
+    z-index: 3;
+    background: white;   
+    margin-top: 1px;
+    margin-bottom:1px; 
+}
+
+
+/*
+.halfBoard.row:hover {
+    li {
+        transform: translateX(-3%);
+    }
+}
+
+.halfBoard.row li:hover {
+    transform: scale(1.05);
+}
+
+.halfBoard.row li:hover ~ li {
+    transform: translateX(3%);
+}
+
+#articleCard{
+ border: 1px solid #e3e3e3;
+ box-shadow: 0px 1px 1px #888888;
+ z-index: 3;
+ margin: 20px 0.5%;
+ padding: 0px 15px;
+ background-color:white;
+ width:19%;
+}
+
+.halfBoard#articleCard {
+    margin:8px 0.5%;
+}
+*/
+
 
 
 
@@ -733,9 +940,7 @@ font-size:14px;
     overflow: hidden;
 }
 
-.halfBoard.title {
-    font-size: 24px;
-}
+
 
 .title1
 {
@@ -758,7 +963,6 @@ font-size:14px;
     overflow-y: scroll;
 }
 
-
 .card-body {
     flex: 1;
    
@@ -768,23 +972,6 @@ font-size:14px;
 }
 
 .card-body.halfBoards > .internal_text {
-    display:none;
-}
-
-.card-body.halfBoard > .flickity {
-    flex:100%;
-}
-
-.halfBoard.title1 {
-    position: absolute;
-    top: 50%;
-    z-index: 5;
-    width: 82%;
-    margin:10px;
-    color: white;
-}
-
-p.halfBoard.internal_text {
     display:none;
 }
 
@@ -829,26 +1016,7 @@ p.halfBoard.internal_text {
     padding-right:0px;
 }
 
-.halfBoard#description {
-    width:100%;
-    padding:0px;
-    float:none;
-}
 
-/*
-.halfBoard.boardContainer {
-    display: table;
-    width:75%;
-    margin:auto;
-}
-*/
-
-
-.halfBoard#verticalLine {
-    margin: 0px 0px 10px 0px;
-    height: 244px;
-
-}
 
 #summary{
 text-transform:uppercase;
@@ -882,6 +1050,9 @@ padding-bottom:1px;
     display: table;
     width: 75%;
     margin: auto;*/ 
+    background-color:#fafafa;
+    max-width:1240px;
+    margin:0 auto;
 }
 
 .container2 {
@@ -910,17 +1081,13 @@ padding-bottom:1px;
     display: inline-flex;
 }
 
-.halfBoard.container5 {
-    padding:0px;
-}
+
 
 .container7 {
     float:left;
 }
 
-.halfBoard.container7 {
 
-}
 
 .container8 {
     float:right;
@@ -1157,36 +1324,6 @@ $transition : 0.35s;
 .row li:hover ~ li {
     transform: translateX(5%);
 }
-
-.halfBoard.row:hover {
-    li {
-        transform: translateX(-3%);
-    }
-}
-
-.halfBoard.row li:hover {
-    transform: scale(1.05);
-}
-
-.halfBoard.row li:hover ~ li {
-    transform: translateX(3%);
-}
-
-
-#articleCard{
- border: 1px solid #e3e3e3;
- box-shadow: 0px 1px 1px #888888;
- z-index: 3;
- margin: 20px 0.5%;
- padding: 0px 15px;
- background-color:white;
- width:19%;
-}
-
-.halfBoard#articleCard {
-    margin:8px 0.5%;
-}
-
 
 /* --------- FLICKITY ----------*/
 

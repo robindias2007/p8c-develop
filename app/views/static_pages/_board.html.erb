@@ -1,19 +1,13 @@
 <!--CARD CONTAINER -->
 
 
-<md-card ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
-<!-- <div class="container1" ng-class="(outerIndex%3 == 0) ? 'col-md-9' : 'col-md-4 halfBoard'"> -->  
-
-
-  <!--TITLE AND HEADER -->
-  <!--<div class="container5" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'"> -->
+<md-card ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
    
    <md-card-title>
     <md-card-title-text> 
       <a href="/{{board.user.username}}/{{board.slug_url}}">
       <span class="md-headline">
         {{board.title}}
-        <!--<h2 class="title" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">{{board.title}}</h2>-->
         </span>
       </a> 
 
@@ -52,40 +46,6 @@
     </div>
   </md-card-content>
 
-        <!-- This is for the second container. Those 5 blocks on the right side. Inside this we have 5 columns --> 
-        <!-- <div class="container3" style="overflow-x: hidden">
-          <ul class="row" bc-flickity="{{ flickityOptions }}" style="width: 100%" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">            
-            <li class="article-cell" ng-repeat="link in board.links" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">  
-              <a href="{{link.url}}" target="framename", id="formclick" >                 
-                <hr>
-                <div class="container6">
-                  <figure class="effect-sadie" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-                    
-                      <img id="image" ng-src="{{link.image}}" ng-if="link.image" />
-                      <img id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">                      
-
-                         
-                      <figcaption ng-if="link.note">
-                        <i class="material-icons md-18">comment</i>
-                        <h5>Curator Notes</h5>
-                        <p class="curatorNotes">{{link.note}}</p>
-                      </figcaption> 
-                    
-                  </figure>
-                </div>  
-                <h4 class="title1" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
-                  {{link.title}}
-                </h4>               
-                <div id="link">{{link.host}}                  
-                </div>                 
-                <br>
-                <h6 class="internal_text1">{{link.dsc}}</h6>                
-                <hr>
-              </a>
-            </li>
-          </ul>
-        </div> -->  
-      
 
   <md-divider></md-divider>
 
@@ -154,45 +114,21 @@
         </md-button>
 
 
-        
-        
         <md-menu ng-if="board.user.username == '<%= current_user.username %>'">
-          <md-button aria-label="More" class="md-icon-button" style="margin: 0px">
-            <md-icon md-menu-origin ><i class="material-icons">more_vert</i></md-icon>
+          <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+            <md-icon md-menu-origin><i class="material-icons">more_vert</i></md-icon>
           </md-button>
-
-          <md-menu-content>
-            <md-menu-item>
-              <md-button><%= link_to 'Edit', '/forms/{{board.id}}/edit', class:"md-accent md-hue-1" %></md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button><%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %></md-button>
+          <md-menu-content width="6">
+            <md-menu-item ng-repeat="item in [1, 2, 3]">
+              <md-button ng-click="ctrl.announceClick($index)">
+                <md-icon md-menu-align-target><i class="material-icons">delete</i></md-icon>
+                Option {{item}}
+              </md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-        
-
+            
       </md-card-icon-actions>
     </md-card-actions>
   </md-card-header>
-
-
-
-      <!-- INCASE OF BUTTONS UNDER THE BOARD
-
-      IF STATEMENT TO CHECK CURRENT USER GOES HERE
-      
-      <md-divider></md-divider>
-      <md-card-header class="card-footer" layout="row" layout-align="start center">
-        <md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row">
-          <md-button><%= link_to 'Edit', '/forms/{{board.id}}/edit', class:"md-accent md-hue-1" %></md-button>
-          <md-button><%= link_to 'Delete', '/forms/{{board.id}}', method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info btn-md" %></md-button>
-        </md-card-actions>
-      </md-card-header>
-      
-    -->
-  
-
-
 </md-card>
-
