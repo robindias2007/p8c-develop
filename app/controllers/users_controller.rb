@@ -155,6 +155,53 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_progress_count(user_form_link)
+    true_count = user_form_link.attributes.values.count(true)
+    case true_count.to_s
+      when "1"
+        user_form_link.update_attributes(progress: 0.2)
+      when "2"
+        user_form_link.update_attributes(progress: 0.4)
+      when "3"
+        user_form_link.update_attributes(progress: 0.6)
+      when "4"
+        user_form_link.update_attributes(progress: 0.8)
+      when "5"
+        user_form_link.update_attributes(progress: 1.0)
+      else
+        return
+      end
+  end
+
+  def link_clicked
+    if (params[:id].present? && params[:form_id].present?)
+      user_form_clicked = UserFormLink.find_or_create_by(user_id: params[:id].to_i, form_id: params[:form_id])
+      
+      case params[:link].to_s
+      when "1"
+        user_form_clicked.update_attributes(link_1: true)
+      when "2"
+        user_form_clicked.update_attributes(link_2: true)
+      when "3"
+        user_form_clicked.update_attributes(link_3: true)
+      when "4"
+        user_form_clicked.update_attributes(link_4: true)
+      when "5"
+        user_form_clicked.update_attributes(link_5: true)
+      else
+        return
+      end
+
+      update_progress_count(user_form_clicked)
+    else
+      return
+    end
+
+    respond_to do |format|
+      format.json { render json: {status: "Updated"} }
+    end
+  end
+
 
   private
 

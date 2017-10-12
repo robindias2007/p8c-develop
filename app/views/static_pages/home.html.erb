@@ -1,11 +1,16 @@
 <!-- if user has signed in -->
 <% if user = current_user %>
 <md-content flex>
-
   <%= render 'static_pages/boards'%>
   <br>
   <%= render 'static_pages/footer' %>
 </md-content>
+  <script type="text/javascript">
+    mixpanel.track("Page Viewed", {
+      "Page Name": 'Home Page',
+      "Username": '<%= current_user.username %>'    
+    });
+  </script>
   <% if request.referrer == edit_user_url(user) %>
     <script type="text/javascript">
       mixpanel.alias('<%= current_user.username %>');      
@@ -86,6 +91,10 @@
 <div layout="row" layout-align="center center">
   <p class="before-signup-footer">tell a STORY | explain TOPIC | express a VIEW | build a COLLECTION | keep LEARNING<br></p>
 </div>
-
+<script type="text/javascript">
+  mixpanel.track("Page Viewed", {
+    "Page Name": 'Landing Page',    
+  });
+</script>
 
 <% end %>

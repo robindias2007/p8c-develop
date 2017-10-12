@@ -208,8 +208,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft')" ng-disabled="checkFormValidation()">Draft</button>
-          <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish')" ng-disabled="checkFormValidation()">Publish</button>
+          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>
+          <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Publish</button>
         </div>
       </div>
     </div>
@@ -223,10 +223,10 @@
             window.location.replace("/");
         });
         $( ".draft-btn" ).click(function() {
-            window.location.replace("/<%= current_user.username %>/drafts");
+            //window.location.replace("/<%= current_user.username %>/drafts");
         });
         $( ".pub-btn" ).click(function() {
-            window.location.replace("/<%= current_user.username %>/published");
+            //window.location.replace("/<%= current_user.username %>/published");
         });
     });
 </script>

@@ -2,7 +2,7 @@ class FormsController < ApplicationController
   before_action :set_form, only: [:edit, :update, :destroy, :like, :unlike, :book, :booknot]
   before_action :authenticate_user!, :only => [:like]
   respond_to :js, :json, :html
-  before_filter :authenticate_admin, :only => [:index]
+  before_filter :authenticate_admin, :only => [:index, :mixpanel_data]
   
   # GET /forms
   # GET /forms.json
@@ -408,17 +408,84 @@ class FormsController < ApplicationController
       form.secure_id = generate_secure_id(form)      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
       form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id )
-      form.save_social_image
-
+      form.save_social_image      
       respond_to do |format|
         format.html
-        format.json { render json: form }
+        format.json { render json: form.to_json }
       end
     else
       respond_to do |format|
         format.html
         format.json { render json: "Error" }
       end
+    end
+  end
+
+  def get_trending_board_data
+    @data = []
+    @avg_board_completion_rate = 0
+    @current_date = Time.now.to_date
+    @forms = Form.includes(:user_form_bookmarks, :user_form_links, :user).published
+    @forms.each_with_index do |f, index|
+      form_interactions_count = f.get_interaction_count()      
+      data_hash = {}
+      data_hash[:no] = index+1
+      data_hash[:id] = f.secure_id
+      data_hash[:title] = f.title
+      data_hash[:username] = f.user.username
+      data_hash[:created_at] = f.created_at.to_date
+      data_hash[:likes] = form_interactions_count <= 10 ? 2 : f.cached_votes_total
+      data_hash[:saves] = form_interactions_count <= 10 ? 1 : f.user_form_bookmarks.length
+      data_hash[:shares] = form_interactions_count <= 10 ? 1 : f.get_share_count()
+      data_hash[:this_board_completion_rate] = f.get_this_board_completion_rate()
+      data_hash[:boards_by_user] = f.user.forms.length
+      data_hash[:users_followers] = f.user.followers.length
+      data_hash[:a] = ( 1/Math.log10((((@current_date - f.created_at.to_date).to_i + 2).abs)*2) ).round(2)
+      data_hash[:b] = ( Math.log10((((1*data_hash[:likes]) + (3*data_hash[:saves]) + (4*data_hash[:shares])) + 2)) ).round(2)
+      data_hash[:d] = ( Math.log10(data_hash[:boards_by_user] + (10*data_hash[:users_followers]) + 1) ).round(2)
+      data_hash[:score] = 0.0
+      data_hash[:extra_weight] = 0
+      data_hash[:form_interactions_count] = form_interactions_count
+      @data.push data_hash
+    end
+
+    @avg_boards_count = []
+    
+    @data.each do |d|
+      @avg_boards_count.push d if (d[:this_board_completion_rate] != 0.0)
+    end
+    
+    @avg_board_completion_rate = ((@data.collect {|s| s[:this_board_completion_rate]}.inject :+)/@avg_boards_count.length).round(2)
+
+    @data.each do |data|
+      data[:avg_board_completion_rate] = @avg_board_completion_rate
+      if data[:form_interactions_count] <= 10
+        data[:this_board_completion_rate] = @avg_board_completion_rate
+      end
+      data[:c] = (data[:this_board_completion_rate] - @avg_board_completion_rate).round(2)
+      data[:score] = (((data[:a] + data[:b]) + (data[:c] * data[:d]))*100).round(2)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @data.to_json }
+    end
+  end
+
+  def mixpanel_data
+    @current_date = Time.now.to_date
+  end
+
+  def update_form_score
+    
+    @forms = params[:forms]
+    @forms.each do |f|
+      Form.where(secure_id: f[:id]).update_all(score: f[:score], extra_weight: (f[:extra_weight].present? ? f[:extra_weight] : 0.0) )      
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: params[:forms] }
     end
   end
 

@@ -1,5 +1,10 @@
 <md-content flex>
 
-  <%= render 'static_pages/boards' %>
-
+  <%= render 'static_pages/cat_boards' %>
+  <script type="text/javascript">
+    mixpanel.track("Page Viewed", {
+      "Page Name": 'Trending',
+      "Username": '<%= current_user.username %>'    
+    });
+  </script>
 </md-content>

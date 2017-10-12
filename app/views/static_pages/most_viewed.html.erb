@@ -2,5 +2,11 @@
 
 <%= render 'static_pages/cat_boards'%>
 
+<script type="text/javascript">
+    mixpanel.track("Most Viewed", {
+      "Page Name": 'Home Page',
+      "Username": '<%= current_user.username %>'    
+    });
+</script>
 
 </md-content>

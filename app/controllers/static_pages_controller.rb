@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   #before_action :set_boards, only: [:trending, :most_recent, :most_liked, :most_viewed]
   
   def get_customized_forms(forms)
-    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}" ,slug_url: f.slug_url, id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) , sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}" ,slug_url: f.slug_url, id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) , sub_header: f.sub_header,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
         [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
         {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first},
         {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -17,24 +17,21 @@ class StaticPagesController < ApplicationController
     if @forms_uniq_ids == []
       forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
       @forms_uniq_ids = forms.pluck(:id)
-      puts @forms_uniq_ids.inspect
       return forms
     else
       forms = Form.tagged_with("cat_#{category}").where.not(id: @forms_uniq_ids).order(created_at: :desc).published
       @forms_uniq_ids = @forms_uniq_ids + forms.pluck(:id)
-      puts @forms_uniq_ids.inspect
       return forms
     end
   end
 
   def home #home.html.erb    
     @home_user = true;
-    @forms = Form.order(created_at: :desc).published #thanks is a method used for thanks_page.html.erb our homepage  where publish is true which shows published boards of all the possible users in our database 
+    @forms = Form.order(created_at: :desc).published
     @keys = ENV['FACEBOOK_KEY'].to_json
     if current_user
       @cat_boards = []
       @forms_uniq_ids = []      
-
       staff_pick = Form.staff_pick()
       staff_pick_hash = { category: "staff_picks", name: "staff's picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
@@ -42,8 +39,7 @@ class StaticPagesController < ApplicationController
       trending = Form.trending()
       trend_hash = { category: "trending", name: "trendings", boards: get_customized_forms(trending)}
 
-      categories = current_user.categories_ids.reject { |c| c.empty? }
-      puts categories.inspect
+      categories = current_user.categories_ids.reject { |c| c.empty? }      
       categories.each_with_index do |category, index|
         next if index > 2
         cat_hash = { category: category, name: category, boards: [] }
@@ -66,10 +62,8 @@ class StaticPagesController < ApplicationController
     @home_user = true;
     @cat_name = params[:name].downcase
     @keys = ENV['FACEBOOK_KEY'].to_json
-    puts @cat_name
     if Category.pluck(:category_name).include?(@cat_name)
       @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
-      puts @forms.count
       if current_user
         @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
         [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -102,7 +96,8 @@ class StaticPagesController < ApplicationController
   end
 
   def trending
-    @forms = Form.published.sample(5)
+    @keys = ENV['FACEBOOK_KEY'].to_json
+    @forms = Form.published.order('score + extra_weight DESC').limit(10)
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end

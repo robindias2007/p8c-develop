@@ -351,15 +351,46 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     }
   };
 
-  $scope.saveForm = function (user_id, text) {
+  InitiateMixpanelDraftEvent = function (data, username) {
+    mixpanel.track("Curate Draft", {
+      "Author": username,
+      "Board Id": data.secure_id,
+      "Date": data.created_at,
+      "Prior Status": "Draft"     
+    });
+
+    host = $window.location.host;
+    landingUrl = "http://" + host +"/"+ username +"/drafts";    
+    $window.location.href = landingUrl;
+  }
+
+  InitiateMixpanelPublishEvent = function (data, username) {
+    mixpanel.track("Curate Completed", {
+      "Author": username,
+      "Board Id": data.secure_id,
+      "Date": data.created_at,
+      "Prior Status": "Draft"
+    });
+
+    host = $window.location.host;
+    landingUrl = "http://" + host +"/"+ username +"/published";    
+    $window.location.href = landingUrl;    
+  }
+
+  $scope.saveForm = function (user_id, text, username) {
     $http({
       method: 'POST',
       url: 'create_form.json',
       data: {user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc, sub_header: $scope.formSubheader}
     }).then(function successCallback(response) {
       data = response.data;
-      assignData(data, text, url);
-      },function errorCallback(response) {
+      console.log(data);
+      if (text == "draft") {
+        InitiateMixpanelDraftEvent(data, username);
+      } else {
+        InitiateMixpanelPublishEvent(data, username);
+      };      
+    },function errorCallback(response) {
     });
   };
 
@@ -485,6 +516,20 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
         "Other Action": "any"
 
     });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
+    });
+
+    $http({
+      method: 'POST',
+      url: '/users/'+ user.id +'/link_clicked.json',
+      data: {form_id: board.id, link: link}
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
+
   }
 
   trackLikedUnlikedClicked = function (board, action, user) {
@@ -645,6 +690,11 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
         "Appreciation Action": "any",
         "Other Action": "any"
 
+    });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
     });
   }
 
@@ -811,6 +861,11 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
         "Appreciation Action": "any",
         "Other Action": "any"
 
+    });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
     });
   }
 
@@ -1004,6 +1059,11 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
         "Other Action": "any"
 
     });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
+    });
   }
 
   trackLikedUnlikedClicked = function (board, action, user) {
@@ -1195,6 +1255,11 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
         "Appreciation Action": "any",
         "Other Action": "any"
 
+    });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
     });
   }
 
@@ -1388,6 +1453,11 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
         "Appreciation Action": "any",
         "Other Action": "any"
 
+    });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
     });
   }
 
@@ -1634,6 +1704,11 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
         "Other Action": "any"
 
     });
+    event_name = "Link " + link + " Clicked"
+    mixpanel.track(event_name, {
+        "User": user.username,        
+        "Board id": board.secure_id,
+    });
   }
 
   trackLikedUnlikedClicked = function (board, action, user) {
@@ -1803,3 +1878,36 @@ app.controller('EditUserCtrl', ['$scope', '$http', '$window', '$document', '$tim
   }
 }]);
 
+app.controller('MixpanelCtrl', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
+  
+  getTrendingData = function () {
+    $http({
+      method: 'GET',
+      url: 'get_trending_board_data.json',
+      params: {}
+      }).then(function successCallback(response) {
+        $scope.boards_data = response.data;
+        $scope.loading_data = false;
+      }, function errorCallback(response) {
+    });
+  }
+
+  $scope.init = function () {
+    $scope.loading_data = true;
+    getTrendingData();
+  };
+
+  $scope.updateScore = function () {
+    $scope.loading_data = true;
+    $http({
+      method: 'POST',
+      url: '/update_form_score.json',
+      data: {forms: $scope.boards_data}
+      }).then(function successCallback(response) {
+        $scope.boards_data = response.data;
+        $scope.loading_data = false;
+      }, function errorCallback(response) {
+    });
+  };
+
+}]);

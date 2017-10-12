@@ -4,6 +4,13 @@
 	<div class="categoryheader">
 	    <h4><%= @cat_name %></h4>
 	</div>
+	<script type="text/javascript">
+	    mixpanel.track("Page Viewed", {
+	      "Page Name": 'Category Page',
+	      "Username": '<%= current_user.username %>',
+	      "Category Name": '<%= @cat_name %>'
+	    });
+	</script>
 	<%= render 'static_pages/cat_boards'%>
 	<br>
   	<%= render 'static_pages/footer' %>
