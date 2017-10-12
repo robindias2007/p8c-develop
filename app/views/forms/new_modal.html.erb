@@ -37,18 +37,18 @@
         
         <div layout="row" class="input-new-form">
           <div flex="100">
-            <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Title" ng-model="formTitle" ng-maxlength="5"></h2>
+            <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Title" ng-model="formTitle" maxlength="100"></h2>
           </div>
         </div>
         <div layout="row">
           <div flex="100">
-            <h4 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Sub header" ng-model="formSubheader"></h4>
+            <h4 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Sub header" ng-model="formSubheader" maxlength="180"></h4>
           </div>
         </div>
         <br>
         <div layout="row">
           <div flex="100"> 
-            <h5 class="new-form-description"><textarea class="font-text-new-form" style="overflow-y: auto;" rows="4" placeholder="Description" ng-model="formDsc"></textarea></h5>
+            <h5 class="new-form-description"><textarea class="font-text-new-form" style="overflow-y: auto;" rows="4" placeholder="Description" ng-model="formDsc" maxlength="500"></textarea></h5>
             <hr id="below-description">
             
           </div>

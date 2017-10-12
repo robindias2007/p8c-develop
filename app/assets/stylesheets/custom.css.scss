@@ -2255,3 +2255,77 @@ a.edit-board-new-form
     float:right;
     font-size: 10px;
 }
+
+
+/* -------------- Mobile Header ---------------- */
+
+@media (max-width: 768px)
+{
+
+  .logo img{
+    width: 100%;
+        
+  }
+
+  a.logo.img-responsive.img-center
+  {
+    background:transparent;
+  }
+
+  .navbar-toggle{
+    float: left;
+  }
+  .navbar-toggle .icon-bar{
+      background-color: black;
+  }
+
+  #header-links
+  {
+      background:rgba(0,0,0,0);    
+
+  }
+  .navbar-collapse
+  {
+    position: relative;
+    float: left;
+    width: 40%;
+  }
+
+  #header-color
+  {
+    color: black;
+  }
+
+  ul .nav .navbar-nav
+  {
+    z-index: 2;
+  }
+
+  #mobile-header-avatar > img
+  {
+    float:right;
+  }
+
+  #mobile-header-avatar > .step
+  {
+    float:right;
+    padding-top: 15px;
+
+  } 
+
+  #mobile-header-avatar > i > .material-icons
+  {
+    font-size: 32px;
+  }
+
+  #header-avatar
+  {
+    margin-left: 5%;
+  }
+  .navbar-toggle{
+    float: left;
+    padding: 9px 0px;
+    }
+
+
+}
