@@ -4,4 +4,11 @@
 	<br>
   <%= render 'static_pages/footer' %>
 
+  <script type="text/javascript">
+    mixpanel.track("Page Viewed", {
+      "Page Name": 'Trending',
+      "Username": '<%= current_user.username %>'    
+    });
+  </script>
+
 </md-content>

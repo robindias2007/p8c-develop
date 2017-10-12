@@ -30,6 +30,19 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   serialize :categories_ids, Array
 
+  def provider
+    provider = self.authorizations.pluck(:provider).first
+    if provider == nil
+      return "email"
+    elsif provider == 'google_oauth2'
+      return "google"
+    elsif provider == 'facebook'
+      return "facebook"
+    elsif provider == 'twitter'
+      return "twitter"
+    end
+  end
+
   def update_without_password(params, *options)
 
     if params[:password].blank?

@@ -2,5 +2,10 @@
 
 <%= render 'static_pages/cat_boards'%>
 
-
+<script type="text/javascript">
+    mixpanel.track("Page Viewed", {
+      "Page Name": 'Most Saved',
+      "Username": '<%= current_user.username %>'    
+    });
+  </script>
 </md-content>

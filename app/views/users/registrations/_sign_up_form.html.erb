@@ -30,7 +30,14 @@
   </div>
 
   <div class="text-center">
-    <%= f.submit "Sign Up", class: "btn btn-default"%>
+    <input type="submit" name="commit" value="Sign Up" class="btn btn-default" onclick="signUpInitiated()">    
   </div>
 
 <% end %>
+<script>
+  function signUpInitiated() {
+    mixpanel.track("Sign Up Initiated", {        
+      "Authentication Method": 'email',        
+    });
+  }
+</script>

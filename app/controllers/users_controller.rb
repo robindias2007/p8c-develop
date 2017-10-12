@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def get_boards(forms)
-    forms.map {|f| {form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id), sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id), bookmark: current_user.bookmarks.pluck(:id).include?(f.id), sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -151,6 +151,53 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render json: {status: "Updated"} }
+    end
+  end
+
+  def update_progress_count(user_form_link)
+    true_count = user_form_link.attributes.values.count(true)
+    case true_count.to_s
+      when "1"
+        user_form_link.update_attributes(progress: 0.2)
+      when "2"
+        user_form_link.update_attributes(progress: 0.4)
+      when "3"
+        user_form_link.update_attributes(progress: 0.6)
+      when "4"
+        user_form_link.update_attributes(progress: 0.8)
+      when "5"
+        user_form_link.update_attributes(progress: 1.0)
+      else
+        return
+      end
+  end
+
+  def link_clicked
+    if (params[:id].present? && params[:form_id].present?)
+      user_form_clicked = UserFormLink.find_or_create_by(user_id: params[:id].to_i, form_id: params[:form_id])
+      
+      case params[:link].to_s
+      when "1"
+        user_form_clicked.update_attributes(link_1: true)
+      when "2"
+        user_form_clicked.update_attributes(link_2: true)
+      when "3"
+        user_form_clicked.update_attributes(link_3: true)
+      when "4"
+        user_form_clicked.update_attributes(link_4: true)
+      when "5"
+        user_form_clicked.update_attributes(link_5: true)
+      else
+        return
+      end
+
+      update_progress_count(user_form_clicked)
+    else
+      return
+    end
+
+    respond_to do |format|
       format.json { render json: {status: "Updated"} }
     end
   end

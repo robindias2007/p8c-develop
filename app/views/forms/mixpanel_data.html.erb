@@ -1,0 +1,158 @@
+<div class="maincont" ng-controller="MixpanelCtrl" ng-init="init()">
+	
+	<style type="text/css">
+		@keyframes spinner {
+		  to {transform: rotate(360deg);}
+		}
+		 
+		.spinner {
+		  content: '';
+		  box-sizing: border-box;
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  width: 50px;
+		  height: 50px;
+		  margin-top: -20px;
+		  margin-left: -20px;
+		  border-radius: 50%;
+		  border: 2px solid #ccc;
+		  border-top-color: #333;
+		  animation: spinner .6s linear infinite;
+		}
+	</style>
+
+	<div class="row">
+		<span style="float: left">Current Date: <%= Time.now.to_date %></span>
+		<span style="float: right"><button type="submit" ng-click="updateScore()">Update score</button></span>
+	</div>
+	<br>
+	<br>
+	<div class="row">
+	  <table>
+	    <thead>
+	      <tr class="md-table-headers-row">
+	      	<th class="md-table-header">
+	        	<span>No</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Id</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Title</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Username</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Score</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Extra weight</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>A</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>B</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>C</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>D</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Uploaded date</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Like</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Save</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Shares</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Avg board completion rate</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>This board completion rate</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>Boards by User</span>
+	        </th>
+	        <th class="md-table-header">
+	        	<span>User's followers</span>
+	        </th>	        
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	<tr ng-if="loading_data">
+	    		<td colspan="18">
+	    			<div style="height: 100px; width: 100%">
+	    				<span class="spinner"></span>
+                    </div>
+	    		</td>
+	    	</tr>   	
+		      <tr ng-if="!loading_data" ng-repeat="board in boards_data | orderBy : '-( score + extra_weight)' " class="md-table-content-row">
+		      	<td>
+		          <span>{{ board["no"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["id"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["title"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["username"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{board["score"] + board["extra_weight"]}}</span>
+		        </td>
+		        <td>
+		          <span><input type="number" ng-model='board["extra_weight"]'></input></span>
+		        </td>
+		        <td>
+		          <span>{{ board["a"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["b"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["c"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["d"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["created_at"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["likes"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["saves"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["shares"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["avg_board_completion_rate"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["this_board_completion_rate"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["boards_by_user"] }}</span>
+		        </td>
+		        <td>
+		          <span>{{ board["users_followers"] }}</span>
+		        </td>
+		      </tr>		    
+	    </tbody>
+	  </table>
+	</div>
+</div>

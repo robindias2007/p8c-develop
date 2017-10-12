@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   resources :users, :only => [:index, :show, :edit, :update] do
     member do
       get 'categories' => 'users#categories'
-      post 'update_categories' => 'users#update_categories'  
+      post 'update_categories' => 'users#update_categories'
+      post 'link_clicked' => 'users#link_clicked' 
     end
     resources :follows, :only => [:create, :destroy]
   end
@@ -74,6 +75,11 @@ Rails.application.routes.draw do
   
   get '/user_admin' => 'users#user_for_admin'
   post '/user_admin' => 'users#user_create_for_admin'
+
+  get '/mixpanel_data' => 'forms#mixpanel_data'
+
+  get '/get_trending_board_data' => 'forms#get_trending_board_data'
+  post '/update_form_score' => 'forms#update_form_score'
 
   get '/:id/:slug_url' => 'forms#show'
 

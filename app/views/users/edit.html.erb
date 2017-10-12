@@ -8,7 +8,7 @@
         <!-- Header content for sign in with email -->
         <div class="sign-in-with-email">
           <div class="email-title head-title-modal">
-            Almost There
+            Almost There 
           </div>
         </div>
       </div>
@@ -68,6 +68,30 @@
 
   </div>
 </div>
+
+<% if @user.provider != "email" %>
+  <script type="text/javascript">
+    
+    mixpanel.track("Sign Up Initiated", {        
+      "Authentication Method": '<%= @user.provider %>',      
+    });
+
+    mixpanel.track("Sign Up Email Confirmed", {        
+      "Authentication Method": '<%= @user.provider %>',
+      "email": '<%= @user.email %>'        
+    });
+
+  </script>
+<% end %>
+
+<% if @user.provider == "email" %>
+  <script type="text/javascript">
+    mixpanel.track("Sign Up Email Confirmed", {        
+      "Authentication Method": '<%= @user.provider %>',
+      "email": '<%= @user.email %>'        
+    });
+  </script>
+<% end %>
 
 <script>
 

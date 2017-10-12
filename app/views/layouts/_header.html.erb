@@ -1,4 +1,12 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script>
+  function curateInitiated(author, date) {
+    mixpanel.track("Curate Initiated", {        
+      "Author": author,
+      "Date": date        
+    });
+  }
+</script>
 <div class="visible-md visible-lg visible-sm">
   <md-toolbar md-scroll-shrink ng-if="true" class="curativ-header" ng-controller="headerCtrl as ctrl" ng-cloak>
     <div class="md-toolbar-tools">
@@ -91,7 +99,7 @@
           <md-menu-divider style="background-color: rgba(0,0,0,0.11)"></md-menu-divider>
           <md-menu-item>
             <md-button>
-              <a data-method="delete" layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/users/sign_out">Sign out</a>
+              <a data-method="delete" ng-click="resetMixpanel(<%= current_user.to_json %>)" layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/users/sign_out">Sign out</a>
             </md-button>
           </md-menu-item>
           <% if Admin.where(email:current_user.email).present? %>
@@ -114,8 +122,8 @@
       
   </md-toolbar>
 
+  <md-button onclick="curateInitiated('<%= current_user.username %>', '<%= Time.now.to_date %>')" class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="width:45px;height:45px; position: fixed">
 
-  <md-button class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple" style="position: fixed">
     <a href="/<%= current_user.username %>/new_form">
     <md-tooltip md-direction="left">Create Curate</md-tooltip>
     <md-icon><i class="material-icons">add</i></md-icon>
@@ -219,11 +227,3 @@
   </section>
 
 </div>
-
-
-
-<style type="text/css">
-  
-  
-
-</style>

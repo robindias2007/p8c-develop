@@ -4,8 +4,8 @@
 <md-card ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
    
    <md-card-title>
-    <md-card-title-text> 
-      <a href="/{{board.user.username}}/{{board.slug_url}}">
+    <md-card-title-text>
+      <a href="/{{board.user.username}}/{{board.slug_url}}" ng-click="trackBoardClick(board, <%= current_user.to_json %>)">
       <span class="md-headline">
         {{board.title}}
         </span>
@@ -36,7 +36,7 @@
                 
               </md-card-content>
               <md-card-actions>
-                <a href="{{link.url}}" target="_blank", id="formclick" >
+                <a href="{{link.url}}" target="_blank" id="formclick" ng-click="trackLinkClicked(board, <%= current_user.to_json %>, $index+1)">
                 <span class="md-button md-accent">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
               </a>
               </md-card-actions>
@@ -51,14 +51,14 @@
 
   <md-card-header class="card-footer" layout="row" layout-align="start center">    
     <md-card-avatar>
-      <a href="/{{board.user.username}}/published">
+      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)">
         <img ng-if="board.user_image" class="md-user-avatar" src="{{board.user_image}}"/>
-        <i ng-if="!board.user_image" class="material-icons" style="font-size:32px" >account_circle</i>            
+        <i ng-if="!board.user_image" class="material-icons" style="font-size:32px" >account_circle</i>
       </a>
     </md-card-avatar>
      
     <md-card-header-text>
-      <a href="/{{board.user.username}}/published"><span class="md-title">{{board.user.username}}</span></a>
+      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title">{{board.user.username}}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 
@@ -78,21 +78,21 @@
           <md-fab-actions>
             <md-button aria-label="Facebook" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
               <md-icon>
-                <a id="" target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
+                <a id="" target="_blank" ng-click="trackFacebookShareClicked(board, <%= current_user.to_json %>)" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
                   <%= image_tag 'facebook.png' %>
                 </a>
               </md-icon>
             </md-button>
             <md-button aria-label="Twitter" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
               <md-icon>
-                <a id="" target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
+                <a id="" target="_blank" ng-click="trackTwitterShareClicked(board, <%= current_user.to_json %>)" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
                   <%= image_tag 'twitter.png' %>
                 </a>
               </md-icon>
             </md-button>
             <md-button aria-label="Copy" style="width:35px;height:35px; margin: 0px" class="md-icon-button">
               <md-icon>
-                <a id="" data-remote="true" href="" ng-click="copyToClipboard(board.form_url);">
+                <a id="" data-remote="true" href="" ng-click="copyToClipboard(board.form_url, board, <%= current_user.to_json %>);">
                   <i class="material-icons">link</i>
                 </a>
               </md-icon>
@@ -102,15 +102,15 @@
 
         <md-button class="md-icon-button" aria-label="Bookmark" style="margin: 0px">
           <md-icon>
-            <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board)"><i class="material-icons">bookmark</i></a>
-            <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board)"><i class="material-icons">bookmark_border</i></a>  
+            <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board, <%= current_user.to_json %>)"><i class="material-icons">bookmark</i></a>
+            <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board, <%= current_user.to_json %>)"><i class="material-icons">bookmark_border</i></a>  
           </md-icon>
         </md-button>
         <p style="padding-top:5%">{{board.likes}}</p>
         <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
           <md-icon>
-            <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike')"><i class="material-icons">favorite</i></a>
-            <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like')"><i class="material-icons">favorite_border</i></a>
+            <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike', <%= current_user.to_json %>)"><i class="material-icons">favorite</i></a>
+            <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like', <%= current_user.to_json %>)"><i class="material-icons">favorite_border</i></a>
           </md-icon>
         </md-button>
 
