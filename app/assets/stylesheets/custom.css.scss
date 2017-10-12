@@ -5,7 +5,6 @@ $component-active-color:transparent;
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
 
-
 @font-face {
   font-family: "FuturaStd-Medium";
   src: url(/assets/FuturaStd-Medium.otf) format("truetype");
@@ -25,7 +24,6 @@ $component-active-color:transparent;
     font-family: "FuturaStd-Bold";
     src: url(/assets/FuturaStd-Bold.otf) format("truetype");
 }
-
 
 .head-title-modal {
     font-family: "FuturaStd-Heavy";
