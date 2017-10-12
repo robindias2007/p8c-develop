@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005072817) do
+ActiveRecord::Schema.define(version: 20171011115131) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 20171005072817) do
     t.string   "secure_id"
     t.string   "slug"
     t.text     "sub_header"
+    t.float    "score"
+    t.float    "extra_weight"
     t.boolean  "staff_picks"
     t.boolean  "most_popular"
   end
@@ -185,6 +187,19 @@ ActiveRecord::Schema.define(version: 20171005072817) do
     t.integer  "form_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_form_links", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "form_id"
+    t.boolean  "link_1",     default: false
+    t.boolean  "link_2",     default: false
+    t.boolean  "link_3",     default: false
+    t.boolean  "link_4",     default: false
+    t.boolean  "link_5",     default: false
+    t.float    "progress"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|
