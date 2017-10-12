@@ -22,7 +22,7 @@
 
     <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
       <div flex="33" class="internal_text">
-        <p class="md-body-1"><%= "{{board.avatar_file_name}}" %></p>
+        <p class="md-body-1">{{board.dsc}}</p>
       </div>
       
       <div class="flickity" ng-class="(outerIndex%3 == 0) ? 'flex-66' : 'flex-100'" layout="row">
