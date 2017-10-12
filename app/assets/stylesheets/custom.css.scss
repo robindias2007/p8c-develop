@@ -2261,10 +2261,12 @@ a.edit-board-new-form
 
 /* -------------- Mobile Header ---------------- */
 
+@media (max-width: 768px)
+{
 
-.logo img{
+  .logo img{
     width: 100%;
-    
+        
   }
 
   a.logo.img-responsive.img-center
@@ -2286,6 +2288,7 @@ a.edit-board-new-form
   }
   .navbar-collapse
   {
+    position: relative;
     float: left;
     width: 40%;
   }
@@ -2294,3 +2297,37 @@ a.edit-board-new-form
   {
     color: black;
   }
+
+  ul .nav .navbar-nav
+  {
+    z-index: 2;
+  }
+
+  #mobile-header-avatar > img
+  {
+    float:right;
+  }
+
+  #mobile-header-avatar > .step
+  {
+    float:right;
+    padding-top: 15px;
+
+  } 
+
+  #mobile-header-avatar > i > .material-icons
+  {
+    font-size: 32px;
+  }
+
+  #header-avatar
+  {
+    margin-left: 5%;
+  }
+  .navbar-toggle{
+    float: left;
+    padding: 9px 0px;
+    }
+
+
+}
