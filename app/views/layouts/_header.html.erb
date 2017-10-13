@@ -150,18 +150,21 @@
           </a>
         </div>
         <div class="col-xs-3" id="mobile-header-avatar">
+
           <% if user_signed_in? %>
             <% if current_user.avatar_file_name != nil %>
+              
               <md-menu md-position-mode="target-left target" md-offset="0 60">        
+                    
                 <md-button class="md-fab md-mini" aria-label="More" md-menu-origin ng-click="$mdOpenMenu($event)" style="box-shadow: none; padding: 0px">          
-                  
                   <% if current_user.avatar_file_name != nil %>
                     <img class="user-avatar" src="<%= current_user.avatar.url %>" id="header-avatar"/>
                   <% else %>
                     <md-icon md-font-icon="icon-home" style="font-size: 24px;"
                     class="step "><i class="material-icons" style="" >account_circle</i></md-icon>            
                   <% end %> 
-                </md-button>        
+                </md-button>
+                <!-- < current_user.username %> -->
                 <md-menu-content width="3">
                   <md-menu-item>
                     <md-button ng-click="" aria-label="">              
