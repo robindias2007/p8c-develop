@@ -1,6 +1,6 @@
 <md-content flex class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>, <%= current_user.following?(@user) %>, <%= @user.all_following.count %>, <%= @user.followers.count %>)">
   <div class="col-md-10" id="userProfile">
-    <div id="username">
+    <!-- <div id="username">
       <% if @user.photo_url.present? %>
         <div class="user-profile-avatar" style='background-image:url("<%= @user.photo_url %>")'></div>
       <% else %>
@@ -21,14 +21,8 @@
           <% end %>
         </div>
     	</div>
-    </div>
+    </div> -->
     <% if current_user.username == @user.username %>
-      <script type="text/javascript">
-        mixpanel.track("Page Viewed", {
-          "Page Name": 'User Profile',
-          "Username": '<%= current_user.username %>'    
-        });
-      </script>
       <div class="userStats">
         <div class="formlist">
           <ul class="count">
@@ -62,13 +56,6 @@
         </ul>
       </div>
     <% else %>
-      <script type="text/javascript">
-        mixpanel.track("Page Viewed", {
-          "Page Name": 'Author Profile',
-          "Username": '<%= current_user.username %>',
-          "Author Name": '<%= @user.username %>'
-        });
-      </script>
       <div class="userStats">
         <div class="formlist">
           <ul class="count">
