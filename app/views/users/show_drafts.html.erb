@@ -1,38 +1,111 @@
-<md-content flex ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
-  <div class="col-md-10" id="userProfile">
-    <div id="username">
-    	<% if @user.photo_url.present? %>
-        <div class="user-profile-avatar" style='background-image:url("<%= @user.photo_url %>")'></div>
-      <% else %>
-        <i class="material-icons md-120">account_circle</i>
-      <% end %>
-    	<div id="userDescription">
-    		<h4><%= @user.username  %></h4>
-    		<h5><%= @user.author  %></h5>		
-    	</div>
+<md-content flex class="maincont" ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
+  
+  <div layout="row">
+    <div flex="10"></div>
+    <div flex="20">
+      <md-list>
+        <md-list-item class="profile-name-img">
+          <% if @user.photo_url.present? %>
+            <%= image_tag @user.photo_url, id:"profile-header" %>
+          <% else %>
+            <i class="material-icons md-120">account_circle</i>
+          <% end %>
+            <p>
+              <b><%= @user.username  %></b><br>
+              <%= @user.author  %><br>
+              <% unless @user == current_user %>
+                <md-button class="md-raised md-primary" id="follow"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
+                <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+              <% end %>
+            </p> 
+        </md-list-item>
+      </md-list>
     </div>
-    <% if current_user.username == @user.username %>
-      <div class="userStats">
-        <div class="formlist">
-          <ul class="count">
-          	<li><%= Form.published.where(user_id:current_user.id).count %></li>
-          	<li><%= Form.drafts.where(user_id:current_user.id).count %></li>
-          	<li><%= current_user.bookmarks.count %></li>
-          </ul>
-          <ul class="board">
-          	<li><%= link_to 'Published', "/#{current_user.username }/published", id:"board" %></li>
-          	<li><%= link_to 'Drafts', "/#{current_user.username }/drafts", id:"board1" %></li>
-          	<li><%= link_to 'Saved', "/#{current_user.username }/saved", id:"board2" %></li>
-          </ul>
+
+    <div flex="20"></div>
+    <div flex="50" class="profile-right-page">
+      <div layout="row">
+        <div flex="20"></div>
+        <div flex="20">
+          <% if current_user.username == @user.username %>
+            <%= Form.published.where(user_id:current_user.id).count %>
+          <% end %>
         </div>
-        <ul class="followers">
-        	<li><div id="following1"><%= current_user.all_following.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)">Following</button></li>
-        	<li></li>
-        	<li><div id="followers1"><%= current_user.followers.count %></div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</button></li>
-        </ul>
+        <div flex="20">
+          <% if current_user.username == @user.username %>
+            <%= Form.drafts.where(user_id:current_user.id).count %>
+          <% end %>
+        </div>
+        <div flex="20">
+          <% if current_user.username == @user.username %>
+            <%= current_user.bookmarks.count %>
+          <% end %>
+        </div>
+        <div flex="20"></div>
       </div>
-    <% end %>
+      <br>
+      <div layout="row">
+        <div flex="20"></div>
+        <div flex="20">
+          <% if current_user.username == @user.username %>
+            <a href="/<%= current_user.username %>/published">Published</a>
+          <% end %>
+        </div>
+        <div flex="20"> 
+          <% if current_user.username == @user.username %>
+            <u><a href="/<%= current_user.username %>/drafts">Drafts</a></u>
+          <% end %>
+        </div>
+        <div flex="20">
+          <% if current_user.username == @user.username %>
+            <a href="/<%= current_user.username %>/saved">Saved</a>
+          <% end %>
+        </div>
+        <div flex="20"></div>
+      </div>
+      <br>
+      <div layout="row">
+        <div flex="20"></div>
+        <div flex>
+          <hr>
+        </div>
+        <div flex="20"></div>
+      </div>
+      <br>
+      <div layout="row">
+        <div flex="20"></div>
+        <div flex>
+          <% if current_user.username == @user.username %>
+            <%= current_user.all_following.count %>
+          <% end %>
+        </div>
+        <div flex>
+          <% if current_user.username == @user.username %>
+            <%= current_user.followers.count %>
+          <% end %>
+        </div>
+        <div flex="20"></div>
+      </div>
+      <br>
+      <div layout="row">
+        <div flex="20"></div>
+        <div flex>
+          <% if current_user.username == @user.username %>
+            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)">Following</md-button>
+          <% end %>
+        </div>
+        <div flex>
+          <% if current_user.username == @user.username %>
+            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</md-button>
+          <% end %>
+        </div>
+        <div flex="20"></div>
+      </div>
+    </div>
   </div>
+  <br>
+  <md-divider></md-divider>
+
   <div id="forms">
     <%= render 'static_pages/draft_boards'%>
   </div>

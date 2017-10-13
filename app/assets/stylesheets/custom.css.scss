@@ -2339,3 +2339,37 @@ a.edit-board-new-form
     font-family: FuturaStd-Medium;
     }
 }
+
+
+/* -------------- Profile Pages ---------------- */
+
+#profile-header
+{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    
+}
+
+.profile-name-img > p
+{
+    padding-left: 10px;
+    font-family: FuturaStd-Medium
+}
+
+.profile-name-img p #follow
+{
+    margin-left: -2%;
+}
+
+.profile-right-page
+{
+    text-align: center;
+}
+
+#follow
+{
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;   
+}
