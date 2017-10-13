@@ -52,7 +52,7 @@
   <md-card-header class="card-footer" layout="row" layout-align="start center">    
     <md-card-avatar>
       <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)">
-        <img ng-if="board.user_image" class="md-user-avatar" src="{{board.user_image}}"/>
+        <img ng-if="board.user_image" class="md-user-avatar" ng-src="{{board.user_image}}"/>
         <i ng-if="!board.user_image" class="material-icons" style="font-size:32px" >account_circle</i>
       </a>
     </md-card-avatar>

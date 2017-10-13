@@ -2,7 +2,7 @@ class FormsController < ApplicationController
   before_action :set_form, only: [:edit, :update, :destroy, :like, :unlike, :book, :booknot]
   before_action :authenticate_user!, :only => [:like]
   respond_to :js, :json, :html
-  before_filter :authenticate_admin, :only => [:index, :mixpanel_data]
+  before_filter :authenticate_admin, :only => [:index, :mixpanel_data, :update_all_forms]
   
   # GET /forms
   # GET /forms.json
@@ -475,6 +475,39 @@ class FormsController < ApplicationController
 
   def mixpanel_data
     @current_date = Time.now.to_date
+  end
+
+  def update_all_forms
+    @all_forms_list = AllForm.all.to_json
+  end
+
+  def update_form_list
+    trending_list = []
+    staff_picks_list = []
+    most_viewed = []
+    most_saved = []
+    most_liked = []
+    most_recent = []
+    most_shared = []
+    most_popular = []
+    all_forms = Form.published
+    trending_list = all_forms.order('score + extra_weight DESC').limit(10).pluck(:id)
+    staff_picks_list = all_forms.where(staff_picks: true).limit(10).pluck(:id)
+    most_viewed = all_forms.order(view_count: :desc).limit(10).pluck(:id)
+    most_saved = all_forms.order(saved_count: :desc).limit(10).pluck(:id)
+    most_liked = all_forms.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).limit(10).pluck(:id)
+    most_recent = all_forms.order(created_at: :desc).limit(10).pluck(:id)
+    most_shared = all_forms.order(share_count: :desc).limit(10).pluck(:id)
+    most_popular = all_forms.where(most_popular:true).limit(10).pluck(:id)
+
+    list = { 1 => { "form_ids" => trending_list }, 2 => { "form_ids" => staff_picks_list }, 3 => { "form_ids" => most_viewed }, 
+    4 => { "form_ids" => most_saved }, 5 => { "form_ids" => most_liked }, 6 => { "form_ids" => most_recent }, 7 => { "form_ids" => most_shared }, 8 => { "form_ids" => most_popular } }
+    form_list = AllForm.update(list.keys, list.values)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: form_list.to_json }
+    end
   end
 
   def update_form_score
