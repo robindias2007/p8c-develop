@@ -4,22 +4,22 @@ class StaticPagesController < ApplicationController
   #before_action :set_boards, only: [:trending, :most_recent, :most_liked, :most_viewed]
   
   def get_customized_forms(forms)
-    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}" ,slug_url: f.slug_url, id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) , sub_header: f.sub_header,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user, user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first},
-        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: f.voted_on_by?(current_user), bookmark: f.user_form_bookmarks.pluck(:user_id).include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
   end
 
   def get_uniq_forms_from_category(category, ids)
     @forms_uniq_ids = ids
     if @forms_uniq_ids == []
-      forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published
+      forms = Form.tagged_with("cat_#{category}").order(created_at: :desc).published.limit(3)
       @forms_uniq_ids = forms.pluck(:id)
       return forms
     else
-      forms = Form.tagged_with("cat_#{category}").where.not(id: @forms_uniq_ids).order(created_at: :desc).published
+      forms = Form.tagged_with("cat_#{category}").where.not(id: @forms_uniq_ids).order(created_at: :desc).published.limit(3)
       @forms_uniq_ids = @forms_uniq_ids + forms.pluck(:id)
       return forms
     end
@@ -27,16 +27,15 @@ class StaticPagesController < ApplicationController
 
   def home #home.html.erb    
     @home_user = true;
-    @forms = Form.order(created_at: :desc).published
     @keys = ENV['FACEBOOK_KEY'].to_json
     if current_user
       @cat_boards = []
       @forms_uniq_ids = []      
-      staff_pick = Form.staff_pick()
+      staff_pick = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("s_b").form_ids).published.limit(3)
       staff_pick_hash = { category: "staff_picks", name: "staff's picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
 
-      trending = Form.trending()
+      trending = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("t_b").form_ids).published.limit(3)
       trend_hash = { category: "trending", name: "trendings", boards: get_customized_forms(trending)}
 
       categories = current_user.categories_ids.reject { |c| c.empty? }      
@@ -65,29 +64,23 @@ class StaticPagesController < ApplicationController
     if Category.pluck(:category_name).include?(@cat_name)
       @forms = Form.tagged_with("cat_#{@cat_name}").order(created_at: :desc).published
       if current_user
-        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title, liked: current_user.get_up_voted(Form).pluck(:id).include?(f.id) ,bookmark: current_user.bookmarks.pluck(:id).include?(f.id) ,sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: f.voted_on_by?(current_user), bookmark: f.user_form_bookmarks.pluck(:user_id).include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
       else
-        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,sub_header: f.sub_header,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-        [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-        {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+        redirect_to root_url  
       end
     else
       redirect_to root_url
     end
-    
     @formss = @boards.to_json
   end
 
   def get_boards(forms)
-    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: f.voted_on_by?(current_user), bookmark: f.user_form_bookmarks.pluck(:user_id).include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.get_likes.size ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: f.voted_on_by?(current_user), bookmark: f.user_form_bookmarks.pluck(:user_id).include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -97,57 +90,56 @@ class StaticPagesController < ApplicationController
 
   def trending
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.published.order('score + extra_weight DESC').limit(10)
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("t_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_viewed
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.order(view_count: :desc).published
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_v_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_liked
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).published
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_l_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_recent
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.order(created_at: :desc).published.includes(:user, :user_form_bookmarks)
-    puts @forms.count
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_r_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_shared
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.order(share_count: :desc).published
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_sh_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_saved
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.order(saved_count: :desc).published
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_sa_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
 
   def most_popular
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.all.where(most_popular:true).published
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_p_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
   
   def staff_picks
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.staff_pick() 
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("s_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end

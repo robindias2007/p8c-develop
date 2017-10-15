@@ -470,7 +470,7 @@ app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'Flicki
       }
 }]);
 
-app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards,key){
     $scope.cat_boards = boards;
     $scope.category_boards = boards;
@@ -600,6 +600,10 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -610,6 +614,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user);  
   }
 
@@ -647,7 +652,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   $scope.alert = '';
 }]);
 
-app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards){
     $scope.boards = boards;
     $scope.location = $location.$$absUrl;
@@ -766,6 +771,10 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -776,6 +785,7 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user);    
   }
 
@@ -813,7 +823,7 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   $scope.alert = '';
 }]);
 
-app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards, key){
     $scope.pub_boards = boards;
     $scope.current_page = 1;
@@ -937,6 +947,10 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -947,6 +961,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user); 
   }
 
@@ -1011,7 +1026,7 @@ app.controller('PubBoardCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   $scope.alert = '';
 }]);
 
-app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards){
     $scope.saved_boards = boards;
     $scope.current_page = 1;
@@ -1134,6 +1149,10 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -1144,6 +1163,7 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user);
   }
 
@@ -1208,7 +1228,7 @@ app.controller('SavedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.alert = '';
 }]);
 
-app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards){
     $scope.draft_boards = boards;
     $scope.current_page = 1;
@@ -1331,6 +1351,10 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -1341,6 +1365,7 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user);    
   }
 
@@ -1405,7 +1430,7 @@ app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.alert = '';
 }]);
 
-app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards, key){
     $scope.liked_boards = boards;
     $scope.current_page = 1;
@@ -1529,6 +1554,10 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -1539,6 +1568,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user);
   }
 
@@ -1655,7 +1685,7 @@ app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'Flickit
   }
 }]);
 
-app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards, key){
     $scope.pub_boards = boards;
     $scope.current_page = 1;
@@ -1779,6 +1809,10 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
     $window.open(link, '_blank');
   };
 
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+  };
+
   $scope.copyToClipboard = function (link, board, user) {
     var copyElement = document.createElement("textarea");
     copyElement.style.position = 'fixed';
@@ -1789,6 +1823,7 @@ app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fli
     copyElement.select();
     document.execCommand('copy');
     body.removeChild(copyElement);
+    showSimpleToast();
     trackCopyLinkCliked(board, user);    
   }
 
