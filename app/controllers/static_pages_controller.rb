@@ -36,7 +36,7 @@ class StaticPagesController < ApplicationController
       @cat_boards.push staff_pick_hash
 
       trending = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("t_b").form_ids).published.limit(3)
-      trend_hash = { category: "trending", name: "trendings", boards: get_customized_forms(trending)}
+      trend_hash = { category: "trending", name: "trending", boards: get_customized_forms(trending)}
 
       categories = current_user.categories_ids.reject { |c| c.empty? }      
       categories.each_with_index do |category, index|
@@ -132,7 +132,7 @@ class StaticPagesController < ApplicationController
 
   def most_popular
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_p_b").form_ids).published
+    @forms = Form.includes(:user, :user_form_bookmarks).where(id: AllForm.find_by_forms_type("m_l_b").form_ids).published
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end

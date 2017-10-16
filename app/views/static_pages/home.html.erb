@@ -50,8 +50,8 @@
   <% end %>
 
 <!-- if user isn't signed in -->
-<% else %>  
-<div id="showModal"></div>
+<% else %>
+<div id="showModal" ng-controller="RegistrationsCtrl" ng-init="init()"></div>
 
 <br>
 <div class="row">

@@ -644,7 +644,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   
   $scope.flickityOptions = {
     cellSelector: '.article-cell',
-    prevNextButtons: true,    
+    prevNextButtons: false,    
     imagesLoaded: true,
     groupCells: 2
   };
@@ -1968,5 +1968,15 @@ app.controller('UpdateFormListCtrl', ['$scope', '$http', '$window', '$document',
       }, function errorCallback(response) {
     });
   };
+
+}]);
+
+app.controller('RegistrationsCtrl', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
+  
+  $scope.init = function () {
+    $scope.title = "Hello world"
+  };
+
+  
 
 }]);

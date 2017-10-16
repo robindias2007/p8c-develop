@@ -123,11 +123,11 @@
                   </div>
                   <div ng-if="newFormLinks[$index].show.viewData">
                     <div>
-                      <img id="cur_image" ng-src="{{newFormLinks[$index].image}}" ng-if="newFormLinks[$index].image"/>
-                      <img id="cur_image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[$index].image">
+                      <img id="cur_image" ng-src="{{newFormLinks[$index].image}}" ng-if="newFormLinks[$index].image" class="md-card-image" />
+                      <img id="cur_image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[$index].image" class="md-card-image">
                     </div>
                     
-                    <md-card-content>
+                    <md-card-content class="cur-link-card-title">
                       <p>{{newFormLinks[$index].title | cut:true:60:' ...'}}</p>
                     </md-card-content>
                     
@@ -194,8 +194,8 @@
       <div class="modal-footer new-form-footer">
         <div class="footer-new-form">
           To edit the order of the links, simply click on the card to drag & drop.
-          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>
           <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Publish</button>
+          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>          
         </div>
       </div>
     </div>
