@@ -1827,13 +1827,29 @@ ul.followers li {
   color: rgba(0,0,0,.6);
 }
 
+.google-button .custom-email {
+    color: #9c1717;
+}
+
+.button-with-icon.google-button.custom-border {
+    border: 1px solid #9c1717;
+}
+
 
 .login-link {
   margin-bottom: 15px;
   margin-top: 30px;
+  text-align: center;
 }
 .login-link a {
   cursor: pointer;
+}
+
+.sign_in_up_tabs > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin: 0px;
 }
 .content-footer {
   line-height: 1.4!important;
@@ -1880,6 +1896,8 @@ ul.followers li {
 .form .form-group {
   margin-bottom: 25px;
 }
+
+/*
 .form input[type="submit"] {
   text-align: center;
   border-color: #fff;
@@ -1894,20 +1912,20 @@ ul.followers li {
   outline: none;
   border: 1px solid #9c1717;
 }
-
-.sign-up-form .terms-condition {
+*/
+#sign-up-form .terms-condition {
   line-height: 1.4 !important;
   font-size: 14px !important;
   color: rgba(0, 0, 0, 0.44) !important;
   margin-bottom: 20px;
   text-align: left;
 }
-.sign-up-form .terms-condition a {
+#sign-up-form .terms-condition a {
   color: rgba(0, 0, 0, 0.44) !important;
   text-decoration: underline;
   cursor: pointer;
 }
-.sign-up-form hr {
+#sign-up-form hr {
   margin-top: 20px;
   margin-bottom: 20px;
 }

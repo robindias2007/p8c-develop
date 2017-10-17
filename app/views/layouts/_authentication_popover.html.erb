@@ -13,21 +13,36 @@
         </div>
       </div>
       <div class="modal-body">
-        <md-button class="md-accent"></md-button>
-        <div class="sign-up-title">
-          Sign In<br>
+        <ul class="nav nav-tabs sign_in_up_tabs" role="tablist" style="margin-bottom: 15px;">
+          <li role="presentation" class="active">
+            <a class href="#sign_in" aria-controls="sign_in" role="tab" data-toggle="tab">Sign In</a>
+          </li>
+          <li role="presentation">
+            <a href="#sign_up" aria-controls="sign_up" role="tab" data-toggle="tab">Sign Up</a>
+          </li>          
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="sign_in">
+            <div class="sign-up-title">
+              <br>
+            </div>
+            <div class="form sign-up-form" id="sign-in-form">
+              <div id="errorMsg" class="invalid-sign-in text-center"></div>
+            </div>
+            <%= render partial: "users/sessions/sign_in_form" %>    
+          </div>
+          <div role="tabpanel" class="tab-pane" id="sign_up">
+            <div class="sign-up-title">
+              <br>
+            </div>
+            <div class="" id="sign-up-form">
+              <%= render partial: "users/registrations/sign_up_form" %>
+            </div>    
+          </div>          
         </div>
-        <div class="form sign-up-form" id="sign-in-form">
-          <div id="errorMsg" class="invalid-sign-in text-center"></div>
-        </div>
-          <%= render partial: "users/sessions/sign_in_form" %>
-        <hr>
-        <div class="sign-up-title m-t-30">
-          Sign Up
-        </div>
-        <div class="form sign-up-form" id="sign-up-form">
-          <%= render partial: "users/registrations/sign_up_form" %>
-        </div>
+        
         <div class="login-link">
           <a id="socialModal">Or sign in with Facebook, Twitter, or Google</a>
         </div>
@@ -42,7 +57,6 @@
       <div class="modal-body">
         <div class="body-content">Sign Up / Sign In to The Curativ with:</div>
         <div class="social-media-buttons">
-
           <%- if devise_mapping.omniauthable? %>
               <%- resource_class.omniauth_providers.reverse.each do |provider| %>
                   <%= link_to(omniauth_authorize_path(resource_name, provider)) do %>
@@ -93,11 +107,12 @@
               <% end -%>
           <% end -%>
           <a id="emailModal">
-            <button class="button button-with-icon google-button" href="">
-                            <div class="button-left-icon">                          
+            <button class="button button-with-icon google-button custom-border" href="">
+                            <div class="button-left-icon">
+                              <img class="email-svg" src="/assets/Email Icon.svg" />                        
                             </div>
                             <div class="button-right-content">
-                              <span class="head-text">Email</span>
+                              <span class="custom-email head-text">Email</span>
                               <span class="sub-text"></span>
                             </div>
             </button>
