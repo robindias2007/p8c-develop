@@ -21,13 +21,16 @@
         </md-list-item>
         <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
           <div flex="60" layout="column">
-            <div flex="100"><h4><%= @user.username  %></h4></div>
-            <div flex="100" class="user_author_mobile"><p><%= @user.author %></p></div>
+            <div flex="100"><h3><%= @user.username  %></h4></div>
+            <div flex="100" class="user_author_mobile">
+              <p>
+                Pluralsight Author, Principal at reactjsconsulting.com, Software Architect, Microsoft MVP, Speaker, Clean Coder, Aspiring Outlier. adnd then i do a lot more stuf dause i[m awesome
+              </p>
+            </div>
           </div>
-          <div flex="5"></div>
-          <div flex="30">
+          <div flex="35">
             <% if @user.photo_url.present? %>
-              <%= image_tag @user.photo_url, id:"profile-header" %>
+              <%= image_tag @user.photo_url, id:"profile-header", align:"top" %>
             <% else %>
               <i class="material-icons md-120">account_circle</i>
             <% end %>
@@ -35,30 +38,31 @@
           <div flex="5"></div>
         </md-list-item>
         <% unless @user == current_user %>
-          <md-list-item hide-md hide-lg hide-sm>
-            <md-button class="md-raised md-primary" id="follow"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
-            <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+          <md-list-item hide-md hide-lg hide-sm class="tabs-mobile-follow"  id="fixed-padding">
+            
+            <md-button class="md-raised md-primary md-accent" ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
+            <md-button class="md-raised md-primary" ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+          
           </md-list-item>
         <% end %>
       </md-list>
     </div>
 
     <div hide-xs flex="20"></div>
-    <div flex="50" flex-xs="100" class="profile-right-page">
+    <div flex="50" flex-xs="100" class="profile-right-page" id="fixed-padding">
       <div layout="row" layout-xs="column">
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
           <div flex-xs="80" layout="row" class="following_mobile">
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b style="font-size:18px"><%= current_user.all_following.count %></b> Following</div>
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b style="font-size:18px"><%= current_user.followers.count %></b> Followers</div>
+            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
           </div>
         </div>
 
-        <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
+        <div hide-md hide-lg hide-sm flex-xs="100" layout="row" id="fixed-padding">
           <md-divider></md-divider>
-          <div flex="10"></div>
-          <div flex="80">
+          <div flex="100" class="tabs-mobile">
             <md-tabs md-dynamic-height>
-              <md-tab class="md-active">
+              <md-tab>
                 <% if current_user.username == @user.username %>
                   <a href="/<%= current_user.username %>/published">Published</a></u>
                 <% else %>
@@ -79,7 +83,6 @@
               </md-tab>
             </md-tabs>
           </div>
-          <div flex="10"></div>
         </div>
           
         
