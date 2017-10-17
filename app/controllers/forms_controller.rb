@@ -337,6 +337,40 @@ class FormsController < ApplicationController
   def new_modal
   end
 
+  def edit_modal
+    user = User.find_by_username(params[:id])
+    if user
+      if current_user == user
+        @secure_id = params[:slug_url].split("-").last
+      else
+        redirect_to root_url
+      end
+    else
+      redirect_to root_url
+    end    
+  end
+
+  def get_form_data
+    @secure_id = params[:slug_url].split("-").last
+    @form = Form.find_by_secure_id(@secure_id)
+    if @form.present?
+      @title = @form.title
+      @dsc = @form.description
+      @sub_header = @form.sub_header
+
+      @data = [ @form.url1.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url1, title: @form.title1, dsc: @form.description1, image: @form.image1, note: @form.note1, content: @form.content, tag: @form.tag1, host: @form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""} ,
+      @form.url2.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url2, title: @form.title2, dsc: @form.description2, image: @form.image2, note: @form.note2, content: @form.content2, tag: @form.tag2, host: @form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""} ,
+      @form.url3.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url3, title: @form.title3, dsc: @form.description3, image: @form.image3, note: @form.note3, content: @form.content3, tag: @form.tag3, host: @form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""},
+      @form.url4.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url4, title: @form.titel4, dsc: @form.description4, image: @form.image4, note: @form.note4, content: @form.content4, tag: @form.tag4, host: @form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""},
+      @form.url5.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url5, title: @form.title5, dsc: @form.description5, image: @form.image5, note: @form.note5, content: @form.content5, tag: @form.tag5, host: @form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""}]
+
+      respond_to do |format|
+        format.html
+        format.json { render json: { title: @title, dsc: @dsc, sub_header: @sub_header, data: @data.to_json } }
+      end
+    end
+  end
+
   def get_meta_data
     meta = MetaInspector.new(params[:url], :allow_non_html_content => true)   rescue nil
     @data = nil
@@ -407,6 +441,73 @@ class FormsController < ApplicationController
     if form.save
       form.slug = generate_slug(form)
       form.secure_id = generate_secure_id(form)      
+      tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
+      form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id )
+      form.save_social_image      
+      respond_to do |format|
+        format.html
+        format.json { render json: form.to_json }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json { render json: "Error" }
+      end
+    end
+  end
+
+  def update_form   
+    form = Form.find_by_secure_id(params[:secure_id])
+    form.title = params[:title]
+    form.sub_header = params[:sub_header]
+    form.description = params[:dsc]
+    form.publish = params[:text] == 'publish' ? true : false
+    params[:forms].each_with_index do |f, index|
+      if index == 0
+        form.title1 = f["title"]
+        form.url1 = f["url"] == nil ? "" : f["url"]
+        form.note1 = f["note"] == nil ? "" : f["note"]
+        form.description1 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content = f["content"] == nil ? "" : f["content"]
+        form.tag1 = f["tag"] == nil ? nil : f["tag"]
+        form.image1 = f["image"] == nil ? nil : f["image"]
+      elsif index == 1
+        form.title2 = f["title"]
+        form.url2 = f["url"] == nil ? "" : f["url"]
+        form.note2 = f["note"] == nil ? "" : f["note"]
+        form.description2 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content2 = f["content"] == nil ? "" : f["content"]
+        form.tag2 = f["tag"] == nil ? nil : f["tag"]
+        form.image2 = f["image"] == nil ? nil : f["image"]
+      elsif index == 2
+        form.title3 = f["title"]
+        form.url3 = f["url"] == nil ? "" : f["url"]
+        form.note3 = f["note"] == nil ? "" : f["note"]
+        form.description3 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content3 = f["content"] == nil ? "" : f["content"]
+        form.tag3 = f["tag"] == nil ? nil : f["tag"]
+        form.image3 = f["image"] == nil ? nil : f["image"]
+      elsif index == 3
+        form.titel4 = f["title"]
+        form.url4 = f["url"] == nil ? "" : f["url"]
+        form.note4 = f["note"] == nil ? "" : f["note"]
+        form.description4 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content4 = f["content"] == nil ? "" : f["content"]
+        form.tag4 = f["tag"] == nil ? nil : f["tag"]
+        form.image4 = f["image"] == nil ? nil : f["image"]
+      elsif index == 4
+        form.title5 = f["title"]
+        form.url5 = f["url"] == nil ? "" : f["url"]
+        form.note5 = f["note"] == nil ? "" : f["note"]
+        form.description5 = f["dsc"] == nil ? "" : f["dsc"]
+        form.content5 = f["content"] == nil ? "" : f["content"]
+        form.tag5 = f["tag"] == nil ? nil : f["tag"]
+        form.image5 = f["image"] == nil ? nil : f["image"]
+      end
+    end
+
+    if form.save
+      form.slug = generate_slug(form)      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
       form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id )
       form.save_social_image      
