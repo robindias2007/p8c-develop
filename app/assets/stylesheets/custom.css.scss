@@ -2270,6 +2270,19 @@ a.edit-board-new-form
     font-size: 10px;
 }
 
+.new_modal
+{
+    width: 80%;
+}
+
+@media (max-width: 768px)
+{
+    .new_modal
+    {
+        width: 95%;
+    }    
+}
+
 
 /* -------------- Mobile Header ---------------- */
 
@@ -2368,7 +2381,9 @@ a.edit-board-new-form
 .profile-name-img > p
 {
     padding-left: 10px;
-    font-family: FuturaStd-Medium
+    font-family: FuturaStd-Medium;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .profile-name-img p #follow
@@ -2386,4 +2401,25 @@ a.edit-board-new-form
     color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;   
+}
+
+.following_mobile
+{
+    font-family: FuturaStd-Medium;
+    color: rgba(0,0,0,.54);
+    font-size: 14px;
+}
+
+@media (max-width: 600px)
+{
+    .profile-name-img-mobile
+    {
+        margin-top: -8%;
+    }
+
+    .user_author_mobile > p
+    {
+        width:80%;
+        word-wrap: break-word;
+    }
 }
