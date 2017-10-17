@@ -2322,6 +2322,7 @@ a.edit-board-new-form
   #header-color
   {
     color: black;
+    font-family: FuturaStd-Medium;
   }
 
   ul .nav .navbar-nav
@@ -2384,6 +2385,7 @@ a.edit-board-new-form
     font-family: FuturaStd-Medium;
     width: 100%;
     word-wrap: break-word;
+    text-align:left;
 }
 
 .profile-name-img p #follow
@@ -2408,6 +2410,19 @@ a.edit-board-new-form
     font-family: FuturaStd-Medium;
     color: rgba(0,0,0,.54);
     font-size: 14px;
+    padding: 0px 16px;
+    text-align:left;
+}
+
+.tabs-mobile
+{
+  padding: 0px 16px;
+}
+
+.tabs-mobile-follow
+{
+  padding: 0px 10px;
+  color:white;
 }
 
 @media (max-width: 600px)
@@ -2421,5 +2436,20 @@ a.edit-board-new-form
     {
         width:80%;
         word-wrap: break-word;
+        font-family: FuturaStd-Medium;
+
+    }
+
+    img#profile-header
+    {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        margin-top: -65%;
+    }
+
+    #fixed-padding
+    {
+        padding-top: 10px;
     }
 }
