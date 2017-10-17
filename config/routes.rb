@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :user_steps
 
   get '/:id/new_form' => 'forms#new_modal'
+  get '/:id/:slug_url/edit_form' => 'forms#edit_modal'
+  get '/:id/:slug_url/get_form_data' => 'forms#get_form_data'
+  post '/:id/:slug_url/update_form' => 'forms#update_form'
+  get '/:id/:slug_url/get_meta_data' => 'forms#get_meta_data'
   get '/:id/get_meta_data' => 'forms#get_meta_data'
   post '/:id/create_form' => 'forms#create_form'
 

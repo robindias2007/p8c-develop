@@ -1,0 +1,219 @@
+<style type="text/css">
+
+.rotate-animation {
+    -webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
+    font-size: 80px;
+    margin-top: 41px;
+    margin-bottom: 41px;    
+  }
+
+
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }  
+
+</style>
+<div class="modal fade custom-modal" id="editFormModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" ng-controller="editFormCtrl" ng-init="init(<%= @secure_id.to_json %>)">
+  <div class="modal-dialog" style="width: 80%">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="openModal = false">&times;</button>
+        <h4 class="new-title">New Board</h4>
+      </div>
+      <div class="modal-body">
+        <md-list>
+          <md-list-item>
+            <% if current_user.photo_url.present? %>
+              <%= image_tag current_user.photo_url, id:"new_form_avatar_image", class:"user-avatar-new-form" %>
+            <% else %>
+              <i class="material-icons md-120">account_circle</i>
+            <% end %>
+            <p id="new_form_avatar_text"><b><%= current_user.username %> </b><br> Draft</p>
+          </md-list-item>
+        </md-list>
+        
+        <div layout="row" class="input-new-form">
+          <div flex="100">
+            <h2 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Title" ng-model="formTitle" maxlength="100"></h2>
+          </div>
+        </div>
+        <div layout="row">
+          <div flex="100">
+            <h4 style="margin-top: 10px; margin-bottom: 0px" class="new-form-title"><input class="font-text-new-form" type="text" name="title" placeholder="Sub header" ng-model="formSubheader" maxlength="180"></h4>
+          </div>
+        </div>
+        <br>
+        <div layout="row">
+          <div flex="100"> 
+            <h5 class="new-form-description"><textarea class="font-text-new-form" style="overflow-y: auto;" rows="4" placeholder="Description" ng-model="formDsc" maxlength="500"></textarea></h5>
+            <hr id="below-description">
+            
+          </div>
+        </div>
+        <br><br>
+        <div class="row" style="width: 100%">
+          
+          <div class="col-md-12"> 
+            
+            <div layout="row" ui-sortable ng-model="newFormLinks">
+              
+              <!-- 1st link -->
+              <div flex="20" ng-repeat="link in newFormLinks track by $index">
+                <md-card>
+                  <md-card-header>
+                    <div class="header-new-form" ng-if="newFormLinks[$index].show.viewData">
+                      <!-- <a href="" ng-click="AddNoteClicked($index.toString())" style="">
+                        <i class="material-icons" style="font-size:20px">insert_comment</i>
+                      </a> -->
+                      <a href="" ng-click="backToAddLinkClick($index.toString())" class="clear-board-new-form">
+                        Delete
+                        <i class="material-icons" style="font-size:20px">clear</i>
+                      </a>
+                      <a href="" ng-click="addNewLink($index.toString())" class="edit-board-new-form">
+                        <i class="material-icons" style="font-size:20px">mode_edit</i>
+                        Edit
+                      </a>
+                    </div>  
+
+                    <md-card-header-text ng-if="newFormLinks[$index].show.addLink" class="new_form_link_text">
+                      <a href="" ng-click="AddLinkClicked($index.toString())">
+                        <span class="md-title">
+                          <div class="center-align_add_link">
+                            <i class="material-icons" id="add_link_new_form">add_circle</i>
+                           </div> 
+                        </span>   
+                        <br>
+                        <span class="md-subhead">Add a new link</p></span>
+                      </a>
+
+                    </md-card-header-text>
+                    <md-card-header-text ng-if="newFormLinks[$index].show.linkBox">
+                      <a href="" ng-click="backToAddLinkClick($index.toString())" style="">
+                        <span class="md-title">
+                          <i class="material-icons" id="primary-color">arrow_back</i>
+                        </span>
+                      </a>
+                    </md-card-header-text>
+                  </md-card-header>
+
+
+                  <div ng-if="newFormLinks[$index].show.linkBox">
+                    <div>
+                      <a href="">
+                        <p ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
+                        <md-input-container class="md-block md-accent">
+                          <label>Place Your Link Here</label>
+                          <input ng-model="newFormLinks[$index].url">
+                        </md-input-container>
+                      </a>
+                    </div>                            
+                    <div class="center-align">
+                      <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())">
+                        <i class="material-icons" id="primary-color">file_upload</i>
+                      </a>
+                    </div>
+                  </div>
+                  <div ng-if="newFormLinks[$index].show.loading">
+                    <div class="center-align_add_rotate">
+                      <i class="material-icons rotate-animation" id="primary-color">cached</i>  
+                    </div>
+                  </div>
+                  <div ng-if="newFormLinks[$index].show.viewData">
+                    <div>
+                      <img id="cur_image" ng-src="{{newFormLinks[$index].image}}" ng-if="newFormLinks[$index].image" class="md-card-image" />
+                      <img id="cur_image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!newFormLinks[$index].image" class="md-card-image">
+                    </div>
+                    
+                    <md-card-content class="cur-link-card-title">
+                      <p>{{newFormLinks[$index].title | cut:true:60:' ...'}}</p>
+                    </md-card-content>
+                    
+                    <md-card-actions layout="column" layout-align="start">
+                      <span class="md-button md-accent link-text-new-form">
+                        {{newFormLinks[$index].host}}
+                        <i class="material-icons md-18">open_in_new</i>
+                      </span>
+                    </md-card-actions>
+                  </div> 
+                  <div ng-if="newFormLinks[$index].show.noteBox">
+                    
+                    <div>
+                      
+                      <a href="" ng-click="backToViewData($index.toString())" style="">
+                        <i class="material-icons" id="primary-color">arrow_back</i>
+                      </a>                                  
+                        
+                      <md-input-container class="md-block md-accent">
+                        <label>Add Note</label>
+                        <textarea ng-model="newFormLinks[$index].note" md-maxlength="100" rows="2" md-select-on-focus></textarea>
+                      </md-input-container>
+                    </div>
+
+                    <div class="center-align">
+                      <a href="" class="btn btn-sm" ng-click="saveNote($index.toString())">
+                        <i class="material-icons" style="font-size: 35px">save</i>
+                      </a>
+                    </div>
+                  </div>
+                  <div ng-if="newFormLinks[$index].show.editLinkBox">
+                    <div>
+                      <a href="" ng-click="backToViewData($index.toString())" style="">
+                          <i class="material-icons">arrow_back</i>
+                        </a>                                
+                      <a href="">
+                        <p style="color: red" ng-if="newFormLinks[$index].error">{{newFormLinks[$index].error}}</p>
+                        <md-input-container class="md-block">
+                          <label>Enter Link</label>
+                          <input ng-model="newFormLinks[$index].url">
+                        </md-input-container>
+                      </a>
+                    </div>                            
+                    <div class="center-align">
+                      <a href="" class="btn btn-sm" ng-click="uploadLink($index.toString())">
+                        <i class="material-icons" style="font-size: 35px">file_upload</i>
+                      </a>
+                    </div>
+                  </div>
+                </md-card>
+
+
+
+              </div>                      
+            
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer new-form-footer">
+        <div class="footer-new-form">
+          To edit the order of the links, simply click on the card to drag & drop.
+          <button type="button" class="btn btn-default pub-btn" ng-click="updateForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Publish</button>
+          <button type="button" class="btn btn-default draft-btn" ng-click="updateForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var editFormModal = $("#editFormModal");
+        editFormModal.modal("show");
+        editFormModal.on('hide.bs.modal', function () {
+            window.location.replace("/");
+        });
+        $( ".draft-btn" ).click(function() {
+            //window.location.replace("/<%= current_user.username %>/drafts");
+        });
+        $( ".pub-btn" ).click(function() {
+            //window.location.replace("/<%= current_user.username %>/published");
+        });
+    });
+</script>
