@@ -2,7 +2,7 @@
     
   <div class="form-group">
     <%= f.label :Email %>
-    <%= f.email_field :email, placeholder:"E-mail", id:'textfield' %>
+    <%= f.email_field :email, placeholder:"E-mail", class: "form-control" %>
   </div>
   
 
@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <%= f.label :Password %>
-    <%= f.password_field :password, placeholder:"Password", id:'textfield'  %>
+    <%= f.password_field :password, placeholder:"Password", class: "form-control"  %>
   </div>
   <div class="terms-condition">
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
