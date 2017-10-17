@@ -16,7 +16,7 @@
 
 </style>
 <div class="modal fade custom-modal" id="createFormModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" ng-controller="newFormCtrl" ng-init="init()">
-  <div class="modal-dialog" style="width: 80%">
+  <div class="modal-dialog new_modal">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -58,10 +58,10 @@
           
           <div class="col-md-12"> 
             
-            <div layout="row" ui-sortable ng-model="newFormLinks">
+            <div layout="row" layout-xs="column" ui-sortable ng-model="newFormLinks">
               
               <!-- 1st link -->
-              <div flex="20" ng-repeat="link in newFormLinks track by $index">
+              <div flex-md="20" flex-sm="20" flex-lg="20" flex-xs="100" ng-repeat="link in newFormLinks track by $index">
                 <md-card>
                   <md-card-header>
                     <div class="header-new-form" ng-if="newFormLinks[$index].show.viewData">
@@ -194,6 +194,8 @@
       <div class="modal-footer new-form-footer">
         <div class="footer-new-form">
           To edit the order of the links, simply click on the card to drag & drop.
+          <br hide-md hide-lg hide-sm>
+          <br hide-md hide-lg hide-sm>
           <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Publish</button>
           <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>          
         </div>
