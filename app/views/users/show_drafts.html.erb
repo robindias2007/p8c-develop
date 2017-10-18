@@ -1,16 +1,16 @@
 <md-content flex ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
   <br><br>
   <div layout="row" layout-xs="column">
-    <div flex="10"></div>
+    <div hide-xs flex="10"></div>
     <div flex="20" flex-xs="100">
       <md-list>
-        <md-list-item class="profile-name-img">
+        <md-list-item hide-xs class="profile-name-img">
           <% if @user.photo_url.present? %>
             <%= image_tag @user.photo_url, id:"profile-header" %>
           <% else %>
             <i class="material-icons md-120">account_circle</i>
           <% end %>
-            <p hide-xs>
+            <p>
               <b><%= @user.username  %></b><br>
               <%= @user.author %><br>
               <% unless @user == current_user %>
@@ -18,41 +18,56 @@
                 <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
               <% end %>
             </p> 
-            <p hide-md hide-lg hide-sm>
-              <b><%= @user.username  %></b><br>
-              <%= @user.author %><br>
-            </p>
+        </md-list-item>
+        <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
+          <div flex="60" layout="column">
+            <div flex="100"><h3><%= @user.username  %></h4></div>
+            <div flex="100" class="user_author_mobile">
+              <p>
+                Pluralsight Author, Principal at reactjsconsulting.com, Software Architect, Microsoft MVP, Speaker, Clean Coder, Aspiring Outlier. adnd then i do a lot more stuf dause i[m awesome
+              </p>
+            </div>
+          </div>
+          <div flex="35">
+            <% if @user.photo_url.present? %>
+              <%= image_tag @user.photo_url, id:"profile-header", align:"top" %>
+            <% else %>
+              <i class="material-icons md-120">account_circle</i>
+            <% end %>
+          </div>
+          <div flex="5"></div>
         </md-list-item>
         <% unless @user == current_user %>
-          <md-list-item hide-md hide-lg hide-sm>
-            <md-button class="md-raised md-primary" id="follow"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
-            <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+          <md-list-item hide-md hide-lg hide-sm class="tabs-mobile-follow"  id="fixed-padding">
+            
+            <md-button class="md-raised md-primary md-accent" ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
+            <md-button class="md-raised md-primary" ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+          
           </md-list-item>
         <% end %>
       </md-list>
     </div>
 
     <div hide-xs flex="20"></div>
-    <div flex="50" flex-xs="100" class="profile-right-page">
+    <div flex="50" flex-xs="100" class="profile-right-page" id="fixed-padding">
       <div layout="row" layout-xs="column">
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
-          <div flex-xs="80" layout="row">
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><%= current_user.all_following.count %> Following</div>
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><%= current_user.followers.count %> Followers</div>
+          <div flex-xs="80" layout="row" class="following_mobile">
+            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
           </div>
         </div>
 
-        <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
+        <div hide-md hide-lg hide-sm flex-xs="100" layout="row" id="fixed-padding">
           <md-divider></md-divider>
-          <div flex="10"></div>
-          <div flex="80">
-            <md-tabs md-dynamic-height md-border-bottom>
+          <div flex="100" class="tabs-mobile">
+            <md-tabs md-dynamic-height>
               <md-tab>
                 <% if current_user.username == @user.username %>
                   <a href="/<%= current_user.username %>/published">Published</a></u>
                 <% end %>
               </md-tab>
-              <md-tab class="md-active">
+              <md-tab>
                 <% if current_user.username == @user.username %>
                   <a href="/<%= current_user.username %>/drafts">Drafts</a>
                 <% end %>
@@ -64,7 +79,6 @@
               </md-tab>
             </md-tabs>
           </div>
-          <div flex="10"></div>
         </div>
           
         
@@ -77,6 +91,7 @@
         <div hide-xs flex="20">
           <% if current_user.username == @user.username %>
             <%= Form.drafts.where(user_id:current_user.id).count %>
+          <% else %>
           <% end %>
         </div>
         <div hide-xs flex="20">
