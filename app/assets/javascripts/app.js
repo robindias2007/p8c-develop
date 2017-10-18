@@ -1,4 +1,4 @@
-var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable', 'ngMaterial']);
+var app = angular.module('app', ['bc.Flickity', 'infinite-scroll', 'ui.sortable', 'ngMaterial', 'ngTagsInput']);
 
 app.config(function($mdThemingProvider) {
 
@@ -2332,7 +2332,26 @@ app.controller('RegistrationsCtrl', ['$scope', '$http', '$window', '$document', 
   $scope.init = function () {
     $scope.title = "Hello world"
   };
+}]);
 
+app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
   
+  get_forms = function () {
+    $http({
+      method: 'GET',
+      url: 'get_forms.json',
+      params: {}
+      }).then(function successCallback(response) {
+        $scope.forms = response.data;
+        $scope.loading_forms = false;
+      }, function errorCallback(response) {
+    });
+  }
 
+  $scope.init = function () {
+    $scope.loading_forms = true;
+    $scope.myDate = new Date();    
+    get_forms();
+  };
+  
 }]);
