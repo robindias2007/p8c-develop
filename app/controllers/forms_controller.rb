@@ -2,7 +2,7 @@ class FormsController < ApplicationController
   before_action :set_form, only: [:edit, :update, :destroy, :like, :unlike, :book, :booknot]
   before_action :authenticate_user!, :only => [:like]
   respond_to :js, :json, :html
-  before_filter :authenticate_admin, :only => [:index, :mixpanel_data, :update_all_forms]
+  before_filter :authenticate_admin, :only => [:index, :mixpanel_data, :update_all_forms, :admin_index, :get_admin_forms]
   
   # GET /forms
   # GET /forms.json
@@ -16,6 +16,24 @@ class FormsController < ApplicationController
         redirect_to :back
       end
     end
+
+  def admin_index
+    #@forms = Form.order(created_at: :desc).all
+  end
+
+  def get_admin_forms
+    forms = Form.order(created_at: :desc).all.includes(:user)
+
+    @forms_list = forms.map {|f| {id: f.id, title: f.title, username: f.user.username, created_at: f.created_at.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p"), updated_at: f.updated_at.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p"), admins_date: f.admins_date.present? ? f.admins_date.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p") : "-",
+      title1: f.title1, host1: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, title2: f.title2, host2: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, 
+      title3: f.title3, host3: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, title4: f.titel4, host4: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, 
+      title5: f.title5, host5: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, tags: f.tag_list.map {|tag| {:text => tag}}, admin_date: nil, staff_picks: f.staff_picks, 
+      most_popular: f.most_popular, view_count: f.view_count, share_count: f.share_count, saved_count: f.saved_count, users: (f.user.email == current_admin.email) ? (User.where("email LIKE ?", "%@curativ.com%").map{ |cur| cur.username }) : "", selected_user: ''}}
+    respond_to do |format|
+        format.html
+        format.json { render json: @forms_list.to_json }
+      end
+  end
 
   def get_boards(forms)
     forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked: f.voted_on_by?(current_user), bookmark: f.user_form_bookmarks.pluck(:user_id).include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 

@@ -27,7 +27,9 @@ Rails.application.routes.draw do
 
   get '/users/categories' => 'users#categories'
   post '/users/update_categories' => 'users#update_categories'  
- 
+  
+  get '/admin_forms' => 'forms#admin_index'
+  get '/get_forms' => 'forms#get_admin_forms'
   resources :forms, :only => [:index, :edit, :update] do
     member do
       get "like"

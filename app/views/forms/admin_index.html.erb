@@ -1,0 +1,153 @@
+<div class="maincont" ng-controller="AdminFormListCtrl" ng-init="init()">  
+  <h4>Click bellow button to update list of boards for all categories:</h4> 
+  <style type="text/css">
+    @keyframes spinner {
+      to {transform: rotate(360deg);}
+    }
+     
+    .spinner {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin-top: -20px;
+      margin-left: -20px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      border-top-color: #333;
+      animation: spinner .6s linear infinite;
+    }
+  </style>
+
+  <div class="row">    
+    <button type="submit" ng-click="updateForms()">Update Forms</button></span>
+  </div>
+  <table-responsive>
+    <table>
+      <div class ="table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Users Name</th>
+            <th>Title 1 and Domain</th>
+            <th>Title 2 and Domain</th>
+            <th>Title 3 and Domain</th>
+            <th>Title 4 and Domain</th>
+            <th>Title 5 and Domain</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Admins Date</th>            
+            <th>Curativ Accounts</th>
+            <th>Tags</th>
+            <th>Admins Date</th>
+            <th>Staff Picks</th>
+            <th>Most Popular</th>
+            <th>View Count</th>
+            <th>Shared Count</th>
+            <th>Saved Count</th>            
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="loading_forms">
+            <td colspan="22">
+              <div style="height: 100px; width: 100%">
+                <span class="spinner"></span>
+              </div>
+            </td>
+          </tr>
+          <tr ng-if="!loading_forms" ng-repeat="form in forms track by $index">
+            <td>
+              {{form.id}}
+            </td>
+            <td>
+              {{form.title}}
+            </td>
+            <td>
+              {{form.username}}
+            </td>
+            <td>
+              {{form.title1}}
+              <hr>
+              {{form.host1}}
+            </td>
+            <td>
+              {{form.title2}}
+              <hr>
+              {{form.host2}}
+            </td>
+            <td>
+              {{form.title3}}
+              <hr>
+              {{form.host3}}
+            </td>
+            <td>
+              {{form.title4}}
+              <hr>
+              {{form.host4}}
+            </td>
+            <td>
+              {{form.title5}}
+              <hr>
+              {{form.host5}}
+            </td>
+            <td>
+              {{form.created_at}}
+            </td>
+            <td>
+              {{form.updated_at}}
+            </td>
+            <td>
+              {{form.admins_date}}
+            </td>
+            <td>              
+              <md-input-container>
+                <label>User</label>
+                <md-select ng-model="form.selected_user">                  
+                  <md-option ng-repeat="user in form.users" ng-value="user">
+                    {{user}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </td>
+            <td>
+              <div class="field">
+                <tags-input row="3" id="textfield" ng-model="form.tags" placeholder="List upto 5 keywords, separated by commas,to help people to discover your board!" replace-spaces-with-dashes="false">
+                </tags-input>                
+              </div>
+            </td>
+            <td>
+               <md-datepicker ng-model="form.admin_date" md-placeholder="Enter date"></md-datepicker>
+            </td>
+            <td>
+              <md-checkbox ng-model="form.staff_picks" aria-label="Checkbox 1"></md-checkbox>
+            </td>
+            <td><md-checkbox ng-model="form.most_popular" aria-label="Checkbox 1"></md-checkbox></td>
+            <td><input row="1" type="number" name="input" ng-model="form.view_count"></input></td>
+            <td><input row="1" type="number" name="input" ng-model="form.share_count"></input></td>
+            <td><input row="1" type="number" name="input" ng-model="form.saved_count"></input></td>            
+            <td>
+              <md-button class="md-fab" aria-label="Eat cake">
+                <md-icon><i class="material-icons">delete</i>
+                </md-icon>
+              </md-button>
+            </td>
+          </tr>               
+        </tbody>
+      </div>
+    </table>
+<br>
+</table-responsive>
+
+</div>
+
+<style type="text/css">
+  #saves
+  {
+    width: 100%;
+  }
+</style>
