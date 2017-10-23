@@ -62,6 +62,21 @@ app.filter('cut', function () {
   };
 });
 
+app.directive('ngConfirmClick', [
+    function(){
+        return {
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.confirmedClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}]);
+
 app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
 
   $scope.init = function () {
@@ -2342,7 +2357,7 @@ app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', 
       url: 'get_forms.json',
       params: {}
       }).then(function successCallback(response) {
-        $scope.forms = response.data;
+        $scope.forms = response.data;        
         $scope.loading_forms = false;
       }, function errorCallback(response) {
     });
@@ -2352,6 +2367,29 @@ app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', 
     $scope.loading_forms = true;
     $scope.myDate = new Date();    
     get_forms();
+  };
+
+  $scope.change = function (f, index) {
+    console.log(f)    
+    $http({
+      method: 'POST',
+      url: '/update_form_admin.json',
+      data: {form: f}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+  };
+
+
+  $scope.remove = function (f, index) {
+    $scope.forms.splice(index, 1);
+    $http({
+      method: 'DELETE',
+      url: 'delete_form.json',
+      params: {form_id: f.id}
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
   };
   
 }]);

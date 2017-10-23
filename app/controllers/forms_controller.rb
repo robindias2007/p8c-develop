@@ -2,7 +2,7 @@ class FormsController < ApplicationController
   before_action :set_form, only: [:edit, :update, :destroy, :like, :unlike, :book, :booknot]
   before_action :authenticate_user!, :only => [:like]
   respond_to :js, :json, :html
-  before_filter :authenticate_admin, :only => [:index, :mixpanel_data, :update_all_forms, :admin_index, :get_admin_forms]
+  before_filter :authenticate_admin, :only => [:index, :mixpanel_data, :update_all_forms, :admin_index, :get_admin_forms, :update_form_admin, :delete_form]
   
   # GET /forms
   # GET /forms.json
@@ -33,6 +33,33 @@ class FormsController < ApplicationController
         format.html
         format.json { render json: @forms_list.to_json }
       end
+  end
+
+  def update_form_admin
+    form = Form.find(params[:form]["id"])
+    if form
+      form.record_timestamps=false
+      form.update_attributes(:staff_picks => params[:form]["staff_picks"], :most_popular => params[:form]["most_popular"], :view_count => params[:form]["view_count"], :share_count => params[:form]["share_count"], :saved_count => params[:form]["saved_count"],
+        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "")
+      respond_to do |format|
+        format.html
+        format.json { render json: {data: "OK".to_json } }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json { render json: {data: "FAILED".to_json } }
+      end
+    end
+  end
+
+  def delete_form
+    form = Form.find(params[:form_id])
+    form.destroy
+    respond_to do |format|
+      format.html
+      format.json { render json: "Deleted" }
+    end
   end
 
   def get_boards(forms)

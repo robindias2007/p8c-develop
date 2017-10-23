@@ -85,6 +85,8 @@ Rails.application.routes.draw do
   get '/mixpanel_data' => 'forms#mixpanel_data'
   get '/update_all_forms' => 'forms#update_all_forms'
   post '/update_form_list' => 'forms#update_form_list'
+  post '/update_form_admin' => 'forms#update_form_admin'
+  delete '/delete_form' => 'forms#delete_form'
 
   get '/get_trending_board_data' => 'forms#get_trending_board_data'
   post '/update_form_score' => 'forms#update_form_score'

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Email Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="25" height="25"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="25" height="25" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-430.000000, -267.000000)">
+            <g id="Email-Icon" transform="translate(430.000000, 267.000000)">
+                <path d="M20.6197917,5 L4.00520833,5 C2.88802083,5 2,6.0376569 2,7.34309623 L2,18.6569038 C2,19.9623431 2.88802083,21 4.00520833,21 L20.6197917,21 C21.7369792,21 22.625,19.9623431 22.625,18.6569038 L22.625,7.34309623 C22.625,6.0376569 21.7369792,5 20.6197917,5 L20.6197917,5 Z M21.9661458,18.6569038 C21.9661458,19.5271967 21.3645833,20.2301255 20.6197917,20.2301255 L4.00520833,20.2301255 C3.26041667,20.2301255 2.65885417,19.5271967 2.65885417,18.6569038 L2.65885417,8.48117155 L11.2526042,14.7740586 C11.5677083,15.0083682 11.9401042,15.1422594 12.3125,15.1422594 C12.6848958,15.1422594 13.0572917,15.0083682 13.3723958,14.7740586 L21.9661458,8.48117155 L21.9661458,18.6569038 L21.9661458,18.6569038 Z M21.9661458,7.54393305 L13.0286458,14.1046025 C12.5989583,14.4058577 12.0260417,14.4058577 11.5963542,14.1046025 L2.65885417,7.54393305 L2.65885417,7.30962343 C2.65885417,6.43933054 3.26041667,5.73640167 4.00520833,5.73640167 L20.6197917,5.73640167 C21.3645833,5.73640167 21.9661458,6.43933054 21.9661458,7.30962343 L21.9661458,7.54393305 L21.9661458,7.54393305 Z" id="Shape" fill="#9C1717"></path>
+                <use id="Rectangle" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

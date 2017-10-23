@@ -105,9 +105,10 @@
               {{form.admins_date}}
             </td>
             <td>              
-              <md-input-container>
+              <md-input-container ng-if="form.users.length > 0">
                 <label>User</label>
-                <md-select ng-model="form.selected_user">                  
+                <md-select ng-model="form.selected_user" >
+                  <md-option><em>None</em></md-option>                  
                   <md-option ng-repeat="user in form.users" ng-value="user">
                     {{user}}
                   </md-option>
@@ -116,7 +117,7 @@
             </td>
             <td>
               <div class="field">
-                <tags-input row="3" id="textfield" ng-model="form.tags" placeholder="List upto 5 keywords, separated by commas,to help people to discover your board!" replace-spaces-with-dashes="false">
+                <tags-input row="3" id="textfield" ng-model="form.tags" placeholder="List upto 5 keywords, separated by commas,to help people to discover your board!" replace-spaces-with-dashes="false" on-tag-added="change(form,$index)" on-tag-removed="change(form,$index)">
                 </tags-input>                
               </div>
             </td>
@@ -124,14 +125,14 @@
                <md-datepicker ng-model="form.admin_date" md-placeholder="Enter date"></md-datepicker>
             </td>
             <td>
-              <md-checkbox ng-model="form.staff_picks" aria-label="Checkbox 1"></md-checkbox>
+              <md-checkbox ng-model="form.staff_picks" aria-label="Checkbox 1" ng-change="change(form, $index)"></md-checkbox>
             </td>
-            <td><md-checkbox ng-model="form.most_popular" aria-label="Checkbox 1"></md-checkbox></td>
-            <td><input row="1" type="number" name="input" ng-model="form.view_count"></input></td>
-            <td><input row="1" type="number" name="input" ng-model="form.share_count"></input></td>
-            <td><input row="1" type="number" name="input" ng-model="form.saved_count"></input></td>            
+            <td><md-checkbox ng-model="form.most_popular" aria-label="Checkbox 1" ng-change="change(form, $index)"></md-checkbox></td>
+            <td><input row="1" type="number" name="input" ng-model="form.view_count" ng-change="change(form, $index)"></input></td>
+            <td><input row="1" type="number" name="input" ng-model="form.share_count" ng-change="change(form, $index)"></input></td>
+            <td><input row="1" type="number" name="input" ng-model="form.saved_count" ng-change="change(form, $index)"></input></td>            
             <td>
-              <md-button class="md-fab" aria-label="Eat cake">
+              <md-button class="md-fab" aria-label="Eat cake" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="remove(form, $index)">
                 <md-icon><i class="material-icons">delete</i>
                 </md-icon>
               </md-button>
