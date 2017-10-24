@@ -54,8 +54,8 @@
       <div layout="row" layout-xs="column">
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
           <div flex-xs="80" layout="row" class="following_mobile">
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+            <div flex="40" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+            <div flex="40" data-toggle="modal" data-target="#myModal4" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
           </div>
         </div>
 
@@ -151,7 +151,7 @@
         <div flex>
           <% if current_user.username == @user.username %>
           <% else %>
-            <md-button class="md-raised md-primary" id="follow" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>,<%= @user.id %>)">Following</md-button>
+            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>,<%= @user.id %>)">Following</md-button>
           <% end %>
         </div>
         <div flex>

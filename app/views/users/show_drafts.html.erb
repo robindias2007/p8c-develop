@@ -54,7 +54,7 @@
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
           <div flex-xs="80" layout="row" class="following_mobile">
             <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+            <div flex="40" data-toggle="modal" data-target="#myModal2" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
           </div>
         </div>
 

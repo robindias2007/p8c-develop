@@ -53,8 +53,13 @@
       <div layout="row" layout-xs="column">
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row">
           <div flex-xs="80" layout="row" class="following_mobile">
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
-            <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+            <% if current_user.username == @user.username %>
+              <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal2" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+            <% else %>
+              <div flex="40" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal4" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+            <% end %>
           </div>
         </div>
 
@@ -169,7 +174,7 @@
           <% if current_user.username == @user.username %>
             <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)">Following</md-button>
           <% else %>
-            <md-button class="md-raised md-primary" id="follow" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>,<%= @user.id %>)">Following</md-button>
+            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>,<%= @user.id %>)">Following</md-button>
           <% end %>
         </div>
         <div flex>
@@ -191,7 +196,7 @@
   <div id="forms">
     <%= render 'static_pages/pub_boards' %>
   </div>
-  <div class="modal fade" tabindex="-1" id="myModal1" role="dialog" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -374,12 +379,3 @@
     </div>
   </div>
 </md-content>
-
-
-
-<style type="text/css">
-  .modal
-  {
-    z-index: 1000;
-  }
-</style>

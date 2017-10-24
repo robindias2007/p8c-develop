@@ -20,7 +20,6 @@
 //= require angular-flickity
 //= require ng-infinite-scroll.min
 //= require_tree .
-//= require bootstrap.min.js
 //= require bootstrap-tagsinput
 //= require moment
 //= require bootstrap-datetimepicker
