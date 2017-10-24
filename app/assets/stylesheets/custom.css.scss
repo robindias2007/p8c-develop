@@ -2384,6 +2384,16 @@ a.edit-board-new-form
     width: 100%;
     font-family: FuturaStd-Medium;
     }
+
+    .spacing-left
+    {
+        padding: 0px 16px;
+    }
+
+    .spacing-left-1
+    {
+        padding: 0px 10px;
+    }
 }
 
 
@@ -2428,18 +2438,13 @@ a.edit-board-new-form
     font-family: FuturaStd-Medium;
     color: rgba(0,0,0,.54);
     font-size: 14px;
-    padding: 0px 16px;
     text-align:left;
 }
 
-.tabs-mobile
-{
-  padding: 0px 16px;
-}
+
 
 .tabs-mobile-follow
 {
-  padding: 0px 10px;
   color:white;
 }
 
@@ -2471,3 +2476,13 @@ a.edit-board-new-form
         padding-top: 10px;
     }
 }
+
+
+@media only screen and (orientation: landscape) {
+    #add_link_new_form
+    {
+        font-size:30px;
+    }
+
+}
+
