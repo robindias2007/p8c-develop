@@ -37,10 +37,12 @@ class FormsController < ApplicationController
 
   def update_form_admin
     form = Form.find(params[:form]["id"])
+    selected_user = params[:form]["selected_user"]
+    user_id = (selected_user == "None" || selected_user == "") ? form.user_id : User.find_by_username(params[:form]["selected_user"]).id    
     if form
       form.record_timestamps=false
       form.update_attributes(:staff_picks => params[:form]["staff_picks"], :most_popular => params[:form]["most_popular"], :view_count => params[:form]["view_count"], :share_count => params[:form]["share_count"], :saved_count => params[:form]["saved_count"],
-        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "")
+        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "", :user_id => user_id)
       respond_to do |format|
         format.html
         format.json { render json: {data: "OK".to_json } }

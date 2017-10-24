@@ -2370,7 +2370,11 @@ app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', 
   };
 
   $scope.change = function (f, index) {
-    console.log(f)    
+    console.log(f)
+    if (f.selected_user == "None" || f.selected_user == "") {
+    } else {
+      f.username = f.selected_user;
+    }
     $http({
       method: 'POST',
       url: '/update_form_admin.json',

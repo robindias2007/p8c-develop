@@ -1,5 +1,4 @@
-<div class="maincont" ng-controller="AdminFormListCtrl" ng-init="init()">  
-  <h4>Click bellow button to update list of boards for all categories:</h4> 
+<div class="maincont" ng-controller="AdminFormListCtrl" ng-init="init()">    
   <style type="text/css">
     @keyframes spinner {
       to {transform: rotate(360deg);}
@@ -21,10 +20,7 @@
       animation: spinner .6s linear infinite;
     }
   </style>
-
-  <div class="row">    
-    <button type="submit" ng-click="updateForms()">Update Forms</button></span>
-  </div>
+  
   <table-responsive>
     <table>
       <div class ="table-condensed table-hover">
@@ -107,7 +103,7 @@
             <td>              
               <md-input-container ng-if="form.users.length > 0">
                 <label>User</label>
-                <md-select ng-model="form.selected_user" >
+                <md-select ng-model="form.selected_user" ng-change="change(form,$index)">
                   <md-option><em>None</em></md-option>                  
                   <md-option ng-repeat="user in form.users" ng-value="user">
                     {{user}}
