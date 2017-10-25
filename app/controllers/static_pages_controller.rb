@@ -31,8 +31,9 @@ class StaticPagesController < ApplicationController
     if current_user
       @cat_boards = []
       @forms_uniq_ids = []      
+
       staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).published.limit(3)
-      staff_pick_hash = { category: "staff_picks", name: "staff's picks", boards: get_customized_forms(staff_pick)}
+      staff_pick_hash = { category: "staff_picks", name: "staff picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
 
       trending = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("t_b").form_ids).published.limit(3)

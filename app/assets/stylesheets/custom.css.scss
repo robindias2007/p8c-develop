@@ -2022,6 +2022,11 @@ ul.followers li {
     color:#1c1c1c;
 }
 
+.categorytitle span a
+{
+    color:black;
+}
+
 .home_before_login {
     background-image: url('https://s3.us-east-2.amazonaws.com/thecurativ-master/69067345-writer-wallpapers.jpg');
     height: 730px;
@@ -2403,6 +2408,16 @@ a.edit-board-new-form
     width: 100%;
     font-family: FuturaStd-Medium;
     }
+
+    .spacing-left
+    {
+        padding: 0px 16px;
+    }
+
+    .spacing-left-1
+    {
+        padding: 0px 10px;
+    }
 }
 
 
@@ -2447,18 +2462,13 @@ a.edit-board-new-form
     font-family: FuturaStd-Medium;
     color: rgba(0,0,0,.54);
     font-size: 14px;
-    padding: 0px 16px;
     text-align:left;
 }
 
-.tabs-mobile
-{
-  padding: 0px 16px;
-}
+
 
 .tabs-mobile-follow
 {
-  padding: 0px 10px;
   color:white;
 }
 
@@ -2489,4 +2499,27 @@ a.edit-board-new-form
     {
         padding-top: 10px;
     }
+}
+
+@media only screen and (orientation: landscape) {
+    #add_link_new_form
+    {
+        font-size:30px;
+    }
+
+}
+
+
+.color-grey
+{
+    color: rgba(0,0,0,0.2);
+    font-size: 22px;
+}
+
+.banner-mobile
+{
+    width: 90%;
+    margin: 0px auto;
+    text-align:left;
+    font-size: 13px;
 }
