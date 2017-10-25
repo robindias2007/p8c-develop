@@ -64,24 +64,24 @@
 
     <md-card-actions layout="row" layout-align="start center">
       <md-card-icon-actions>
-        <p style="padding-top:6%">{{board.likes}}</p>
+        <p style="padding-top:7%;color:grey;font-size:18px">{{board.likes}}</p>
         <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
           <md-icon>
-            <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike', <%= current_user.to_json %>)"><i class="material-icons">favorite</i></a>
-            <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like', <%= current_user.to_json %>)"><i class="material-icons">favorite_border</i></a>
+            <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike', <%= current_user.to_json %>)"><i class="material-icons color-grey">favorite</i></a>
+            <a id="" ng-hide="board.liked" data-remote="true" href="/forms/{{board.id}}/like" ng-click="update_like(board, 'like', <%= current_user.to_json %>)"><i class="material-icons color-grey">favorite_border</i></a>
           </md-icon>
         </md-button>
         
         <md-button class="md-icon-button" aria-label="Bookmark" style="margin: 0px">
           <md-icon>
-            <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board, <%= current_user.to_json %>)"><i class="material-icons">bookmark</i></a>
-            <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board, <%= current_user.to_json %>)"><i class="material-icons">bookmark_border</i></a>  
+            <a id="" ng-show="board.bookmark" data-remote="true" href="/forms/{{board.id}}/booknot" ng-click="update_bookmark(board, <%= current_user.to_json %>)"><i class="material-icons color-grey">bookmark</i></a>
+            <a id="" ng-hide="board.bookmark" data-remote="true" href="/forms/{{board.id}}/book" ng-click="update_bookmark(board, <%= current_user.to_json %>)"><i class="material-icons color-grey">bookmark_border</i></a>  
           </md-icon>
         </md-button>
 
         <md-menu>
           <md-button md-menu-origin aria-label="menu" ng-click="$mdOpenMenu($event)" class="md-icon-button" ng-click="$mdOpenMenu.open($event)" style="margin: 0px">
-            <a id="" data-remote="true" href=""><i class="material-icons">share</i></a>
+            <a id="" data-remote="true" href=""><i class="material-icons color-grey">share</i></a>
           </md-button>
           <md-menu-content layout-align="center center">
             <md-menu-item>
@@ -116,7 +116,7 @@
         
         <md-menu ng-if="board.user.username == '<%= current_user.username %>'">
           <md-button md-menu-origin aria-label="menu" ng-click="$mdOpenMenu($event)" class="md-icon-button" ng-click="$mdOpenMenu.open($event)" style="margin: 0px">
-            <md-icon md-menu-origin><i class="material-icons">more_vert</i></md-icon>
+            <md-icon md-menu-origin><i class="material-icons color-grey">more_vert</i></md-icon>
           </md-button>
           <md-menu-content layout-align="center center">
             <md-menu-item>

@@ -778,7 +778,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   }
 }]);
 
-app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdDialog', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdDialog){
+app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdDialog', '$mdSidenav', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdDialog, $mdSidenav){
     var self = this;
 
       $scope.hidden = false;
@@ -796,6 +796,10 @@ app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'Flicki
           $scope.tooltipVisible = $scope.isOpen;
         }
       });
+
+      $scope.openLeftMenu = function() {
+        $mdSidenav('left').toggle();
+      };
 
       $scope.items = [
         { name: "Twitter", icon: "img/icons/twitter.svg", direction: "bottom" },
