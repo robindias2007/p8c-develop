@@ -122,7 +122,7 @@
       
   </md-toolbar>
 </div>
-  <md-button onclick="curateInitiated('<%= current_user.username %>', '<%= Time.now.to_date %>')" class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple md-accent md-hue-1" style="width:45px;height:45px; position: fixed">
+  <md-button onclick="curateInitiated('<%= current_user.username %>', '<%= Time.now.to_date %>')" class="md-fab md-fling md-fab-bottom-right docs-scroll-fab md-ink-ripple md-accent" style="width:45px;height:45px; position: fixed">
 
     <a href="/<%= current_user.username %>/new_form">
     <md-tooltip class="custom-tooltip" md-delay="0" md-direction="left">Create Curate</md-tooltip>
