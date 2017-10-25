@@ -64,7 +64,7 @@
 
     <md-card-actions layout="row" layout-align="start center">
       <md-card-icon-actions>
-        <p style="padding-top:7%;color:grey;font-size:18px">{{board.likes}}</p>
+        <p style="padding-top:7%;color:rgba(0,0,0,0.2);font-size:18px">{{board.likes}}</p>
         <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
           <md-icon>
             <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike', <%= current_user.to_json %>)"><i class="material-icons color-grey">favorite</i></a>
@@ -106,7 +106,7 @@
               <md-button aria-label="Copy" class="md-icon-button" layout-align="center center">
                 <md-icon>
                   <a id="" data-remote="true" href="" ng-click="copyToClipboard(board.form_url, board, <%= current_user.to_json %>);">
-                    <i class="material-icons">link</i>
+                    <i class="material-icons color-grey">link</i>
                   </a>
                 </md-icon>
               </md-button>

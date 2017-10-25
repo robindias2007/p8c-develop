@@ -6,19 +6,20 @@
     <div flex="20" flex-xs="100">
       <md-list>
         <md-list-item hide-xs class="profile-name-img">
-          <% if @user.photo_url.present? %>
-            <%= image_tag @user.photo_url, id:"profile-header" %>
-          <% else %>
-            <i class="material-icons md-120">account_circle</i>
-          <% end %>
-            <p>
-              <b><%= @user.username  %></b><br>
-              <%= @user.author %><br>
-              <% unless @user == current_user %>
-                <md-button class="md-raised md-primary" id="follow"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
-                <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
-              <% end %>
-            </p> 
+          <p style="text-align: left">
+            <b style="font-size:32px"><%= @user.username  %></b><br><br>
+            Pluralsight Author, Principal at reactjsconsulting.com, Software Architect, Microsoft MVP, Speaker, Clean Coder, Aspiring Outlier. adnd then i do a lot more stuf dause i[m awesome<br>
+            <br>
+            <% unless @user == current_user %>
+              <md-button class="md-raised md-primary" id="follow"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
+              <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+            <% end %>
+          </p> 
+        </md-list-item>
+        <md-divider hide-xs></md-divider>
+        <md-list-item hide-xs>
+          <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+          <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
         </md-list-item>
         <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
           <div flex="60" layout="column">
@@ -83,13 +84,15 @@
           
         
         <div hide-xs flex="20"></div>
+        <div hide-xs flex="20"></div>
         <div hide-xs flex="20">
-          <% if current_user.username == @user.username %>
+          <% if @user.photo_url.present? %>
+            <%= image_tag @user.photo_url, id:"profile-header" %>
           <% else %>
-            <%= Form.published.where("user_id = ?",User.find_by_username(params[:id])).count %>
+            <i class="material-icons md-120">account_circle</i>
           <% end %>
         </div>
-        <div hide-xs flex="20">
+        <!-- <div hide-xs flex="20">
         </div>
         <div hide-xs flex="20">
           <% if current_user.username == @user.username %>
@@ -97,10 +100,10 @@
             <%= @user.get_up_voted(Form).count %>
           <% end %>
         </div>
-        <div hide-xs flex="20"></div>
+        <div hide-xs flex="20"></div> -->
       </div>
       <br>
-      <div hide-xs layout="row">
+      <!-- <div hide-xs layout="row">
         <div flex="20"></div>
         <div flex="20">
           <% if current_user.username == @user.username %>
@@ -161,10 +164,32 @@
           <% end %>
         </div>
         <div flex="20"></div>
-      </div>
+      </div> -->
     </div>
   </div>
   <br>
+  <div layout="row">
+    <div flex="10"></div>
+    <div hide-xs flex="60">
+      <md-tabs md-dynamic-height>
+        <md-tab>
+          <% if current_user.username == @user.username %>
+          <% else %>
+            <a href="/<%= @user.username %>/published">Published</a></u>
+          <% end %>
+        </md-tab>
+        <md-tab>
+        </md-tab>
+        <md-tab>
+          <% if current_user.username == @user.username %>
+          <% else %>
+            <a href="/<%= @user.username %>/liked">Liked</a>
+          <% end %>
+        </md-tab>
+      </md-tabs>
+    </div>
+  </div>
+
   <md-divider></md-divider>
 
   <div id="forms">
