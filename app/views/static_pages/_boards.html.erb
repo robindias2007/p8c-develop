@@ -5,7 +5,17 @@
     <div class="boardContainer" ng-repeat="cat_board in cat_boards">
       <div class="">
         <div class="categoryheader">
-          <div class="categorytitle col-md-8" ><span>{{cat_board.name}}</span></div>
+          <div class="categorytitle col-md-8" >
+            <span>
+              <a ng-if="cat_board.category != 'trending' && cat_board.category != 'staff_picks' " ng-href="/categories/{{cat_board.category}}">
+                {{cat_board.name}}
+              </a>
+
+              <a ng-if="(cat_board.category == 'trending' || cat_board.category == 'staff_picks')" ng-href="/{{cat_board.category}}">
+                {{cat_board.name}}
+              </a>
+            </span>
+          </div>
           <div class="categorytitle col-md-4">
             
             <a ng-if="cat_board.category != 'trending' && cat_board.category != 'staff_picks' " ng-href="/categories/{{cat_board.category}}">
