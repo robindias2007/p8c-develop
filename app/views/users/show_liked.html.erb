@@ -151,13 +151,13 @@
         <div flex>
           <% if current_user.username == @user.username %>
           <% else %>
-            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>,<%= @user.id %>)">Following</md-button>
+            <md-button class="md-accent md-hue-1 md-raised md-primary" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>,<%= @user.id %>)">Following</md-button>
           <% end %>
         </div>
         <div flex>
           <% if current_user.username == @user.username %>
           <% else %>
-            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal4" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</md-button>
+            <md-button class="md-accent md-hue-1 md-raised md-primary" data-toggle="modal" data-target="#myModal4" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</md-button>
           <% end %>
         </div>
         <div flex="20"></div>

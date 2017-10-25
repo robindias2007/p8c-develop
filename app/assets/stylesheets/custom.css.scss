@@ -46,6 +46,21 @@ md-input-container .md-input {
     line-height: 20px;   
 }
 
+.custom-tooltip .md-content{      
+  background-color: lightgrey !important;
+  color: black !important;  
+}
+
+md-toast.md-success-toast-theme {
+    .md-toast-content {
+        background-color: lightgrey;
+    }
+}
+
+.card-margin-top {
+    margin-top: 15px;
+}
+
 /* -------------- Buttons  ---------------- */
 
 .md-button {

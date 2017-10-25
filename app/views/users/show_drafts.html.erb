@@ -14,8 +14,8 @@
               <b><%= @user.username  %></b><br>
               <%= @user.author %><br>
               <% unless @user == current_user %>
-                <md-button class="md-raised md-primary" id="follow"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
-                <md-button class="md-raised md-primary" id="follow"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
+                <md-button class="md-accent md-hue-1 md-raised md-primary" ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
+                <md-button class="md-accent md-hue-1 md-raised md-primary"  ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
               <% end %>
             </p> 
         </md-list-item>
@@ -151,12 +151,12 @@
         <div flex="20"></div>
         <div flex>
           <% if current_user.username == @user.username %>
-            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)">Following</md-button>
+            <md-button class="md-accent md-hue-1 md-raised md-primary" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)">Following</md-button>
           <% end %>
         </div>
         <div flex>
           <% if current_user.username == @user.username %>
-            <md-button class="md-raised md-primary" id="follow" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</md-button>
+            <md-button class="md-accent md-hue-1 md-raised md-primary" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)">Followers</md-button>
           <% end %>
         </div>
         <div flex="20"></div>

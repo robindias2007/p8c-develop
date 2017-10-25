@@ -972,7 +972,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$window', '$document', 'FlickityS
   };
 
   showSimpleToast = function() {
-    $mdToast.show($mdToast.simple().textContent('Link Copied!').position('top right'));
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').theme("success-toast").position('top right'));
   };
 
   $scope.copyToClipboard = function (link, board, user) {
