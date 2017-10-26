@@ -1,13 +1,13 @@
 <md-content flex ng-controller="UsersCtrl" ng-init="init(<%= @user.to_json %>, <%= current_user.to_json %>)">
   <br><br>
-  <div layout="row" layout-xs="column">
-    <div hide-xs flex="10"></div>
+  <div layout="row" class="boardContainer" layout-xs="column">
+    <div hide-xs style="margin-left:16px"></div>
     <div flex="20" flex-xs="100">
       <md-list>
         <md-list-item hide-xs class="profile-name-img">
           <p style="text-align: left">
-            <b style="font-size:32px"><%= @user.username  %></b><br><br>
-            Pluralsight Author, Principal at reactjsconsulting.com, Software Architect, Microsoft MVP, Speaker, Clean Coder, Aspiring Outlier. adnd then i do a lot more stuf dause i[m awesome<br>
+            <b style="font-size:32px"><%= @user.name  %></b><br><br>
+            <%= @user.author %><br>
             <br>
             <% unless @user == current_user %>
               <md-button class="md-raised md-accent"  ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
@@ -15,17 +15,16 @@
             <% end %>
           </p> 
         </md-list-item>
-        <md-divider hide-xs></md-divider>
         <md-list-item hide-xs>
           <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
           <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
         </md-list-item>
         <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
           <div flex="60" layout="column">
-            <div flex="100"><h3><%= @user.username  %></h4></div>
+            <div flex="100"><h3><%= @user.name  %></h4></div>
             <div flex="100" class="user_author_mobile">
               <p>
-                Pluralsight Author, Principal at reactjsconsulting.com, Software Architect, Microsoft MVP, Speaker, Clean Coder, Aspiring Outlier. adnd then i do a lot more stuf dause i[m awesome
+                <%= @user.author %>
               </p>
             </div>
           </div>
@@ -89,7 +88,7 @@
           <% if @user.photo_url.present? %>
             <%= image_tag @user.photo_url, id:"profile-header" %>
           <% else %>
-            <i class="material-icons md-120">account_circle</i>
+            <i class="material-icons md-120 color-grey">account_circle</i>
           <% end %>
         </div>
         <!-- <div hide-xs flex="20">
@@ -167,9 +166,8 @@
       </div> -->
     </div>
   </div>
-  <br>
-  <div layout="row">
-    <div flex="10"></div>
+  <div layout="row" class="boardContainer">
+    <div hide-xs style="margin-left:16px"></div>
     <div hide-xs flex="60">
       <md-tabs md-dynamic-height md-selected="1">
         <md-tab>
