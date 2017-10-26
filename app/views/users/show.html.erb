@@ -19,8 +19,13 @@
         </md-list-item>
         <md-divider hide-xs></md-divider>
         <md-list-item hide-xs>
-          <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
-          <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+          <% if current_user.username == @user.username %>
+              <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+            <% else %>
+              <div flex="40" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= @user.all_following.count %></b> Following</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal4" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)"><b><%= @user.followers.count %></b> Followers</div>
+            <% end %>
         </md-list-item>
         
         <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
@@ -60,10 +65,10 @@
           <div flex-xs="80" layout="row" class="following_mobile">
             <% if current_user.username == @user.username %>
               <div flex="40" data-toggle="modal" data-target="#myModal1" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
-              <div flex="40" data-toggle="modal" data-target="#myModal2" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal2" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
             <% else %>
-              <div flex="40" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.all_following.count %></b> Following</div>
-              <div flex="40" data-toggle="modal" data-target="#myModal4" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= current_user.followers.count %></b> Followers</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal3" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>)"><b><%= @user.all_following.count %></b> Following</div>
+              <div flex="40" data-toggle="modal" data-target="#myModal4" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>)"><b><%= @user.followers.count %></b> Followers</div>
             <% end %>
           </div>
         </div>
