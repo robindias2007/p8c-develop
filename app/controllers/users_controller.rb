@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @keys = ENV['FACEBOOK_KEY'].to_json
     @user = User.find_by_username(params[:id])
     @home_banner = true;
-    @forms = Form.order(created_at: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?", @user).published.paginate(:page => params[:page], :per_page => 2)
+    @forms = Form.order(created_at: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?", @user).published
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
     @boards = get_boards(@forms)    
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   
   def show_saved   #show.html.erb
     if @user == current_user
-      @forms = current_user.bookmarks.includes(:user, :user_form_bookmarks, :votes).paginate(:page => params[:page], :per_page => 2)
+      @forms = current_user.bookmarks.includes(:user, :user_form_bookmarks, :votes)
       @boards = get_boards(@forms)
       @saved_boards = @boards.to_json
 
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   def show_drafts   #show.html.erb
   	@home_banner = true;
     if @user == current_user
-      @forms = Form.drafts.order(created_at: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id).paginate(:page => params[:page], :per_page => 2)
+      @forms = Form.drafts.order(created_at: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
   	  @boards = get_boards(@forms)
       @draft_boards = @boards.to_json 
 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   def show_liked
     if @user != current_user
       @keys = ENV['FACEBOOK_KEY'].to_json
-      @forms = @user.get_up_voted(Form).includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc).paginate(:page => params[:page], :per_page => 2)
+      @forms = @user.get_up_voted(Form).includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc)
       
       @boards = get_boards(@forms)
       @liked_boards = @boards.to_json
