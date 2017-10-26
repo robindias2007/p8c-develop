@@ -53,18 +53,18 @@
     <md-card-avatar>
       <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)">
         <img ng-if="board.user_image" class="md-user-avatar" ng-src="{{board.user_image}}"/>
-        <i ng-if="!board.user_image" class="material-icons" style="font-size:32px" >account_circle</i>
+        <i ng-if="!board.user_image" class="material-icons color-grey" style="font-size:40px" >account_circle</i>
       </a>
     </md-card-avatar>
      
     <md-card-header-text>
-      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title">{{board.user.username}}</span></a>
+      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title" style="color:black">{{board.user.username}}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 
     <md-card-actions layout="row" layout-align="start center">
       <md-card-icon-actions>
-        <p style="padding-top:6%;color:rgba(0,0,0,0.2);font-size:20px">{{board.likes}}</p>
+        <p style="padding-top:10px;color:rgba(0,0,0,0.2);font-size:20px">{{board.likes}}</p>
         <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
           <md-icon>
             <a id="" ng-show="board.liked" data-remote="true" href="/forms/{{board.id}}/unlike" ng-click="update_like(board, 'unlike', <%= current_user.to_json %>)"><i class="material-icons color-grey">favorite</i></a>
