@@ -30,7 +30,7 @@
               <% Category.all.where(weightage:1).each do |f| %>
                 <md-menu-item>
                     <md-button>
-                      <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href='/categories/<%= f.category_name %>'><%= f.category_name.capitalize %></a>
+                      <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href='/categories/<%= f.category_name %>'><%= f.category_name.capitalize.split('_').join(' ') %></a>
                     </md-button>
                 </md-menu-item>
               <% end %>
@@ -141,7 +141,7 @@
         <% Category.all.where(weightage:1).each do |f| %>
           <md-menu-item>
               <md-button>
-                <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href='/categories/<%= f.category_name %>'><%= f.category_name.capitalize %></a>
+                <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href='/categories/<%= f.category_name %>'><%= f.category_name.capitalize.split('_').join(' ') %></a>
               </md-button>
           </md-menu-item>
         <% end %>
