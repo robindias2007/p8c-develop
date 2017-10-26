@@ -2507,6 +2507,11 @@ a.edit-board-new-form
         font-size:30px;
     }
 
+    #header-mob-img
+    {
+        width: 40%;
+        margin-left: 20%;
+    }
 }
 
 
@@ -2522,4 +2527,21 @@ a.edit-board-new-form
     margin: 0px auto;
     text-align:left;
     font-size: 13px;
+}
+
+md-sidenav, md-sidenav {
+ min-width: 20px !important;
+ width: 50vw !important;
+ max-width: 200px !important;
+}
+
+
+.toggle-bar.flex-10
+{
+    margin-top: 3%;
+}
+
+.right-mob-header.flex-10
+{
+    margin-top: 1%;
 }
