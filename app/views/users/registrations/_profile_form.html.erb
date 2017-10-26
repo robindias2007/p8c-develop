@@ -46,7 +46,7 @@
         
           <md-list ng-repeat="item in categories">
             <md-list-item>
-              <p class="md-subhead text-modal-body">{{item}}</p>              
+              <p class="md-subhead text-modal-body">{{item.split("_").join(" ")}}</p>              
               <md-checkbox ng-checked="exists(item, user_categories)" ng-click="toggle(item, user_categories)">                
               </md-checkbox>
             </md-list-item>
