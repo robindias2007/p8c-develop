@@ -2,7 +2,7 @@
 
 <div class="boardContainer" ng-controller="PubBoardCtrl" ng-init="init(<%= @pub_boards %>, <%= @keys %>)">
 
-  <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance="3">
+  <div>
     
     <section class="cards" layout="row" layout-wrap>
       <div class ="repeatBoard" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
