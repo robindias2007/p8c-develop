@@ -7,22 +7,22 @@ $component-active-color:transparent;
 
 @font-face {
   font-family: "FuturaStd-Medium";
-  src: url(/assets/FuturaStd-Medium.otf) format("truetype");
+  src: font-url("/assets/FuturaStd-Medium.otf") format("truetype");
 }
  
 @font-face {
     font-family: "FuturaStd-Heavy";
-    src: url(/assets/FuturaStd-Heavy.otf) format("truetype");
+    src: font-url("/assets/FuturaStd-Heavy.otf") format("truetype");
 }
 
 @font-face {
     font-family: "FuturaStd-Light";
-    src: url(/assets/FuturaStd-Light.otf) format("truetype");
+    src: font-url("/assets/FuturaStd-Light.otf") format("truetype");
 }
 
 @font-face {
     font-family: "FuturaStd-Bold";
-    src: url(/assets/FuturaStd-Bold.otf) format("truetype");
+    src: font-url("/assets/FuturaStd-Bold.otf") format("truetype");
 }
 
 .head-title-modal {
