@@ -62,7 +62,7 @@
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row" id="fixed-padding">
           <md-divider></md-divider>
           <div flex="100" class="spacing-left">
-            <md-tabs md-dynamic-height>
+            <md-tabs md-dynamic-height md-selected="1">
               <md-tab>
                 <% if current_user.username == @user.username %>
                   <a href="/<%= current_user.username %>/published">Published</a></u>
@@ -171,7 +171,7 @@
   <div layout="row">
     <div flex="10"></div>
     <div hide-xs flex="60">
-      <md-tabs md-dynamic-height>
+      <md-tabs md-dynamic-height md-selected="1">
         <md-tab>
           <% if current_user.username == @user.username %>
             <a href="/<%= current_user.username %>/published">Published</a></u>
