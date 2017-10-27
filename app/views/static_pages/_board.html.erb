@@ -58,7 +58,7 @@
     </md-card-avatar>
      
     <md-card-header-text>
-      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title" style="color:black">{{board.user.username}}</span></a>
+      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title" style="color:black">{{board.user.name}}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 
