@@ -45,7 +45,7 @@
             <th>View Count</th>
             <th>Shared Count</th>
             <th>Saved Count</th>            
-            <th>Delete</th>
+            <th>Delete</th>            
           </tr>
         </thead>
         <tbody>
@@ -118,7 +118,7 @@
               </div>
             </td>
             <td>
-               <md-datepicker ng-model="form.admin_date" md-placeholder="Enter date"></md-datepicker>
+               <md-datepicker name="date" ng-model="form.admin_date_to_update" ng-change="change(form, $index)" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
             </td>
             <td>
               <md-checkbox ng-model="form.staff_picks" aria-label="Checkbox 1" ng-change="change(form, $index)"></md-checkbox>
@@ -132,7 +132,7 @@
                 <md-icon><i class="material-icons">delete</i>
                 </md-icon>
               </md-button>
-            </td>
+            </td>            
           </tr>               
         </tbody>
       </div>

@@ -28,7 +28,7 @@ class FormsController < ApplicationController
       title1: f.title1, host1: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, title2: f.title2, host2: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, 
       title3: f.title3, host3: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, title4: f.titel4, host4: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, 
       title5: f.title5, host5: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, tags: f.tag_list.map {|tag| {:text => tag}}, admin_date: nil, staff_picks: f.staff_picks, 
-      most_popular: f.most_popular, view_count: f.view_count, share_count: f.share_count, saved_count: f.saved_count, users: (f.user.email == current_admin.email) ? (User.where("email LIKE ?", "%@curativ.com%").map{ |cur| cur.username }) : "", selected_user: ''}}
+      most_popular: f.most_popular, view_count: f.view_count, share_count: f.share_count, saved_count: f.saved_count, users: (f.user.email == current_admin.email) ? (User.where("email LIKE ?", "%@curativ.com%").map{ |cur| cur.username }) : "", selected_user: '', admin_date_to_update: f.admins_date.present? ? (f.admins_date.to_f * 1000) : nil}}
     respond_to do |format|
         format.html
         format.json { render json: @forms_list.to_json }
@@ -37,12 +37,12 @@ class FormsController < ApplicationController
 
   def update_form_admin
     form = Form.find(params[:form]["id"])
-    selected_user = params[:form]["selected_user"]
+    selected_user = params[:form]["selected_user"]    
     user_id = (selected_user == "None" || selected_user == "") ? form.user_id : User.find_by_username(params[:form]["selected_user"]).id    
     if form
       form.record_timestamps=false
       form.update_attributes(:staff_picks => params[:form]["staff_picks"], :most_popular => params[:form]["most_popular"], :view_count => params[:form]["view_count"], :share_count => params[:form]["share_count"], :saved_count => params[:form]["saved_count"],
-        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "", :user_id => user_id)
+        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "", :user_id => user_id, :admins_date => params[:form]["date"].present? ? Time.at( params[:form]["date"] / 1000.0 ) : nil)
       respond_to do |format|
         format.html
         format.json { render json: {data: "OK".to_json } }
@@ -65,7 +65,7 @@ class FormsController < ApplicationController
   end
 
   def get_boards(forms)
-    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -86,7 +86,7 @@ class FormsController < ApplicationController
         #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
         @boards = get_boards(@forms)    
       else
-        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },

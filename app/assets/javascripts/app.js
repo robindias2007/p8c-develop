@@ -2361,7 +2361,12 @@ app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', 
       url: 'get_forms.json',
       params: {}
       }).then(function successCallback(response) {
-        $scope.forms = response.data;        
+        $scope.forms = response.data;
+        $scope.forms.forEach(function(element) {
+          if (element.admin_date_to_update != null) {
+            element.admin_date_to_update = new Date(element.admin_date_to_update);
+          }
+        })        
         $scope.loading_forms = false;
       }, function errorCallback(response) {
     });
@@ -2373,12 +2378,17 @@ app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', 
     get_forms();
   };
 
-  $scope.change = function (f, index) {
-    console.log(f)
+  $scope.change = function (f, index) {    
     if (f.selected_user == "None" || f.selected_user == "") {
     } else {
       f.username = f.selected_user;
     }
+    if (f.admin_date_to_update != null){
+      f.date = f.admin_date_to_update.getTime();
+      f.admins_date = f.admin_date_to_update;
+    } else {
+      f.date = null;
+    };
     $http({
       method: 'POST',
       url: '/update_form_admin.json',
