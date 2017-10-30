@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   
   get '/admin_forms' => 'forms#admin_index'
   get '/get_forms' => 'forms#get_admin_forms'
-  resources :forms, :only => [:index, :edit, :update] do
+  resources :forms, :only => [:index, :edit, :update, :destroy] do
     member do
       get "like"
       get "unlike"
