@@ -62,6 +62,32 @@ app.filter('cut', function () {
   };
 });
 
+app.filter('capitalize', function() {  
+  return function(input){
+    if(input.indexOf(' ') !== -1){
+      var inputPieces,
+          i;
+
+      input = input.toLowerCase();
+      inputPieces = input.split(' ');
+
+      for(i = 0; i < inputPieces.length; i++){
+        inputPieces[i] = capitalizeString(inputPieces[i]);
+      }
+
+      return inputPieces.toString().replace(/,/g, ' ');
+    }
+    else {
+      input = input.toLowerCase();
+      return capitalizeString(input);
+    }
+
+    function capitalizeString(inputString){
+      return inputString.substring(0,1).toUpperCase() + inputString.substring(1);
+    }
+  };
+});
+
 app.directive('ngConfirmClick', [
     function(){
         return {
@@ -2023,7 +2049,7 @@ app.controller('LikedBoardCtrl', ['$scope', '$http', '$window', '$document', 'Fl
   $scope.alert = '';
 }]);
 
-app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdDialog', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdDialog){
   $scope.init = function(user_profile, current_user, is_following, following_count, followers_count){
     $scope.is_following = is_following;
     $scope.following_count = following_count;
@@ -2031,48 +2057,45 @@ app.controller('UsersCtrl', ['$scope', '$http', '$window', '$document', 'Flickit
     $scope.location = $location.$$absUrl;
   }
 
-  $scope.get_followings = function (current_user_id, profile_user_id) {
-    $http({
-      method: 'GET',
-      url: '/user/'+ current_user_id +'/followings.json',
-      params: {user_id: profile_user_id}
-      }).then(function successCallback(response) {
-        $scope.followings = JSON.parse(response.data.followings);
-      }, function errorCallback(response) {
+  $scope.showDialog1 = function() {
+    $mdDialog.show({
+      clickOutsideToClose: true,
+      scope: $scope,        
+      preserveScope: true,
+      contentElement: '#myModal1',
+      parent: angular.element(document.body)
     });
   };
 
-  $scope.get_followers = function (current_user_id, profile_user_id) {
-    $http({
-      method: 'GET',
-      url: '/user/'+ current_user_id +'/followers.json',
-      params: {user_id: profile_user_id}
-      }).then(function successCallback(response) {
-        $scope.followers = JSON.parse(response.data.followers);
-      }, function errorCallback(response) {
+  $scope.showDialog2 = function() {
+    $mdDialog.show({
+      clickOutsideToClose: true,
+      scope: $scope,        
+      preserveScope: true,
+      contentElement: '#myModal2',
+      parent: angular.element(document.body)
     });
   };
 
-  $scope.unfollow = function(id, current_user_id) {
-    $scope.followers_count = $scope.followers_count - 1;
-    $http({
-      method: 'DELETE',
-      url: '/users/'+ id +'/follows/' + current_user_id + '.json'
-      }).then(function successCallback(response) {
-      }, function errorCallback(response) {
+  $scope.showDialog3 = function() {
+    $mdDialog.show({
+      clickOutsideToClose: true,
+      scope: $scope,        
+      preserveScope: true,
+      contentElement: '#myModal3',
+      parent: angular.element(document.body)
     });
-  }
+  };
 
-  $scope.follow = function(id, current_user_id) {
-    $scope.followers_count = $scope.followers_count + 1;
-    $http({
-      method: 'POST',
-      url: '/users/'+ id +'/follows.json',
-      params: {id: current_user_id}
-      }).then(function successCallback(response) {
-      }, function errorCallback(response) {
+  $scope.showDialog4 = function() {
+    $mdDialog.show({
+      clickOutsideToClose: true,
+      scope: $scope,        
+      preserveScope: true,
+      contentElement: '#myModal4',
+      parent: angular.element(document.body)
     });
-  }
+  };
 }]);
 
 app.controller('ShowBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
@@ -2425,4 +2448,74 @@ app.controller('AdminFormListCtrl', ['$scope', '$http', '$window', '$document', 
     });
   };
   
+}]);
+
+app.controller('getFollowersController', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
+  
+  $scope.init = function (current_user_id, profile_user_id) {
+    $http({
+      method: 'GET',
+      url: '/user/'+ current_user_id +'/followers.json',
+      params: {user_id: profile_user_id}
+      }).then(function successCallback(response) {
+        $scope.followers = JSON.parse(response.data.followers);
+      }, function errorCallback(response) {
+    });
+  };
+
+  $scope.unfollow = function(id, current_user_id) {
+    $scope.followers_count = $scope.followers_count - 1;
+    $http({
+      method: 'DELETE',
+      url: '/users/'+ id +'/follows/' + current_user_id + '.json'
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
+  }
+
+  $scope.follow = function(id, current_user_id) {
+    $scope.followers_count = $scope.followers_count + 1;
+    $http({
+      method: 'POST',
+      url: '/users/'+ id +'/follows.json',
+      params: {id: current_user_id}
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
+  }
+}]);
+
+app.controller('getFollowingsController', ['$scope', '$http', '$window', '$document', '$timeout', '$location', function($scope, $http, $window, $document, $timeout, $location){
+  
+  $scope.init = function (current_user_id, profile_user_id) {
+    $http({
+      method: 'GET',
+      url: '/user/'+ current_user_id +'/followings.json',
+      params: {user_id: profile_user_id}
+      }).then(function successCallback(response) {
+        $scope.followings = JSON.parse(response.data.followings);
+      }, function errorCallback(response) {
+    });
+  };
+
+  $scope.unfollow = function(id, current_user_id) {
+    $scope.followers_count = $scope.followers_count - 1;
+    $http({
+      method: 'DELETE',
+      url: '/users/'+ id +'/follows/' + current_user_id + '.json'
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
+  }
+
+  $scope.follow = function(id, current_user_id) {
+    $scope.followers_count = $scope.followers_count + 1;
+    $http({
+      method: 'POST',
+      url: '/users/'+ id +'/follows.json',
+      params: {id: current_user_id}
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
+  }
 }]);

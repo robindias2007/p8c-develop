@@ -29,15 +29,15 @@
         <ul class="row" bc-flickity="{{ flickityOptions }}">
           <md-card class="article-cell" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'" ng-repeat="link in board.links" > 
               <img ng-src="{{link.image}}" class="md-card-image" id="image" alt="Image" ng-if="link.image">
-              <img class="md-card-image" id="image" src="/assets/whiteimage-56971d179ae068f801bcbdd5c4db7d3cefcaeab1406897a4be57c0cdfe980450.jpg" alt="Whiteimage" ng-if="!link.image">
+              <img class="md-card-image" id="image" src="https://s3.us-east-2.amazonaws.com/thecurativ-master/whiteimage.jpg" alt="Whiteimage" ng-if="!link.image">
               <md-card-content class="link-card-title">
                 
                 <p class="md-body-2">{{link.title}}</p>
                 
               </md-card-content>
-              <md-card-actions>
+              <md-card-actions>                
                 <a href="{{link.url}}" target="_blank" id="formclick" ng-click="trackLinkClicked(board, <%= current_user.to_json %>, $index+1)">
-                <span class="md-button md-accent">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
+                <span class="md-button md-accent" ng-hide="(link.url === '')">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
               </a>
               </md-card-actions>
           </md-card>
@@ -58,7 +58,7 @@
     </md-card-avatar>
      
     <md-card-header-text>
-      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title" style="color:black">{{board.user.name}}</span></a>
+      <a href="/{{board.user.username}}/published" id="AuthorName" ng-click="boardAuthorClick(board, <%= current_user.to_json %>)"><span class="md-title" style="color:black">{{board.user.name | capitalize }}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 
