@@ -77,6 +77,17 @@ app.directive('ngConfirmClick', [
         };
 }]);
 
+app.controller('bodyCtrl', ['$scope', '$http', '$window', '$document', function($scope, $http, $window, $document){
+
+  $scope.init = function () {
+    if ($window.innerWidth < 600 ) {
+      $scope.isMobile = true;
+    } else {
+      $scope.isMobile = false;
+    }
+  };
+
+}]);
 app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
 
   $scope.init = function () {
@@ -787,6 +798,10 @@ app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'Flicki
 
       // On opening, add a delayed property which shows tooltips after the speed dial has opened
       // so that they have the proper position; if closing, immediately hide the tooltips
+      $scope.init = function () {
+
+      };
+
       $scope.$watch('isOpen', function(isOpen) {
         if (isOpen) {
           $timeout(function() {
