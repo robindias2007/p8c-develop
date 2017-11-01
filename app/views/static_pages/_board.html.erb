@@ -1,7 +1,7 @@
 <!--CARD CONTAINER -->
 
 
-<md-card class="card-margin-top" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+<md-card class="card-margin-top" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? '' : ((outerIndex%3 == 0) ? '' : 'halfBoard')">
    
   <md-card-title>
     <md-card-title-text>
@@ -20,14 +20,14 @@
 
   <md-card-content>
 
-    <div class="card-body" layout="row" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'">
+    <div class="card-body" layout="row" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? '' : ((outerIndex%3 == 0) ? '' : 'halfBoard')">
       <div flex="33" class="internal_text">
         <p class="md-body-1">{{board.dsc}}</p>
       </div>
       
-      <div class="flickity" ng-class="(outerIndex%3 == 0) ? 'flex-66' : 'flex-100'" layout="row">
+      <div class="flickity" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'flex-66' : ((outerIndex%3 == 0) ? 'flex-66' : 'flex-100')" layout="row">
         <ul class="row" bc-flickity="{{ flickityOptions }}">
-          <md-card class="article-cell" ng-class="(outerIndex%3 == 0) ? '' : 'halfBoard'" ng-repeat="link in board.links" > 
+          <md-card class="article-cell" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? '' : ((outerIndex%3 == 0) ? '' : 'halfBoard')" ng-repeat="link in board.links" > 
               <img ng-src="{{link.image}}" class="md-card-image" id="image" alt="Image" ng-if="link.image">
               <img class="md-card-image" id="image" src="https://s3.us-east-2.amazonaws.com/thecurativ-master/whiteimage.jpg" alt="Whiteimage" ng-if="!link.image">
               <md-card-content class="link-card-title">
