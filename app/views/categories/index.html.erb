@@ -9,6 +9,8 @@
                     <th>Id</th>
                     <th>Category Name</th>
                     <th>Category Weight</th>
+                    <th>Rank</th>
+                    <th>Tag</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -20,6 +22,8 @@
                     <td><%= category.id %></td>
                     <td><%= category.category_name.split('_').join(' ') %></td>
                     <td><%= category.weightage %></td>
+                    <td><%= category.rank %></td>
+                    <td><%= category.tag %></td>
                     <td><%= link_to 'Edit', edit_category_path(category) %></td>
                     <td><%= link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                           

@@ -2,13 +2,13 @@
 <% if user = current_user %>
 <md-content flex>
 	<div class="categoryheader">
-	  <h2><%= @cat_name.split('_').join(' ') %></h2>
+	  <h2><%= params[:name].split('_').join(' ') %></h2>
 	</div>
 	<script type="text/javascript">
 	    mixpanel.track("Page Viewed", {
 	      "Page Name": 'Category Page',
 	      "Username": '<%= current_user.username %>',
-	      "Category Name": '<%= @cat_name %>'
+	      "Category Name": '<%= params[:name] %>'
 	    });
 	</script>
 	<%= render 'static_pages/cat_boards'%>
