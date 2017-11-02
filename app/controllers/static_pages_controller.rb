@@ -15,11 +15,11 @@ class StaticPagesController < ApplicationController
   def get_uniq_forms_from_category(category, ids)
     @forms_uniq_ids = ids
     if @forms_uniq_ids == []
-      forms = Form.tagged_with("cat_#{category}").includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc).published.limit(3)
+      forms = Form.tagged_with("cat_#{category.downcase.split(' ').join('_')}").includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc).published.limit(3)
       @forms_uniq_ids = forms.pluck(:id)
       return forms
     else
-      forms = Form.tagged_with("cat_#{category}").includes(:user, :user_form_bookmarks, :votes).where.not(id: @forms_uniq_ids).order(created_at: :desc).published.limit(3)
+      forms = Form.tagged_with("cat_#{category.downcase.split(' ').join('_')}").includes(:user, :user_form_bookmarks, :votes).where.not(id: @forms_uniq_ids).order(created_at: :desc).published.limit(3)
       @forms_uniq_ids = @forms_uniq_ids + forms.pluck(:id)
       return forms
     end
@@ -42,7 +42,7 @@ class StaticPagesController < ApplicationController
       categories = current_user.categories_ids.reject { |c| c.empty? }      
       categories.each_with_index do |category, index|
         next if index > 2
-        cat_hash = { category: category, name: category, boards: [] }
+        cat_hash = { category: category.downcase.split(" ").join("_"), name: category, boards: [] }
         forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
         cat_hash[:boards] = get_customized_forms(forms)
         if index == 1

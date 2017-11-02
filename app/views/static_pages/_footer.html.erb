@@ -11,32 +11,45 @@
   	</section>
  		<div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak layout layout-align="center center">
 
-		  <md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
-		  <a style="" layout="row" layout layout-align="center center" href="/most_recent">
-		    <span>Most Recent</span>
-		  </a>
-		  </md-whiteframe>
+			<% category_list = Category.all.order(:rank).pluck(:category_name) %>
+			<% user_category_list = current_user.categories_ids %>
+			<% remove_3_category = user_category_list.drop(3) %>
+			<% new_category_list = (category_list - user_category_list) %>
+			<% whiteframe = (remove_3_category + new_category_list).each_with_index do |f,index| %>
+				<% next if index > 5 %>
+				<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
+			    	<a style="" layout="row" layout layout-align="center center" href='/categories/<%= f.split(' ').join('_').downcase %>'>
+			    		<span style="text-align:center;"><%= f %></span>
+			  		</a>
+			  	</md-whiteframe>
+			<% end %>
 
-		  <md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
-		    <a style="" layout="row" layout layout-align="center center" href="/most_popular">
-		    	<span>Most Popular</span>
-		  	</a>
-		  </md-whiteframe>
+			<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
+			  <a style="" layout="row" layout layout-align="center center" href="/most_recent">
+			    <span>Most Recent</span>
+			  </a>
+			</md-whiteframe>
 
-		  <md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
-		    <a style="" layout="row" layout layout-align="center center" href="/most_saved">
-		    	<span>Most Saved</span>
-		  	</a>
-		  </md-whiteframe>
+			<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
+			<a style="" layout="row" layout layout-align="center center" href="/most_popular">
+				<span>Most Popular</span>
+				</a>
+			</md-whiteframe>
 
-		  <% tren_cat = Tag.all.where("taggings_count > 0").order(taggings_count: :desc).select {|x| x.name.start_with? 'cat_'}.map{|a| a.name} %>
-		  <% tren_cat.each do |f| %>
-		  	<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
-		    	<a style="" layout="row" layout layout-align="center center" href='/categories/<%= f[4..-1] %>'>
-		    		<span><%= f[4..-1].capitalize.split('_').join(' ') %></span>
-		  		</a>
-		  	</md-whiteframe>
-      <% end %>
+			<% if whiteframe.first(5).include?("Unconventional Views") || user_category_list.first(3).include?("Unconventional Views")  %>
+				<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
+					<a style="" layout="row" layout layout-align="center center" href="/most_saved">
+						<span>Most Saved</span>
+					</a>
+				</md-whiteframe>
+			<% else %>
+				<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="20" layout layout-align="center center">
+					<a style="" layout="row" layout layout-align="center center" href="/categories/unconventional_views">
+						<span>Unconventional Views</span>
+					</a>
+				</md-whiteframe>
+			<% end %>
+
 		</div>
 	</div>
 </div>
