@@ -3,7 +3,7 @@
 <div class="boardContainer" ng-controller="AppCtrl" ng-init="init(<%= @formss %>, <%= @keys %>)">
     
   <section class="cards" layout="row" layout-wrap>
-    <div class ="repeatBoard" ng-repeat="board in category_boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
+    <div class ="repeatBoard" ng-repeat="board in category_boards"  ng-init="outerIndex=$index; boardsLength=category_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
 
       <%= render 'static_pages/board'%>
       

@@ -203,26 +203,56 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
         $scope.newFormLinks[0].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[0].url = "";
         $scope.newFormLinks[0].title = null;
+        $scope.newFormLinks[0].dsc = null;
+        $scope.newFormLinks[0].image = null;
+        $scope.newFormLinks[0].note = null;
+        $scope.newFormLinks[0].content = null;
+        $scope.newFormLinks[0].tag = null;
+        $scope.newFormLinks[0].host = null;        
         break;
       case '1':        
         $scope.newFormLinks[1].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[1].url = "";
         $scope.newFormLinks[1].title = null;
+        $scope.newFormLinks[1].dsc = null;
+        $scope.newFormLinks[1].image = null;
+        $scope.newFormLinks[1].note = null;
+        $scope.newFormLinks[1].content = null;
+        $scope.newFormLinks[1].tag = null;
+        $scope.newFormLinks[1].host = null;        
         break;
       case '2':        
         $scope.newFormLinks[2].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};        
         $scope.newFormLinks[2].url = "";
         $scope.newFormLinks[2].title = null;
+        $scope.newFormLinks[2].dsc = null;
+        $scope.newFormLinks[2].image = null;
+        $scope.newFormLinks[2].note = null;
+        $scope.newFormLinks[2].content = null;
+        $scope.newFormLinks[2].tag = null;
+        $scope.newFormLinks[2].host = null;        
         break;
       case '3':                
         $scope.newFormLinks[3].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[3].url = "";
         $scope.newFormLinks[3].title = null;
+        $scope.newFormLinks[3].dsc = null;
+        $scope.newFormLinks[3].image = null;
+        $scope.newFormLinks[3].note = null;
+        $scope.newFormLinks[3].content = null;
+        $scope.newFormLinks[3].tag = null;
+        $scope.newFormLinks[3].host = null;        
         break;
       case '4':        
         $scope.newFormLinks[4].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[4].url = "";
         $scope.newFormLinks[4].title = null;
+        $scope.newFormLinks[4].dsc = null;
+        $scope.newFormLinks[4].image = null;
+        $scope.newFormLinks[4].note = null;
+        $scope.newFormLinks[4].content = null;
+        $scope.newFormLinks[4].tag = null;
+        $scope.newFormLinks[4].host = null;        
         break;
       default:
     }
@@ -555,26 +585,56 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
         $scope.newFormLinks[0].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[0].url = "";
         $scope.newFormLinks[0].title = null;
+        $scope.newFormLinks[0].dsc = null;
+        $scope.newFormLinks[0].image = null;
+        $scope.newFormLinks[0].note = null;
+        $scope.newFormLinks[0].content = null;
+        $scope.newFormLinks[0].tag = null;
+        $scope.newFormLinks[0].host = null;        
         break;
       case '1':        
         $scope.newFormLinks[1].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[1].url = "";
         $scope.newFormLinks[1].title = null;
+        $scope.newFormLinks[1].dsc = null;
+        $scope.newFormLinks[1].image = null;
+        $scope.newFormLinks[1].note = null;
+        $scope.newFormLinks[1].content = null;
+        $scope.newFormLinks[1].tag = null;
+        $scope.newFormLinks[1].host = null;        
         break;
       case '2':        
         $scope.newFormLinks[2].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};        
         $scope.newFormLinks[2].url = "";
         $scope.newFormLinks[2].title = null;
+        $scope.newFormLinks[2].dsc = null;
+        $scope.newFormLinks[2].image = null;
+        $scope.newFormLinks[2].note = null;
+        $scope.newFormLinks[2].content = null;
+        $scope.newFormLinks[2].tag = null;
+        $scope.newFormLinks[2].host = null;        
         break;
       case '3':                
         $scope.newFormLinks[3].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[3].url = "";
         $scope.newFormLinks[3].title = null;
+        $scope.newFormLinks[3].dsc = null;
+        $scope.newFormLinks[3].image = null;
+        $scope.newFormLinks[3].note = null;
+        $scope.newFormLinks[3].content = null;
+        $scope.newFormLinks[3].tag = null;
+        $scope.newFormLinks[3].host = null;        
         break;
       case '4':        
         $scope.newFormLinks[4].show = {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false};
         $scope.newFormLinks[4].url = "";
         $scope.newFormLinks[4].title = null;
+        $scope.newFormLinks[4].dsc = null;
+        $scope.newFormLinks[4].image = null;
+        $scope.newFormLinks[4].note = null;
+        $scope.newFormLinks[4].content = null;
+        $scope.newFormLinks[4].tag = null;
+        $scope.newFormLinks[4].host = null;        
         break;
       default:
     }

@@ -327,6 +327,10 @@ span.md-button {
         flex: 1 1 100%;
     }
 
+    .fullBoard.repeatBoard > md-card {
+        flex: 1 1 100%;
+    }
+
     .fullBoard.repeatBoard {
         display:flex;
         flex: 1 1 100%;
@@ -2428,6 +2432,7 @@ a.edit-board-new-form
     width: 120px;
     height: 120px;
     border-radius: 50%;
+    object-fit: cover;
     
 }
 
@@ -2544,4 +2549,10 @@ md-sidenav, md-sidenav {
 .right-mob-header.flex-10
 {
     margin-top: 1%;
+}
+
+#followers_padding
+{
+    padding-left: 16px;
+    font-size: 17px;
 }
