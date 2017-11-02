@@ -147,8 +147,8 @@ class UsersController < ApplicationController
 
   def update_categories
     user = User.find(params[:user_id].to_i)
-    user.update_attributes(categories_ids: params[:categories])
-
+    category_order = Category.where("category_name IN (?)",params[:categories]).order(:rank).pluck(:category_name)
+    user.update_attributes(categories_ids: category_order)
     respond_to do |format|
       format.html
       format.json { render json: {status: "Updated"} }
