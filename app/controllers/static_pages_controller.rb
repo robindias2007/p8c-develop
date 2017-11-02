@@ -32,7 +32,7 @@ class StaticPagesController < ApplicationController
       @cat_boards = []
       @forms_uniq_ids = []      
 
-      staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).published.limit(3)
+      staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).published.order(updated_at: :desc).limit(3)
       staff_pick_hash = { category: "staff_picks", name: "staff picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
 
@@ -140,7 +140,7 @@ class StaticPagesController < ApplicationController
   
   def staff_picks
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).published
+    @forms = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).published.order(updated_at: :desc)
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
