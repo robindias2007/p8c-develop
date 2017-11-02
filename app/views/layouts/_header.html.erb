@@ -332,6 +332,11 @@
       <md-menu-content width="3">
         <md-menu-item>
           <md-button ng-click="" aria-label="">              
+            <a layout="row" layout-align="center center" style="width: 100%; height: 100%" md-menu-align-target href="/<%= current_user.username %>/published"><h4>My Profile</h4></a>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="" aria-label="">              
             <a layout="row" layout-align="center center" style="width: 100%; height: 100%" md-menu-align-target href="/<%= current_user.username %>/published">Published</a>
           </md-button>
         </md-menu-item>
@@ -345,6 +350,7 @@
             <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/<%= current_user.username %>/saved">Saved</a>
           </md-button>
         </md-menu-item>
+        <md-menu-divider style="background-color: rgba(0,0,0,0.11)"></md-menu-divider>
         <md-menu-item>
           <md-button>
             <a layout="row" layout-align="center center" style="width: 100%; height: 100%" href="/users/edit">Edit Profile</a>
