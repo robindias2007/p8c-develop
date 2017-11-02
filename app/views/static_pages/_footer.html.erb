@@ -12,7 +12,7 @@
  		<div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak layout layout-align="center center">
 
 			<% category_list = Category.all.order(:rank).pluck(:category_name) %>
-			<% user_category_list = current_user.categories_ids %>
+			<% user_category_list = current_user.categories_ids.reject { |c| c.empty? } %>
 			<% remove_3_category = user_category_list.drop(3) %>
 			<% new_category_list = (category_list - user_category_list) %>
 			<% whiteframe = (remove_3_category + new_category_list).each_with_index do |f,index| %>
