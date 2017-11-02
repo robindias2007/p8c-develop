@@ -137,10 +137,10 @@ ActiveRecord::Schema.define(version: 20171101141559) do
     t.string   "secure_id"
     t.string   "slug"
     t.text     "sub_header"
-    t.float    "score"
-    t.float    "extra_weight"
     t.boolean  "staff_picks"
     t.boolean  "most_popular"
+    t.float    "score"
+    t.float    "extra_weight"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
