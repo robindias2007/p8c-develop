@@ -1,7 +1,7 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
 <div class="boardContainer" ng-controller="HomeAppCtrl" ng-init="init(<%= @formss %>)">
-    <div ng-repeat="board in boards" ng-init="outerIndex=$index">
+    <div ng-repeat="board in boards | orderBy:'updated_at':true" ng-init="outerIndex=$index; boardsLength=category_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
       <%= render 'static_pages/board'%>
     </div>
 </div>

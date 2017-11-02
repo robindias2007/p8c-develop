@@ -1,6 +1,13 @@
 <md-content flex>
-
+<div class="categoryheader">
+	  <h2>Most Popular</h2>
+	</div>
 <%= render 'static_pages/cat_boards'%>
 
-
+	<script type="text/javascript">
+    mixpanel.track("Page Viewed", {
+      "Page Name": 'Most Popular',
+      "Username": '<%= current_user.username %>'    
+    });
+</script>
 </md-content>

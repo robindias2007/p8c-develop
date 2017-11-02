@@ -19,18 +19,18 @@
         </md-list-item>
         <md-list-item hide-xs>
           <% if current_user.username == @user.username %>
-            <div flex="30" ng-click="showDialog1($event)">
-              <b><%= current_user.all_following.count %></b> Following
+            <div flex="30" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>); showDialog1($event)">
+              <b>{{following_count}}</b> Following
             </div>              
-            <div flex="30" ng-click="showDialog2($event)">
-              <b><%= current_user.followers.count %></b> Followers
+            <div flex="30" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>); showDialog2($event)">
+              <b>{{followers_count}}</b> Followers
             </div>
           <% else %>
-            <div flex="30" ng-click="showDialog3($event)">
-              <b><%= @user.all_following.count %></b> Following
+            <div flex="30" ng-click="get_followings(<%= current_user.id %>, <%= @user.id%>); showDialog3($event)">
+              <b>{{following_count}}</b> Following
             </div>              
-            <div flex="30" ng-click="showDialog4($event)">
-              <b><%= @user.followers.count %></b> Followers
+            <div flex="30" ng-click="get_followers(<%= current_user.id %>, <%= @user.id%>); showDialog4($event)">
+              <b>{{followers_count}}</b> Followers
             </div>
           <% end %>
         </md-list-item>  
