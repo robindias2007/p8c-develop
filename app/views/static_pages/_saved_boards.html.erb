@@ -9,7 +9,7 @@
     .bookmark-button:focus {outline:0;}
   </style>
   <div>
-    <div ng-repeat="board in saved_boards" ng-init="outerIndex=$index">
+    <div ng-repeat="board in saved_boards | orderBy:'updated_at':true" ng-init="outerIndex=$index">
       <%= render 'static_pages/board'%>
     </div>
   </div>

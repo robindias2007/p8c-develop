@@ -5,7 +5,7 @@
   <div>
     
     <section class="cards" layout="row" layout-wrap>
-      <div class ="repeatBoard" ng-repeat="board in pub_boards" ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
+      <div class ="repeatBoard" ng-repeat="board in pub_boards | orderBy:'updated_at':true" ng-init="outerIndex=$index; boardsLength=pub_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
 
         <%= render 'static_pages/board'%>
 

@@ -15,12 +15,8 @@
           </p> 
         </md-list-item>
         <md-list-item hide-xs>
-          <div flex="30" ng-click="showDialog1($event)">
-              <b><%= current_user.all_following.count %></b> Following
-          </div>              
-          <div flex="30" ng-click="showDialog2($event)">
-            <b><%= current_user.followers.count %></b> Followers
-          </div>
+          <div flex="30" ng-click="showDialog1($event)"><b><%= current_user.all_following.count %></b> Following</div>
+          <div flex="30" ng-click="showDialog2($event)"><b><%= current_user.followers.count %></b> Followers</div>
         </md-list-item>
         <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
           <div flex="60" layout="column">
@@ -54,9 +50,8 @@
       <div layout="row" layout-xs="column">
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row" class="spacing-left">
           <div flex-xs="80" layout="row" class="following_mobile">
-            <div flex="40" ng-click="showDialog1($event)"><b><%= current_user.all_following.count %></b> Following</div>
-            <div flex="40" ng-click="showDialog2($event)"><b><%= current_user.followers.count %></b> Followers</div>
-          </div>
+            <div flex="30" ng-click="showDialog1($event)"><b><%= current_user.all_following.count %></b> Following</div>
+            <div flex="30" ng-click="showDialog2($event)"><b><%= current_user.followers.count %></b> Followers</div>
         </div>
 
         <div hide-md hide-lg hide-sm flex-xs="100" layout="row" id="fixed-padding">
@@ -174,9 +169,7 @@
       <md-tabs md-dynamic-height md-selected="1">
         <md-tab>
           <% if current_user.username == @user.username %>
-            <a href="/<%= current_user.username %>/published">Published</a></u>
-          <% else %>
-            <a href="/<%= @user.username %>/published">Published</a></u>
+            <a href="/<%= current_user.username %>/published">Published</a></u>          
           <% end %>
         </md-tab>
         <md-tab>

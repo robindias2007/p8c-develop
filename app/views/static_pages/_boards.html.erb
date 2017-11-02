@@ -31,7 +31,7 @@
         </div>
 
       <section class="cards" layout="row" layout-wrap>  
-        <div class ="repeatBoard" ng-repeat="board in cat_board.boards"  ng-init="outerIndex=$index" ng-class="(outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard'">
+        <div class ="repeatBoard" ng-repeat="board in cat_board.boards | orderBy:'updated_at':true"  ng-init="outerIndex=$index; boardsLength=category_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
           <%= render 'static_pages/board'%>  
         </div>
       </section>  
