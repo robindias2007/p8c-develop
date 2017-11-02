@@ -60,10 +60,10 @@ class StaticPagesController < ApplicationController
 
   def categories
     @home_user = true;
-    @cat_name = params[:name].downcase
+    @cat_name = "cat_" + params[:name].downcase
     @keys = ENV['FACEBOOK_KEY'].to_json
-    if Category.pluck(:category_name).include?(@cat_name)
-      @forms = Form.tagged_with("cat_#{@cat_name}").includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc).published
+    if Category.pluck(:tag).include?(@cat_name)
+      @forms = Form.tagged_with("#{@cat_name}").includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc).published
       if current_user
         @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.updated_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },

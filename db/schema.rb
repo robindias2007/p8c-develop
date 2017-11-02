@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013095325) do
+ActiveRecord::Schema.define(version: 20171101141559) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20171013095325) do
     t.datetime "updated_at",    null: false
     t.string   "category_name"
     t.integer  "weightage"
+    t.integer  "rank"
+    t.string   "tag"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -135,10 +137,10 @@ ActiveRecord::Schema.define(version: 20171013095325) do
     t.string   "secure_id"
     t.string   "slug"
     t.text     "sub_header"
-    t.boolean  "staff_picks"
-    t.boolean  "most_popular"
     t.float    "score"
     t.float    "extra_weight"
+    t.boolean  "staff_picks"
+    t.boolean  "most_popular"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"
