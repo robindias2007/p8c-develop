@@ -3,7 +3,7 @@
 <div class="boardContainer" ng-controller="SavedBoardCtrl" ng-init="init(<%= @saved_boards %>)">
   <div>
     <section class="cards" layout="row" layout-wrap>   
-      <div class ="repeatBoard" ng-repeat="board in saved_boards | orderBy:'updated_at':true" ng-init="outerIndex=$index; boardsLength=saved_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
+      <div class ="repeatBoard" ng-repeat="board in saved_boards" ng-init="outerIndex=$index; boardsLength=saved_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
         <%= render 'static_pages/board'%>
       </div>
     </section>

@@ -42,7 +42,7 @@ class FormsController < ApplicationController
     if form
       form.record_timestamps=false
       form.update_attributes(:staff_picks => params[:form]["staff_picks"], :most_popular => params[:form]["most_popular"], :view_count => params[:form]["view_count"], :share_count => params[:form]["share_count"], :saved_count => params[:form]["saved_count"],
-        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "", :user_id => user_id, :admins_date => params[:form]["date"].present? ? Time.at( params[:form]["date"] / 1000.0 ) : nil)
+        :tag_list => params[:form]["tags"].present? ? params[:form]["tags"].map{|aa| aa.values.join(",")}.join(",") : "", :user_id => user_id, :admins_date => params[:form]["date"].present? ? Time.at( params[:form]["date"] / 1000.0 ) : nil, :order_date => params[:form]["date"].present? ? Time.at( params[:form]["date"] / 1000.0 ) : form.created_at)
       respond_to do |format|
         format.html
         format.json { render json: {data: "OK".to_json } }
@@ -65,7 +65,7 @@ class FormsController < ApplicationController
   end
 
   def get_boards(forms)
-    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.created_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.order_date ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -87,7 +87,7 @@ class FormsController < ApplicationController
         @boards = get_boards(@forms)    
       else
         @skip_header = true
-        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:true, bookmark: true ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.created_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+        @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:true, bookmark: true ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.order_date ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -487,10 +487,11 @@ class FormsController < ApplicationController
     end
 
     if form.save
+      form.order_date = form.created_at
       form.slug = generate_slug(form)
       form.secure_id = generate_secure_id(form)      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
-      form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id )
+      form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id, order_date: form.order_date )
       form.save_social_image      
       respond_to do |format|
         format.html
@@ -555,9 +556,10 @@ class FormsController < ApplicationController
     end
 
     if form.save
-      form.slug = generate_slug(form)      
+      form.slug = generate_slug(form)
+      form.order_date = form.created_at      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
-      form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id )
+      form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id, order_date: form.order_date )
       form.save_social_image      
       respond_to do |format|
         format.html
@@ -641,11 +643,11 @@ class FormsController < ApplicationController
     most_popular = []
     all_forms = Form.published
     trending_list = all_forms.order('score + extra_weight DESC').limit(10).pluck(:id)
-    staff_picks_list = all_forms.where(staff_picks: true).limit(10).pluck(:id)
+    staff_picks_list = all_forms.where(staff_picks: true).order(order_date: :desc).limit(10).pluck(:id)
     most_viewed = all_forms.order(view_count: :desc).limit(10).pluck(:id)
     most_saved = all_forms.order(saved_count: :desc).limit(10).pluck(:id)
     most_liked = all_forms.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).limit(10).pluck(:id)
-    most_recent = all_forms.order(created_at: :desc).limit(10).pluck(:id)
+    most_recent = all_forms.order(order_date: :desc).limit(10).pluck(:id)
     most_shared = all_forms.order(share_count: :desc).limit(10).pluck(:id)
     most_popular = all_forms.where(most_popular:true).limit(10).pluck(:id)
 

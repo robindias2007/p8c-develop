@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def get_boards(forms)
-    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.created_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
+    forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.order_date ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @keys = ENV['FACEBOOK_KEY'].to_json
     @user = User.find_by_username(params[:id])
     @home_banner = true;
-    @forms = Form.order(created_at: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?", @user).published
+    @forms = Form.order(order_date: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?", @user).published
     #it willl show other persons published boards if you click on the usernamw or if you click on your own name it will show your own username
     #It will show only published because publish is true.
     @boards = get_boards(@forms)    
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   
   def show_saved   #show.html.erb
     if @user == current_user
-      @forms = current_user.bookmarks.includes(:user, :user_form_bookmarks, :votes)
+      @forms = current_user.bookmarks.order(order_date: :desc).includes(:user, :user_form_bookmarks, :votes)
       @boards = get_boards(@forms)
       @saved_boards = @boards.to_json
 
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   def show_drafts   #show.html.erb
   	@home_banner = true;
     if @user == current_user
-      @forms = Form.drafts.order(created_at: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
+      @forms = Form.drafts.order(order_date: :desc).includes(:user, :user_form_bookmarks, :votes).where("user_id = ?",User.find_by_username(params[:id])).where(user_id:current_user.id)
   	  @boards = get_boards(@forms)
       @draft_boards = @boards.to_json 
 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   def show_liked
     if @user != current_user
       @keys = ENV['FACEBOOK_KEY'].to_json
-      @forms = @user.get_up_voted(Form).includes(:user, :user_form_bookmarks, :votes).order(created_at: :desc)
+      @forms = @user.get_up_voted(Form).includes(:user, :user_form_bookmarks, :votes).order(order_date: :desc)
       
       @boards = get_boards(@forms)
       @liked_boards = @boards.to_json
