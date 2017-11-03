@@ -81,8 +81,7 @@ class User < ActiveRecord::Base
   def self.large_social_image_url(auth)
     if auth.provider == 'twitter'
       auth.info.image.gsub('_normal.', '_reasonably_small.')
-    elsif auth.provider == 'facebook'
-      puts "#{auth.info.image}"
+    elsif auth.provider == 'facebook'      
       "#{auth.info.image}?type=large"
     else
       auth.info.image
@@ -97,7 +96,12 @@ class User < ActiveRecord::Base
         user = User.new
         user.password = Devise.friendly_token[0, 10]
         user.email = auth.info.email
-        user.avatar = large_social_image_url(auth)
+        url_string = large_social_image_url(auth)
+        url = URI.parse(url_string)
+        res = Net::HTTP.start(url.host, url.port) {|http|
+          http.get(url_string.split('.com').last)
+        }        
+        user.avatar = res['location']
         user.name = auth.info.name
         user.username = username_from_oauth(auth)
         user.author = auth.info.description
