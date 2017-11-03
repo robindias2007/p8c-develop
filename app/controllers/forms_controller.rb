@@ -75,7 +75,7 @@ class FormsController < ApplicationController
   
   # GET /forms/1
   # GET /forms/1.json
-  def show
+  def show    
     secure_id = params[:slug_url].split("-").last
     @form = Form.find_by_secure_id(secure_id)
     if @form.present?
@@ -86,6 +86,7 @@ class FormsController < ApplicationController
         #user_id value is current_user id shows the form created by a particular user. so if i click on robins form it shows my board.
         @boards = get_boards(@forms)    
       else
+        @skip_header = true
         @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:true, bookmark: true ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.admins_date.present? ? f.admins_date : f.created_at ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
       [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
       {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },

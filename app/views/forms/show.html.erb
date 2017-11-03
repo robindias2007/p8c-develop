@@ -18,9 +18,15 @@
   <meta property="og:description" content="<%= @forms.first.description[0..200] %>"/>
 <% end %>
 
-<md-content flex>
-<%= render 'static_pages/show_board'%>
-</md-content>
+<% if current_user %>
+  <md-content flex>
+    <%= render 'static_pages/show_board'%>
+  </md-content>
+<% else %>
+  <md-content flex>
+    <%= render 'static_pages/show_open_board'%>
+  </md-content>
+<% end %>
 
 
 <script type="text/javascript">

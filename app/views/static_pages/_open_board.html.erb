@@ -1,0 +1,118 @@
+<!--CARD CONTAINER -->
+
+<md-card class="card-margin-top" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? '' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
+   
+  <md-card-title>
+    <md-card-title-text>
+      <a href="/{{board.user.username}}/{{board.slug_url}}">
+      <span class="md-headline">
+        {{board.title}}
+        </span>
+      </a> 
+
+      <span class="md-subhead">
+        {{board.sub_header}}
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+  
+
+  <md-card-content>
+
+    <div class="card-body" layout="row" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? '' : ((outerIndex%3 == 0) ? '' : 'halfBoard')">
+      <div flex="33" class="internal_text">
+        <p class="md-body-1">{{board.dsc}}</p>
+      </div>
+      
+      <div class="flickity" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'flex-66' : ((outerIndex%3 == 0) ? 'flex-66' : 'flex-100')" layout="row">
+        <ul class="row" bc-flickity="{{ flickityOptions }}">
+          <md-card class="article-cell" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? '' : ((outerIndex%3 == 0) ? '' : 'halfBoard')" ng-repeat="link in board.links" > 
+              <img ng-src="{{link.image}}" class="md-card-image" id="image" alt="Image" ng-if="link.image">
+              <img class="md-card-image" id="image" src="https://s3.us-east-2.amazonaws.com/thecurativ-master/whiteimage.jpg" alt="Whiteimage" ng-if="!link.image">
+              <md-card-content class="link-card-title">
+                
+                <p class="md-body-2">{{link.title}}</p>
+                
+              </md-card-content>
+              <md-card-actions>                
+                <a href="{{link.url}}" target="_blank" id="formclick">
+                <span class="md-button md-accent" ng-hide="(link.url === '')">{{link.host}}<i class="material-icons md-18" style="vertical-align: text-top; padding-left:8px;">open_in_new</i></span>
+              </a>
+              </md-card-actions>
+          </md-card>
+        </ul>
+      </div>
+    </div>
+  </md-card-content>
+
+
+  <md-divider></md-divider>
+
+  <md-card-header class="card-footer" layout="row" layout-align="start center">    
+    <md-card-avatar>
+      <a href="/" id="AuthorName">
+        <img ng-if="board.user_image" class="md-user-avatar" ng-src="{{board.user_image}}"/>
+        <i ng-if="!board.user_image" class="material-icons color-grey" style="font-size:40px" >account_circle</i>
+      </a>
+    </md-card-avatar>
+     
+    <md-card-header-text>
+      <a href="/"><span class="md-title" style="color:black">{{board.user.name | capitalize }}</span></a>
+      <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
+    </md-card-header-text>
+
+    <md-card-actions layout="row" layout-align="start center">
+      <md-card-icon-actions>
+        <p style="padding-top:11px;color:rgba(0,0,0,0.54);font-size:20px; margin-right:-6px;">{{board.likes}}</p>
+        <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
+          <md-icon>
+            <a id="" ng-show="board.liked" data-remote="true" href="/"><i class="material-icons">favorite</i></a>
+            <a id="" style="color:rgba(0,0,0,0.54);" ng-hide="board.liked" data-remote="true" href="/"><i class="material-icons">favorite_border</i></a>
+          </md-icon>
+        </md-button>
+        
+        <md-button class="md-icon-button" aria-label="Bookmark" style="margin: 0px">
+          <md-icon>
+            <a id="" ng-show="board.bookmark" data-remote="true" href="/"><i class="material-icons">bookmark</i></a>
+            <a id="" style="color:rgba(0,0,0,0.54);" ng-hide="board.bookmark" data-remote="true" href="/"><i class="material-icons">bookmark_border</i></a>  
+          </md-icon>
+        </md-button>
+
+        <md-menu>
+          <md-button md-menu-origin aria-label="menu" ng-click="$mdOpenMenu($event)" class="md-icon-button" ng-click="$mdOpenMenu.open($event)" style="margin:0px;">
+            <a id="" style="color:rgba(0,0,0,0.54);" data-remote="true" href=""><i class="material-icons">share</i></a>
+          </md-button>
+          <md-menu-content layout-align="center center">
+            <md-menu-item>
+              <md-button aria-label="Facebook" class="md-icon-button" layout-align="center center">
+                
+                  <a id="" target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
+                    <%= image_tag 'facebook.png', style: "width: 100%" %>
+                  </a>
+                
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Twitter" class="md-icon-button" layout-align="center center">
+                
+                  <a id="" target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
+                    <%= image_tag 'twitter.png', style: "width: 100%" %>
+                  </a>
+                
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Copy" class="md-icon-button" layout-align="center center">
+                <md-icon>
+                  <a id="" data-remote="true" href="">
+                    <i class="material-icons">link</i>
+                  </a>
+                </md-icon>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </md-card-icon-actions>
+    </md-card-actions>
+  </md-card-header>
+</md-card>
