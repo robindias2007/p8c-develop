@@ -1,15 +1,11 @@
 <%# Please make sure to update 'forms/social_image.html.erb' file if this file is updated %>
 
 <div class="boardContainer" ng-controller="PubBoardCtrl" ng-init="init(<%= @pub_boards %>, <%= @keys %>)">
-
-  <div>
-    
+  <div>    
     <section class="cards" layout="row" layout-wrap>
       <div class ="repeatBoard" ng-repeat="board in pub_boards | orderBy:'updated_at':true" ng-init="outerIndex=$index; boardsLength=pub_boards.length" ng-class="(boardsLength%3 != 0 && (boardsLength-1) == outerIndex) ? 'fullBoard' : ((outerIndex%3 == 0) ? 'fullBoard' : 'halfBoard')">
-
         <%= render 'static_pages/board'%>
-
       </div>
-  </section>
+  	</section>
   </div>
 </div>
