@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
     if auth.provider == 'twitter'
       auth.info.image.gsub('_normal.', '_reasonably_small.')
     elsif auth.provider == 'facebook'
-      "#{auth.info.image}?type=large"
+      "#{auth.info.image}?type:large"
     else
       auth.info.image
     end
