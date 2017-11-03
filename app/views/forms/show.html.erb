@@ -3,10 +3,11 @@
   
   <%# TODO: Add twitter handle as content below after creating a twitter page for Lense APP %>
   <!--<meta name="twitter:site" content="" /> -->
+  <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="<%= @forms.first.title %>"/>
   <meta name="twitter:description" content="<%= @forms.first.description[0..200] %>"/>
   <meta name="twitter:image" content="https://s3.us-east-2.amazonaws.com/thecurativ-master/thecurativ-logo.jpg"/>
-  <meta name="twitter:card" content="summary_large_image"/>
+  
   <!--<meta name="twitter:image:src" content="Lense" />-->
 
   <%# Facebook fails to scrap the meta tags from the page if we use NGROK or some tunnel to our localhost %>
