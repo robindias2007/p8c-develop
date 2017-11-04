@@ -44,8 +44,9 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
 <body ng-controller="bodyCtrl" ng-init="init()">
   <div layout="column" ng-cloak style="height:100%">
     <% if @skip_header %>
-    <% else %>
+    <% elsif current_user %>
       <%= render 'layouts/header'%>
+    <% else %>      
     <% end %>
     <%= yield %>
   </div>
