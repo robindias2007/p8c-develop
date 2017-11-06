@@ -32,11 +32,13 @@ class StaticPagesController < ApplicationController
       @cat_boards = []
       @forms_uniq_ids = []      
 
-      staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).order(order_date: :desc).published.limit(3)
+      staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).order(order_date: :desc).published.sample(3)
       staff_pick_hash = { category: "staff_picks", name: "staff picks", boards: get_customized_forms(staff_pick)}
       @cat_boards.push staff_pick_hash
 
-      trending = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("t_b").form_ids).published.limit(3)
+      form_ids = AllForm.find_by_forms_type("t_b").form_ids
+      forms_ids = Form.includes(:user, :user_form_bookmarks, :votes).where(id: form_ids).published.index_by(&:id)
+      trending = form_ids.collect {|id| forms_ids[id] }[0..2]      
       trend_hash = { category: "trending", name: "trending", boards: get_customized_forms(trending)}
 
       categories = current_user.categories_ids.reject { |c| c.empty? }      
@@ -91,7 +93,9 @@ class StaticPagesController < ApplicationController
 
   def trending
     @keys = ENV['FACEBOOK_KEY'].to_json
-    @forms = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("t_b").form_ids).published
+    form_ids = AllForm.find_by_forms_type("t_b").form_ids    
+    forms_ids = Form.includes(:user, :user_form_bookmarks, :votes).where(id: form_ids).published.index_by(&:id)    
+    @forms = form_ids.collect {|id| forms_ids[id] }    
     @boards = get_boards(@forms)
     @formss = @boards.to_json
   end
