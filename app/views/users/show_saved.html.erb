@@ -19,7 +19,7 @@
           <div flex="30" ng-click="showDialog1($event)"><b><%= current_user.all_following.count %></b> Following</div>
           <div flex="30" ng-click="showDialog2($event)"><b><%= current_user.followers.count %></b> Followers</div>
         </md-list-item>
-        <md-list-item hide-sm hide-md hide-lg layout="row" class="profile-name-img-mobile">
+        <md-list-item hide-sm hide-md hide-lg hide-xl layout="row" class="profile-name-img-mobile">
           <div flex="60" layout="column">
             <div flex="100"><h3><%= @user.name.capitalize  %></h4></div>
             <div flex="100" class="user_author_mobile">
@@ -38,7 +38,7 @@
           <div flex="5"></div>
         </md-list-item>
         <% unless @user == current_user %>
-          <md-list-item hide-md hide-lg hide-sm class="tabs-mobile-follow"  id="fixed-padding">
+          <md-list-item hide-md hide-lg hide-xl hide-sm class="tabs-mobile-follow"  id="fixed-padding">
             
             <md-button class="md-raised md-accent" ng-show="is_following" ng-click="is_following = false; unfollow(<%= @user.id%>, <%= current_user.id%>)">Following</md-button>  
             <md-button class="md-raised md-accent" ng-hide="is_following" ng-click="is_following = true; follow(<%= @user.id%>, <%= current_user.id%>);">Follow</md-button>
@@ -49,14 +49,14 @@
     </div>
     <div flex="50" flex-xs="100" class="profile-right-page" id="fixed-padding">
       <div layout="row" layout-xs="column">
-        <div hide-md hide-lg hide-sm flex-xs="100" layout="row" class="spacing-left">
+        <div hide-md hide-lg hide-xl hide-sm flex-xs="100" layout="row" class="spacing-left">
           <div flex-xs="80" layout="row" class="following_mobile">
             <div flex="40" ng-click="showDialog1($event)"><b><%= current_user.all_following.count %></b> Following</div>
             <div flex="40" ng-click="showDialog2($event)"><b><%= current_user.followers.count %></b> Followers</div>
           </div>
         </div>
 
-        <div hide-md hide-lg hide-sm flex-xs="100" layout="row" id="fixed-padding">
+        <div hide-md hide-lg hide-xl hide-sm flex-xs="100" layout="row" id="fixed-padding">
           <md-divider></md-divider>
           <div flex="100" class="spacing-left">
             <md-tabs md-dynamic-height  md-selected="2">
@@ -207,7 +207,7 @@
               <% if current_user.username == @user.username %>
                 <md-list flex>
                   <md-list-item class="md-3-line" ng-if="followings.length == 0" ng-click="null">
-                    <h3>You follows no one</h3>
+                    <h3>You follow no one</h3>
                   </md-list-item>
                 </md-list>            
                 <md-list flex>                  

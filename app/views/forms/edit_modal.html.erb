@@ -21,7 +21,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" ng-click="openModal = false">&times;</button>
-        <h4 class="new-title">New Board</h4>
+        <h4 class="new-title">Edit Board</h4>
       </div>
       <div class="modal-body">
         <md-list>
@@ -63,21 +63,7 @@
               <!-- 1st link -->
               <div flex="20" ng-repeat="link in newFormLinks track by $index">
                 <md-card>
-                  <md-card-header>
-                    <div class="header-new-form" ng-if="newFormLinks[$index].show.viewData">
-                      <!-- <a href="" ng-click="AddNoteClicked($index.toString())" style="">
-                        <i class="material-icons" style="font-size:20px">insert_comment</i>
-                      </a> -->
-                      <a href="" ng-click="backToAddLinkClick($index.toString())" class="clear-board-new-form">
-                        Delete
-                        <i class="material-icons" style="font-size:20px">clear</i>
-                      </a>
-                      <a href="" ng-click="addNewLink($index.toString())" class="edit-board-new-form">
-                        <i class="material-icons" style="font-size:20px">mode_edit</i>
-                        Edit
-                      </a>
-                    </div>  
-
+                  <md-card-header ng-hide="newFormLinks[$index].show.viewData">
                     <md-card-header-text ng-if="newFormLinks[$index].show.addLink" class="new_form_link_text">
                       <a href="" ng-click="AddLinkClicked($index.toString())">
                         <span class="md-title">
@@ -135,8 +121,23 @@
                       <span class="md-button md-accent link-text-new-form">
                         {{newFormLinks[$index].host}}
                         <i class="material-icons md-18">open_in_new</i>
-                      </span>
+                      </span>                      
                     </md-card-actions>
+                    <md-card-header>
+                      <div class="header-new-form" ng-if="newFormLinks[$index].show.viewData">
+                        <!-- <a href="" ng-click="AddNoteClicked($index.toString())" style="">
+                          <i class="material-icons" style="font-size:20px">insert_comment</i>
+                        </a> -->
+                        <a href="" ng-click="backToAddLinkClick($index.toString())" class="clear-board-new-form">
+                          Delete
+                          <i class="material-icons" style="font-size:20px">clear</i>
+                        </a>
+                        <a href="" ng-click="addNewLink($index.toString())" class="edit-board-new-form">
+                          <i class="material-icons" style="font-size:20px">mode_edit</i>
+                          Edit
+                        </a>
+                      </div>
+                    </md-card-header>
                   </div> 
                   <div ng-if="newFormLinks[$index].show.noteBox">
                     

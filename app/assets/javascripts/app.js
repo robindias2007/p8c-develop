@@ -114,7 +114,7 @@ app.controller('bodyCtrl', ['$scope', '$http', '$window', '$document', function(
   };
 
 }]);
-app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
 
   $scope.init = function () {
     $scope.formFlickityOptions = {
@@ -312,7 +312,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
           $scope.newFormLinks[0].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[0].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[0].url = url;
+          $scope.newFormLinks[0].url = data.url;
           $scope.newFormLinks[0].title = data.title;
           $scope.newFormLinks[0].image = data.image;
           $scope.newFormLinks[0].dsc = data.description;
@@ -327,7 +327,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
           $scope.newFormLinks[1].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[1].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[1].url = url;
+          $scope.newFormLinks[1].url = data.url;
           $scope.newFormLinks[1].title = data.title;
           $scope.newFormLinks[1].image = data.image;
           $scope.newFormLinks[1].dsc = data.description;
@@ -342,7 +342,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
           $scope.newFormLinks[2].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[2].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[2].url = url;
+          $scope.newFormLinks[2].url = data.url;
           $scope.newFormLinks[2].title = data.title;
           $scope.newFormLinks[2].image = data.image;
           $scope.newFormLinks[2].dsc = data.description;
@@ -357,7 +357,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
           $scope.newFormLinks[3].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[3].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[3].url = url;
+          $scope.newFormLinks[3].url = data.url;
           $scope.newFormLinks[3].title = data.title;
           $scope.newFormLinks[3].image = data.image;
           $scope.newFormLinks[3].dsc = data.description;
@@ -372,7 +372,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
           $scope.newFormLinks[4].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[4].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[4].url = url;
+          $scope.newFormLinks[4].url = data.url;
           $scope.newFormLinks[4].title = data.title;
           $scope.newFormLinks[4].image = data.image;
           $scope.newFormLinks[4].dsc = data.description;
@@ -438,6 +438,14 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     }
   };
 
+  showPublishedToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Published!').position('top right'));
+  };
+
+  showDraftToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Saved as Draft!').position('top right'));
+  };
+
   InitiateMixpanelDraftEvent = function (data, username) {
     mixpanel.track("Curate Draft", {
       "Author": username,
@@ -473,6 +481,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   }
 
   $scope.saveForm = function (user_id, text, username) {
+    $scope.checkFormValidation(true);
     $http({
       method: 'POST',
       url: 'create_form.json',
@@ -480,28 +489,34 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     }).then(function successCallback(response) {
       data = response.data;      
       if (text == "draft") {
+        showDraftToast();
         InitiateMixpanelDraftEvent(data, username);
       } else {
+        showPublishedToast();
         InitiateMixpanelPublishEvent(data, username);
       };      
     },function errorCallback(response) {
     });
   };
 
-  $scope.checkFormValidation = function () {
-    if ($scope.formTitle == '') {
+  $scope.checkFormValidation = function (value) {
+    if (value == true) {
       return true;
-    };
-    
-    if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null)) {
-      return true;
-    };
+    } else {
+      if ($scope.formTitle == '') {
+        return true;
+      };
+      
+      if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null)) {
+        return true;
+      };
 
-    return false;
+      return false;
+    }; 
   }
 }]);
 
-app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', function($scope, $http, $window, $document, FlickityService, $timeout, $location){
+app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
 
   getFormData = function (secure_id) {
     $http({
@@ -702,7 +717,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
           $scope.newFormLinks[0].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[0].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[0].url = url;
+          $scope.newFormLinks[0].url = data.url;
           $scope.newFormLinks[0].title = data.title;
           $scope.newFormLinks[0].image = data.image;
           $scope.newFormLinks[0].dsc = data.description;
@@ -717,7 +732,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
           $scope.newFormLinks[1].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[1].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[1].url = url;
+          $scope.newFormLinks[1].url = data.url;
           $scope.newFormLinks[1].title = data.title;
           $scope.newFormLinks[1].image = data.image;
           $scope.newFormLinks[1].dsc = data.description;
@@ -732,7 +747,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
           $scope.newFormLinks[2].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[2].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[2].url = url;
+          $scope.newFormLinks[2].url = data.url;
           $scope.newFormLinks[2].title = data.title;
           $scope.newFormLinks[2].image = data.image;
           $scope.newFormLinks[2].dsc = data.description;
@@ -747,7 +762,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
           $scope.newFormLinks[3].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[3].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[3].url = url;
+          $scope.newFormLinks[3].url = data.url;
           $scope.newFormLinks[3].title = data.title;
           $scope.newFormLinks[3].image = data.image;
           $scope.newFormLinks[3].dsc = data.description;
@@ -762,7 +777,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
           $scope.newFormLinks[4].show = {addLink: false, linkBox: true, loading: false, viewData: false, noteBox: false, editLinkBox: false}
           $scope.newFormLinks[4].error = "Invalid url!"
         } else {          
-          $scope.newFormLinks[4].url = url;
+          $scope.newFormLinks[4].url = data.url;
           $scope.newFormLinks[4].title = data.title;
           $scope.newFormLinks[4].image = data.image;
           $scope.newFormLinks[4].dsc = data.description;
@@ -828,6 +843,14 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     }
   };
 
+  showPublishedToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Published!').position('top right'));
+  };
+
+  showDraftToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Saved as Draft!').position('top right'));
+  };
+
   InitiateMixpanelDraftEvent = function (data, username) {
     mixpanel.track("Curate Draft", {
       "Author": username,
@@ -839,6 +862,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     host = $window.location.host;
     landingUrl = "http://" + host +"/"+ username +"/drafts";    
     $window.location.href = landingUrl;
+    showDraftToast();
   }
 
   InitiateMixpanelPublishEvent = function (data, username) {
@@ -851,35 +875,42 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
     host = $window.location.host;
     landingUrl = "http://" + host +"/"+ username +"/published";    
-    $window.location.href = landingUrl;    
+    $window.location.href = landingUrl;
+
   }
 
   $scope.updateForm = function (user_id, text, username) {
+    $scope.checkFormValidation(true);
     $http({
       method: 'POST',
       url: 'update_form.json',
       data: {secure_id: $scope.secure_id, user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc, sub_header: $scope.formSubheader}
     }).then(function successCallback(response) {
       data = response.data;
-      if (text == "draft") {
+      if (text == "draft") {        
         InitiateMixpanelDraftEvent(data, username);
       } else {
+        showPublishedToast();
         InitiateMixpanelPublishEvent(data, username);
       };        
     },function errorCallback(response) {
     });
   };
 
-  $scope.checkFormValidation = function () {
-    if ($scope.formTitle == '') {
+  $scope.checkFormValidation = function (value) {
+    if (value == true) {
       return true;
-    };
-    
-    if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null)) {
-      return true;
-    };
+    } else {
+      if ($scope.formTitle == '') {
+        return true;
+      };
+      
+      if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null)) {
+        return true;
+      };
 
-    return false;
+      return false;
+    };    
   }
 }]);
 

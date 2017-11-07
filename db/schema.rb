@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103102436) do
+ActiveRecord::Schema.define(version: 20171107090234) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -142,6 +142,11 @@ ActiveRecord::Schema.define(version: 20171103102436) do
     t.boolean  "staff_picks"
     t.boolean  "most_popular"
     t.datetime "order_date"
+    t.string   "host1"
+    t.string   "host2"
+    t.string   "host3"
+    t.string   "host4"
+    t.string   "host5"
   end
 
   add_index "forms", ["cached_votes_down"], name: "index_forms_on_cached_votes_down"

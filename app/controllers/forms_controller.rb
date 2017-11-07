@@ -25,9 +25,9 @@ class FormsController < ApplicationController
     forms = Form.order(created_at: :desc).all.includes(:user)
 
     @forms_list = forms.map {|f| {id: f.id, title: f.title, username: f.user.username, created_at: f.created_at.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p"), updated_at: f.updated_at.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p"), admins_date: f.admins_date.present? ? f.admins_date.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')).strftime("%d/%m/%Y %H:%M:%S%p") : "-",
-      title1: f.title1, host1: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, title2: f.title2, host2: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, 
-      title3: f.title3, host3: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, title4: f.titel4, host4: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, 
-      title5: f.title5, host5: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, tags: f.tag_list.map {|tag| {:text => tag}}, admin_date: nil, staff_picks: f.staff_picks, 
+      title1: f.title1, host1: f.host1, title2: f.title2, host2: f.host2,
+      title3: f.title3, host3: f.host3, title4: f.titel4, host4: f.host4,
+      title5: f.title5, host5: f.host5, tags: f.tag_list.map {|tag| {:text => tag}}, admin_date: nil, staff_picks: f.staff_picks, 
       most_popular: f.most_popular, view_count: f.view_count, share_count: f.share_count, saved_count: f.saved_count, users: (f.user.email == current_admin.email) ? (User.where("email LIKE ?", "%@curativ.com%").map{ |cur| cur.username }) : "", selected_user: '', admin_date_to_update: f.admins_date.present? ? (f.admins_date.to_f * 1000) : nil}}
     respond_to do |format|
         format.html
@@ -66,11 +66,11 @@ class FormsController < ApplicationController
 
   def get_boards(forms)
     forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:f.votes.map{|v| v.voter_id}.include?(current_user.id), bookmark: f.user_form_bookmarks.map{|u| u.user_id}.include?(current_user.id) ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.order_date ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.host1 },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.host2 },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.host3 },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.host4 },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.host5 }]}}
   end
   
   # GET /forms/1
@@ -88,11 +88,11 @@ class FormsController < ApplicationController
       else
         @skip_header = true
         @boards = @forms.map {|f| {secure_id: f.secure_id, form_url: "#{root_url}#{f.user.username}/#{f.slug_url}", slug_url: f.slug_url, id: f.id, title: f.title,liked:true, bookmark: true ,sub_header: f.sub_header ,dsc: f.description, likes: f.cached_votes_total ,updated_at: f.order_date ,user: f.user,user_image: (f.user.avatar_file_name == nil ? nil : f.user.avatar.url) ,links: 
-      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first },
-      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first }]}}
+      [{url: f.url1, title: f.title1, dsc: f.description1, image: f.image1, note: f.note1, host: f.host1 },
+      {url: f.url2, title: f.title2, dsc: f.description2, image: f.image2, note: f.note2, host: f.host2 },
+      {url: f.url3, title: f.title3, dsc: f.description3, image: f.image3, note: f.note3, host: f.host3 },
+      {url: f.url4, title: f.titel4, dsc: f.description4, image: f.image4, note: f.note4, host: f.host4 },
+      {url: f.url5, title: f.title5, dsc: f.description5, image: f.image5, note: f.note5, host: f.host5 }]}}
       end   
       @pub_boards = @boards.to_json  
     else
@@ -406,11 +406,11 @@ class FormsController < ApplicationController
       @dsc = @form.description
       @sub_header = @form.sub_header
 
-      @data = [ @form.url1.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url1, title: @form.title1, dsc: @form.description1, image: @form.image1, note: @form.note1, content: @form.content, tag: @form.tag1, host: @form.url1.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""} ,
-      @form.url2.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url2, title: @form.title2, dsc: @form.description2, image: @form.image2, note: @form.note2, content: @form.content2, tag: @form.tag2, host: @form.url2.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""} ,
-      @form.url3.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url3, title: @form.title3, dsc: @form.description3, image: @form.image3, note: @form.note3, content: @form.content3, tag: @form.tag3, host: @form.url3.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""},
-      @form.url4.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url4, title: @form.titel4, dsc: @form.description4, image: @form.image4, note: @form.note4, content: @form.content4, tag: @form.tag4, host: @form.url4.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""},
-      @form.url5.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url5, title: @form.title5, dsc: @form.description5, image: @form.image5, note: @form.note5, content: @form.content5, tag: @form.tag5, host: @form.url5.sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""}]
+      @data = [ @form.url1.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url1, title: @form.title1, dsc: @form.description1, image: @form.image1, note: @form.note1, content: @form.content, tag: @form.tag1, host: @form.host1, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""} ,
+      @form.url2.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url2, title: @form.title2, dsc: @form.description2, image: @form.image2, note: @form.note2, content: @form.content2, tag: @form.tag2, host: @form.host2, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""} ,
+      @form.url3.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url3, title: @form.title3, dsc: @form.description3, image: @form.image3, note: @form.note3, content: @form.content3, tag: @form.tag3, host: host3, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""},
+      @form.url4.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url4, title: @form.titel4, dsc: @form.description4, image: @form.image4, note: @form.note4, content: @form.content4, tag: @form.tag4, host: @form.host4, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""},
+      @form.url5.present? ? { show: {addLink: false, linkBox: false, loading: false, viewData: true, noteBox: false, editLinkBox: false} , url: @form.url5, title: @form.title5, dsc: @form.description5, image: @form.image5, note: @form.note5, content: @form.content5, tag: @form.tag5, host: @form.host5, error: ""} : { show: {addLink: true, linkBox: false, loading: false, viewData: false, noteBox: false, editLinkBox: false} , url: "", title: nil, dsc: nil, image: nil, note: nil, content: nil, tag: nil, host: nil, error: ""}]
 
       respond_to do |format|
         format.html
@@ -425,7 +425,7 @@ class FormsController < ApplicationController
     if meta == nil
       @data = meta
     else
-      @data = {url: params[:url], content:meta.content_type, title:((meta.content_type == "application/pdf") ? meta.content_type : meta.title), image:meta.images.best, description:meta.description, tags: meta.meta_tags["name"]["keywords"], host: params[:url].sub(/https?\:(\\\\|\/\/)(www.)?/,'').split('/').first} 
+      @data = {url: meta.url, content:meta.content_type, title:((meta.content_type == "application/pdf") ? meta.content_type : meta.title), image:meta.images.best, description:meta.description, tags: meta.meta_tags["name"]["keywords"], host: meta.host} 
     end          
 
     respond_to do |format|
@@ -451,6 +451,7 @@ class FormsController < ApplicationController
         form.content = f["content"] == nil ? "" : f["content"]
         form.tag1 = f["tag"] == nil ? nil : f["tag"]
         form.image1 = f["image"] == nil ? nil : f["image"]
+        form.host1 = f["host"] == nil ? nil : f["host"]
       elsif index == 1
         form.title2 = f["title"]
         form.url2 = f["url"] == nil ? "" : f["url"]
@@ -459,6 +460,7 @@ class FormsController < ApplicationController
         form.content2 = f["content"] == nil ? "" : f["content"]
         form.tag2 = f["tag"] == nil ? nil : f["tag"]
         form.image2 = f["image"] == nil ? nil : f["image"]
+        form.host2 = f["host"] == nil ? nil : f["host"]
       elsif index == 2
         form.title3 = f["title"]
         form.url3 = f["url"] == nil ? "" : f["url"]
@@ -467,6 +469,7 @@ class FormsController < ApplicationController
         form.content3 = f["content"] == nil ? "" : f["content"]
         form.tag3 = f["tag"] == nil ? nil : f["tag"]
         form.image3 = f["image"] == nil ? nil : f["image"]
+        form.host3 = f["host"] == nil ? nil : f["host"]
       elsif index == 3
         form.titel4 = f["title"]
         form.url4 = f["url"] == nil ? "" : f["url"]
@@ -475,6 +478,7 @@ class FormsController < ApplicationController
         form.content4 = f["content"] == nil ? "" : f["content"]
         form.tag4 = f["tag"] == nil ? nil : f["tag"]
         form.image4 = f["image"] == nil ? nil : f["image"]
+        form.host4 = f["host"] == nil ? nil : f["host"]
       elsif index == 4
         form.title5 = f["title"]
         form.url5 = f["url"] == nil ? "" : f["url"]
@@ -483,6 +487,7 @@ class FormsController < ApplicationController
         form.content5 = f["content"] == nil ? "" : f["content"]
         form.tag5 = f["tag"] == nil ? nil : f["tag"]
         form.image5 = f["image"] == nil ? nil : f["image"]
+        form.host5 = f["host"] == nil ? nil : f["host"]
       end
     end
 
@@ -520,6 +525,7 @@ class FormsController < ApplicationController
         form.content = f["content"] == nil ? "" : f["content"]
         form.tag1 = f["tag"] == nil ? nil : f["tag"]
         form.image1 = f["image"] == nil ? nil : f["image"]
+        form.host1 = f["host"] == nil ? nil : f["host"]
       elsif index == 1
         form.title2 = f["title"]
         form.url2 = f["url"] == nil ? "" : f["url"]
@@ -528,6 +534,7 @@ class FormsController < ApplicationController
         form.content2 = f["content"] == nil ? "" : f["content"]
         form.tag2 = f["tag"] == nil ? nil : f["tag"]
         form.image2 = f["image"] == nil ? nil : f["image"]
+        form.host2 = f["host"] == nil ? nil : f["host"]
       elsif index == 2
         form.title3 = f["title"]
         form.url3 = f["url"] == nil ? "" : f["url"]
@@ -536,6 +543,7 @@ class FormsController < ApplicationController
         form.content3 = f["content"] == nil ? "" : f["content"]
         form.tag3 = f["tag"] == nil ? nil : f["tag"]
         form.image3 = f["image"] == nil ? nil : f["image"]
+        form.host3 = f["host"] == nil ? nil : f["host"]
       elsif index == 3
         form.titel4 = f["title"]
         form.url4 = f["url"] == nil ? "" : f["url"]
@@ -544,6 +552,7 @@ class FormsController < ApplicationController
         form.content4 = f["content"] == nil ? "" : f["content"]
         form.tag4 = f["tag"] == nil ? nil : f["tag"]
         form.image4 = f["image"] == nil ? nil : f["image"]
+        form.host4 = f["host"] == nil ? nil : f["host"]
       elsif index == 4
         form.title5 = f["title"]
         form.url5 = f["url"] == nil ? "" : f["url"]
@@ -552,6 +561,7 @@ class FormsController < ApplicationController
         form.content5 = f["content"] == nil ? "" : f["content"]
         form.tag5 = f["tag"] == nil ? nil : f["tag"]
         form.image5 = f["image"] == nil ? nil : f["image"]
+        form.host5 = f["host"] == nil ? nil : f["host"]
       end
     end
 
