@@ -202,8 +202,11 @@
                   <md-list-item ng-href="/{{following.username}}/published" class="md-3-line" ng-repeat="following in followings" ng-click="null">
                     <div class="user-avatar" ng-if="!(following.image == null)" style='background-image:url("{{following.image}}")'></div>
                     <i class="material-icons color-grey" style="font-size:40px;" ng-if="(following.image == null)">account_circle</i>
-                    <p id="followers_padding">{{following.username | capitalize}}
-                    </p>
+                    <div class="md-list-item-text" layout="column">                      
+                      <p id="followers_padding">{{following.name | capitalize}}</p>
+                      <p id="followers_padding" class="follow_modal_text">@{{following.username}}
+                      </p>
+                    </div>
                     <md-button class="md-raised md-accent" ng-show="following.following" type="button" ng-click="following.following = false; unfollow(following.id, <%= current_user.id%>)" style="z-index: 1000">Following
                     </md-button>
                     <md-button class="md-raised md-accent" ng-hide="following.following" type="button" ng-click="following.following = true; follow(following.id, <%= current_user.id%>)" style="z-index: 1000">Follow
@@ -238,9 +241,12 @@
                 <md-list flex>                  
                   <md-list-item ng-href="/{{follower.username}}/published" class="md-3-line" ng-repeat="follower in followers" ng-click="null">
                     <div class="user-avatar" ng-if="!(follower.image == null)" style='background-image:url("{{follower.image}}")'></div>
-                    <i class="material-icons color-grey" style="font-size:40px;" ng-if="(follower.image == null)">account_circle</i>
-                    <p id="followers_padding">{{follower.username | capitalize}}
-                    </p>
+                    <i class="material-icons color-grey" style="font-size:40px;" ng-if="(follower.image == null)">account_circle</i>                    
+                    <div class="md-list-item-text" layout="column">                      
+                      <p id="followers_padding">{{follower.name | capitalize}}</p>
+                      <p id="followers_padding" class="follow_modal_text">@{{follower.username}}
+                      </p>
+                    </div>
                     <md-button class="md-raised md-accent" ng-show="follower.following" type="button" ng-click="follower.following = false; unfollow(follower.id, <%= current_user.id%>)" style="z-index: 1000">Following
                     </md-button>
                     <md-button class="md-raised md-accent" ng-hide="follower.following" type="button" ng-click="follower.following = true; follow(follower.id, <%= current_user.id%>)" style="z-index: 1000">Follow
@@ -276,8 +282,11 @@
                   <md-list-item ng-href="/{{following.username}}/published" class="md-3-line" ng-repeat="following in followings" ng-click="null">
                     <div class="user-avatar" ng-if="!(following.image == null)" style='background-image:url("{{following.image}}")'></div>
                     <i class="material-icons color-grey" style="font-size:40px;" ng-if="(following.image == null)">account_circle</i>
-                    <p id="followers_padding">{{following.username | capitalize}}
-                    </p>
+                    <div class="md-list-item-text" layout="column">                      
+                      <p id="followers_padding">{{following.name | capitalize}}</p>
+                      <p id="followers_padding" class="follow_modal_text">@{{following.username}}
+                      </p>
+                    </div>                    
                     <div ng-hide="following.id == <%= current_user.id %>">
                       <md-button class="md-raised md-accent" ng-show="following.following" type="button" ng-click="following.following = false; unfollow(following.id, <%= current_user.id%>)" style="z-index: 1000">Following
                       </md-button>
@@ -315,8 +324,11 @@
                   <md-list-item ng-href="/{{follower.username}}/published" class="md-3-line" ng-repeat="follower in followers" ng-click="null">
                     <div class="user-avatar" ng-if="!(follower.image == null)" style='background-image:url("{{follower.image}}")'></div>
                     <i class="material-icons color-grey" style="font-size:40px;" ng-if="(follower.image == null)">account_circle</i>
-                    <p id="followers_padding">{{follower.username | capitalize}}
-                    </p>
+                    <div class="md-list-item-text" layout="column">                      
+                      <p id="followers_padding">{{follower.name | capitalize}}</p>
+                      <p id="followers_padding" class="follow_modal_text">@{{follower.username}}
+                      </p>
+                    </div>
                     <div ng-hide="follower.id == <%= current_user.id %>">
                       <md-button class="md-raised md-accent" ng-show="follower.following" type="button" ng-click="follower.following = false; unfollow(follower.id, <%= current_user.id%>)" style="z-index: 1000">Following
                       </md-button>
