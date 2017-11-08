@@ -44,6 +44,7 @@
             </div>
           </div>
           <div flex="35">
+            <br>
             <% if @user.photo_url.present? %>
               <%= image_tag @user.photo_url, id:"profile-header", align:"top" %>
             <% else %>
