@@ -96,12 +96,16 @@ class User < ActiveRecord::Base
         user = User.new
         user.password = Devise.friendly_token[0, 10]
         user.email = auth.info.email
-        url_string = large_social_image_url(auth)
-        url = URI.parse(url_string)
-        res = Net::HTTP.start(url.host, url.port) {|http|
-          http.get(url_string.split('.com').last)
-        }        
-        user.avatar = res['location']
+        if (auth.provider == "facebook" || auth.provider == "twitter")
+          url_string = large_social_image_url(auth)
+          url = URI.parse(url_string)
+          res = Net::HTTP.start(url.host, url.port) {|http|
+            http.get(url_string.split('.com').last)
+          }        
+          user.avatar = res['location']
+        else
+          user.avatar = auth.info.image
+        end
         user.name = auth.info.name
         user.username = username_from_oauth(auth)
         user.author = auth.info.description
