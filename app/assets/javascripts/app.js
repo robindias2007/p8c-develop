@@ -448,6 +448,14 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   };
 
   InitiateMixpanelDraftEvent = function (data, username) {
+    $http({
+      method: 'POST',
+      url: '/update_form_list.json',
+      data: {}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+
     mixpanel.track("Curate Draft", {
       "Author": username,
       "Board Id": data.secure_id,
@@ -904,6 +912,14 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   };
 
   InitiateMixpanelDraftEvent = function (data, username) {
+    $http({
+      method: 'POST',
+      url: '/update_form_list.json',
+      data: {}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+
     mixpanel.track("Curate Draft", {
       "Author": username,
       "Board Id": data.secure_id,
@@ -918,6 +934,14 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   }
 
   InitiateMixpanelPublishEvent = function (data, username) {
+    $http({
+      method: 'POST',
+      url: '/update_form_list.json',
+      data: {}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+      
     mixpanel.track("Curate Completed", {
       "Author": username,
       "Board Id": data.secure_id,
