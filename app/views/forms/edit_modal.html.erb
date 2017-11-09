@@ -195,8 +195,8 @@
       <div class="modal-footer new-form-footer">
         <div class="footer-new-form">
           To edit the order of the links, simply click on the card to drag & drop.
-          <button type="button" class="btn btn-default pub-btn" ng-click="updateForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Publish</button>
-          <button type="button" class="btn btn-default draft-btn" ng-click="updateForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>          
+          <button type="button" class="btn btn-default pub-btn" ng-click="updateForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>', $event)" ng-disabled="checkFormValidation()">Publish</button>
+          <button type="button" class="btn btn-default draft-btn" ng-click="updateForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>', $event)" ng-disabled="checkFormValidation()">Draft</button>          
         </div>
       </div>
     </div>
