@@ -508,27 +508,19 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
 
   showPublishConfirm = function (data, username, ev) {
     $scope.url = data.slug
-    copy_string = "<md-button aria-label='Copy' class='md-fab md-ink-ripple md-button md-accent' style='width: 40px; height: 40px' ng-click='copyToClipboard("+"\""+$scope.url+"\""+")'><a data-remote='true'><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Copy link</md-tooltip><md-icon style='vertical-align: baseline !important'><i class='material-icons' style='color: white'>link</i></md-icon></a></md-button>"
-    fb_string = "<md-button aria-label='Facebook' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 0px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://www.facebook.com/dialog/share?app_id="+$scope.facebook_key+"&display=popup&href="+$scope.url+"\""+"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Facebook</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/facebook.png' alt='Facebook'></a></md-button>"
-    twitter_string = "<md-button aria-label='Tweeter' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 0px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://twitter.com/intent/tweet?url=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Twitter</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/twitter.png' alt='Twitter'></a></md-button>"
+    div_string = "<div style='text-align: center'><md-button aria-label='Copy' class='md-fab md-ink-ripple md-button md-accent' style='width: 40px; height: 40px' ng-click='copyToClipboard("+"\""+$scope.url+"\""+")'><a data-remote='true'><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Copy link</md-tooltip><md-icon style='vertical-align: baseline !important'><i class='material-icons' style='color: white'>link</i></md-icon></a></md-button><md-button aria-label='Facebook' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://www.facebook.com/dialog/share?app_id=" + $scope.facebook_key + "&display=popup&href=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Facebook</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/facebook.png' alt='Facebook'></a></md-button><md-button aria-label='Tweeter' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://twitter.com/intent/tweet?url=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Twitter</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/twitter.png' alt='Twitter'></a></md-button></div>"    
     confirm = $mdDialog.confirm({
       onComplete: function afterShowAnimation() {
-            var $dialog = angular.element(document.querySelector('md-dialog'));
-            var fbButton = angular.element(fb_string);
-            var tweeterButton = angular.element(twitter_string);
-            var copyButton = angular.element(copy_string);
-            fbutton = $compile(fbButton)($scope);
-            tbutton = $compile(tweeterButton)($scope);
-            cbutton = $compile(copyButton)($scope);
-            var $actionsSection = $dialog.find('md-dialog-actions');
-            var $cancelButton = $actionsSection.children()[0];
+            var $dialog = angular.element(document.querySelector('md-dialog'));            
+            var div = angular.element(div_string);
+            divblock = $compile(div)($scope);            
+            var $actionsSection = $dialog.find('md-dialog-content');
+            var $actionsButtonSection = $dialog.find('md-dialog-actions');
+            var $cancelButton = $actionsButtonSection.children()[0];
             $cancelButton.remove();
-            $actionsSection.append(cbutton);
-            $actionsSection.append(tbutton);
-            $actionsSection.append(fbutton);
-            
-            var $confirmButton = $actionsSection.children()[0];
-            angular.element($confirmButton).addClass('md-raised md-accent');
+            $actionsSection.append(divblock);            
+            var $confirmButton = $actionsButtonSection.children()[0];
+            angular.element($confirmButton).addClass('md-raised');
         }
     }).title('You have successfully Published your board!').textContent('Share your board with others or Go to Publish page.').ariaLabel('Lucky day').targetEvent(ev).ok('Finish').cancel('Share!');
     $mdDialog.show(confirm).then(function() {
@@ -941,7 +933,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
       }).then(function successCallback(response) {        
       }, function errorCallback(response) {
     });
-      
+
     mixpanel.track("Curate Completed", {
       "Author": username,
       "Board Id": data.secure_id,
@@ -974,27 +966,19 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
   showPublishConfirm = function (data, username, ev) {
     $scope.url = data.slug
-    copy_string = "<md-button aria-label='Copy' class='md-fab md-ink-ripple md-button md-accent' style='width: 40px; height: 40px' ng-click='copyToClipboard("+"\""+$scope.url+"\""+")'><a data-remote='true'><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Copy link</md-tooltip><md-icon style='vertical-align: baseline !important'><i class='material-icons' style='color: white'>link</i></md-icon></a></md-button>"
-    fb_string = "<md-button aria-label='Facebook' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 0px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://www.facebook.com/dialog/share?app_id=" + $scope.facebook_key + "&display=popup&href=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Facebook</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/facebook.png' alt='Facebook'></a></md-button>"
-    twitter_string = "<md-button aria-label='Tweeter' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 0px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://twitter.com/intent/tweet?url=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Twitter</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/twitter.png' alt='Twitter'></a></md-button>"
+    div_string = "<div style='text-align: center'><md-button aria-label='Copy' class='md-fab md-ink-ripple md-button md-accent' style='width: 40px; height: 40px' ng-click='copyToClipboard("+"\""+$scope.url+"\""+")'><a data-remote='true'><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Copy link</md-tooltip><md-icon style='vertical-align: baseline !important'><i class='material-icons' style='color: white'>link</i></md-icon></a></md-button><md-button aria-label='Facebook' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://www.facebook.com/dialog/share?app_id=" + $scope.facebook_key + "&display=popup&href=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Facebook</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/facebook.png' alt='Facebook'></a></md-button><md-button aria-label='Tweeter' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://twitter.com/intent/tweet?url=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Twitter</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/twitter.png' alt='Twitter'></a></md-button></div>"    
     confirm = $mdDialog.confirm({
       onComplete: function afterShowAnimation() {
-            var $dialog = angular.element(document.querySelector('md-dialog'));
-            var fbButton = angular.element(fb_string);
-            var tweeterButton = angular.element(twitter_string);
-            var copyButton = angular.element(copy_string);
-            fbutton = $compile(fbButton)($scope);
-            tbutton = $compile(tweeterButton)($scope);
-            cbutton = $compile(copyButton)($scope);
-            var $actionsSection = $dialog.find('md-dialog-actions');
-            var $cancelButton = $actionsSection.children()[0];
+            var $dialog = angular.element(document.querySelector('md-dialog'));            
+            var div = angular.element(div_string);
+            divblock = $compile(div)($scope);            
+            var $actionsSection = $dialog.find('md-dialog-content');
+            var $actionsButtonSection = $dialog.find('md-dialog-actions');
+            var $cancelButton = $actionsButtonSection.children()[0];
             $cancelButton.remove();
-            $actionsSection.append(cbutton);
-            $actionsSection.append(tbutton);
-            $actionsSection.append(fbutton);
-            
-            var $confirmButton = $actionsSection.children()[0];
-            angular.element($confirmButton).addClass('md-raised md-accent');
+            $actionsSection.append(divblock);            
+            var $confirmButton = $actionsButtonSection.children()[0];
+            angular.element($confirmButton).addClass('md-raised');
         }
     }).title('You have successfully Published your board!').textContent('Share your board with others or Go to Publish page.').ariaLabel('Lucky day').targetEvent(ev).ok('Finish').cancel('Share!');
     $mdDialog.show(confirm).then(function() {
