@@ -199,7 +199,7 @@
           <br hide-md hide-lg hide-sm>
           <br hide-md hide-lg hide-sm>
           <button type="button" class="btn btn-default pub-btn" ng-click="saveForm(<%= current_user.id %>, 'publish', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Publish</button>
-          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkFormValidation()">Draft</button>          
+          <button type="button" class="btn btn-default draft-btn" ng-click="saveForm(<%= current_user.id %>, 'draft', '<%= current_user.username %>')" ng-disabled="checkDraftValidation()">Draft</button>          
         </div>
       </div>
     </div>

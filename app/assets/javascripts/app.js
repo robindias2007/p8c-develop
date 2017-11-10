@@ -482,6 +482,7 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
 
   $scope.saveForm = function (user_id, text, username) {
     $scope.checkFormValidation(true);
+    $scope.checkDraftValidation(true);
     $http({
       method: 'POST',
       url: 'create_form.json',
@@ -513,7 +514,19 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
 
       return false;
     }; 
-  }
+  };
+
+  $scope.checkDraftValidation = function (value) {
+    if (value == true) {
+      return true;
+    } else {      
+      if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null) && ($scope.formTitle == '')) {
+        return true;
+      };
+
+      return false;
+    }; 
+  };
 }]);
 
 app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
@@ -881,6 +894,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
   $scope.updateForm = function (user_id, text, username) {
     $scope.checkFormValidation(true);
+    $scope.checkDraftValidation(true);
     $http({
       method: 'POST',
       url: 'update_form.json',
@@ -911,7 +925,19 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
       return false;
     };    
-  }
+  };
+
+  $scope.checkDraftValidation = function (value) {
+    if (value == true) {
+      return true;
+    } else {      
+      if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null) && ($scope.formTitle == '')) {
+        return true;
+      };
+
+      return false;
+    }; 
+  };
 }]);
 
 app.controller('headerCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdDialog', '$mdSidenav', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdDialog, $mdSidenav){
