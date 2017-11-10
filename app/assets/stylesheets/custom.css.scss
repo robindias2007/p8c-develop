@@ -109,7 +109,7 @@ body .md-select-menu-container{
 body md-dialog {
     z-index: 1001;
     background: white;
-    top: 50px;
+    top: -50px;
 }
 
 
@@ -2567,4 +2567,28 @@ md-sidenav, md-sidenav {
 .follow_modal_text {
     font-size: 14px !important; 
     margin-top: -6px !important;
+}
+
+md-backdrop.md-dialog-backdrop {
+    z-index: 1052 !important;
+}
+
+.md-dialog-container {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1053 !important;
+    overflow: hidden;
+}
+
+md-toast {
+    z-index: 1053 !important;
 }

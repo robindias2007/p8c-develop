@@ -114,9 +114,10 @@ app.controller('bodyCtrl', ['$scope', '$http', '$window', '$document', function(
   };
 
 }]);
-app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
+app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', '$mdDialog', '$compile', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast, $mdDialog, $compile){
 
   $scope.init = function () {
+    $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
     $scope.formFlickityOptions = {
       cellSelector: '.form-article-cell',
       prevNextButtons: true,
@@ -447,6 +448,14 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
   };
 
   InitiateMixpanelDraftEvent = function (data, username) {
+    $http({
+      method: 'POST',
+      url: '/update_form_list.json',
+      data: {}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+
     mixpanel.track("Curate Draft", {
       "Author": username,
       "Board Id": data.secure_id,
@@ -480,7 +489,49 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     $window.location.href = landingUrl;    
   }
 
-  $scope.saveForm = function (user_id, text, username) {
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').theme("success-toast").position('top right'));
+  };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent =link;
+    var body = document.getElementById('createFormModal');
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand("copy");
+    body.removeChild(copyElement);
+    showSimpleToast();   
+  };
+
+  showPublishConfirm = function (data, username, ev) {
+    $scope.url = data.slug
+    div_string = "<div style='text-align: center'><md-button aria-label='Copy' class='md-fab md-ink-ripple md-button md-accent' style='width: 40px; height: 40px' ng-click='copyToClipboard("+"\""+$scope.url+"\""+")'><a data-remote='true'><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Copy link</md-tooltip><md-icon style='vertical-align: baseline !important'><i class='material-icons' style='color: white'>link</i></md-icon></a></md-button><md-button aria-label='Facebook' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://www.facebook.com/dialog/share?app_id=" + $scope.facebook_key + "&display=popup&href=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Facebook</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/facebook.png' alt='Facebook'></a></md-button><md-button aria-label='Tweeter' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://twitter.com/intent/tweet?url=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Twitter</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/twitter.png' alt='Twitter'></a></md-button></div>"    
+    confirm = $mdDialog.confirm({
+      onComplete: function afterShowAnimation() {
+            var $dialog = angular.element(document.querySelector('md-dialog'));            
+            var div = angular.element(div_string);
+            divblock = $compile(div)($scope);            
+            var $actionsSection = $dialog.find('md-dialog-content');
+            var $actionsButtonSection = $dialog.find('md-dialog-actions');
+            var $cancelButton = $actionsButtonSection.children()[0];
+            $cancelButton.remove();
+            $actionsSection.append(divblock);            
+            var $confirmButton = $actionsButtonSection.children()[0];
+            angular.element($confirmButton).addClass('md-raised');
+        }
+    }).title('You have successfully Published your board!').textContent('Share your board with others or Go to Publish page.').ariaLabel('Lucky day').targetEvent(ev).ok('Finish').cancel('Share!');
+    $mdDialog.show(confirm).then(function() {
+      InitiateMixpanelPublishEvent(JSON.parse(data.data), username);
+    }, function() {
+      InitiateMixpanelPublishEvent(JSON.parse(data.data), username);
+    });        
+  };
+
+
+  $scope.saveForm = function (user_id, text, username, ev) {
     $scope.checkFormValidation(true);
     $scope.checkDraftValidation(true);
     $http({
@@ -488,13 +539,13 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
       url: 'create_form.json',
       data: {user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc, sub_header: $scope.formSubheader}
     }).then(function successCallback(response) {
-      data = response.data;      
+      data = response.data;
+      $scope.facebook_key = data.key      
       if (text == "draft") {
         showDraftToast();
-        InitiateMixpanelDraftEvent(data, username);
+        InitiateMixpanelDraftEvent(JSON.parse(data.data), username);
       } else {
-        showPublishedToast();
-        InitiateMixpanelPublishEvent(data, username);
+        showPublishConfirm(data, username, ev);        
       };      
     },function errorCallback(response) {
     });
@@ -506,12 +557,10 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
     } else {
       if ($scope.formTitle == '') {
         return true;
-      };
-      
+      };      
       if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null)) {
         return true;
       };
-
       return false;
     }; 
   };
@@ -523,13 +572,12 @@ app.controller('newFormCtrl', ['$scope', '$http', '$window', '$document', 'Flick
       if (($scope.newFormLinks[0].title == null) && ($scope.newFormLinks[1].title == null) && ($scope.newFormLinks[2].title == null) && ($scope.newFormLinks[3].title == null) && ($scope.newFormLinks[4].title == null) && ($scope.formTitle == '')) {
         return true;
       };
-
       return false;
     }; 
   };
 }]);
 
-app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
+app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', '$mdDialog', '$compile', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast, $mdDialog, $compile){
 
   getFormData = function (secure_id) {
     $http({
@@ -549,6 +597,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
     $scope.formDsc = '';
     $scope.formSubheader = '';
     $scope.secure_id = secure_id;
+    $scope.location = $location.$$protocol + "://" + $location.$$host + "/";
     getFormData(secure_id);
   };
 
@@ -865,6 +914,14 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   };
 
   InitiateMixpanelDraftEvent = function (data, username) {
+    $http({
+      method: 'POST',
+      url: '/update_form_list.json',
+      data: {}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+
     mixpanel.track("Curate Draft", {
       "Author": username,
       "Board Id": data.secure_id,
@@ -879,6 +936,14 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
   }
 
   InitiateMixpanelPublishEvent = function (data, username) {
+    $http({
+      method: 'POST',
+      url: '/update_form_list.json',
+      data: {}
+      }).then(function successCallback(response) {        
+      }, function errorCallback(response) {
+    });
+
     mixpanel.track("Curate Completed", {
       "Author": username,
       "Board Id": data.secure_id,
@@ -892,7 +957,48 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
 
   }
 
-  $scope.updateForm = function (user_id, text, username) {
+  showSimpleToast = function() {
+    $mdToast.show($mdToast.simple().textContent('Link Copied!').theme("success-toast").position('top right'));
+  };
+
+  $scope.copyToClipboard = function (link) {
+    var copyElement = document.createElement("textarea");
+    copyElement.style.position = 'fixed';
+    copyElement.style.opacity = '0';
+    copyElement.textContent =link;
+    var body = document.getElementById('editFormModal');
+    body.appendChild(copyElement);
+    copyElement.select();
+    document.execCommand("copy");
+    body.removeChild(copyElement);
+    showSimpleToast();   
+  };
+
+  showPublishConfirm = function (data, username, ev) {
+    $scope.url = data.slug
+    div_string = "<div style='text-align: center'><md-button aria-label='Copy' class='md-fab md-ink-ripple md-button md-accent' style='width: 40px; height: 40px' ng-click='copyToClipboard("+"\""+$scope.url+"\""+")'><a data-remote='true'><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Copy link</md-tooltip><md-icon style='vertical-align: baseline !important'><i class='material-icons' style='color: white'>link</i></md-icon></a></md-button><md-button aria-label='Facebook' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://www.facebook.com/dialog/share?app_id=" + $scope.facebook_key + "&display=popup&href=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Facebook</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/facebook.png' alt='Facebook'></a></md-button><md-button aria-label='Tweeter' class='md-icon-button' layout-align='center center' style='padding: 0px !important; margin: 0px 10px 0px 10px !important'><a target='_blank' ng-click='' href="+ "\""+ "https://twitter.com/intent/tweet?url=" + $scope.url + "\"" +"><md-tooltip class='custom-tooltip' md-delay='0' md-direction='top' style='z-index: 1054'>Twitter</md-tooltip><img style='width: 100%' src='https://s3.us-east-2.amazonaws.com/thecurativ-master/twitter.png' alt='Twitter'></a></md-button></div>"    
+    confirm = $mdDialog.confirm({
+      onComplete: function afterShowAnimation() {
+            var $dialog = angular.element(document.querySelector('md-dialog'));            
+            var div = angular.element(div_string);
+            divblock = $compile(div)($scope);            
+            var $actionsSection = $dialog.find('md-dialog-content');
+            var $actionsButtonSection = $dialog.find('md-dialog-actions');
+            var $cancelButton = $actionsButtonSection.children()[0];
+            $cancelButton.remove();
+            $actionsSection.append(divblock);            
+            var $confirmButton = $actionsButtonSection.children()[0];
+            angular.element($confirmButton).addClass('md-raised');
+        }
+    }).title('You have successfully Published your board!').textContent('Share your board with others or Go to Publish page.').ariaLabel('Lucky day').targetEvent(ev).ok('Finish').cancel('Share!');
+    $mdDialog.show(confirm).then(function() {
+      InitiateMixpanelPublishEvent(JSON.parse(data.data), username);
+    }, function() {
+      InitiateMixpanelPublishEvent(JSON.parse(data.data), username);
+    });        
+  };
+
+  $scope.updateForm = function (user_id, text, username, ev) {
     $scope.checkFormValidation(true);
     $scope.checkDraftValidation(true);
     $http({
@@ -901,11 +1007,11 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
       data: {secure_id: $scope.secure_id, user_id: user_id, text: text, forms: $scope.newFormLinks, title: $scope.formTitle, dsc: $scope.formDsc, sub_header: $scope.formSubheader}
     }).then(function successCallback(response) {
       data = response.data;
+      $scope.facebook_key = data.key
       if (text == "draft") {        
-        InitiateMixpanelDraftEvent(data, username);
+        InitiateMixpanelDraftEvent(JSON.parse(data.data), username);
       } else {
-        showPublishedToast();
-        InitiateMixpanelPublishEvent(data, username);
+        showPublishConfirm(data, username, ev)
       };        
     },function errorCallback(response) {
     });

@@ -500,7 +500,7 @@ class FormsController < ApplicationController
       form.save_social_image      
       respond_to do |format|
         format.html
-        format.json { render json: form.to_json }
+        format.json { render json: {data: form.to_json, username: form.user.username, slug: "#{root_url}#{form.user.username}/#{form.slug_url}", key: "#{ENV['FACEBOOK_KEY']}"} }
       end
     else
       respond_to do |format|
@@ -573,7 +573,7 @@ class FormsController < ApplicationController
       form.save_social_image      
       respond_to do |format|
         format.html
-        format.json { render json: form.to_json }
+        format.json { render json: {data: form.to_json, username: form.user.username, slug: "#{root_url}#{form.user.username}/#{form.slug_url}", key: "#{ENV['FACEBOOK_KEY']}"} }
       end
     else
       respond_to do |format|
