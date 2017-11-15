@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109707538-1"></script>
+  <script>
+    var productionHost = 'www.thecurativ.com'; /* www.mixpanel.com */
+  
+    if (window.location.hostname.toLowerCase() == productionHost) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-109707538-1');
+    };    
+  </script>
+
   <title>The Curativ {Working Title}</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
