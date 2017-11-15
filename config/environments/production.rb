@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.static_cache_control = "public, s-maxage=31536000, maxage=15552000"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
