@@ -19,10 +19,13 @@
 //= require flickity
 //= require angular-flickity
 //= require ng-infinite-scroll.min
+//= require ng-tags-input.min
+//= require sortable.min
+//= require angular-animate.min
+//= require angular-aria.min
+//= require angular-messages.min
+//= require angular-material.min
 //= require_tree .
-//= require bootstrap-tagsinput
-//= require moment
-//= require bootstrap-datetimepicker
 
 
 

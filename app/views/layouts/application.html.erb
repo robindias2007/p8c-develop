@@ -45,15 +45,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
 </script>
 <!-- end Mixpanel -->
   <meta property="fb:app_id" content="<%= ENV['FACEBOOK_KEY'] %>" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i" rel="stylesheet">
   <%= favicon_link_tag 'thecurativ-favicon.png'%>
-  <link rel="stylesheet" href="https://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
-  <script src="https://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
 </head>
 <body ng-controller="bodyCtrl" ng-init="init()">
   <div layout="column" ng-cloak style="height:100%">
@@ -64,16 +56,5 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
     <% end %>
     <%= yield %>
   </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.17.2/sortable.min.js"></script>
-<!-- Angular Material requires Angular.js Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
-<!-- Angular Material Library -->
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-
-
-
 </body>
 </html>
