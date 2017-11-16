@@ -221,7 +221,7 @@
                       </p>
                     </div>
                     <div ng-hide="following.id == <%= current_user.id %>">
-                      <md-button class="md-raised md-accent" ng-show="following.following" type="button" ng-click="following.following = false; unfollow(following.id, <%= current_user.id%>)" style="z-index: 1000">Following
+                      <md-button class="md-raised md-grey" ng-show="following.following" type="button" ng-click="following.following = false; unfollow(following.id, <%= current_user.id%>)" style="z-index: 1000;background:#d3d3d3;">Following
                       </md-button>
                       <md-button class="md-raised md-accent" ng-hide="following.following" type="button" ng-click="following.following = true; follow(following.id, <%= current_user.id%>)" style="z-index: 1000">Follow
                       </md-button>
@@ -263,7 +263,7 @@
                       </p>
                     </div>
                     <div ng-hide="follower.id == <%= current_user.id %>">
-                      <md-button class="md-raised md-accent" ng-show="follower.following" type="button" ng-click="follower.following = false; unfollow(follower.id, <%= current_user.id%>)" style="z-index: 1000">Following
+                      <md-button class="md-raised md-grey" ng-show="follower.following" type="button" ng-click="follower.following = false; unfollow(follower.id, <%= current_user.id%>)" style="z-index: 1000;background:#d3d3d3;">Following
                       </md-button>
                       <md-button class="md-raised md-accent" ng-hide="follower.following" type="button" ng-click="follower.following = true; follow(follower.id, <%= current_user.id%>)" style="z-index: 1000">Follow
                       </md-button>
