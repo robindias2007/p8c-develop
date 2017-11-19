@@ -523,7 +523,7 @@ class FormsController < ApplicationController
       form.secure_id = generate_secure_id(form)      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
       form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id, order_date: form.order_date )
-      #form.save_social_image      
+      form.save_social_image      
       respond_to do |format|
         format.html
         format.json { render json: {data: form.to_json, username: form.user.username, slug: "#{root_url}#{form.user.username}/#{form.slug_url}", key: "#{ENV['FACEBOOK_KEY']}"} }
@@ -596,7 +596,7 @@ class FormsController < ApplicationController
       form.order_date = form.created_at      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
       form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id, order_date: form.order_date )
-      #form.save_social_image      
+      form.save_social_image      
       respond_to do |format|
         format.html
         format.json { render json: {data: form.to_json, username: form.user.username, slug: "#{root_url}#{form.user.username}/#{form.slug_url}", key: "#{ENV['FACEBOOK_KEY']}"} }
