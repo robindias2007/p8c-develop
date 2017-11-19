@@ -15,16 +15,24 @@
       <div class="modal-body">
         <ul class="nav nav-tabs sign_in_up_tabs" role="tablist" style="margin-bottom: 15px;">
           <li role="presentation" class="active">
-            <a class href="#sign_in" aria-controls="sign_in" role="tab" data-toggle="tab">Sign In</a>
+            <a href="#sign_up" aria-controls="sign_up" role="tab" data-toggle="tab">Sign Up</a>
           </li>
           <li role="presentation">
-            <a href="#sign_up" aria-controls="sign_up" role="tab" data-toggle="tab">Sign Up</a>
-          </li>          
+            <a class href="#sign_in" aria-controls="sign_in" role="tab" data-toggle="tab">Sign In</a>
+          </li>
         </ul>
 
         <!-- Tab panes -->
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="sign_in">
+        <div class="tab-content">          
+          <div role="tabpanel" class="tab-pane active" id="sign_up">
+            <div class="sign-up-title">
+              <br>
+            </div>
+            <div class="" id="sign-up-form">
+              <%= render partial: "users/registrations/sign_up_form" %>
+            </div>    
+          </div>
+          <div role="tabpanel" class="tab-pane" id="sign_in">
             <div class="sign-up-title">
               <br>
             </div>
@@ -32,14 +40,6 @@
               <div id="errorMsg" class="invalid-sign-in text-center"></div>
             </div>
             <%= render partial: "users/sessions/sign_in_form" %>    
-          </div>
-          <div role="tabpanel" class="tab-pane" id="sign_up">
-            <div class="sign-up-title">
-              <br>
-            </div>
-            <div class="" id="sign-up-form">
-              <%= render partial: "users/registrations/sign_up_form" %>
-            </div>    
           </div>          
         </div>
         

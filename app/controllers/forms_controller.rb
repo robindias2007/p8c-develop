@@ -55,9 +55,34 @@ class FormsController < ApplicationController
     end
   end
 
+  def update_list
+    trending_list = []
+    staff_picks_list = []
+    most_viewed = []
+    most_saved = []
+    most_liked = []
+    most_recent = []
+    most_shared = []
+    most_popular = []
+    all_forms = Form.published
+    trending_list = all_forms.order('score + extra_weight DESC').limit(10).pluck(:id)
+    staff_picks_list = all_forms.where(staff_picks: true).order(order_date: :desc).limit(10).pluck(:id)
+    most_viewed = all_forms.order(view_count: :desc).limit(10).pluck(:id)
+    most_saved = all_forms.order(saved_count: :desc).limit(10).pluck(:id)
+    most_liked = all_forms.where("cached_votes_total > ?", 0).order(cached_votes_total: :desc).limit(10).pluck(:id)
+    most_recent = all_forms.order(order_date: :desc).limit(10).pluck(:id)
+    most_shared = all_forms.order(share_count: :desc).limit(10).pluck(:id)
+    most_popular = all_forms.where(most_popular:true).limit(10).pluck(:id)
+
+    list = { 1 => { "form_ids" => trending_list }, 2 => { "form_ids" => staff_picks_list }, 3 => { "form_ids" => most_viewed }, 
+    4 => { "form_ids" => most_saved }, 5 => { "form_ids" => most_liked }, 6 => { "form_ids" => most_recent }, 7 => { "form_ids" => most_shared }, 8 => { "form_ids" => most_popular } }
+    form_list = AllForm.update(list.keys, list.values)
+  end
+
   def delete_form
     form = Form.find(params[:form_id])
     form.destroy
+    update_list
     respond_to do |format|
       format.html
       format.json { render json: "Deleted" }
@@ -326,6 +351,7 @@ class FormsController < ApplicationController
     # destroy is method to delete a form.
 
     @form.destroy
+    update_list
     respond_to do |format|
       format.html { redirect_to "/#{current_user.username}/published", notice: 'Form was successfully destroyed.' }
       format.json { head :no_content }
@@ -425,7 +451,7 @@ class FormsController < ApplicationController
     if meta == nil
       @data = meta
     else
-      @data = {url: meta.url, content:meta.content_type, title:((meta.content_type == "application/pdf") ? ((meta.title == "") ? "PDF Doc" : meta.title ) : meta.title), image:((meta.content_type == "application/pdf") ? "https://s3.us-east-2.amazonaws.com/thecurativ-master/pdf_image.png" : meta.images.best ) , description:meta.description, tags: meta.meta_tags["name"]["keywords"], host: meta.host} 
+      @data = {url: meta.url, content:meta.content_type, title:((meta.content_type == "application/pdf") ? ((meta.title == "") ? "PDF Document" : meta.title ) : meta.title), image:((meta.content_type == "application/pdf") ? "https://s3.us-east-2.amazonaws.com/thecurativ-master/pdf_image_small.png" : meta.images.best ) , description:meta.description, tags: meta.meta_tags["name"]["keywords"], host: meta.host} 
     end          
 
     respond_to do |format|
@@ -497,7 +523,7 @@ class FormsController < ApplicationController
       form.secure_id = generate_secure_id(form)      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
       form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id, order_date: form.order_date )
-      form.save_social_image      
+      #form.save_social_image      
       respond_to do |format|
         format.html
         format.json { render json: {data: form.to_json, username: form.user.username, slug: "#{root_url}#{form.user.username}/#{form.slug_url}", key: "#{ENV['FACEBOOK_KEY']}"} }
@@ -570,7 +596,7 @@ class FormsController < ApplicationController
       form.order_date = form.created_at      
       tags = form.tag1.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag2.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag3.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag4.to_s.tr('[""]', '').split(',').map(&:to_s) + form.tag5.to_s.tr('[""]', '').split(',').map(&:to_s)
       form.update(tag_list: tags.join(','), slug:form.slug, secure_id:form.secure_id, order_date: form.order_date )
-      form.save_social_image      
+      #form.save_social_image      
       respond_to do |format|
         format.html
         format.json { render json: {data: form.to_json, username: form.user.username, slug: "#{root_url}#{form.user.username}/#{form.slug_url}", key: "#{ENV['FACEBOOK_KEY']}"} }

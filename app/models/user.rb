@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
   validates_presence_of :email
 
   validates_uniqueness_of :username, case_sensitive: false, allow_blank: true
-  validates_presence_of :username, :author, :name
+  validates_presence_of :username, :name
+  validates_presence_of :author, on: :update
+  validates :username, format: { with: /\A[a-zA-Z0-9_]+\z/, message: "only allows letters, numbers and '_'" }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable    #this is used for user sign in and sign out

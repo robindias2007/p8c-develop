@@ -9,7 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 # POST /resource
   def create
-    build_resource(sign_up_params)
+    build_resource(sign_up_params)    
     resource.save
     yield resource if block_given?
     if resource.persisted?
@@ -33,7 +33,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 # PUT /resource
 def update
-  super
+  resource_updated = update_resource(resource, account_update_params)
+  if resource_updated
+    redirect_to "/"
+  else
+    redirect_to "/users/edit"
+  end  
 end
 
 # DELETE /resource

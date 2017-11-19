@@ -411,7 +411,7 @@ app.controller('editFormCtrl', ['$scope', '$http', '$window', '$document', 'Flic
             var $confirmButton = $actionsButtonSection.children()[0];
             angular.element($confirmButton).addClass('md-raised');
         }
-    }).title('You have successfully Published your board!').textContent('Share your board with others or Go to Publish page.').ariaLabel('Lucky day').targetEvent(ev).ok('Finish').cancel('Share!');
+    }).title('You have successfully Published your board!').textContent('Share your board with others, or return to your profile by clicking Finish below.').ariaLabel('Lucky day').targetEvent(ev).ok('Finish').cancel('Share!');
     $mdDialog.show(confirm).then(function() {
       InitiateMixpanelPublishEvent(JSON.parse(data.data), username);
     }, function() {

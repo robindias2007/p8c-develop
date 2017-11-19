@@ -1,5 +1,6 @@
 app.controller('DraftBoardCtrl', ['$scope', '$http', '$window', '$document', 'FlickityService', '$timeout', '$location', '$mdToast', function($scope, $http, $window, $document, FlickityService, $timeout, $location, $mdToast){
   $scope.init = function(boards){
+    $scope.hide_like_bookmark_share = true;
     $scope.draft_boards = boards;
     $scope.current_page = 1;
     $scope.next_page = 2;

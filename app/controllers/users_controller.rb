@@ -89,7 +89,7 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def update
+  def update    
     if @user.update_attributes(user_params)
       #@user.update_attributes(categories_ids:params[:user][:categories_ids])
       redirect_to root_path
@@ -148,7 +148,7 @@ class UsersController < ApplicationController
   def update_categories
     user = User.find(params[:user_id].to_i)
     category_order = Category.where("category_name IN (?)",params[:categories]).order(:rank).pluck(:category_name)
-    user.update_attributes(categories_ids: category_order)
+    user.update_attribute('categories_ids', category_order)
     respond_to do |format|
       format.html
       format.json { render json: {status: "Updated"} }
