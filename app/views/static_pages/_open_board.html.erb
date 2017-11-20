@@ -50,31 +50,30 @@
 
   <md-card-header class="card-footer" layout="row" layout-align="start center">    
     <md-card-avatar>
-      <a href="/" id="AuthorName">
+      <a data-remote="true" href="/users/sign_in" id="AuthorName">
         <img ng-if="board.user_image" class="md-user-avatar" ng-src="{{board.user_image}}"/>
         <i ng-if="!board.user_image" class="material-icons color-grey" style="font-size:40px" >account_circle</i>
       </a>
     </md-card-avatar>
      
     <md-card-header-text>
-      <a href="/"><span class="md-title" style="color:black">{{board.user.name | capitalize }}</span></a>
+      <a data-remote="true" href="/users/sign_in"><span class="md-title" style="color:black">{{board.user.name | capitalize }}</span></a>
       <span class="md-subhead">{{board.updated_at  |  date : format : timezone}}</span>
     </md-card-header-text>
 
     <md-card-actions layout="row" layout-align="start center">
       <md-card-icon-actions>
         <p style="padding-top:11px;color:rgba(0,0,0,0.54);font-size:20px; margin-right:-6px;">{{board.likes}}</p>
+        
         <md-button class="md-icon-button" aria-label="Favorite" style="margin: 0px">
           <md-icon>
-            <a id="" ng-show="board.liked" data-remote="true" href="/"><i class="material-icons">favorite</i></a>
-            <a id="" style="color:rgba(0,0,0,0.54);" ng-hide="board.liked" data-remote="true" href="/"><i class="material-icons">favorite_border</i></a>
+            <a id="" ng-show="board.liked" data-remote="true" href="/users/sign_in"><i class="material-icons">favorite</i></a>            
           </md-icon>
         </md-button>
         
         <md-button class="md-icon-button" aria-label="Bookmark" style="margin: 0px">
           <md-icon>
-            <a id="" ng-show="board.bookmark" data-remote="true" href="/"><i class="material-icons">bookmark</i></a>
-            <a id="" style="color:rgba(0,0,0,0.54);" ng-hide="board.bookmark" data-remote="true" href="/"><i class="material-icons">bookmark_border</i></a>  
+            <a id="" ng-show="board.bookmark" data-remote="true" href="/users/sign_in"><i class="material-icons">bookmark</i></a>            
           </md-icon>
         </md-button>
 
@@ -86,7 +85,7 @@
             <md-menu-item>
               <md-button aria-label="Facebook" class="md-icon-button" layout-align="center center">
                 
-                  <a id="" target="_blank" href="https://www.facebook.com/dialog/share?app_id={{facebook_key}}&display=popup&href={{location}}{{board.user.username}}/{{board.slug_url}}">
+                  <a id="" data-remote="true" href="/users/sign_in">
                     <%= image_tag 'facebook.png', style: "width: 100%" %>
                   </a>
                 
@@ -95,7 +94,7 @@
             <md-menu-item>
               <md-button aria-label="Twitter" class="md-icon-button" layout-align="center center">
                 
-                  <a id="" target="_blank" href="https://twitter.com/intent/tweet?url={{location}}{{board.user.username}}/{{board.slug_url}}">
+                  <a id="" data-remote="true" href="/users/sign_in">
                     <%= image_tag 'twitter.png', style: "width: 100%" %>
                   </a>
                 

@@ -25,6 +25,41 @@
     <%= render 'static_pages/show_board'%>
   </md-content>
 <% else %>
+  <div id="showModal" ng-controller="RegistrationsCtrl" ng-init="init()"></div>
+  <md-toolbar hide-xs md-scroll-shrink ng-if="!isMobile" class="curativ-header" ng-cloak>
+    <div class="md-toolbar-tools">
+      <a href="/">
+        <%= image_tag 'https://s3.us-east-2.amazonaws.com/thecurativ-master/thecurativ-logo-small.svg' %>
+      </a>      
+      <div class="dp">        
+      </div>      
+      <div class="md-truncate flex"></div>
+      <%= link_to 'Sign In/Sign Up', new_user_session_path, remote:true, id:"signinup" %>      
+    </div>          
+  </md-toolbar>
+  <md-toolbar ng-if="isMobile" class="md-hue-2" md-scroll-shrink ng-cloak>
+    <div class="md-toolbar-tools">      
+      <div layout="row">
+        <div flex="10" class="toggle-bar">        
+        </div>
+        <div flex="20"></div>
+        <div flex="40">
+          <%= image_tag 'thecurativ.png', width:"92%" %>
+        </div>
+        <div flex="10"></div>
+        <div flex="20" class="right-mob-header" style="position: relative; top: 16px">
+          <%= link_to 'Sign In/Sign Up', new_user_session_path, remote:true, id:"signinup" %>
+        </div>
+      </div>
+    </div>  
+  </md-toolbar>
+  <md-toolbar ng-if="isMobile" md-scroll-shrink class="banner">
+    <div class="md-toolbar-tools">
+      <div class="banner-mobile">
+        Hi Everyone, we’re still in Beta and sorting out a few kinks.<br>Please view our site on <b>Desktop Only</b> for now      
+      </div>
+    </div>  
+  </md-toolbar>
   <md-content flex>
     <%= render 'static_pages/show_open_board'%>
   </md-content>
