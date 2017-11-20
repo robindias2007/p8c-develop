@@ -16,7 +16,7 @@
         <div class="sign-up-title">
           <div class="preview">
             <% if @user.photo_url.present? %>
-                <%= image_tag @user.photo_url, alt: 'profile photo', align:"middle" %>
+                <%= image_tag @user.photo_url("medium"), alt: 'profile photo', align:"middle" %>
             <% end %>
           </div>
 

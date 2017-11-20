@@ -27,7 +27,7 @@
         <md-list>
           <md-list-item>
             <% if current_user.photo_url.present? %>
-              <%= image_tag current_user.photo_url, id:"new_form_avatar_image", class:"user-avatar-new-form" %>
+              <%= image_tag current_user.photo_url("medium"), id:"new_form_avatar_image", class:"user-avatar-new-form" %>
             <% else %>
               <i class="material-icons md-120">account_circle</i>
             <% end %>

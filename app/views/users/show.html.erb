@@ -46,7 +46,7 @@
           <div flex="35">
             <br>
             <% if @user.photo_url.present? %>
-              <%= image_tag @user.photo_url, id:"profile-header", align:"top" %>
+              <%= image_tag @user.photo_url("medium"), id:"profile-header", align:"top" %>
             <% else %>
               <i class="material-icons md-120">account_circle</i>
             <% end %>
@@ -108,7 +108,7 @@
         <div hide-xs flex="20"></div>
         <div hide-xs flex="20">
           <% if @user.photo_url.present? %>
-            <%= image_tag @user.photo_url, id:"profile-header" %>
+            <%= image_tag @user.photo_url("medium"), id:"profile-header" %>
           <% else %>
             <i class="material-icons md-120 color-grey">account_circle</i>
           <% end %>

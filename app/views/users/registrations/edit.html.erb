@@ -11,7 +11,7 @@
 
           <div class="preview">
             <% if @user.photo_url.present? %>
-                <%= image_tag @user.photo_url, id:"", alt: 'profile photo' %>
+                <%= image_tag @user.photo_url("medium"), id:"", alt: 'profile photo' %>
             <% end %>
           </div>
 
