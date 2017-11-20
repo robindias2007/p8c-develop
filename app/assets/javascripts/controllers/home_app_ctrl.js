@@ -47,6 +47,14 @@ app.controller('HomeAppCtrl', ['$scope', '$http', '$window', '$document', 'Flick
         "User": user.username,        
         "Board id": board.secure_id,
     });
+
+    $http({
+      method: 'POST',
+      url: '/users/'+ user.id +'/link_clicked.json',
+      data: {form_id: board.id, link: link}
+      }).then(function successCallback(response) {
+      }, function errorCallback(response) {
+    });
   }
 
   trackLikedUnlikedClicked = function (board, action, user) {
