@@ -29,28 +29,33 @@ class StaticPagesController < ApplicationController
     @home_user = true;
     @keys = ENV['FACEBOOK_KEY'].to_json
     if current_user
-      @cat_boards = []
-      @forms_uniq_ids = []      
+      puts current_user.profile_completed
+      if current_user.profile_completed
+        @cat_boards = []
+        @forms_uniq_ids = []      
 
-      staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).order(order_date: :desc).published.sample(3)
-      staff_pick_hash = { category: "staff_picks", name: "staff picks", boards: get_customized_forms(staff_pick)}
-      @cat_boards.push staff_pick_hash
+        staff_pick = Form.includes(:user, :user_form_bookmarks, :votes).where(id: AllForm.find_by_forms_type("s_b").form_ids).order(order_date: :desc).published.sample(3)
+        staff_pick_hash = { category: "staff_picks", name: "staff picks", boards: get_customized_forms(staff_pick)}
+        @cat_boards.push staff_pick_hash
 
-      form_ids = AllForm.find_by_forms_type("t_b").form_ids
-      forms_ids = Form.includes(:user, :user_form_bookmarks, :votes).where(id: form_ids).published.index_by(&:id)
-      trending = form_ids.collect {|id| forms_ids[id] }[0..2]      
-      trend_hash = { category: "trending", name: "trending", boards: get_customized_forms(trending)}
+        form_ids = AllForm.find_by_forms_type("t_b").form_ids
+        forms_ids = Form.includes(:user, :user_form_bookmarks, :votes).where(id: form_ids).published.index_by(&:id)
+        trending = form_ids.collect {|id| forms_ids[id] }[0..2]      
+        trend_hash = { category: "trending", name: "trending", boards: get_customized_forms(trending)}
 
-      categories = current_user.categories_ids.reject { |c| c.empty? }      
-      categories.each_with_index do |category, index|
-        next if index > 2
-        cat_hash = { category: category.downcase.split(" ").join("_"), name: category, boards: [] }
-        forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
-        cat_hash[:boards] = get_customized_forms(forms)
-        if index == 1
-          @cat_boards.push trend_hash  
+        categories = current_user.categories_ids.reject { |c| c.empty? }      
+        categories.each_with_index do |category, index|
+          next if index > 2
+          cat_hash = { category: category.downcase.split(" ").join("_"), name: category, boards: [] }
+          forms = get_uniq_forms_from_category(category, @forms_uniq_ids)
+          cat_hash[:boards] = get_customized_forms(forms)
+          if index == 1
+            @cat_boards.push trend_hash  
+          end
+          @cat_boards.push cat_hash
         end
-        @cat_boards.push cat_hash
+      else
+        redirect_to edit_user_path(current_user)
       end
 
       # TODO: Fetch categories_ids
